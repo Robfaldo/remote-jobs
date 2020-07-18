@@ -35,3 +35,20 @@ level.jobs.count
 => 1
 
 ```
+
+Job has one stack (and a stack has many jobs)
+```clickhouse
+job = Job.new(title: 'Ruby dev')
+job.save
+backend = Stack.new(name: 'backend')
+backend.save
+job.stack = backend
+job.save
+
+job.stack == backend
+=> true
+
+stack.jobs.count 
+=> 1
+
+```
