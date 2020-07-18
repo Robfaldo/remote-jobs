@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Models 
 
-Things you may want to cover:
+Job has many technologies 
+```clickhouse
+job = Job.new(title: 'Ruby dev')
+ruby = Technologies.new(name: 'Ruby')
+job.technologies << ruby
 
-* Ruby version
+job.technologies.include?(ruby)
+=> true
 
-* System dependencies
+ruby.jobs.include?(job)
+=> true
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
