@@ -52,3 +52,20 @@ stack.jobs.count
 => 1
 
 ```
+
+Job has one company (and a company has many jobs)
+```clickhouse
+job = Job.new(title: 'Ruby dev')
+job.save
+kelvinltd = Company.new(name: 'kelvinltd')
+kelvinltd.save
+job.company = kelvinltd
+job.save
+
+job.company == kelvinltd
+=> true
+
+kelvinltd.jobs.count 
+=> 1
+
+```
