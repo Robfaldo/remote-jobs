@@ -1,6 +1,23 @@
 # README
 
-Models 
+##Getting started
+```
+bundle install 
+rake db:migrate
+rake db:seed # for activeadmin
+```
+
+## ActiveAdmin
+
+We use [ActiveAdmin](https://activeadmin.info/documentation.html) for the backend. 
+
+You can log in by going to http://localhost:3000/admin with:
+```clickhouse
+User: admin@example.com
+Password: password
+```
+
+## Models 
 
 Job has many technologies 
 ```clickhouse
