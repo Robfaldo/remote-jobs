@@ -1,24 +1,71 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Models 
 
-Things you may want to cover:
+Job has many technologies 
+```
+job = Job.new(title: 'Ruby dev')
+job.save
+ruby = Technologies.new(name: 'Ruby')
+ruby.save
+job.technologies << ruby
+job.save
 
-* Ruby version
+job.technologies.include?(ruby)
+=> true
 
-* System dependencies
+ruby.jobs.include?(job)
+=> true
 
-* Configuration
+```
 
-* Database creation
+Job has one level (and a level has many jobs) 
+```clickhouse
+job = Job.new(title: 'Ruby dev')
+job.save
+mid_level = Level.new(name: 'mid')
+level.save
+job.level = mid_level
+job.save
 
-* Database initialization
+job.level == mid_level
+=> true
 
-* How to run the test suite
+level.jobs.count 
+=> 1
 
-* Services (job queues, cache servers, search engines, etc.)
+```
 
-* Deployment instructions
+Job has one stack (and a stack has many jobs)
+```clickhouse
+job = Job.new(title: 'Ruby dev')
+job.save
+backend = Stack.new(name: 'backend')
+backend.save
+job.stack = backend
+job.save
 
-* ...
+job.stack == backend
+=> true
+
+stack.jobs.count 
+=> 1
+
+```
+
+Job has one company (and a company has many jobs)
+```clickhouse
+job = Job.new(title: 'Ruby dev')
+job.save
+kelvinltd = Company.new(name: 'kelvinltd')
+kelvinltd.save
+job.company = kelvinltd
+job.save
+
+job.company == kelvinltd
+=> true
+
+kelvinltd.jobs.count 
+=> 1
+
+```
