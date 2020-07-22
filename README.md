@@ -12,9 +12,17 @@ rake db:seed # for activeadmin
 We use [ActiveAdmin](https://activeadmin.info/documentation.html) for the backend. 
 
 You can log in by going to http://localhost:3000/admin with:
-```clickhouse
+```
 User: admin@example.com
 Password: password
+
+## Creating admin account 
+
+run `heroku run bundle exec rails c`
+then run
+```
+AdminUser.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
+
 ```
 
 ## Models 
