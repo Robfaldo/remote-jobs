@@ -1,3 +1,37 @@
+<%= form_tag '/', :method => 'get' do %>
+  <div class="checkbox">
+    <td>
+      <%= label_tag(:junior, "Junior") %>
+      <%= check_box 'junior', 'result', {}, 1, 0 %>
+    </td>
+  </div>
+  <div class="checkbox">
+    <td>
+      <%= label_tag(:mid, "Mid") %>
+      <%= check_box 'mid', 'result', {}, 1, 0 %>
+    </td>
+  </div>
+  <div class="checkbox">
+    <td>
+      <%= label_tag(:senior, "Senior") %>
+      <%= check_box 'senior', 'result', {}, 1, 0 %>
+    </td>
+  </div>
+  <div class="checkbox">
+    <td>
+      <%= label_tag(:lead, "Lead") %>
+      <%= check_box 'lead', 'result', {}, 1, 0 %>
+    </td>
+  </div>
+  <div class="checkbox">
+    <td>
+      <%= label_tag(:staff, "Staff") %>
+      <%= check_box 'staff', 'result', {}, 1, 0 %>
+    </td>
+  </div>
+  <%= submit_tag "Search" %>
+<% end %>
+
 <% @jobs.each do |job| %>
   <h1> <%= job.title %> </h1>
 <% end %>
