@@ -8,7 +8,7 @@ class Level < ApplicationRecord
   end
 
   def self.search(name)
-    return Level.all unless name.count > 0
+    return all unless name
 
     where(name: name)
   end

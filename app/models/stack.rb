@@ -7,9 +7,8 @@ class Stack < ApplicationRecord
     Stack.all.distinct.pluck(:name)
   end
 
-
   def self.search(name)
-    return all unless name.count > 0
+    return all unless name
 
     where(name: name)
   end

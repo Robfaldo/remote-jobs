@@ -1,10 +1,10 @@
 class JobsController < ApplicationController
   def index
-    levels = Level.names.select{ |name| params[name]["is_checked"] == "true" if params[name] }
-    stacks = Stack.names.select{ |name| params[name]["is_checked"] == "true" if params[name] }
+    @levels = Level.names
+    @stacks = Stack.names
 
     @jobs = Job.joins(:level, :stack)
-      .merge(Level.search(levels))
-      .merge(Stack.search(stacks))
+      .merge(Level.search(params["levels"]))
+      .merge(Stack.search(params["stacks"]))
   end
 end
