@@ -6,6 +6,8 @@ RSpec.describe JobFilteringService do
     Rails.application.load_seed # seed the test database
   end
 
+  let(:job_filtering_service) { described_class.new }
+
   context 'when filtering by active' do
     before do
       create_job(active: true)
@@ -17,7 +19,6 @@ RSpec.describe JobFilteringService do
 
     it 'will only return active jobs when passed active flag' do
       active_jobs = Job.where(active: true)
-      job_filtering_service = described_class.new
 
       response = job_filtering_service.call(active: true)
 
@@ -27,7 +28,6 @@ RSpec.describe JobFilteringService do
 
     it 'will only return inactive jobs when passed inactive flag' do
       inactive_jobs = Job.where(active: false)
-      job_filtering_service = described_class.new
 
       response = job_filtering_service.call(active: false)
 
@@ -37,7 +37,6 @@ RSpec.describe JobFilteringService do
 
     it 'will return all jobs if no active status flag is passed' do
       all_jobs = Job.all
-      job_filtering_service = described_class.new
 
       response = job_filtering_service.call
 
@@ -45,19 +44,43 @@ RSpec.describe JobFilteringService do
       expect(response).to eq(all_jobs)
     end
   end
+
+  context 'when filtering by stacks' do
+    before do
+      create_job(stack: Stack.backend, title: 'first job')
+      second_job = create_job(stack: Stack.backend, title: 'second job')
+      create_job(stack: Stack.frontend)
+      create_job(stack: Stack.fullstack)
+    end
+
+    it 'returns the jobs with the correct stacks' do
+      response = job_filtering_service.call(stacks: [Stack.backend.id])
+
+      expected_response = [
+        Job.where(title: 'first job').first,
+        Job.where(title: 'second job').first
+      ]
+
+      expect(response).to eq(expected_response)
+    end
+  end
 end
 
-def create_job(active:)
+def create_job(
+    active: true,
+    stack: Stack.backend,
+    title: 'test title'
+)
   job = Job.new(
     active: active,
     published_date: Date.today,
-    title: 'test title',
+    title: title,
     job_link: 'test link'
   )
 
   job.company = Company.where(name: 'test company1').first
   job.level = Level.where(name: 'mid').first
-  job.stack = Stack.where(name: 'backend').first
+  job.stack = stack
 
   job.save
 end
