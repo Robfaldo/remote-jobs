@@ -1,7 +1,7 @@
 ActiveAdmin.register Job do
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  permit_params :published_date, :title, :job_link, :level_id, :stack_id, :company_id, technology_ids: []
+  permit_params :published_date, :title, :job_link, :level_id, :stack_id, :company_id, :active, technology_ids: []
 
   # I had to customise what is shown for Job because we needed to add technologies, which is a many to many relationship so
   # wasn't showing up as an option to add by default. See this blog post for what I used as template: https://medium.com/alturasoluciones/has-many-relations-in-active-admin-2668b04c7069
@@ -15,6 +15,7 @@ ActiveAdmin.register Job do
     column :level
     column :stack
     column :company
+    column :active
     column :technologies do |job|
       table_for job.technologies.order('name ASC') do
         column do |technology|
@@ -32,6 +33,7 @@ ActiveAdmin.register Job do
       row :level
       row :stack
       row :company
+      row :active
       table_for job.technologies.order('name ASC') do
         column "Technologies" do |technology|
           link_to technology.name, [ :admin, technology ]
@@ -48,6 +50,7 @@ ActiveAdmin.register Job do
       f.input :level
       f.input :stack
       f.input :company
+      f.input :active
       f.input :technologies, :as => :check_boxes
     end
     actions
