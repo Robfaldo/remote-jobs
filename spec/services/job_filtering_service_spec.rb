@@ -17,7 +17,7 @@ RSpec.describe JobFilteringService do
       active_jobs = Job.where(active: true)
       job_filtering_service = described_class.new
 
-      response = job_filtering_service.call(active_status: :active)
+      response = job_filtering_service.call(active: true)
 
       expect(response.count).to eq(2)
       expect(response).to eq(active_jobs)
@@ -27,10 +27,20 @@ RSpec.describe JobFilteringService do
       inactive_jobs = Job.where(active: false)
       job_filtering_service = described_class.new
 
-      response = job_filtering_service.call(active_status: :inactive)
+      response = job_filtering_service.call(active: false)
 
       expect(response.count).to eq(2)
       expect(response).to eq(inactive_jobs)
+    end
+
+    it 'will return all jobs if no active status flag is passed' do
+      all_jobs = Job.all
+      job_filtering_service = described_class.new
+
+      response = job_filtering_service.call
+
+      expect(response.count).to eq(4)
+      expect(response).to eq(all_jobs)
     end
   end
 end
