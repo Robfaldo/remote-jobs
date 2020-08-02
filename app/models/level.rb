@@ -3,9 +3,9 @@ class Level < ApplicationRecord
 
   validates :name, presence: true
 
-  def self.search(name)
-    return all unless name
+  def self.search(ids)
+    return all unless ids
 
-    where(name: name)
+    where(id: ids)
   end
 end
