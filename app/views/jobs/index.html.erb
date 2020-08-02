@@ -9,6 +9,12 @@
     <%= stack.capitalize %>
   <% end %>
 
+  <select class="js-technologies" name="technologies[]" multiple="multiple">
+    <% @technologies.each do |technology| %>
+      <option value="<%= technology.name %>"><%= technology.name.downcase.capitalize %></option>
+   <% end %>
+  </select>
+
   <%= submit_tag "Search" %>
 <% end %>
 
