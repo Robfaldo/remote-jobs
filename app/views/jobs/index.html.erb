@@ -1,12 +1,12 @@
 <%= form_tag '/', :method => 'get' do %>
   <% @levels.each do |level| %>
-    <%= check_box_tag "levels[]", level -%>
-    <%= level.capitalize %>
+    <%= check_box_tag "levels[]", level.name.downcase -%>
+    <%= level.name.downcase.capitalize %>
   <% end %>
 
   <% @stacks.each do |stack| %>
-    <%= check_box_tag "stacks[]", stack -%>
-    <%= stack.capitalize %>
+    <%= check_box_tag "stacks[]", stack.name.downcase -%>
+    <%= stack.name.downcase.capitalize %>
   <% end %>
 
   <select class="js-technologies" name="technologies[]" multiple="multiple">

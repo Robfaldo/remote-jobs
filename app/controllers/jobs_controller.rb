@@ -1,8 +1,8 @@
 class JobsController < ApplicationController
   def index
     @technologies = Technology.all
-    @levels = Level.names
-    @stacks = Stack.names
+    @levels = Level.all
+    @stacks = Stack.all
 
     @jobs = Job.joins(:level, :stack, :technologies)
       .merge(Level.search(params["levels"]))
