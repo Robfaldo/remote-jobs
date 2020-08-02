@@ -2,10 +2,12 @@ require 'rails_helper'
 
 RSpec.describe JobFilteringService do
 
+  before do
+    Rails.application.load_seed # seed the test database
+  end
+
   context 'when filtering by active' do
     before do
-      Rails.application.load_seed # seed the test database
-
       create_job(active: true)
       create_job(active: true)
       create_job(active: false)
