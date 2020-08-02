@@ -8,5 +8,6 @@ class JobsController < ApplicationController
       .merge(Level.search(params["levels"]))
       .merge(Stack.search(params["stacks"]))
       .merge(Technology.search(params["technologies"]))
+      .distinct
   end
 end
