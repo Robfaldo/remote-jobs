@@ -22,6 +22,16 @@ RSpec.describe JobFilteringService do
       expect(response.count).to eq(2)
       expect(response).to eq(active_jobs)
     end
+
+    it 'will only return inactive jobs when passed inactive flag' do
+      inactive_jobs = Job.where(active: false)
+      job_filtering_service = described_class.new
+
+      response = job_filtering_service.call(active_status: :inactive)
+
+      expect(response.count).to eq(2)
+      expect(response).to eq(inactive_jobs)
+    end
   end
 end
 
