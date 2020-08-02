@@ -1,12 +1,12 @@
 class JobFilteringService
-  def call(active: nil, stacks: nil)
+  def call(active: nil, stacks: [])
     jobs_to_filter = if active.nil?
                        Job.all
                      else
                        Job.where(active: active)
                      end
 
-    if stacks
+    if stacks.count > 0
       jobs_to_filter.select{|job| stacks.include?(job.stack.id)} if stacks
     else
       jobs_to_filter

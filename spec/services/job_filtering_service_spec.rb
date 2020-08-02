@@ -53,7 +53,7 @@ RSpec.describe JobFilteringService do
       create_job(stack: Stack.fullstack)
     end
 
-    it 'returns the jobs with the correct stacks' do
+    it 'returns the jobs with the correct stacks when given one stack' do
       response = job_filtering_service.call(stacks: [Stack.backend.id])
 
       expected_response = [
@@ -62,6 +62,14 @@ RSpec.describe JobFilteringService do
       ]
 
       expect(response).to eq(expected_response)
+    end
+
+    it 'returns jobs with all stacks if no stacks are passed' do
+      response = job_filtering_service.call(stacks: [])
+
+      all_jobs = Job.all
+
+      expect(response).to eq(all_jobs)
     end
   end
 end
