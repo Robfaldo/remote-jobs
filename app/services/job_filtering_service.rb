@@ -1,5 +1,13 @@
 class JobFilteringService
+  class InvalidStackProvided < StandardError; end
+
+  def initialize(valid_stacks: Stack.all)
+    @valid_stack_ids = valid_stacks.map{|s| s.id}
+  end
+
   def call(active: nil, stacks: [])
+    raise InvalidStackProvided unless stacks.all? { |s| @valid_stack_ids.include?(s) }
+
     jobs_to_filter = if active.nil?
                        Job.all
                      else

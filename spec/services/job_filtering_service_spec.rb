@@ -85,6 +85,15 @@ RSpec.describe JobFilteringService do
 
       expect(response).to eq(all_jobs)
     end
+
+    context 'when given an invalid stack' do
+      it 'raises a custom error' do
+        expect{  job_filtering_service.call(
+                   stacks: ['invalid stack', Stack.frontend.id]
+                 )
+        }.to raise_error(JobFilteringService::InvalidStackProvided)
+      end
+    end
   end
 end
 
