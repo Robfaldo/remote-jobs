@@ -49,7 +49,7 @@ RSpec.describe JobFilteringService do
     before do
       create_job(stack: Stack.backend, title: 'first job')
       second_job = create_job(stack: Stack.backend, title: 'second job')
-      create_job(stack: Stack.frontend)
+      create_job(stack: Stack.frontend, title: 'third job')
       create_job(stack: Stack.fullstack)
     end
 
@@ -59,6 +59,20 @@ RSpec.describe JobFilteringService do
       expected_response = [
         Job.where(title: 'first job').first,
         Job.where(title: 'second job').first
+      ]
+
+      expect(response).to eq(expected_response)
+    end
+
+    it 'returns the jobs with the correct stacks when given multiple stacks' do
+      response = job_filtering_service.call(
+          stacks: [Stack.backend.id, Stack.frontend.id]
+      )
+
+      expected_response = [
+          Job.where(title: 'first job').first,
+          Job.where(title: 'second job').first,
+          Job.where(title: 'third job').first
       ]
 
       expect(response).to eq(expected_response)
