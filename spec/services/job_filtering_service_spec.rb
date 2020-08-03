@@ -48,7 +48,7 @@ RSpec.describe JobFilteringService do
   context 'when filtering by stacks' do
     before do
       create_job(stack: Stack.backend, title: 'first job')
-      second_job = create_job(stack: Stack.backend, title: 'second job')
+      create_job(stack: Stack.backend, title: 'second job')
       create_job(stack: Stack.frontend, title: 'third job')
       create_job(stack: Stack.fullstack)
     end
