@@ -8,7 +8,7 @@ RSpec.describe JobFilteringService do
 
   let(:job_filtering_service) { described_class.new }
 
-  context 'when filtering by active' do
+  context 'when filtering by active status' do
     before do
       create_job(active: true)
       create_job(active: true)
