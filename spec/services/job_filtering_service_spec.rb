@@ -95,6 +95,27 @@ RSpec.describe JobFilteringService do
       end
     end
   end
+
+  context 'when filtering by multiple things' do
+    it 'returns the correct jobs when you search for stack and active' do
+      create_job(active: true, stack: Stack.backend, title: 'first job')
+      create_job(active: false, stack: Stack.backend, title: 'second job')
+      create_job(active: true, stack: Stack.frontend, title: 'third job')
+      create_job(active: false, stack: Stack.fullstack, title: 'fourth job')
+
+      response = job_filtering_service.call(
+        stacks: [Stack.backend.id, Stack.frontend.id],
+        active: true
+      )
+
+      expected_response = [
+        Job.where(title: 'first job').first,
+        Job.where(title: 'third job').first
+      ]
+
+      expect(response).to eq(expected_response)
+    end
+  end
 end
 
 def create_job(
