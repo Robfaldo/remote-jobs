@@ -160,7 +160,7 @@ RSpec.describe JobFilteringService do
       create_job(technologies: [ruby], title: 'first job')
       create_job(technologies: [ruby, python], title: 'second job')
       create_job(technologies: [javascript], title: 'third job')
-      create_job(technologies: [python, javascript], title: 'fourth job')
+      create_job(technologies: [python, javascript, ruby], title: 'fourth job')
     end
 
     it 'returns the jobs with the correct technologies when given one technology' do
@@ -168,21 +168,19 @@ RSpec.describe JobFilteringService do
 
       expected_response = [
           Job.where(title: 'first job').first,
-          Job.where(title: 'second job').first
+          Job.where(title: 'second job').first,
+          Job.where(title: 'fourth job').first
       ]
 
       expect(response).to eq(expected_response)
     end
 
-    xit 'returns the jobs with the correct levels when given multiple levels' do
-      response = job_filtering_service.call(
-          levels: [junior_level.id, mid_level.id]
-      )
+    it 'returns the jobs with the correct technologies when given multiple technologies' do
+      response = job_filtering_service.call(technologies: [ruby.id, python.id])
 
       expected_response = [
-          Job.where(title: 'first job').first,
           Job.where(title: 'second job').first,
-          Job.where(title: 'third job').first
+          Job.where(title: 'fourth job').first
       ]
 
       expect(response).to eq(expected_response)
