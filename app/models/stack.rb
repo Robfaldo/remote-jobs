@@ -3,9 +3,4 @@ class Stack < ApplicationRecord
 
   validates :name, presence: true
 
-  def self.search(ids)
-    return all unless ids
-
-    where(id: ids)
-  end
 end
