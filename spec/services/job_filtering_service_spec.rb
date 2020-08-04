@@ -153,12 +153,16 @@ RSpec.describe JobFilteringService do
   end
 
   context 'when filtering by multiple things' do
-    it 'returns the correct jobs when you search for stack and active' do
-      create_job(active: true, stack: backend, title: 'first job')
-      create_job(active: false, stack: backend, title: 'second job')
-      create_job(active: true, stack: frontend, title: 'third job')
-      create_job(active: false, stack: fullstack, title: 'fourth job')
+    before do
+      create_job(active: true, stack: backend, level: junior_level, title: 'first job')
+      create_job(active: false, stack: backend, level: junior_level, title: 'second job')
+      create_job(active: true, stack: frontend, level: mid_level, title: 'third job')
+      create_job(active: false, stack: fullstack,level: senior_level, title: 'fourth job')
+      create_job(active: false, stack: fullstack,level: senior_level, title: 'fifth job')
+      create_job(active: false, stack: fullstack,level: junior_level, title: 'sixth job')
+    end
 
+    it 'returns the correct jobs when you search for stack and active' do
       response = job_filtering_service.call(
         stacks: [backend.id, frontend.id],
         active: true
@@ -167,6 +171,21 @@ RSpec.describe JobFilteringService do
       expected_response = [
         Job.where(title: 'first job').first,
         Job.where(title: 'third job').first
+      ]
+
+      expect(response).to eq(expected_response)
+    end
+
+    it 'returns correct jobs when filtering by stack, level and active' do
+      response = job_filtering_service.call(
+          stacks: [backend.id, frontend.id],
+          active: true,
+          levels: [junior_level.id, mid_level.id]
+      )
+
+      expected_response = [
+          Job.where(title: 'first job').first,
+          Job.where(title: 'third job').first
       ]
 
       expect(response).to eq(expected_response)
