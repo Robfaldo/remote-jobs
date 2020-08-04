@@ -4,10 +4,12 @@ class JobsController < ApplicationController
     @levels = Level.all
     @stacks = Stack.all
 
-    @jobs = Job.joins(:level, :stack, :technologies)
-      .merge(Level.search(params["levels"]))
-      .merge(Stack.search(params["stacks"]))
-      .merge(Technology.search(params["technologies"]))
-      .distinct
+    job_filtering_service = JobFilteringService.new
+
+    @jobs = job_filtering_service.call(
+      levels: params["levels"]&.map(&:to_i) || [],
+      stacks: params["stacks"]&.map(&:to_i) || [],
+      technologies: params["technologies"]&.map(&:to_i) || []
+    )
   end
 end
