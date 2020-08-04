@@ -143,11 +143,11 @@ RSpec.describe JobFilteringService do
     end
 
     context 'when given an invalid stack' do
-      xit 'raises a custom error' do
+      it 'raises a custom error' do
         expect{  job_filtering_service.call(
-            stacks: ['invalid stack', frontend.id]
+            levels: ['invalid level', junior_level.id]
         )
-        }.to raise_error(JobFilteringService::InvalidStackProvided)
+        }.to raise_error(JobFilteringService::InvalidLevelProvided)
       end
     end
   end
