@@ -96,6 +96,25 @@ RSpec.describe JobFilteringService do
     end
   end
 
+  context 'when filtering by levels' do
+    before do
+      create_job(level: find_or_create_level("junior"), title: 'first job')
+      create_job(level: find_or_create_level("mid"), title: 'second job')
+      create_job(level: find_or_create_level("mid"), title: 'third job')
+      create_job(level: find_or_create_level("senior"), title: 'fourth job')
+    end
+
+    it 'returns the jobs with the correct levels when given one level' do
+      response = job_filtering_service.call(levels: [find_or_create_level("junior").id])
+
+      expected_response = [
+        Job.where(title: 'first job').first
+      ]
+
+      expect(response).to eq(expected_response)
+    end
+  end
+
   context 'when filtering by multiple things' do
     it 'returns the correct jobs when you search for stack and active' do
       create_job(active: true, stack: Stack.backend, title: 'first job')
@@ -121,7 +140,8 @@ end
 def create_job(
     active: true,
     stack: Stack.backend,
-    title: 'test title'
+    title: 'test title',
+    level: find_or_create_level("mid")
 )
   job = Job.new(
     active: active,
@@ -131,8 +151,12 @@ def create_job(
   )
 
   job.company = Company.where(name: 'test company1').first
-  job.level = Level.where(name: 'mid').first
+  job.level = level
   job.stack = stack
 
   job.save
+end
+
+def find_or_create_level(level)
+  Level.where(name: level).first_or_create
 end
