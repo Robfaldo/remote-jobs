@@ -186,8 +186,8 @@ RSpec.describe JobFilteringService do
       expect(response).to eq(expected_response)
     end
 
-    xit 'returns jobs with all levels if no levels are passed' do
-      response = job_filtering_service.call(levels: [])
+    it 'returns jobs with any technologies if no technologies are passed' do
+      response = job_filtering_service.call(technologies: [])
 
       all_jobs = Job.all
 
