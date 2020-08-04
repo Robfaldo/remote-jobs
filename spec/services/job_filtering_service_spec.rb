@@ -145,7 +145,7 @@ RSpec.describe JobFilteringService do
       expect(response).to eq(all_jobs)
     end
 
-    context 'when given an invalid stack' do
+    context 'when given an invalid level' do
       it 'raises a custom error' do
         expect{  job_filtering_service.call(
             levels: ['invalid level', junior_level.id]
@@ -194,12 +194,12 @@ RSpec.describe JobFilteringService do
       expect(response).to eq(all_jobs)
     end
 
-    context 'when given an invalid stack' do
-      xit 'raises a custom error' do
+    context 'when given an invalid technology' do
+      it 'raises a custom error' do
         expect{  job_filtering_service.call(
-            levels: ['invalid level', junior_level.id]
+            technologies: ['invalid technology', ruby.id]
         )
-        }.to raise_error(JobFilteringService::InvalidLevelProvided)
+        }.to raise_error(JobFilteringService::InvalidTechnologyProvided)
       end
     end
   end
