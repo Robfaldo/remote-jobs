@@ -119,6 +119,37 @@ RSpec.describe JobFilteringService do
 
       expect(response).to eq(expected_response)
     end
+
+    it 'returns the jobs with the correct levels when given multiple levels' do
+      response = job_filtering_service.call(
+          levels: [junior_level.id, mid_level.id]
+      )
+
+      expected_response = [
+          Job.where(title: 'first job').first,
+          Job.where(title: 'second job').first,
+          Job.where(title: 'third job').first
+      ]
+
+      expect(response).to eq(expected_response)
+    end
+
+    xit 'returns jobs with all stacks if no stacks are passed' do
+      response = job_filtering_service.call(stacks: [])
+
+      all_jobs = Job.all
+
+      expect(response).to eq(all_jobs)
+    end
+
+    context 'when given an invalid stack' do
+      xit 'raises a custom error' do
+        expect{  job_filtering_service.call(
+            stacks: ['invalid stack', frontend.id]
+        )
+        }.to raise_error(JobFilteringService::InvalidStackProvided)
+      end
+    end
   end
 
   context 'when filtering by multiple things' do
