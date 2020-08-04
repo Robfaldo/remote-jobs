@@ -3,7 +3,11 @@ class JobFilteringService
   class InvalidLevelProvided < StandardError; end
   class InvalidTechnologyProvided < StandardError; end
 
-  def initialize(valid_stacks: Stack.all, valid_levels: Level.all, valid_technologies: Technology.all)
+  def initialize(
+      valid_stacks: Stack.all,
+      valid_levels: Level.all,
+      valid_technologies: Technology.all
+  )
     @valid_stack_ids = valid_stacks.map{|s| s.id}
     @valid_level_ids = valid_levels.map{|l| l.id}
     @valid_technology_ids = valid_technologies.map{|t| t.id}
