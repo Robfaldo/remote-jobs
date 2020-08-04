@@ -13,6 +13,9 @@ RSpec.describe JobFilteringService do
   let(:backend) { Stack.where(name: "backend").first_or_create }
   let(:frontend) { Stack.where(name: "frontend").first_or_create }
   let(:fullstack) { Stack.where(name: "fullstack").first_or_create }
+  let(:ruby) { Technology.where(name: 'ruby').first_or_create }
+  let(:python) { Technology.where(name: 'python').first_or_create }
+  let(:javascript) { Technology.where(name: 'javascript').first_or_create }
 
   context 'when filtering by active status' do
     before do
@@ -152,6 +155,57 @@ RSpec.describe JobFilteringService do
     end
   end
 
+  context 'when filtering by technologies' do
+    before do
+      create_job(technologies: [ruby], title: 'first job')
+      create_job(technologies: [ruby, python], title: 'second job')
+      create_job(technologies: [javascript], title: 'third job')
+      create_job(technologies: [python, javascript], title: 'fourth job')
+    end
+
+    it 'returns the jobs with the correct technologies when given one technology' do
+      response = job_filtering_service.call(technologies: [ruby.id])
+
+      expected_response = [
+          Job.where(title: 'first job').first,
+          Job.where(title: 'second job').first
+      ]
+
+      expect(response).to eq(expected_response)
+    end
+
+    xit 'returns the jobs with the correct levels when given multiple levels' do
+      response = job_filtering_service.call(
+          levels: [junior_level.id, mid_level.id]
+      )
+
+      expected_response = [
+          Job.where(title: 'first job').first,
+          Job.where(title: 'second job').first,
+          Job.where(title: 'third job').first
+      ]
+
+      expect(response).to eq(expected_response)
+    end
+
+    xit 'returns jobs with all levels if no levels are passed' do
+      response = job_filtering_service.call(levels: [])
+
+      all_jobs = Job.all
+
+      expect(response).to eq(all_jobs)
+    end
+
+    context 'when given an invalid stack' do
+      xit 'raises a custom error' do
+        expect{  job_filtering_service.call(
+            levels: ['invalid level', junior_level.id]
+        )
+        }.to raise_error(JobFilteringService::InvalidLevelProvided)
+      end
+    end
+  end
+
   context 'when filtering by multiple things' do
     before do
       create_job(active: true, stack: backend, level: junior_level, title: 'first job')
@@ -197,7 +251,8 @@ def create_job(
     active: true,
     stack: backend,
     title: 'test title',
-    level: mid_level
+    level: mid_level,
+    technologies: [ruby]
 )
   job = Job.new(
     active: active,
@@ -209,6 +264,7 @@ def create_job(
   job.company = Company.where(name: 'test company1').first
   job.level = level
   job.stack = stack
+  job.technologies << technologies
 
   job.save
 end

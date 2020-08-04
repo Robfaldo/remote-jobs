@@ -7,7 +7,7 @@ class JobFilteringService
     @valid_level_ids = valid_levels.map{|l| l.id}
   end
 
-  def call(active: nil, stacks: [], levels: [])
+  def call(active: nil, stacks: [], levels: [], technologies: [])
     raise InvalidStackProvided unless stacks.all? { |s| @valid_stack_ids.include?(s) }
     raise InvalidLevelProvided unless levels.all? { |l| @valid_level_ids.include?(l) }
 
@@ -23,6 +23,12 @@ class JobFilteringService
 
     if levels.count > 0
       filtered_jobs.select!{|job| levels.include?(job.level.id)}
+    end
+
+    if technologies.count > 0
+      filtered_jobs.select! do |job|
+        technologies.all? {|technology| job.technologies.ids.include?(technology) }
+      end
     end
 
     filtered_jobs
