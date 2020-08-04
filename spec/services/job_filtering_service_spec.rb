@@ -206,12 +206,12 @@ RSpec.describe JobFilteringService do
 
   context 'when filtering by multiple things' do
     before do
-      create_job(active: true, stack: backend, level: junior_level, title: 'first job')
-      create_job(active: false, stack: backend, level: junior_level, title: 'second job')
+      create_job(active: true, stack: backend, level: junior_level, title: 'first job', technologies: [ruby])
+      create_job(active: false, stack: backend, level: junior_level, title: 'second job', technologies: [ruby, python])
       create_job(active: true, stack: frontend, level: mid_level, title: 'third job')
-      create_job(active: false, stack: fullstack,level: senior_level, title: 'fourth job')
-      create_job(active: false, stack: fullstack,level: senior_level, title: 'fifth job')
-      create_job(active: false, stack: fullstack,level: junior_level, title: 'sixth job')
+      create_job(active: false, stack: fullstack,level: senior_level, title: 'fourth job', technologies: [javascript, python])
+      create_job(active: false, stack: fullstack,level: senior_level, title: 'fifth job', technologies: [python, ruby])
+      create_job(active: false, stack: fullstack,level: junior_level, title: 'sixth job', technologies: [javascript])
     end
 
     it 'returns the correct jobs when you search for stack and active' do
@@ -238,6 +238,21 @@ RSpec.describe JobFilteringService do
       expected_response = [
           Job.where(title: 'first job').first,
           Job.where(title: 'third job').first
+      ]
+
+      expect(response).to eq(expected_response)
+    end
+
+    it 'returns correct jobs when filtering by active, technologies, stacks and levels' do
+      response = job_filtering_service.call(
+          stacks: [frontend.id, fullstack.id],
+          active: false,
+          levels: [senior_level.id, mid_level.id],
+          technologies: [ruby.id]
+      )
+
+      expected_response = [
+          Job.where(title: 'fifth job').first
       ]
 
       expect(response).to eq(expected_response)
