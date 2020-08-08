@@ -1,0 +1,23 @@
+<%= form_tag '/', :method => 'get' do %>
+  <% @levels.each do |level| %>
+    <%= check_box_tag "levels[]", level.id -%>
+    <%= level.name.downcase.capitalize %>
+  <% end %>
+
+  <% @stacks.each do |stack| %>
+    <%= check_box_tag "stacks[]", stack.id -%>
+    <%= stack.name.downcase.capitalize %>
+  <% end %>
+
+  <select class="js-technologies" name="technologies[]" multiple="multiple">
+    <% @technologies.each do |technology| %>
+      <option value="<%= technology.id %>"><%= technology.name.downcase.capitalize %></option>
+   <% end %>
+  </select>
+
+  <%= submit_tag "Search" %>
+<% end %>
+
+<% @jobs.each do |job| %>
+  <h1> <%= job.title %> </h1>
+<% end %>
