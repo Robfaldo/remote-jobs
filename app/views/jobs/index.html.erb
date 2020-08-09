@@ -1,11 +1,11 @@
 <%= form_tag '/', :method => 'get' do %>
   <% @levels.each do |level| %>
-    <%= check_box_tag "levels[]", level.id -%>
+    <%= check_box_tag "levels[]", level.id, checked = @selected_levels.include?(level.id) -%>
     <%= level.name.downcase.capitalize %>
   <% end %>
 
   <% @stacks.each do |stack| %>
-    <%= check_box_tag "stacks[]", stack.id -%>
+    <%= check_box_tag "stacks[]", stack.id, checked = @selected_stacks.include?(stack.id) -%>
     <%= stack.name.downcase.capitalize %>
   <% end %>
 
