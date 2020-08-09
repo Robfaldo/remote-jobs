@@ -1,41 +1,46 @@
 <div class="container job-filtering">
   <%= form_tag '/', :method => 'get' do %>
-    <div class="controls">
-      <div class="row align-items-end">
-        <div class="col-sm-5 col-lg-4 form-group d-flex flex-column">
-          <% @levels.each do |level| %>
-            <div class="d-flex flex-row">
-              <div class="p-2">
-                <%= check_box_tag "levels[]", level.id, checked = @selected_levels.include?(level.id) -%>
-              </div>
-              <div class="p-2">
-                <%= level.name.downcase.capitalize %>
-              </div>
-            </div>
+    <div class="search-technologies d-flex flex-row">
+      <div class="p-2">
+        Technologies:
+      </div>
+      <div class="flex-grow-1 search-bar">
+        <select class="js-technologies" name="technologies[]" multiple="multiple">
+          <% @technologies.each do |technology| %>
+            <option value="<%= technology.id %>"><%= technology.name.downcase.capitalize %></option>
           <% end %>
-        </div>
+        </select>
+      </div>
+    </div>
 
-        <div class="col-sm-5 col-lg-4 form-group">
-          <% @stacks.each do |stack| %>
-            <div class="d-flex flex-row">
-              <div class="p-2">
-                <%= check_box_tag "stacks[]", stack.id, checked = @selected_stacks.include?(stack.id) -%>
-              </div>
-              <div class="p-2">
-                <%= stack.name.downcase.capitalize %>
-              </div>
+    <div class="bottom-filtering d-flex flex-row">
+      <div class="p-3">
+        <% @levels.each do |level| %>
+          <div class="d-flex flex-row">
+            <div class="p-2">
+              <%= check_box_tag "levels[]", level.id, checked = @selected_levels.include?(level.id) -%>
             </div>
-          <% end %>
-        </div>
+            <div class="p-2">
+              <%= level.name.downcase.capitalize %>
+            </div>
+          </div>
+        <% end %>
+      </div>
 
-        <div class="col-sm-5 col-lg-4 form-group">
-          <select class="js-technologies" name="technologies[]" multiple="multiple">
-            <% @technologies.each do |technology| %>
-              <option value="<%= technology.id %>"><%= technology.name.downcase.capitalize %></option>
-            <% end %>
-          </select>
-        </div>
+      <div class="p-3">
+        <% @stacks.each do |stack| %>
+          <div class="d-flex flex-row">
+            <div class="p-2">
+              <%= check_box_tag "stacks[]", stack.id, checked = @selected_stacks.include?(stack.id) -%>
+            </div>
+            <div class="p-2">
+              <%= stack.name.downcase.capitalize %>
+            </div>
+          </div>
+        <% end %>
+      </div>
 
+      <div class="p-3 search-button">
         <div class="col-sm-5 col-lg-4 form-group">
           <%= submit_tag "Search" %>
         </div>

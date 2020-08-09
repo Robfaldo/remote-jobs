@@ -5,7 +5,7 @@ import 'select2/dist/css/select2.css'
 window.addEventListener('DOMContentLoaded', () => {
     $('.js-technologies').select2({
         multiple: true,
-        width: '100%'
+        width: '70%'
     })
 })
 
