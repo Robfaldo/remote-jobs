@@ -19,5 +19,12 @@
 <% end %>
 
 <% @jobs.each do |job| %>
-  <h1> <%= job.title %> </h1>
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title"><%= job.title %></h5>
+      <p class="card-text">Technologies: <%= job.technologies.map{|t| t.name } %></p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
 <% end %>
