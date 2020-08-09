@@ -1,24 +1,47 @@
-<%= form_tag '/', :method => 'get' do %>
-  <% @levels.each do |level| %>
-    <%= check_box_tag "levels[]", level.id, checked = @selected_levels.include?(level.id) -%>
-    <%= level.name.downcase.capitalize %>
+<div class="container job-filtering">
+  <%= form_tag '/', :method => 'get' do %>
+    <div class="controls">
+      <div class="row align-items-end">
+        <div class="col-sm-5 col-lg-4 form-group d-flex flex-column">
+          <% @levels.each do |level| %>
+            <div class="d-flex flex-row">
+              <div class="p-2">
+                <%= check_box_tag "levels[]", level.id, checked = @selected_levels.include?(level.id) -%>
+              </div>
+              <div class="p-2">
+                <%= level.name.downcase.capitalize %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="col-sm-5 col-lg-4 form-group">
+          <% @stacks.each do |stack| %>
+            <div class="d-flex flex-row">
+              <div class="p-2">
+                <%= check_box_tag "stacks[]", stack.id, checked = @selected_stacks.include?(stack.id) -%>
+              </div>
+              <div class="p-2">
+                <%= stack.name.downcase.capitalize %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="col-sm-5 col-lg-4 form-group">
+          <select class="js-technologies" name="technologies[]" multiple="multiple">
+            <% @technologies.each do |technology| %>
+              <option value="<%= technology.id %>"><%= technology.name.downcase.capitalize %></option>
+            <% end %>
+          </select>
+          <%= submit_tag "Search" %>
+        </div>
+      </div>
+    </div>
   <% end %>
+</div>
 
-  <% @stacks.each do |stack| %>
-    <%= check_box_tag "stacks[]", stack.id, checked = @selected_stacks.include?(stack.id) -%>
-    <%= stack.name.downcase.capitalize %>
-  <% end %>
-
-  <select class="js-technologies" name="technologies[]" multiple="multiple">
-    <% @technologies.each do |technology| %>
-      <option value="<%= technology.id %>"><%= technology.name.downcase.capitalize %></option>
-   <% end %>
-  </select>
-
-  <%= submit_tag "Search" %>
-<% end %>
-
-<div class="container">
+<div class="container job-listings">
   <h3 class="heading">We have found <span class="accent"><%= @jobs.count %></span> jobs</h3>
   <% @jobs.each do |job| %>
     <div class="job-listing">
