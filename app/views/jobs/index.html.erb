@@ -16,14 +16,9 @@
     <div class="bottom-filtering d-flex flex-row">
       <div class="p-3">
         <% @levels.each do |level| %>
-          <div class="d-flex flex-row">
-            <div class="p-2">
-              <%= check_box_tag "levels[]", level.id, checked = @selected_levels.include?(level.id) -%>
-            </div>
-            <div class="p-2">
-              <%= level.name.downcase.capitalize %>
-            </div>
-          </div>
+          <% isSelected = @selected_levels.include?(level.id) %>
+          <button type="button" onclick="toggleCheckbox(this, 'level-<%= level.name.downcase %>')" class="<%= isSelected ? 'button-selected' : 'button-unselected' %>"><%= level.name.downcase.capitalize %></button>
+          <%= check_box_tag "levels[]", level.id, checked = isSelected, :class => 'checkbox', :id => "level-#{level.name.downcase}" -%>
         <% end %>
       </div>
 
