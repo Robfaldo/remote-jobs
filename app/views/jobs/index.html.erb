@@ -17,7 +17,7 @@
       <div class="p-3">
         <% @levels.each do |level| %>
           <% isSelected = @selected_levels.include?(level.id) %>
-          <button type="button" onclick="toggleCheckbox(this, 'level-<%= level.name.downcase %>')" class="<%= isSelected ? 'button-selected' : 'button-unselected' %>"><%= level.name.downcase.capitalize %></button>
+          <button type="button" onclick="toggleCheckbox(this, 'level-<%= level.name.downcase %>')" class="<%= isSelected ? 'button-selected' : 'button-unselected' %> btn btn-primary"><%= level.name.downcase.capitalize %></button>
           <%= check_box_tag "levels[]", level.id, checked = isSelected, :class => 'checkbox', :id => "level-#{level.name.downcase}" -%>
         <% end %>
       </div>
@@ -25,14 +25,14 @@
       <div class="p-3">
         <% @stacks.each do |stack| %>
           <% isSelected = @selected_stacks.include?(stack.id) %>
-          <button type="button" onclick="toggleCheckbox(this, 'stack-<%= stack.name.downcase %>')" class="<%= isSelected ? 'button-selected' : 'button-unselected' %>"><%= stack.name.downcase.capitalize %></button>
+          <button type="button" onclick="toggleCheckbox(this, 'stack-<%= stack.name.downcase %>')" class="<%= isSelected ? 'button-selected' : 'button-unselected' %> btn btn-primary"><%= stack.name.downcase.capitalize %></button>
           <%= check_box_tag "stacks[]", stack.id, checked =isSelected , :class => 'checkbox', :id => "stack-#{stack.name.downcase}"-%>
         <% end %>
       </div>
 
       <div class="p-3 search-button">
         <div class="col-sm-5 col-lg-4 form-group">
-          <%= submit_tag "Search" %>
+          <button type="submit" class="btn btn-primary">Search</button>
         </div>
       </div>
     </div>
