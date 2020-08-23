@@ -1,3 +1,31 @@
+<div class="search-container">
+  <div class="search-box">
+    <div class="learning-background row">
+      <div class="col-4 left-search">I am a</div>
+      <div class="col-8"><%= select_tag "learning-background", options_from_collection_for_select(@levels, "id", "name") %></div>
+    </div>
+    <div class="stacks row">
+      <div class="col-4">Looking for</div>
+      <div class="col-8">
+        <div class="row stack-options">
+          <% @stacks.each do |stack| %>
+            <div class="col-4">
+              <div class="row">
+                <div class="stack-checkbox">
+                  <%= check_box_tag "stacks[]", stack.id, checked = true -%>
+                </div>
+                <div class="stack-name">
+                  <%= stack.name.downcase.capitalize %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container job-listings">
   <h3 class="heading">We have found <span class="accent"><%= @jobs.count %></span> jobs</h3>
   <% @jobs.each do |job| %>

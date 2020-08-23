@@ -1,3 +1,32 @@
 // Place all the styles related to the ActiveJobs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 6%;
+  min-height: 220px;
+  background-color: #FFF8E8;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: 1.3rem;
+}
+
+.search-box {
+  text-align: left;
+  height: 150px;
+  width: 550px;
+  padding: 15px;
+  background-color: #FFFFFF;
+}
+.stack-checkbox{
+  padding: 3px;
+}
+.stack-name {
+  padding: 3px;
+}
