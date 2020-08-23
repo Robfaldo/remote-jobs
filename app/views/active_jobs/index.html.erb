@@ -31,7 +31,7 @@
 </div>
 
 <div class="container">
-  <h3 class="heading">We have found <span class="accent"><%= @jobs.count %></span> jobs</h3>
+  <h3 class="heading">We have found <span class="accent" id="js-jobs-count"><%= @jobs.count %></span> jobs</h3>
   <div id="js-job-listings-container">
     <% @jobs.each do |job| %>
       <div class="job-listing">

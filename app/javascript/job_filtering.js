@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
         // Create the new jobs
         let allJobsArray = JSON.parse(allJobs)
         let filteredJobsDivs = [];
-        
+
         for (let i = 0; i < allJobsArray.length; i++) {
             let job = allJobsArray[i]
 
@@ -54,6 +54,10 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         parentNode.appendChild(newDiv);
+
+        // Update the jobs count
+        let jobs_count = document.getElementById('js-jobs-count');
+        jobs_count.textContent = filteredJobsDivs.length
     });
 
 
