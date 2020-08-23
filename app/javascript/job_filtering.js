@@ -28,6 +28,24 @@ window.addEventListener('DOMContentLoaded', () => {
             }
             let newJobDiv = document.createElement("div");
 
+
+            //calculate how long ago it was posted
+            let day_start = new Date(job["published_date"]);
+            let day_end = new Date();
+            let total_days = (day_end - day_start) / (1000 * 60 * 60 * 24);
+            let rounded_total_days =  Math.round(total_days)
+            let published_message = ""
+
+            if (total_days > 30) {
+                published_message = "Posted over 30 days ago"
+            } else if (total_days < 30 && total_days > 1) {
+                published_message = "Posted " + rounded_total_days + " days ago"
+            } else if (total_days == 1) {
+                published_message = "Posted " + rounded_total_days + " day ago"
+            } else if (total_days == 0) {
+                published_message = "Posted " + rounded_total_days + " days ago"
+            }
+
             newJobDiv.innerHTML =
                 '<div class="job-listing">' +
                 '<div class="row">' +
@@ -40,7 +58,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 '</div>' +
                 '</div>' +
                 '<div class="col-10 col-md-3 col-lg-3 ml-auto">' +
-                '<p>Posted TIME ago</p>' +
+                '<p>' + published_message + '</p>' +
                 '</div>' +
                 '</div>' +
                 '</div>'
