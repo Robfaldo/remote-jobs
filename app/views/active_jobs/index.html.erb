@@ -6,7 +6,7 @@
   <div class="search-box">
     <div class="learning-background row">
       <div class="col-4 left-search">I am a</div>
-      <div class="col-8"><%= select_tag "learning-background", options_from_collection_for_select(@levels, "id", "name"), id: 'js-learning-background' %></div>
+      <div class="col-8"><%= select_tag "learning-background", options_from_collection_for_select(@levels, "id", "name"), id: 'js-learning-background', include_blank: "Select..." %></div>
     </div>
     <div class="stacks row">
       <div class="col-4">Looking for</div>

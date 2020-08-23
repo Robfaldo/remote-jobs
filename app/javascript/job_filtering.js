@@ -4,6 +4,14 @@ window.addEventListener('DOMContentLoaded', () => {
     education_dropdown.addEventListener('change', function (){
         education_selection = education_dropdown.value
 
+        // If they choose any educational background then turn the placeholder to a 'show all jobs' option
+        let showAllJobs = true
+        if (education_selection != "") {
+            let dropdown_options= document.getElementById('js-learning-background').options
+            dropdown_options[0].textContent = "Show me all jobs"
+            showAllJobs = false;
+        }
+
         // get the current job listings div and remove it
         let jobListingsDiv = document.getElementById('js-job-listings-container')
         let oldDivClassName = jobListingsDiv.className;
@@ -23,11 +31,11 @@ window.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < allJobsArray.length; i++) {
             let job = allJobsArray[i]
 
-            if (job["level_id"] != education_selection) {
+            if (showAllJobs == false && job["level_id"] != education_selection) {
                 continue;
             }
-            let newJobDiv = document.createElement("div");
 
+            let newJobDiv = document.createElement("div");
 
             //calculate how long ago it was posted
             let day_start = new Date(job["published_date"]);
