@@ -1,30 +1,75 @@
-<%= form_tag '/', :method => 'get' do %>
-  <% @levels.each do |level| %>
-    <%= check_box_tag "levels[]", level.id, checked = @selected_levels.include?(level.id) -%>
-    <%= level.name.downcase.capitalize %>
-  <% end %>
-
-  <% @stacks.each do |stack| %>
-    <%= check_box_tag "stacks[]", stack.id, checked = @selected_stacks.include?(stack.id) -%>
-    <%= stack.name.downcase.capitalize %>
-  <% end %>
-
-  <select class="js-technologies" name="technologies[]" multiple="multiple">
-    <% @technologies.each do |technology| %>
-      <option value="<%= technology.id %>"><%= technology.name.downcase.capitalize %></option>
-   <% end %>
-  </select>
-
-  <%= submit_tag "Search" %>
-<% end %>
-
-<% @jobs.each do |job| %>
-  <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title"><%= job.title %></h5>
-      <p class="card-text">Technologies: <%= job.technologies.map{|t| t.name } %></p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+<div class="container job-filtering">
+  <%= form_tag '/', :method => 'get' do %>
+    <div class="search-technologies d-flex flex-row">
+      <div class="p-2">
+        Technologies:
+      </div>
+      <div class="flex-grow-1 search-bar">
+        <select class="js-technologies" name="technologies[]" multiple="multiple">
+          <% @technologies.each do |technology| %>
+            <option value="<%= technology.id %>"><%= technology.name.downcase.capitalize %></option>
+          <% end %>
+        </select>
+      </div>
     </div>
-  </div>
-<% end %>
+
+    <div class="bottom-filtering d-flex flex-row">
+      <div class="p-3">
+        <% @levels.each do |level| %>
+          <div class="d-flex flex-row">
+            <div class="p-2">
+              <%= check_box_tag "levels[]", level.id, checked = @selected_levels.include?(level.id) -%>
+            </div>
+            <div class="p-2">
+              <%= level.name.downcase.capitalize %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="p-3">
+        <% @stacks.each do |stack| %>
+          <div class="d-flex flex-row">
+            <div class="p-2">
+              <%= check_box_tag "stacks[]", stack.id, checked = @selected_stacks.include?(stack.id) -%>
+            </div>
+            <div class="p-2">
+              <%= stack.name.downcase.capitalize %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="p-3 search-button">
+        <div class="col-sm-5 col-lg-4 form-group">
+          <%= submit_tag "Search" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="container job-listings">
+  <h3 class="heading">We have found <span class="accent"><%= @jobs.count %></span> jobs</h3>
+  <% @jobs.each do |job| %>
+    <div class="job-listing">
+      <div class="row">
+        <div class="col-md-12 col-lg-6">
+          <div class="row">
+            <div class="col-2"><img src=<%= image_path('default-company-image.jpg') %> alt="Company Logo" class="img-fluid"></div>
+            <div class="col-10">
+              <h4 class="job__title"><a href=<%= job.job_link %>> <%= job.title.capitalize %></a></h4>
+              <p class="job__company">
+                <%= job.company.name.capitalize %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__technologies"></i><%= job.technologies.map{|t| t.name.capitalize}.join(", ") %></div>
+        <div class="col-10 col-md-3 col-lg-3 ml-auto">
+          <p>Posted <%= time_ago_in_words(job.published_date).remove("over") %> ago</p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
