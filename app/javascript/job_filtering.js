@@ -1,17 +1,9 @@
 window.addEventListener('DOMContentLoaded', () => {
     let education_dropdown = document.getElementById('js-learning-background');
 
-    education_dropdown.addEventListener('change', function (){
-        education_selection = education_dropdown.value
+    let stacksCheckboxes = document.getElementById('js-stack-checkboxes');
 
-        // If they choose any educational background then turn the placeholder to a 'show all jobs' option
-        let showAllJobs = true
-        if (education_selection != "") {
-            let dropdown_options= document.getElementById('js-learning-background').options
-            dropdown_options[0].textContent = "Show me all jobs"
-            showAllJobs = false;
-        }
-
+    let replaceCurrentJobListingsDiv = function(){
         // get the current job listings div and remove it
         let jobListingsDiv = document.getElementById('js-job-listings-container')
         let oldDivClassName = jobListingsDiv.className;
@@ -24,35 +16,47 @@ window.addEventListener('DOMContentLoaded', () => {
         newDiv.className = oldDivClassName;
         newDiv.id = oldDivId;
 
-        // Create the new jobs
+        parentNode.appendChild(newDiv);
+
+        return newDiv;
+    };
+
+    let calculatePublishedMessage = function(job){
+        //calculate how long ago it was posted
+        let day_start = new Date(job["published_date"]);
+        let day_end = new Date();
+        let total_days = (day_end - day_start) / (1000 * 60 * 60 * 24);
+        let rounded_total_days =  Math.round(total_days)
+        let published_message = ""
+
+        if (total_days > 30) {
+            return "Posted over 30 days ago"
+        } else if (total_days < 30 && total_days > 1) {
+            return "Posted " + rounded_total_days + " days ago"
+        } else if (total_days == 1) {
+            return "Posted " + rounded_total_days + " day ago"
+        } else if (total_days == 0) {
+            return "Posted " + rounded_total_days + " days ago"
+        }
+    }
+
+    let createNewJobs = function(allJobs, stackDivsToInclude){
         let allJobsArray = JSON.parse(allJobs)
         let filteredJobsDivs = [];
 
         for (let i = 0; i < allJobsArray.length; i++) {
             let job = allJobsArray[i]
 
-            if (showAllJobs == false && job["level_id"] != education_selection) {
-                continue;
+            let stacksToInclude = [];
+            stackDivsToInclude.forEach(stackCb => stacksToInclude.push(parseInt(stackCb.value.split("_").pop())));
+
+            if (stacksToInclude.includes(job["stack_id"]) != true) {
+                continue
             }
 
             let newJobDiv = document.createElement("div");
 
-            //calculate how long ago it was posted
-            let day_start = new Date(job["published_date"]);
-            let day_end = new Date();
-            let total_days = (day_end - day_start) / (1000 * 60 * 60 * 24);
-            let rounded_total_days =  Math.round(total_days)
-            let published_message = ""
-
-            if (total_days > 30) {
-                published_message = "Posted over 30 days ago"
-            } else if (total_days < 30 && total_days > 1) {
-                published_message = "Posted " + rounded_total_days + " days ago"
-            } else if (total_days == 1) {
-                published_message = "Posted " + rounded_total_days + " day ago"
-            } else if (total_days == 0) {
-                published_message = "Posted " + rounded_total_days + " days ago"
-            }
+            let published_message = calculatePublishedMessage(job);
 
             newJobDiv.innerHTML =
                 '<div class="job-listing">' +
@@ -74,17 +78,29 @@ window.addEventListener('DOMContentLoaded', () => {
             filteredJobsDivs.push(newJobDiv);
         }
 
-        // Attach the new job to the new job listing div
+        return filteredJobsDivs
+    };
+
+    let attachNewJobsToJobListings = function(newDiv, filteredJobsDivs) {
         for (let i = 0; i < filteredJobsDivs.length; i++) {
             newDiv.appendChild(filteredJobsDivs[i]);
         }
+    };
 
-        parentNode.appendChild(newDiv);
-
-        // Update the jobs count
+    let updateJobsCount = function(filteredJobsDivs){
         let jobs_count = document.getElementById('js-jobs-count');
         jobs_count.textContent = filteredJobsDivs.length
+    }
+
+    stacksCheckboxes.addEventListener('change', function (){
+        let stackDivsToInclude = document.querySelectorAll('input[name="js-stacks-cb"]:checked');
+
+        let newJobListingsDiv = replaceCurrentJobListingsDiv();
+
+        let filteredJobsDivs = createNewJobs(allJobs, stackDivsToInclude);
+
+        attachNewJobsToJobListings(newJobListingsDiv, filteredJobsDivs);
+
+        updateJobsCount(filteredJobsDivs);
     });
-
-
 })
