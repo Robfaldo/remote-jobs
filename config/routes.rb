@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   root 'active_jobs#index'
   post '/create_job' => "create_job#create"
+  get '/search' => "search#index"
 end
