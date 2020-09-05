@@ -1,5 +1,5 @@
 <%= javascript_tag do %>
-  window.allJobs = '<%= @active_jobs_with_company_names.to_json.html_safe %>';
+  window.allJobs = '<%= @jobs_to_show.to_json.html_safe %>';
 <% end %>
 
 <div class="search-container">
@@ -25,14 +25,9 @@
 
         <div class="location-search-container">
           <%= form_tag '/search', :method => 'get' do %>
-            <input type="text" placeholder="Search..">
-
-            <div class="p-3 search-button">
-                <div class="col-sm-5 col-lg-4 form-group">
-                  <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-              </div>
-            </div>
+            <%= label_tag(:q, "Search by location:") %>
+            <%= text_field_tag(:location) %>
+            <%= submit_tag("Go") %>
           <% end %>
         </div>
       </div>
@@ -41,25 +36,24 @@
 </div>
 
 <div class="container">
-  <h3 class="heading">We have found <span class="accent" id="js-jobs-count"><%= @jobs.count %></span> jobs</h3>
+  <h3 class="heading">We have found <span class="accent" id="js-jobs-count"><%= @jobs_to_show.count %></span> jobs</h3>
   <div id="js-job-listings-container">
-    <% @jobs.each do |job| %>
+    <% @jobs_to_show.each do |job| %>
       <div class="job-listing">
         <div class="row">
           <div class="col-md-12 col-lg-6">
             <div class="row">
               <div class="col-2"><img src=<%= image_path('default-company-image.jpg') %> alt="Company Logo" class="img-fluid"></div>
               <div class="col-10">
-                <h4 class="job__title"><a href=<%= job.job_link %>> <%= job.title.capitalize %></a></h4>
+                <h4 class="job__title"><a href=<%= job["job_link"] %>> <%= job["title"].capitalize %></a></h4>
                 <p class="job__company">
-                  <%= job.company.name.capitalize %>
+                  <%= job["company_name"].capitalize %>
                 </p>
               </div>
             </div>
           </div>
-          <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__technologies"></i><%= job.technologies.map{|t| t.name.capitalize}.join(", ") %></div>
           <div class="col-10 col-md-3 col-lg-3 ml-auto">
-            <p><%= job.published_date < Date.today - 30 ? "Posted over 30 days ago" : "Posted #{time_ago_in_words(job.published_date).remove("over")} ago" %></p>
+            <p><%= Date.parse(job["published_date"]) < Date.today - 30 ? "Posted over 30 days ago" : "Posted #{time_ago_in_words(job["published_date"]).remove("over")} ago" %></p>
           </div>
         </div>
       </div>
