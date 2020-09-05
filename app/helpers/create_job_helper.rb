@@ -20,6 +20,6 @@ module CreateJobHelper
     job.level = level
     job.stack = stack
 
-    job.save
+    job.save!
   end
 end
