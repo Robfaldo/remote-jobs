@@ -61,3 +61,5 @@ gem 'devise'
 gem 'activeadmin'
 
 gem 'rack-cors'
+
+gem 'geocoder'
