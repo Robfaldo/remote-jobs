@@ -1,4 +1,7 @@
 class Job < ApplicationRecord
+  geocoded_by :location
+  after_validation :geocode
+
   has_and_belongs_to_many :technologies
   belongs_to :level
   belongs_to :stack
