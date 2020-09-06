@@ -25,8 +25,10 @@
 
         <div class="location-search-container">
           <%= form_tag '/search', :method => 'get' do %>
-            <%= label_tag(:q, "Search by location:") %>
-            <%= text_field_tag(:location) %>
+            <%= label_tag(:location_area, "Search by area:") %>
+            <%= text_field_tag(:location_area, nil, :placeholder => 'Town, City or Area') %>
+            <%= label_tag(:location_postcode, "Or postcode:") %>
+            <%= text_field_tag(:location_postcode, nil, :placeholder => 'e.g. EC1A 4JA') %>
 
             <label for="location-dropdown">Within</label>
             <select name="location-dropdown" id="location-range">
