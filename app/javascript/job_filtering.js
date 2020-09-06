@@ -70,6 +70,9 @@ window.addEventListener('DOMContentLoaded', () => {
                 '</div>' +
                 '</div>' +
                 '<div class="col-10 col-md-3 col-lg-3 ml-auto">' +
+                '<p>' + job["location"] + '</p>' +
+                '</div>' +
+                '<div class="col-10 col-md-3 col-lg-3 ml-auto">' +
                 '<p>' + published_message + '</p>' +
                 '</div>' +
                 '</div>' +

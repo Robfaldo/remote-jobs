@@ -25,10 +25,20 @@
 
         <div class="location-search-container">
           <%= form_tag '/search', :method => 'get' do %>
-            <%= label_tag(:q, "Search by location:") %>
-            <%= text_field_tag(:location) %>
+            <%= label_tag(:location_area, "Search by area:") %>
+            <%= text_field_tag(:location_area, nil, :placeholder => 'Town, City or Area') %>
+            <%= label_tag(:location_postcode, "Or postcode:") %>
+            <%= text_field_tag(:location_postcode, nil, :placeholder => 'e.g. EC1A 4JA') %>
+
+            <label for="location-dropdown">Within</label>
+            <select name="location-dropdown" id="location-range">
+              <option value="2">2 miles</option>
+              <option value="5">5 miles</option>
+              <option value="10">10 miles</option>
+              <option value="25" selected>25 miles</option>
+            </select>
             <%= submit_tag("Go") %>
-          <% end %>
+        <% end %>
         </div>
       </div>
     </div>
@@ -51,6 +61,9 @@
                 </p>
               </div>
             </div>
+          </div>
+          <div class="col-10 col-md-3 col-lg-3 ml-auto">
+            <p><%= job["location"] %></p>
           </div>
           <div class="col-10 col-md-3 col-lg-3 ml-auto">
             <p><%= Date.parse(job["published_date"]) < Date.today - 30 ? "Posted over 30 days ago" : "Posted #{time_ago_in_words(job["published_date"]).remove("over")} ago" %></p>
