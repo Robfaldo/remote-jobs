@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def index
-    nearby_jobs = Job.near(params[:location]).where(active: true)
+    nearby_jobs = Job.near(params[:location], params["location-dropdown"]).where(active: true)
 
     jobs_to_json = nearby_jobs.to_json
     parsed_json = JSON.parse(jobs_to_json)
