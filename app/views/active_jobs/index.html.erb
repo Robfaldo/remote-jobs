@@ -53,6 +53,9 @@
             </div>
           </div>
           <div class="col-10 col-md-3 col-lg-3 ml-auto">
+            <p><%= job["location"].downcase.capitalize %></p>
+          </div>
+          <div class="col-10 col-md-3 col-lg-3 ml-auto">
             <p><%= Date.parse(job["published_date"]) < Date.today - 30 ? "Posted over 30 days ago" : "Posted #{time_ago_in_words(job["published_date"]).remove("over")} ago" %></p>
           </div>
         </div>
