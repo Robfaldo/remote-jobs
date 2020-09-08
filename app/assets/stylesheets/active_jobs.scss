@@ -10,7 +10,7 @@
   width: 100%;
   text-align: center;
   margin-bottom: 6%;
-  min-height: 220px;
+  min-height: 370px;
   background-color: #FFF8E8;
   align-items: center;
   font-family: sans-serif;
@@ -19,7 +19,7 @@
 
 .search-box {
   text-align: left;
-  height: 150px;
+  height: 320px;
   width: 550px;
   padding: 15px;
   background-color: #FFFFFF;
@@ -29,4 +29,16 @@
 }
 .stack-name {
   padding: 3px;
+}
+
+.search-box-row {
+  padding: 7px;
+}
+
+.search-button {
+  width: 50px;
+}
+
+.page-title {
+  justify-content: center;
 }
