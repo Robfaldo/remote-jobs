@@ -3,9 +3,13 @@
 <% end %>
 
 <div class="search-container">
-  <div class="search-box">
-    <h3>Find your first developer job</h3>
-    <div class="stacks row">
+  <div class="search-box container">
+
+    <div class="page-title search-box-row row">
+      <h3>Find your first developer job</h3>
+    </div>
+
+    <div class="stacks search-box-row row">
       <div class="col-4">Show me</div>
       <div class="col-8">
         <div class="row stack-options" id="js-stack-checkboxes">
@@ -22,25 +26,43 @@
             </div>
           <% end %>
         </div>
+      </div>
+    </div>
 
-        <div class="location-search-container">
-          <%= form_tag '/search', :method => 'get' do %>
+    <div class="location-search-container">
+      <%= form_tag '/search', :method => 'get' do %>
+        <div class="area-search search-box-row row">
+          <div class="col-4">
             <%= label_tag(:location_area, "Search by area:") %>
+          </div>
+          <div class="col-8">
             <%= text_field_tag(:location_area, nil, :placeholder => 'Town, City or Area') %>
-            <%= label_tag(:location_postcode, "Or postcode:") %>
-            <%= text_field_tag(:location_postcode, nil, :placeholder => 'e.g. EC1A 4JA') %>
+          </div>
+        </div>
 
-            <label for="location-dropdown">Within</label>
+        <div class="postcode-search search-box-row row">
+          <div class="col-4">
+            <%= label_tag(:location_postcode, "Or postcode:") %>
+          </div>
+          <div class="col-8">
+            <%= text_field_tag(:location_postcode, nil, :placeholder => 'e.g. EC1A 4JA') %>
+          </div>
+        </div>
+        <div class="location-range search-box-row row">
+          <div class="col-4">
+            <label for="location-dropdown">Within:</label>
+          </div>
+          <div class="col-8">
             <select name="location-dropdown" id="location-range">
               <option value="2">2 miles</option>
               <option value="5">5 miles</option>
               <option value="10">10 miles</option>
               <option value="25" selected>25 miles</option>
             </select>
-            <%= submit_tag("Go") %>
-        <% end %>
+            <%= button_tag("Go", class: 'btn btn-primary search-button') %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
@@ -53,7 +75,6 @@
         <div class="row">
           <div class="col-md-12 col-lg-6">
             <div class="row">
-              <div class="col-2"><img src=<%= image_path('default-company-image.jpg') %> alt="Company Logo" class="img-fluid"></div>
               <div class="col-10">
                 <h4 class="job__title"><a href=<%= job["job_link"] %>> <%= job["title"].capitalize %></a></h4>
                 <p class="job__company">
