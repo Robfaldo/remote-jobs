@@ -59,23 +59,26 @@ window.addEventListener('DOMContentLoaded', () => {
             let published_message = calculatePublishedMessage(job);
 
             newJobDiv.innerHTML =
-                '<div class="job-listing">' +
-                '<div class="row">' +
-                '<div class="col-md-12 col-lg-6">' +
-                '<div class="row">' +
-                '<div class="col-10">' +
-                '<h4 class="job__title"><a href="link">' + job["title"] + '</a></h4>' +
-                '<p class="job__company">' + job["company_name"] + '</p>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '<div class="col-10 col-md-3 col-lg-3 ml-auto">' +
-                '<p>' + job["location"] + '</p>' +
-                '</div>' +
-                '<div class="col-10 col-md-3 col-lg-3 ml-auto">' +
-                '<p>' + published_message + '</p>' +
-                '</div>' +
-                '</div>' +
+                '<div class="card job-card">' +
+                  '<div class="card-header">' +
+                    '<h5 class="card-title job-title">' + job["title"] + '</h5>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                      '<div class="row">' +
+                        '<div class="col 2">' +
+                          '<h5 class="card-text job-company">' + job["company_name"] + '</h5>' +
+                        '</div>' +
+                        '<div class="col 10">' +
+                          '<div class="card-text text-right">' +
+                            '<a href=' + job["job_link"] + ' class="btn btn-primary">View Job</a>' +
+                          '</div>' +
+                        '</div>' +
+                      '</div>' +
+                      '<p class="card-text job-location">' + job["location"] + '</p>' +
+                    '</div>' +
+                    '<div class="card-footer">' +
+                      '<p class="card-text text-right">' + published_message + '</p>' +
+                    '</div>' +
                 '</div>'
 
             filteredJobsDivs.push(newJobDiv);

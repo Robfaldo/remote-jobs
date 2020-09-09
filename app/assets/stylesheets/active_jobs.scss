@@ -62,8 +62,27 @@
 
 .jobs-count {
   color: #E3170A;
-
 }
+
+.job-title {
+  color: #2D1E2F;
+  font-size: 1.3rem;
+}
+
+.job-company {
+  color: #2D1E2F;
+  font-size: 1.0rem;
+}
+
+.job-location {
+  color: #2D1E2F;
+  font-size: 1.0rem;
+}
+
+.job-card {
+  margin: 15px;
+}
+
 .job-listing {
   border: grey 2px solid;
   padding: 10px;
