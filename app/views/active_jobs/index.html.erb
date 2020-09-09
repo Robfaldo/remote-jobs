@@ -16,8 +16,8 @@
           <% @stacks.each do |stack| %>
             <div class="col-4">
               <div class="row">
-                <div class="stack-checkbox">
-                  <%= check_box_tag "stacks[]", stack.id, checked = true, {name: 'js-stacks-cb', value: "js-stacks-cb_#{stack.id}"} -%>
+                <div class="stack-checkbox-container">
+                  <%= check_box_tag "stacks[]", stack.id, checked = true, {name: 'js-stacks-cb', value: "js-stacks-cb_#{stack.id}", class: 'stack-checkbox'} -%>
                 </div>
                 <div class="stack-name">
                   <%= stack.name.downcase.capitalize %>
