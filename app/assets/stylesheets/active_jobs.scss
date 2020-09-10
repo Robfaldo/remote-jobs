@@ -30,6 +30,12 @@
   padding: 15px;
 }
 
+@media (max-width: 600px){
+  .search-box {
+    border: 10px red solid;
+  }
+}
+
 .page-title{
   color: #FFFFFF;
   font-size: 2rem;
@@ -91,6 +97,18 @@
 
 .stack-checkbox{
   margin-right: 5px;
+}
+
+.view-job-button {
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #E3170A;
+  padding: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
 }
 
 input[type="checkbox"] {
