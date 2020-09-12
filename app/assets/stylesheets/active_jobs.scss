@@ -5,29 +5,33 @@
 .search-container {
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   width: 100vw;
   text-align: center;
   margin-bottom: 6%;
-  min-height: 370px;
   background-color: #FFF8E8;
   align-items: center;
   font-family: sans-serif;
-  font-size: 1.3rem;
   background-image: url("webb-dark.png");
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
   background-size: contain;
+  font-size: 2.8rem;
+  min-height: 600px;
+  justify-content: center;
+
+  @media (min-width: 992px) {
+    min-height: 450px;
+    font-size: 1.3rem;
+  }
 }
 
 .search-box {
   color: #FFFFFF;
   text-align: left;
-  height: 320px;
-  width: 550px;
-  padding: 15px;
+  max-width: 900px;
+  margin: 0;
 }
 
 @media (max-width: 600px){
@@ -38,7 +42,11 @@
 
 .page-title{
   color: #FFFFFF;
-  font-size: 2rem;
+  font-size: 4rem;
+
+  @media (min-width: 992px) {
+    font-size: 2rem;
+  }
 }
 
 .stack-checkbox-container{
@@ -50,10 +58,7 @@
 
 .search-box-row {
   padding: 7px;
-}
-
-.search-button {
-  width: 50px;
+  padding-top: 15px;
 }
 
 .page-title-container {
@@ -113,14 +118,36 @@
 }
 
 .search-button {
-  width: 90px;
-  height: 50px;
+  width: 150px;
   margin-left: 20px;
+  height: 80px;
+
+  @media (min-width: 992px) {
+    width: 90px;
+    height: 50px;
+  }
 }
 
 #location-range {
-  padding: 5px;
+  padding: 10px;
+
+  @media (min-width: 992px) {
+  }
 }
 input[type="checkbox"] {
   transform:scale(1.5, 1.5);
+}
+
+.stacks {
+  visibility:hidden;
+  height: 0px;
+
+  @media (min-width: 992px) {
+    height: 50px;
+    visibility:visible;
+  }
+}
+
+.stack-options {
+  padding-left: 15px;
 }
