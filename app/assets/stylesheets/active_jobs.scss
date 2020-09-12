@@ -65,34 +65,20 @@
   justify-content: center;
 }
 
-.heading {
-  text-align: center;
-  font-size: 1.8rem;
-  color: #2D1E2F
-}
-
 .jobs-count {
   color: #E3170A;
 }
 
-.job-title {
-  color: #2D1E2F;
-  font-size: 1.3rem;
-  color: #E3170A;
-}
-
-.job-company {
-  color: #2D1E2F;
-  font-size: 1.0rem;
-}
-
-.job-location {
-  color: #2D1E2F;
-  font-size: 1.0rem;
-}
 
 .job-card {
-  margin: 15px;
+  margin: 50px;
+  @media (min-width: 992px) {
+    margin: 50px 100px 50px 100px;
+  }
+
+  @media (min-width: 1200px) {
+    margin: 50px 150px 50px 150px;
+  }
 }
 
 .job-listing {
@@ -150,4 +136,51 @@ input[type="checkbox"] {
 
 .stack-options {
   padding-left: 15px;
+}
+
+.main-body-container {
+  width: 100vw;
+  font-size: 1.7rem;
+
+  @media (min-width: 992px) {
+    font-size: 1rem;
+  }
+}
+
+.job-title {
+  color: #2D1E2F;
+  font-size: 2.5rem;
+  color: #E3170A;
+
+  @media (min-width: 992px) {
+    font-size: 1.3rem;
+  }
+}
+
+.heading {
+  text-align: center;
+  font-size: 3rem;
+  color: #2D1E2F;
+
+  @media (min-width: 992px) {
+    font-size: 2.2rem;
+  }
+}
+
+.job-company {
+  color: #2D1E2F;
+  font-size: 2rem;
+
+  @media (min-width: 992px) {
+    font-size: 1.3rem;
+  }
+}
+
+.job-location {
+  color: #2D1E2F;
+  font-size: 1.8rem;
+
+  @media (min-width: 992px) {
+    font-size: 1.3rem;
+  }
 }
