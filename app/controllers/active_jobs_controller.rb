@@ -1,4 +1,5 @@
 class ActiveJobsController < ApplicationController
+  include ActionView::Helpers::DateHelper
   def index
     @levels = Level.all
     @stacks = Stack.all
@@ -16,6 +17,7 @@ class ActiveJobsController < ApplicationController
       parsed_json = JSON.parse(jobs_to_json)
       parsed_json.each do |job|
         job["company_name"] = Job.find(job["id"]).company.name
+        job["published_date_message"] = format_posted_message(job["published_date"])
       end
 
       all_active_jobs = parsed_json
@@ -48,4 +50,11 @@ class ActiveJobsController < ApplicationController
       )
     end
   end
+end
+
+def format_posted_message(published_date)
+  return "Posted today" if Date.parse(published_date) == Date.today
+  return "Posted over 30 days ago" if Date.parse(published_date) < Date.today - 30
+
+  "Posted #{time_ago_in_words(published_date).remove('over')} ago"
 end

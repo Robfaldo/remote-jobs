@@ -94,7 +94,7 @@
               <%= "Requires university degree" if job["degree_required"] == true %>
             </div>
             <div class="col-6">
-              <p class="card-text text-right"><%= Date.parse(job["published_date"]) < Date.today - 30 ? "Posted over 30 days ago" : "Posted #{time_ago_in_words(job["published_date"]).remove("over")} ago" %></p>
+              <p class="card-text text-right"><%= job["published_date_message"] %></p>
             </div>
           </div>
         </div>
