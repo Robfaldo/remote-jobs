@@ -5,26 +5,22 @@ class ActiveJobsController < ApplicationController
     @stacks = Stack.all
 
     if params[:search_by_location] # redirected from search controller
-      if params[:jobs_to_show]
-        @jobs_to_show = jobs_to_show_params.map{|param| param.to_h}
-      else
-        @jobs_to_show = []
-      end
+      jobs = Job.near(params["location_to_search"], params["distance"]).where(active: true)
     else
       jobs = Job.where(active: true)
-
-      jobs_to_json = jobs.to_json
-      parsed_json = JSON.parse(jobs_to_json)
-      parsed_json.each do |job|
-        job["company_name"] = Job.find(job["id"]).company.name
-        job["published_date_message"] = format_posted_message(job["published_date"])
-        job["degree_required_message"] = job["degree_required"] ? "University degree required" : ""
-      end
-
-      all_active_jobs = parsed_json
-
-      @jobs_to_show = all_active_jobs
     end
+
+    jobs_to_json = jobs.to_json
+    parsed_json = JSON.parse(jobs_to_json)
+    parsed_json.each do |job|
+      job["company_name"] = Job.find(job["id"]).company.name
+      job["published_date_message"] = format_posted_message(job["published_date"])
+      job["degree_required_message"] = job["degree_required"] ? "University degree required" : ""
+    end
+
+    all_active_jobs = parsed_json
+
+    @jobs_to_show = all_active_jobs
   end
 
   private
