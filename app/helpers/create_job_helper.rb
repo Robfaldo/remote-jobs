@@ -6,14 +6,16 @@ module CreateJobHelper
       level: Level.where(name: "junior").first_or_create,
       link:,
       company:,
-      location:
+      location:,
+      degree_required:
   )
     job = Job.new(
         active: active,
         published_date: Date.today, # TODO: make this published date on the advert
         title: title,
         job_link: link,
-        location: location
+        location: location,
+        degree_required: degree_required
     )
 
     job.company = company

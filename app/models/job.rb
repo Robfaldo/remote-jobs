@@ -11,4 +11,5 @@ class Job < ApplicationRecord
   validates :title, presence: true
   validates :job_link, presence: true
   validates :location, presence: true
+  validates :degree_required, inclusion: { in: [ true, false ] } # can't use presence: true (because false boolean would fail this check)
 end

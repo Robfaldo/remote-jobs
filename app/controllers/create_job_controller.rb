@@ -4,13 +4,23 @@ class CreateJobController < ApplicationController
   skip_before_action :verify_authenticity_token, :only => [:create]
 
   def create
+    degree_required = case params[:degree_required]
+                      when "true"
+                        true
+                      when "false"
+                        false
+                      else
+                        return render json: 'degree_required not "true" or "false"', status: 422
+                      end
+
     begin
       job = create_job(
           stack: Stack.where(id: params[:stack].to_i).first,
           title: params[:title],
           link: params[:link],
           company: Company.where(name: params[:company].downcase).first_or_create,
-          location: params[:location]
+          location: params[:location],
+          degree_required: degree_required
       )
     rescue => e
       render json: e.message, status: 400 # TODO: Should this be 422? Think i should have multiple conditions based on the error raised.
