@@ -5,9 +5,9 @@ class ActiveJobsController < ApplicationController
     @stacks = Stack.all
 
     if params[:search_by_location] # redirected from search controller
-      jobs = Job.near(params["location_to_search"], params["distance"]).where(active: true)
+      jobs = Job.near(params["location_to_search"], params["distance"]).where(active: true).order(published_date: :desc)
     else
-      jobs = Job.where(active: true)
+      jobs = Job.where(active: true).order(published_date: :desc)
     end
 
     jobs_to_json = jobs.to_json
