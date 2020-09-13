@@ -21,25 +21,6 @@ window.addEventListener('DOMContentLoaded', () => {
         return newDiv;
     };
 
-    let calculatePublishedMessage = function(job){
-        //calculate how long ago it was posted
-        let day_start = new Date(job["published_date"]);
-        let day_end = new Date();
-        let total_days = (day_end - day_start) / (1000 * 60 * 60 * 24);
-        let rounded_total_days =  Math.round(total_days)
-        let published_message = ""
-
-        if (total_days > 30) {
-            return "Posted over 30 days ago"
-        } else if (total_days < 30 && total_days > 1) {
-            return "Posted " + rounded_total_days + " days ago"
-        } else if (total_days == 1) {
-            return "Posted " + rounded_total_days + " day ago"
-        } else if (total_days == 0) {
-            return "Posted " + rounded_total_days + " days ago"
-        }
-    }
-
     let createNewJobs = function(allJobs, stackDivsToInclude){
         let allJobsArray = JSON.parse(allJobs)
         let filteredJobsDivs = [];
@@ -56,8 +37,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
             let newJobDiv = document.createElement("div");
 
-            let published_message = calculatePublishedMessage(job);
-
             newJobDiv.innerHTML =
                 '<div class="card job-card">' +
                   '<div class="card-header">' +
@@ -70,14 +49,14 @@ window.addEventListener('DOMContentLoaded', () => {
                         '</div>' +
                         '<div class="col 10">' +
                           '<div class="card-text text-right">' +
-                            '<a href=' + job["job_link"] + ' class="btn btn-primary">View Job</a>' +
+                            '<a href=' + job["job_link"] + ' class="view-job-button">View Job</a>' +
                           '</div>' +
                         '</div>' +
                       '</div>' +
                       '<p class="card-text job-location">' + job["location"] + '</p>' +
                     '</div>' +
                     '<div class="card-footer">' +
-                      '<p class="card-text text-right">' + published_message + '</p>' +
+                      '<p class="card-text text-right">' + job["published_date_message"] + '</p>' +
                     '</div>' +
                 '</div>'
 
