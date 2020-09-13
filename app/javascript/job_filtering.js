@@ -56,7 +56,11 @@ window.addEventListener('DOMContentLoaded', () => {
                       '<p class="card-text job-location">' + job["location"] + '</p>' +
                     '</div>' +
                     '<div class="card-footer">' +
-                      '<p class="card-text text-right">' + job["published_date_message"] + '</p>' +
+                      '<div class="row">' +
+                        '<div class="col-6 degree-required">' + job["degree_required_message"] + '</div>' +
+                        '<div class="col-6">' +
+                            '<p class="card-text text-right">' + job["published_date_message"] + '</p>' +
+                        '</div>' +
                     '</div>' +
                 '</div>'
 

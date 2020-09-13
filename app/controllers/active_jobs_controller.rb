@@ -18,6 +18,7 @@ class ActiveJobsController < ApplicationController
       parsed_json.each do |job|
         job["company_name"] = Job.find(job["id"]).company.name
         job["published_date_message"] = format_posted_message(job["published_date"])
+        job["degree_required_message"] = job["degree_required"] ? "University degree required" : ""
       end
 
       all_active_jobs = parsed_json
