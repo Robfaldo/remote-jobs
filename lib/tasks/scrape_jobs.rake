@@ -1,13 +1,5 @@
+require_relative '../../app/services/scraping/scrape_jobs_service.rb'
+
 task :scrape_jobs do
-  SCRAPERS = [
-    IndeedScraper
-  ]
-
-  jobs = []
-
-  SCRAPERS.each do |scraper|
-    jobs << scraper.get_jobs
-  end
-
-  require 'pry'; binding.pry
+  jobs = Scraping::ScrapeJobsService.new.call
 end
