@@ -1,7 +1,3 @@
-# require './scraper.rb'
-# require 'scraped_job.rb'
-require 'nokogiri'
-
 module Scraping
   class IndeedScraper < Scraper
     INITIAL_SEARCH_URL = "https://www.indeed.co.uk/jobs?q=title%3A%28frontend+or+%22front+end%22+or+%22front-end%22+or+fullstack+or+%22full+stack%22+or+%22full-stack%22+or+backend+or+%22back+end%22+or+%22back-end%22+or+software+or+web+OR+javascript+OR+react+or+vue+or+angular+OR+python+OR+java+OR+ruby+OR+node+or+%E2%80%9Cc%23%E2%80%9D+or+%E2%80%9Cc%2B%2B%E2%80%9D+or+Clojure+or+elixir+or+elm+or+go+or+groovy+or+Haskell+or+kotlin+or+perl+or+php+or+Scala+or+swift+or+typescript+or+Django+or+c+or+rails+or+Laravel+or+%E2%80%9C.net%E2%80%9D+or+flask%29+AND+title%3A%28junior+or+entry%29+AND+title%3A%28%22developer%22+or+development+or+%22engineer%22+or+engineering%29&l=London&radius=10&fromage=1"
@@ -30,12 +26,13 @@ module Scraping
             company: company,
             link: job_link,
             location: location,
-            description: job_description(job_link)
+            description: job_description(job_link),
+            source: :indeed
           )
         )
       end
 
-      jobs
+      jobs.uniq # It looked like it sometimes duplicated the jobs. Haven't debugged properly yet
     end
 
     def job_description(link)
