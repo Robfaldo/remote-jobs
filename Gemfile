@@ -63,3 +63,5 @@ gem 'activeadmin'
 gem 'rack-cors'
 
 gem 'geocoder'
+
+gem 'scraperapi'
