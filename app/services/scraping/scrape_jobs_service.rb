@@ -1,5 +1,3 @@
-require_relative './indeed_scraper'
-
 module Scraping
   class ScrapeJobsService
     SCRAPERS = [

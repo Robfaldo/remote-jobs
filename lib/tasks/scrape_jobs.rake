@@ -1,6 +1,6 @@
-require_relative '../../app/services/scraping/scrape_jobs_service.rb'
+# require_relative '../../app/services/scraping/scrape_jobs_service.rb'
 
-task :scrape_jobs do
+task :scrape_jobs => :environment do
   jobs = Scraping::ScrapeJobsService.new.call
 
   CSV.open("log/jobs.csv", 'a') do |csv|
