@@ -14,11 +14,11 @@ module Scraping
       jobs = []
 
       jobs_from_rss.items.each do |job|
-        link = CGI::unescapeHTML(job[:link])
-        scraped_description = scrape_job_description(link)
-        rss_title = CGI::unescapeHTML(job[:title])
-
         unless saved_source_ids.include? job[:guid]
+          link = CGI::unescapeHTML(job[:link])
+          scraped_description = scrape_job_description(link)
+          rss_title = CGI::unescapeHTML(job[:title])
+
           jobs.push(
             ScrapedJob.new(
               title: rss_title.split(" - ")[0],
