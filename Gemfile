@@ -65,3 +65,5 @@ gem 'rack-cors'
 gem 'geocoder'
 
 gem 'scraperapi'
+
+gem 'simple-rss'
