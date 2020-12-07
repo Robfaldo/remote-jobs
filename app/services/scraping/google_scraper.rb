@@ -12,6 +12,8 @@ require 'webdrivers/chromedriver'
 # https://agilie.com/en/blog/case-study-how-we-built-web-scraper-on-ruby-on-rails
 # https://stackoverflow.com/questions/51233654/chrome-binary-not-found-on-heroku-with-selenium-for-ruby-on-rails
 # https://readysteadycode.com/howto-scrape-websites-with-ruby-and-headless-chrome
+
+##### Relocate
 Capybara.register_driver :headless_chrome do |app|
   capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
     chromeOptions: { args: %w(headless disable-gpu) }
@@ -23,6 +25,7 @@ Capybara.register_driver :headless_chrome do |app|
 end
 
 Capybara.default_driver = :headless_chrome
+##### Relocate
 
 module Scraping
   class GoogleScraper < Scraper
