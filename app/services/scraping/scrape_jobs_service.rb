@@ -1,6 +1,7 @@
 module Scraping
   class ScrapeJobsService
     SCRAPERS = [
+      Scraping::GoogleScraper,
       Scraping::IndeedScraper,
       Scraping::StackoverflowScraper
     ]

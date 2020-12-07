@@ -3,9 +3,9 @@ require "scraper_api"
 module Scraping
   class Scraper
     def scrape(link)
-      result = client.get(link)
+      result = client.get(link, country_code: "US").raw_body
 
-      Nokogiri::HTML.parse(result.raw_body)
+      Nokogiri::HTML.parse(result)
     end
 
     def client
