@@ -4,6 +4,7 @@ require 'open-uri'
 module Scraping
   class StackoverflowScraper < Scraper
     def get_jobs
+      puts "Reaches stack scraper get_jobs"
       jobs_from_rss = SimpleRSS.parse open('http://stackoverflow.com/jobs/feed?l=London%2c+UK&u=Miles&d=20&ms=Student&mxs=Junior')
 
       parsed_jobs_csv = CSV.parse(File.read("log/jobs.csv"))

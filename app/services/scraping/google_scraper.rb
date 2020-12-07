@@ -32,6 +32,7 @@ module Scraping
     INITIAL_SEARCH_URL = "https://www.google.com/search?q=(junior+AND+(engineer+OR+developer))+london&rlz=1C5CHFA_enGB775GB776&oq=jobs&aqs=chrome.0.69i59j69i57j35i39j69i60l3j69i65j69i60.336j0j7&sourceid=chrome&ie=UTF-8&ibp=htl;jobs&sa=X&ved=2ahUKEwiGjKPg_LntAhWOasAKHQN2CrcQutcGKAB6BAgGEAQ&sxsrf=ALeKk020K0pApP4dUPg-jChaQko5DOdrLw:1607278969548#fpstate=tldetail&htivrt=jobs&htilrad=24.1401&htichips=date_posted:today&htischips=date_posted;today&htidocid=-xi42l9ie5CmB-OZAAAAAA%3D%3D"
 
     def get_jobs(url: INITIAL_SEARCH_URL)
+      puts "Reaches google scraper get_jobs"
       session = Capybara::Session.new(:headless_chrome)
       session.visit(INITIAL_SEARCH_URL)
 
