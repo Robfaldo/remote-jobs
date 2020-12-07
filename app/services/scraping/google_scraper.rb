@@ -36,6 +36,13 @@ module Scraping
       session = Capybara::Session.new(:headless_chrome)
       session.visit(INITIAL_SEARCH_URL)
 
+      saved_page_file = Rails.root.join('lib/saved_page.html')
+
+      File.delete(saved_page_file) if File.exist?(saved_page_file)
+      session.save_and_open_page(saved_page_file)
+
+      puts File.read(saved_page_file)
+
       current_job = 0
       jobs = []
 
