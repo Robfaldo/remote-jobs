@@ -1,7 +1,7 @@
 require 'simple-rss'
 require 'open-uri'
 require 'capybara/rails'
-require 'selenium-webdriver'# neeD?
+require 'selenium-webdriver'
 require 'webdrivers/chromedriver'
 
 # TODO:
