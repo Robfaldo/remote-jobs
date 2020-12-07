@@ -1,9 +1,9 @@
 module Scraping
   class ScrapeJobsService
     SCRAPERS = [
-      Scraping::GoogleScraper,
-      Scraping::IndeedScraper,
-      Scraping::StackoverflowScraper
+      Scraping::GoogleScraper
+      # Scraping::IndeedScraper,
+      # Scraping::StackoverflowScraper
     ]
 
     def call

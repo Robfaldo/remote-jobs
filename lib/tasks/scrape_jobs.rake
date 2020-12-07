@@ -10,4 +10,7 @@ task :scrape_jobs => :environment do
       csv << [job.title, job.company, job.link, job.location, job.description, job.source, job.source_id || "none"]
     end
   end
+
+  puts "File output: "
+  puts File.read(Rails.root.join('log/jobs.csv'))
 end
