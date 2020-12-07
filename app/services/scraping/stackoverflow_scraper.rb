@@ -7,7 +7,7 @@ module Scraping
       puts "Reaches stack scraper get_jobs"
       jobs_from_rss = SimpleRSS.parse open('http://stackoverflow.com/jobs/feed?l=London%2c+UK&u=Miles&d=20&ms=Student&mxs=Junior')
 
-      parsed_jobs_csv = CSV.parse(File.read("log/jobs.csv"))
+      parsed_jobs_csv = CSV.parse(File.read(Rails.root.join("lib/jobs.csv")))
       saved_source_ids = parsed_jobs_csv.map{|row| row[6]}
 
       jobs = []

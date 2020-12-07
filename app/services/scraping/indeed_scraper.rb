@@ -9,7 +9,7 @@ module Scraping
       puts "Reaches Indeed scraper get_jobs"
       jobs_from_rss = SimpleRSS.parse open('https://www.indeed.co.uk/rss?q=software+developer&l=London')
 
-      parsed_jobs_csv = CSV.parse(File.read("log/jobs.csv"))
+      parsed_jobs_csv = CSV.parse(File.read(Rails.root.join("lib/jobs.csv")))
       saved_source_ids = parsed_jobs_csv.map{|row| row[6]}
 
       jobs = []

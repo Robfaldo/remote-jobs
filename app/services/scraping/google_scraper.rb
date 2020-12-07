@@ -39,7 +39,12 @@ module Scraping
       current_job = 0
       jobs = []
 
+      puts "PwJeAC count: "
+      puts session.all('.PwjeAc').count
+
       session.all('.PwjeAc').each do |job|
+        puts "job at current_jobs " + current_job.to_s
+        puts job
         job.find('div[jsname="DVpPy"]').click
         title = session.all('.KLsYvd').first.text
         description = session.all('.HBvzbc').first.text
