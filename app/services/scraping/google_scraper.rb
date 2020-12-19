@@ -1,79 +1,83 @@
-require 'simple-rss'
 require 'open-uri'
-require 'capybara/rails'
-require 'selenium-webdriver'
-require 'webdrivers/chromedriver'
-require 'net/http' # remove after debugging
-
-# TODO:
-# - Extract the capybara config
-# - Only add the scraped job if it doesn't exist already
-# - Get it working in production
-
-# https://agilie.com/en/blog/case-study-how-we-built-web-scraper-on-ruby-on-rails
-# https://stackoverflow.com/questions/51233654/chrome-binary-not-found-on-heroku-with-selenium-for-ruby-on-rails
-# https://readysteadycode.com/howto-scrape-websites-with-ruby-and-headless-chrome
-
-##### Relocate
-Capybara.register_driver :headless_chrome do |app|
-  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-    chromeOptions: { args: %w(headless disable-gpu) }
-  )
-
-  Capybara::Selenium::Driver.new app,
-    browser: :chrome,
-    desired_capabilities: capabilities
-end
-
-Capybara.default_driver = :headless_chrome
-##### Relocate
 
 module Scraping
   class GoogleScraper < Scraper
-    INITIAL_SEARCH_URL = "https://www.google.com/search?q=(junior+AND+(engineer+OR+developer))+london&rlz=1C5CHFA_enGB775GB776&oq=jobs&aqs=chrome.0.69i59j69i57j35i39j69i60l3j69i65j69i60.336j0j7&sourceid=chrome&ie=UTF-8&ibp=htl;jobs&sa=X&ved=2ahUKEwiGjKPg_LntAhWOasAKHQN2CrcQutcGKAB6BAgGEAQ&sxsrf=ALeKk020K0pApP4dUPg-jChaQko5DOdrLw:1607278969548#fpstate=tldetail&htivrt=jobs&htilrad=24.1401&htichips=date_posted:today&htischips=date_posted;today&htidocid=-xi42l9ie5CmB-OZAAAAAA%3D%3D"
+    def get_jobs
+      link = "https://www.google.com/search?q=junior+software+developer+jobs+london&rlz=1C5CHFA_enGB775GB776&oq=jobs&aqs=chrome..69i57j0i271l3j69i60l4.793j0j1&sourceid=chrome&ie=UTF-8&ibp=htl;jobs&sa=X&ved=2ahUKEwibybmL2drtAhVPY8AKHVwtAxYQutcGKAB6BAgEEAQ&sxsrf=ALeKk003knj-0TE9_a6mWHNDf4XnpZn5Eg:1608403267781#fpstate=tldetail&htivrt=jobs&htilrad=8.0467&htichips=date_posted:today&htischips=date_posted;today&htidocid=NXW9wfYw7Il5cPYjAAAAAA%3D%3D"
 
-    def get_jobs(url: INITIAL_SEARCH_URL)
-      res = Net::HTTP.get(URI.parse('https://httpbin.org/ip'))
-      puts "IP address:"
-      puts JSON.parse(res)["origin"]
+      javascript = %{
+        (function () {
+            setTimeout(function () {
+                let jobs = [];
+                job_cards = Array.from(document.querySelectorAll("[jsname='DVpPy']"));
 
-      puts "Reaches google scraper get_jobs"
-      session = Capybara::Session.new(:headless_chrome)
-      session.visit(INITIAL_SEARCH_URL)
+                for (i = 0; i < job_cards.length; i++) {
+                  let title; let description; let company; let location; let link; let job_board; let company_node
+                  let job_details = document.getElementById('tl_ditsc');
 
-      saved_page_file = Rails.root.join('lib/saved_page.html')
+                  try {
+                    job_cards[i].click();
 
-      File.delete(saved_page_file) if File.exist?(saved_page_file)
-      session.save_and_open_page(saved_page_file)
+                    title = job_details.querySelector('.KLsYvd').textContent;
+                    company_node = job_details.querySelector('.nJlQNd');
+                    company = company_node.textContent
+                    link = job_details.querySelector('a.pMhGee').getAttribute('href')
+                    job_board = job_details.querySelector('a.pMhGee').textContent.split("Apply on ").pop()
+                    description = job_details.querySelector('.HBvzbc').textContent
+                  } catch {};
 
-      puts File.read(saved_page_file)
+                  try {
+                    location = company_node.parentNode.childNodes[1].textContent
+                  } catch {};
 
-      current_job = 0
+                  try {
+                    job_details.querySelector('.cVLgvc').click()
+                    description = job_details.querySelector('.HBvzbc').textContent
+                  } catch {};
+
+                  jobs.push({title: title, description: description, company: company, location: location, link: link, job_board: job_board});
+                };
+
+                el = document.createElement('div');
+                el.id = 'scraped-jobs';
+                el.textContent = JSON.stringify(jobs);
+                document.body.appendChild(el);
+            }, 15000);
+        })();
+      }
+
+      scraper = ScrapingBee.new(api_key: '8HEXOHGOPETTZRZFPXO5GR0DHBO1X1C62F0TZ2KNSP0U5QFKYLBACRV9V7YCNZ1ALRF9E5A8FAR4409U')
+
+      response = scraper.scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true)
+
+      scraped_page = Nokogiri::HTML.parse(response.body)
+
+      File.open("google_jobs_page_scrape.html", 'w') do |file|
+        file.write scraped_page
+      end
+
+      scraped_jobs = {}
+
+      begin
+        scraped_jobs = JSON.parse(scraped_page.search('#scraped-jobs').text)
+      rescue => e
+        puts "There are no google scraped jobs - #{Date.new}"
+      end
+
       jobs = []
 
-      puts "PwJeAC count: "
-      puts session.all('.PwjeAc').count
-
-      session.all('.PwjeAc').each do |job|
-        job.find('div[jsname="DVpPy"]').click
-        title = session.all('.KLsYvd').first.text
-        description = session.all('.HBvzbc').first.text
-        company = session.all('.tJ9zfc').first.all('div').first.text
-        location = session.all('.tJ9zfc').first.all('div').last.text
-        link = session.current_url
-
+      scraped_jobs.each do |job|
         jobs.push(
           ScrapedJob.new(
-            title: title,
-            company: company,
-            link: link,
-            location: location,
-            description: description,
+            title: job["title"],
+            company: job["company"],
+            link: job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', ''),
+            location: job["location"],
+            description: job["description"],
+            job_board: job["job_board"],
             source: :google
           )
         )
-
-        current_job += 1
       end
 
       jobs
