@@ -1,4 +1,6 @@
 task :scrape_jobs => :environment do
+  CSV.open(Rails.root.join("lib/jobs.csv"), 'a') # if file does not exist then create it
+
   jobs = Scraping::ScrapeJobsService.new.call
 
   CSV.open(Rails.root.join("lib/jobs.csv"), 'a') do |csv|
