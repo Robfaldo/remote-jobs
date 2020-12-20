@@ -4,7 +4,7 @@ module Scraping
       @api_key = api_key
     end
 
-    def scrape_page(link:, javascript_snippet: nil, wait_time: 10000, custom_google: false, premium_proxy: false)
+    def scrape_page(link:, javascript_snippet:, wait_time:, custom_google:, premium_proxy:)
       uri_string = 'https://app.scrapingbee.com/api/v1/?'
       uri_string << 'api_key=' + @api_key
       uri_string << "&url=#{CGI.escape(link)}"
