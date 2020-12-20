@@ -3,6 +3,9 @@ require "googleauth"
 require "googleauth/stores/file_token_store"
 require "fileutils"
 
+class GmailService # I'm just adding this class because I want to keep the stuff below for future reference but deployment breaks because this file didn't have this class defined. 
+end
+
 OOB_URI = "urn:ietf:wg:oauth:2.0:oob".freeze
 APPLICATION_NAME = "Gmail API Ruby Quickstart".freeze
 CREDENTIALS_PATH = "./config/credentials.json".freeze
