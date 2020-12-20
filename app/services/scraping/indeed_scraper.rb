@@ -24,6 +24,7 @@ module Scraping
               link: link,
               location: rss_title.split(" - ")[2].split(', ')[0],
               description: scraped_description,
+              job_board: 'Indeed',
               source: :indeed,
               source_id: job[:guid]
             )
