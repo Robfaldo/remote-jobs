@@ -7,6 +7,8 @@ module Scraping
     end
 
     def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false)
+      raise "Missing ScrapingBee API key" unless ENV["SCRAPING_BEE_KEY"]
+
       response = client.scrape_page(
         link: link,
         javascript_snippet: javascript_snippet,
