@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_20_194144) do
+ActiveRecord::Schema.define(version: 2020_12_20_194048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,8 +53,6 @@ ActiveRecord::Schema.define(version: 2020_12_20_194144) do
     t.decimal "latitude"
     t.text "description"
     t.string "job_board"
-    t.integer "status"
-    t.integer "source"
   end
 
 end
