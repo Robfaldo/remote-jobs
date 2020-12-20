@@ -46,11 +46,9 @@ module Scraping
         })();
       }
 
-      scraper = ScrapingBee.new(api_key: '8HEXOHGOPETTZRZFPXO5GR0DHBO1X1C62F0TZ2KNSP0U5QFKYLBACRV9V7YCNZ1ALRF9E5A8FAR4409U')
+      scraper = Scraper.new
 
-      response = scraper.scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true)
-
-      scraped_page = Nokogiri::HTML.parse(response.body)
+      scraped_page = scraper.scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true)
 
       File.open("google_jobs_page_scrape.html", 'w') do |file|
         file.write scraped_page
