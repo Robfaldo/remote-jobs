@@ -43,31 +43,29 @@ user_id = "me"
 
 
 
-
-require 'nokogiri'
-
-message_list = service.list_user_messages user_id
-
-messages = message_list.messages.each {|message| service.get_user_message 'me', message.id}
-
-messages.each do |message|
-  jobs = []
-  email = service.get_user_message 'me', message.id
-
-  sender_email = email.payload.headers.find {|h| h.name.include?('From')}&.value
-  subject = email.payload.headers.find { |header| header.name == "Subject" }&.value
-
-  if sender_email.include?('Job alerts from Google')
-    parsed_email = Nokogiri::HTML.parse(email.payload.parts.last.body.data)
-    links = parsed_email.xpath('//a').map{|link| link.get_attribute('href')}
-
-
-    # Scrape the job
-
-
-  end
-
-  []
-end
-
-puts links
+## I did this to scrape the gmail jobs alert email (but couldn't get the links working in the end)
+# require 'nokogiri'
+#
+# message_list = service.list_user_messages user_id
+#
+# messages = message_list.messages.each {|message| service.get_user_message 'me', message.id}
+#
+# messages.each do |message|
+#   jobs = []
+#   email = service.get_user_message 'me', message.id
+#
+#   sender_email = email.payload.headers.find {|h| h.name.include?('From')}&.value
+#   subject = email.payload.headers.find { |header| header.name == "Subject" }&.value
+#
+#   if sender_email.include?('Job alerts from Google')
+#     parsed_email = Nokogiri::HTML.parse(email.payload.parts.last.body.data)
+#     links = parsed_email.xpath('//a').map{|link| link.get_attribute('href')}
+#
+#
+#     # Scrape the job
+#
+#
+#   end
+#
+#   []
+# end
