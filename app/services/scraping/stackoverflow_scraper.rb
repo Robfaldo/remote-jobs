@@ -6,13 +6,10 @@ module Scraping
     def get_jobs
       jobs_from_rss = SimpleRSS.parse open('http://stackoverflow.com/jobs/feed?l=London%2c+UK&u=Miles&d=20&ms=Student&mxs=Junior')
 
-      parsed_jobs_csv = CSV.parse(File.read(Rails.root.join("lib/jobs.csv")))
-      saved_source_ids = parsed_jobs_csv.map{|row| row[6]}
-
       jobs = []
 
       jobs_from_rss.items.each do |job|
-        unless saved_source_ids.include? job[:guid]
+        unless Job.where(source_id: job[:guid]).count > 0
           jobs.push(
             ScrapedJob.new(
               title: job[:title].split(" at ").first.strip,
