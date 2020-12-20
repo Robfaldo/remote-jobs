@@ -11,7 +11,7 @@ i = 0
 10.times do
   job = Job.new(
     title: "Test title #{i}",
-    job_link: "www.google.com",
+    job_link: "https://www.google.com/",
     location: "London",
     description: "Test description #{i}",
     source: ["indeed", "stackoverflow", "google"].sample,
