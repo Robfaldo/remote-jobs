@@ -7,7 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-
 i = 0
 10.times do
   job = Job.new(
@@ -16,7 +15,8 @@ i = 0
     location: "London",
     description: "Test description #{i}",
     source: ["indeed", "stackoverflow", "google"].sample,
-    status: "scraped"
+    status: "scraped",
+    company: "Test company #{i}"
   )
 
   job.source_id = "Test source id #{i}" if [1, 2].sample.even?
