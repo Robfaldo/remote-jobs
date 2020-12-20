@@ -4,7 +4,6 @@ require 'open-uri'
 module Scraping
   class StackoverflowScraper < Scraper
     def get_jobs
-      puts "Reaches stack scraper get_jobs"
       jobs_from_rss = SimpleRSS.parse open('http://stackoverflow.com/jobs/feed?l=London%2c+UK&u=Miles&d=20&ms=Student&mxs=Junior')
 
       parsed_jobs_csv = CSV.parse(File.read(Rails.root.join("lib/jobs.csv")))
@@ -21,6 +20,7 @@ module Scraping
               link: job[:link],
               location: job[:title].split(" at ")[1].split("(")[1].strip.split(",")[0],
               description: job[:description],
+              job_board: 'Stackoverflow',
               source: :stackoverflow,
               source_id: job[:guid]
             )

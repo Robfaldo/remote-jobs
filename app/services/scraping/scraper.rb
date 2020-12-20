@@ -2,14 +2,24 @@ require "scraper_api"
 
 module Scraping
   class Scraper
-    def scrape(link)
-      result = client.get(link, country_code: "US").raw_body
-
-      Nokogiri::HTML.parse(result)
+    def initialize(client: ScrapingBee.new(api_key: ENV["SCRAPING_BEE_KEY"]))
+      @client = client
     end
 
-    def client
-      @client ||= ScraperAPI::Client.new("0c6a2674d4eb45d9e53a9a206ab3606a")
+    def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false)
+      response = client.scrape_page(
+        link: link,
+        javascript_snippet: javascript_snippet,
+        wait_time: wait_time,
+        custom_google: custom_google,
+        premium_proxy: premium_proxy
+      )
+
+      scraped_page = Nokogiri::HTML.parse(response.body)
     end
+
+    private
+
+    attr_reader :client
   end
 end
