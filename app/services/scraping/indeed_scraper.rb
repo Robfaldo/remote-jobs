@@ -37,7 +37,7 @@ module Scraping
     private
 
     def scrape_job_description(link)
-      page = scrape(link)
+      page = scrape_page(link: link)
 
       page.search(".jobsearch-jobDescriptionText").text
     end

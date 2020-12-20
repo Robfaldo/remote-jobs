@@ -6,12 +6,13 @@ module Scraping
       @client = client
     end
 
-    def scrape_page(link:, javascript_snippet: nil, wait_time: 10000, custom_google: false)
+    def scrape_page(link:, javascript_snippet: nil, wait_time: 10000, custom_google: false, premium_proxy: false)
       response = client.scrape_page(
         link: link,
         javascript_snippet: javascript_snippet,
         wait_time: wait_time,
-        custom_google: custom_google
+        custom_google: custom_google,
+        premium_proxy: premium_proxy
       )
 
       scraped_page = Nokogiri::HTML.parse(response.body)

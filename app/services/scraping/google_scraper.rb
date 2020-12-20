@@ -48,7 +48,7 @@ module Scraping
 
       scraper = Scraper.new
 
-      scraped_page = scraper.scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true)
+      scraped_page = scraper.scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
 
       File.open("google_jobs_page_scrape.html", 'w') do |file|
         file.write scraped_page
