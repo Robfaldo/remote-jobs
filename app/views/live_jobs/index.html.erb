@@ -1,0 +1,13 @@
+<div class="container job-listings">
+  <h3 class="heading">We have found <span class="accent"><%= @jobs.count %></span> jobs</h3>
+  <% @jobs.each do |job| %>
+    <li>
+      <a href=<%= job.job_link %>>
+        <span class="company"><%= job.company %></span>
+        <br>
+        <span class="title"><%= job.title %></span>
+        <span class="location"><%= job.location %></span>
+        <p>Posted <%= time_ago_in_words(job.created_at).remove("over") %> ago</p>
+    </li>
+  <% end %>
+</div>

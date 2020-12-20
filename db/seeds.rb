@@ -7,26 +7,21 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-# Stacks
-stacks = ["backend", "frontend", "fullstack"]
-stacks.each do |stack|
-  Stack.new(name: stack).save
-end
+i = 0
+10.times do
+  job = Job.new(
+    title: "Test title #{i}",
+    job_link: "https://www.google.com/",
+    location: "London",
+    description: "Test description #{i}",
+    source: ["indeed", "stackoverflow", "google"].sample,
+    status: "scraped",
+    company: "Test company #{i}"
+  )
 
-# Levels
-levels = ["junior", "mid", "senior", "lead", "staff"]
-levels.each do |level|
-  Level.new(name: level).save
-end
+  job.source_id = "Test source id #{i}" if [1, 2].sample.even?
+  job.job_board = "Test job board #{i}" if [1, 2].sample.even?
 
-# Technologies
-technologies = ["ruby", "javascript", "python", "java", "scala"]
-technologies.each do |technology|
-  Technology.new(name: technology).save
-end
-
-# Companies
-companies = ["test company1", "test company2"]
-companies.each do |company|
-  Company.new(name: company).save
+  job.save!
+  i += 1
 end

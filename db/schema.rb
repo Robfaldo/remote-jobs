@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_092154) do
+ActiveRecord::Schema.define(version: 2020_12_20_205037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,52 +41,20 @@ ActiveRecord::Schema.define(version: 2020_09_13_092154) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "companies", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "jobs", force: :cascade do |t|
-    t.date "published_date"
     t.string "title"
     t.string "job_link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "level_id"
-    t.bigint "stack_id"
-    t.bigint "company_id"
-    t.boolean "active", default: true, null: false
     t.string "location"
     t.decimal "longitude"
     t.decimal "latitude"
-    t.boolean "degree_required", default: false
-    t.index ["company_id"], name: "index_jobs_on_company_id"
-    t.index ["level_id"], name: "index_jobs_on_level_id"
-    t.index ["stack_id"], name: "index_jobs_on_stack_id"
-  end
-
-  create_table "jobs_technologies", id: false, force: :cascade do |t|
-    t.bigint "job_id", null: false
-    t.bigint "technology_id", null: false
-  end
-
-  create_table "levels", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "stacks", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "technologies", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.text "description"
+    t.string "job_board"
+    t.string "source"
+    t.string "source_id"
+    t.string "status"
+    t.string "company"
   end
 
 end
