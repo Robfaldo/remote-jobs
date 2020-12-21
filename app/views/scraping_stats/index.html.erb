@@ -1,0 +1,16 @@
+<table style="width:100%">
+  <tr>
+    <th>Date Scraped</th>
+    <th>Indeed</th>
+    <th>Google</th>
+    <th>Stackoverflow</th>
+  </tr>
+  <% @all_dates.each do |date| %>
+    <tr>
+      <td><%=date%></td>
+      <td><%= Job.by_date_and_source(date, :indeed).count%></td></td>
+      <td><%= Job.by_date_and_source(date, :google).count%></td></td>
+      <td><%= Job.by_date_and_source(date, :stackoverflow).count%></td></td>
+    </tr>
+  <% end %>
+</table>

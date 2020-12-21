@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   post '/create_job' => "create_job#create"
   get '/search' => "search#index"
   root 'live_jobs#index'
+  get '/stats' => 'scraping_stats#index'
 end
