@@ -46,13 +46,11 @@ module Scraping
         })();
       }
 
-      scraper = Scraper.new
+      scraped_page = scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
 
-      scraped_page = scraper.scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
-
-      File.open("google_jobs_page_scrape.html", 'w') do |file|
-        file.write scraped_page
-      end
+      # File.open("google_jobs_page_scrape.html", 'w') do |file|
+      #   file.write scraped_page
+      # end
 
       scraped_jobs = {}
 
@@ -65,20 +63,24 @@ module Scraping
       jobs = []
 
       scraped_jobs.each do |job|
-        jobs.push(
-          ScrapedJob.new(
-            title: job["title"],
-            company: job["company"],
-            link: job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', ''),
-            location: job["location"],
-            description: job["description"],
-            job_board: job["job_board"],
-            source: :google
-          )
+        next if Job.where(job_link: job["link"]).count > 0
+
+        new_job = Job.new(
+          title: job["title"],
+          job_link: job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', ''),
+          location: job["location"],
+          description: job["description"],
+          source: :google,
+          status: "scraped",
+          company: job["company"]
         )
+
+        new_job.job_board = job["job_board"] if job["job_board"]
+
+        new_job.save!
       end
 
-      jobs
+      [:google, jobs.count]
     end
   end
 end

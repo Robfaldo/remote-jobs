@@ -14,22 +14,25 @@ module Scraping
           scraped_description = scrape_job_description(link)
           rss_title = CGI::unescapeHTML(job[:title])
 
-          jobs.push(
-            ScrapedJob.new(
-              title: rss_title.split(" - ")[0],
-              company: rss_title.split(" - ")[1],
-              link: link,
-              location: rss_title.split(" - ")[2].split(', ')[0],
-              description: scraped_description,
-              job_board: 'Indeed',
-              source: :indeed,
-              source_id: job[:guid]
-            )
+          new_job = Job.new(
+            title: rss_title.split(" - ")[0],
+            job_link: link,
+            location: rss_title.split(" - ")[2].split(', ')[0],
+            description: scraped_description,
+            source: :indeed,
+            status: "scraped",
+            company: rss_title.split(" - ")[1],
+            job_board: "Indeed",
+            source_id: job[:guid]
           )
+
+          new_job.save!
+
+          jobs.push(new_job)
         end
       end
 
-      jobs
+      [:indeed, jobs.count]
     end
 
     private

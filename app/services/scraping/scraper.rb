@@ -2,13 +2,7 @@ require "scraper_api"
 
 module Scraping
   class Scraper
-    def initialize(client: ScrapingBee.new(api_key: ENV["SCRAPING_BEE_KEY"]))
-      @client = client
-    end
-
     def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false)
-      raise "Missing ScrapingBee API key" unless ENV["SCRAPING_BEE_KEY"]
-
       response = client.scrape_page(
         link: link,
         javascript_snippet: javascript_snippet,
@@ -17,11 +11,17 @@ module Scraping
         premium_proxy: premium_proxy
       )
 
-      scraped_page = Nokogiri::HTML.parse(response.body)
+      if response
+        scraped_page = Nokogiri::HTML.parse(response.body)
+      else
+        puts "There was no response from scraping bee for link: #{link}"
+      end
     end
 
     private
 
-    attr_reader :client
+    def client
+      ScrapingBee.new
+    end
   end
 end

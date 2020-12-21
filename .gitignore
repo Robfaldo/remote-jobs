@@ -44,3 +44,5 @@ Gemfile.lock
 /lib/saved_page.html
 
 google_jobs_page_scrape.html
+
+lib/scraping_summary.csv

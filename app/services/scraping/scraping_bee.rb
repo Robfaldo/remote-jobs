@@ -1,6 +1,8 @@
 module Scraping
   class ScrapingBee
-    def initialize(api_key:)
+    def initialize(api_key: ENV["SCRAPING_BEE_KEY"])
+      raise "Missing ScrapingBee API key" unless ENV["SCRAPING_BEE_KEY"]
+
       @api_key = api_key
     end
 

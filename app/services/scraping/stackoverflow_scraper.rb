@@ -10,22 +10,26 @@ module Scraping
 
       jobs_from_rss.items.each do |job|
         unless Job.where(source_id: job[:guid]).count > 0
-          jobs.push(
-            ScrapedJob.new(
-              title: job[:title].split(" at ").first.strip,
-              company: job[:title].split(" at ")[1].split("(")[0].strip,
-              link: job[:link],
-              location: job[:title].split(" at ")[1].split("(")[1].strip.split(",")[0],
-              description: job[:description],
-              job_board: 'Stackoverflow',
-              source: :stackoverflow,
-              source_id: job[:guid]
-            )
+
+          new_job = Job.new(
+            title: job[:title].split(" at ").first.strip,
+            job_link: job[:link],
+            location: job[:title].split(" at ")[1].split("(")[1].strip.split(",")[0],
+            description: job[:description],
+            source: :stackoverflow,
+            status: "scraped",
+            company: job[:title].split(" at ")[1].split("(")[0].strip,
+            job_board: "Stackoverflow",
+            source_id: job[:guid]
           )
+
+          new_job.save!
+
+          jobs.push(new_job)
         end
       end
 
-      jobs
+      [:stackoverflow, jobs.count]
     end
   end
 end
