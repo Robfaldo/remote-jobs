@@ -60,8 +60,6 @@ module Scraping
         puts "There are no google scraped jobs - #{Date.new}"
       end
 
-      jobs = []
-
       scraped_jobs.each do |job|
         next if Job.where(job_link: job["link"]).count > 0
 
@@ -79,8 +77,6 @@ module Scraping
 
         new_job.save!
       end
-
-      [:google, jobs.count]
     end
   end
 end

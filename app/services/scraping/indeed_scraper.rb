@@ -6,8 +6,6 @@ module Scraping
     def get_jobs
       jobs_from_rss = SimpleRSS.parse open('https://www.indeed.co.uk/rss?q=software+developer&l=London')
 
-      jobs = []
-
       jobs_from_rss.items.each do |job|
         unless Job.where(source_id: job[:guid]).count > 0
           link = CGI::unescapeHTML(job[:link])
@@ -27,12 +25,8 @@ module Scraping
           )
 
           new_job.save!
-
-          jobs.push(new_job)
         end
       end
-
-      [:indeed, jobs.count]
     end
 
     private

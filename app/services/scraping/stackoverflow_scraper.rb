@@ -6,8 +6,6 @@ module Scraping
     def get_jobs
       jobs_from_rss = SimpleRSS.parse open('http://stackoverflow.com/jobs/feed?l=London%2c+UK&u=Miles&d=20&ms=Student&mxs=Junior')
 
-      jobs = []
-
       jobs_from_rss.items.each do |job|
         unless Job.where(source_id: job[:guid]).count > 0
 
@@ -24,12 +22,8 @@ module Scraping
           )
 
           new_job.save!
-
-          jobs.push(new_job)
         end
       end
-
-      [:stackoverflow, jobs.count]
     end
   end
 end

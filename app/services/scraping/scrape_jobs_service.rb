@@ -7,15 +7,9 @@ module Scraping
     ]
 
     def call
-      result_summary = []
-
       SCRAPERS.each do |scraper|
-        result = scraper.new.get_jobs
-
-        result_summary.push(result)
+        scraper.new.get_jobs
       end
-
-      result_summary
     end
   end
 end

@@ -40,6 +40,16 @@ module Scraping
       puts "3rd Response HTTP Status Code: #{ res.code }"
       puts "3rd Response HTTP Response Body: #{ res.body }"
       return res if res.code == "200"
+
+      res = http.request(req)
+      puts "4th Response HTTP Status Code: #{ res.code }"
+      puts "4th Response HTTP Response Body: #{ res.body }"
+      return res if res.code == "200"
+
+      res = http.request(req)
+      puts "5th Response HTTP Status Code: #{ res.code }"
+      puts "5th Response HTTP Response Body: #{ res.body }"
+      return res if res.code == "200"
     rescue StandardError => e
       puts "HTTP Request failed (#{ e.message })"
     end
