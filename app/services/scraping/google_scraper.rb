@@ -61,11 +61,13 @@ module Scraping
       end
 
       scraped_jobs.each do |job|
-        next if Job.where(job_link: job["link"]).count > 0
+        job_link = job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', '')
+
+        next if Job.where(job_link: job_link).count > 0
 
         new_job = Job.new(
           title: job["title"],
-          job_link: job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', ''),
+          job_link: job_link,
           location: job["location"],
           description: job["description"],
           source: :google,
