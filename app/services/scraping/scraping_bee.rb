@@ -1,7 +1,9 @@
 module Scraping
   class ScrapingBee
+    class ScrapingBeeError < StandardError; end
+
     def initialize(api_key: ENV["SCRAPING_BEE_KEY"])
-      raise "Missing ScrapingBee API key" unless ENV["SCRAPING_BEE_KEY"]
+      raise ScrapingBeeError.new("Missing ScrapingBee API key") unless ENV["SCRAPING_BEE_KEY"]
 
       @api_key = api_key
     end
@@ -50,7 +52,12 @@ module Scraping
       puts "5th Response HTTP Status Code: #{ res.code }"
       puts "5th Response HTTP Response Body: #{ res.body }"
       return res if res.code == "200"
+
+      e_message = "Could not scrape after 5 attempts. Link: #{link}. URI String: #{uri_string}. Last response code: #{res.code}. Last response body: #{res.body}"
+
+      raise ScrapingBeeError.new(e_message)
     rescue StandardError => e
+      Sentry.capture_exception(e)
       puts "HTTP Request failed (#{ e.message })"
     end
   end

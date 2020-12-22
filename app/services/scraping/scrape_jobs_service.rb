@@ -7,7 +7,6 @@ module Scraping
     ]
 
     def call
-      Sentry.capture_exception('this is a string')
       SCRAPERS.each do |scraper|
         scraper.new.get_jobs
       end
