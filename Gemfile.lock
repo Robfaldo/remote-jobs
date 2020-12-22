@@ -281,6 +281,12 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    sentry-rails (4.1.1)
+      rails (>= 5.0)
+      sentry-ruby (~> 4.1.0)
+    sentry-ruby (4.1.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      faraday (>= 1.0)
     signet (0.14.0)
       addressable (~> 2.3)
       faraday (>= 0.17.3, < 2.0)
@@ -356,6 +362,8 @@ DEPENDENCIES
   sass-rails (>= 6)
   scraperapi
   selenium-webdriver
+  sentry-rails
+  sentry-ruby
   simple-rss
   spring
   spring-watcher-listen (~> 2.0.0)

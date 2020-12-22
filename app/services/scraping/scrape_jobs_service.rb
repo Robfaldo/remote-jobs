@@ -7,6 +7,7 @@ module Scraping
     ]
 
     def call
+      raise 'im an error'
       SCRAPERS.each do |scraper|
         scraper.new.get_jobs
       end
