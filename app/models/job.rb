@@ -27,4 +27,8 @@ class Job < ApplicationRecord
   def self.by_date_and_source(date, source)
     Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source)
   end
+
+  def rejected?
+    self.status == "rejected"
+  end
 end

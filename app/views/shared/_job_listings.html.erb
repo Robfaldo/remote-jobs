@@ -9,6 +9,11 @@
             <span class="company"><%= job.company %></span>
             <span class="title"><%= job.title %></span>
             <span class="location"><%= job.location %></span>
+
+            <% if job.rejected? %>
+              </br>
+              <span class="rejected-reason">Reason for rejection: <%= job.status_reason %> </span>
+            <% end %>
           </div>
           <div class="job-right">
             <span class="posted">Posted <%= time_ago_in_words(job.created_at).remove("over") %> ago</span>
