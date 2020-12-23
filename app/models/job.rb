@@ -13,7 +13,7 @@ class Job < ApplicationRecord
     message: "%{value} is not a valid status" }
 
   def self.live_jobs
-    Job.where(status: "scraped")
+    Job.where(status: "scraped").order(:created_at).reverse
   end
 
   def self.by_date_and_source(date, source)
