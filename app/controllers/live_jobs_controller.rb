@@ -1,5 +1,5 @@
 class LiveJobsController < ApplicationController
   def index
-    @jobs = Job.live_jobs
+    @jobs = Job.approved_jobs
   end
 end

@@ -16,7 +16,19 @@ class Job < ApplicationRecord
     Job.where(status: "scraped").order(:created_at).reverse
   end
 
+  def self.rejected_jobs
+    Job.where(status: "rejected").order(:created_at).reverse
+  end
+
+  def self.approved_jobs
+    Job.where(status: "approved").order(:created_at).reverse
+  end
+
   def self.by_date_and_source(date, source)
     Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source)
+  end
+
+  def rejected?
+    self.status == "rejected"
   end
 end
