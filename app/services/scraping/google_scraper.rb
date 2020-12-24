@@ -3,8 +3,6 @@ require 'open-uri'
 module Scraping
   class GoogleScraper < Scraper
     def get_jobs
-      link = "https://www.google.com/search?q=junior+software+developer+jobs+london&rlz=1C5CHFA_enGB775GB776&oq=jobs&aqs=chrome..69i57j0i271l3j69i60l4.793j0j1&sourceid=chrome&ie=UTF-8&ibp=htl;jobs&sa=X&ved=2ahUKEwibybmL2drtAhVPY8AKHVwtAxYQutcGKAB6BAgEEAQ&sxsrf=ALeKk003knj-0TE9_a6mWHNDf4XnpZn5Eg:1608403267781#fpstate=tldetail&htivrt=jobs&htilrad=8.0467&htichips=date_posted:today&htischips=date_posted;today&htidocid=NXW9wfYw7Il5cPYjAAAAAA%3D%3D"
-
       javascript = %{
         (function () {
             setTimeout(function () {
@@ -46,39 +44,53 @@ module Scraping
         })();
       }
 
-      scraped_page = scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
+      search_links = YAML.load(File.read(yaml_path))
 
-      # File.open("google_jobs_page_scrape.html", 'w') do |file|
-      #   file.write scraped_page
-      # end
+      search_links["London"].each do |link|
+        scraped_page = scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
 
-      scraped_jobs = {}
+        # File.open("google_jobs_page_scrape.html", 'w') do |file|
+        #   file.write scraped_page
+        # end
 
-      begin
-        scraped_jobs = JSON.parse(scraped_page.search('#scraped-jobs').text)
-      rescue => e
-        puts "There are no google scraped jobs - #{Date.new}"
+        scraped_jobs = {}
+
+        begin
+          scraped_jobs = JSON.parse(scraped_page.search('#scraped-jobs').text)
+        rescue => e
+          puts "There are no google scraped jobs - #{Date.new}"
+        end
+
+        scraped_jobs.each do |job|
+          job_link = job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', '')
+
+          next if Job.where(job_link: job_link).count > 0
+
+          new_job = Job.new(
+              title: job["title"],
+              job_link: job_link,
+              location: job["location"],
+              description: job["description"],
+              source: :google,
+              status: "scraped",
+              company: job["company"]
+          )
+
+          new_job.job_board = job["job_board"] if job["job_board"]
+
+          new_job.save!
+        end
       end
+    end
 
-      scraped_jobs.each do |job|
-        job_link = job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', '')
+    private
 
-        next if Job.where(job_link: job_link).count > 0
+    def yaml_path
+      Rails.root.join("config", "search_links", "#{class_name_underscored}.yml")
+    end
 
-        new_job = Job.new(
-          title: job["title"],
-          job_link: job_link,
-          location: job["location"],
-          description: job["description"],
-          source: :google,
-          status: "scraped",
-          company: job["company"]
-        )
-
-        new_job.job_board = job["job_board"] if job["job_board"]
-
-        new_job.save!
-      end
+    def class_name_underscored
+      self.class.name.split("::")[1].underscore
     end
   end
 end
