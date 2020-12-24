@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+.main {
+  background-color: #f8f8f8;
+}
+
 ul {
   list-style-type: none;
 }
@@ -20,17 +24,18 @@ a:hover, a:visited, a:link, a:active
   margin: 0px;
 
   @media (min-width: 992px) {
-    margin: 0px 200px 0px 200px;
+    display: flex;
+    flex: 1 1;
   }
 }
 
-.page-title, .page-subtitle, .jobs-found, .job-left, .job-right {
+.filters-container, .jobs-found, .job-left, .job-right {
   color: #040403;
 }
 
 .page-title{
   font-size: 7rem;
-
+  margin:0px;
 }
 
 .page-subtitle{
@@ -38,8 +43,12 @@ a:hover, a:visited, a:link, a:active
   font-size: 3rem;
 
   @media (min-width: 992px) {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
+}
+
+.page-subtitle, .page-title {
+  color: #ffffff;
 }
 
 .jobs-found {
@@ -51,6 +60,7 @@ a:hover, a:visited, a:link, a:active
 
   @media (min-width: 992px) {
     font-size: 1.6rem;
+    margin-top: 20px;
   }
 }
 
@@ -72,7 +82,7 @@ a:hover, a:visited, a:link, a:active
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #FDE7E9;
+  background-color: #ffffff;
   border: none;
   padding: 20px 30px 20px 40px;
 }
@@ -121,7 +131,6 @@ a:hover, a:visited, a:link, a:active
   background-color: #000000;
   align-items: center;
   font-family: sans-serif;
-  background-image: url("email-pattern.png");
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
@@ -129,34 +138,79 @@ a:hover, a:visited, a:link, a:active
   font-size: 2.8rem;
   min-height: 600px;
   justify-content: center;
+  background-color: #3cbfab;
 
   @media (min-width: 992px) {
-    min-height: 400px;
+    min-height: 300px;
     font-size: 1.3rem;
   }
 }
 
-#posted-today, #posted-three-days, #show-all-jobs {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-}
-
-#show-all-jobs {
-  background-color: #89f58d;
-}
-
-#posted-today, #show-all-jobs {
-  margin-right: 10px;
+.jobs-container {
+  display: flex;
 }
 
 .filters {
   display: flex;
   justify-content: center;
   padding-bottom: 30px;
+}
+.filters-container {
+  visibility: hidden;
+
+  @media (min-width: 992px) {
+    visibility: visible;
+    //font-size: 1.5rem;
+    background-color: #ffffff;
+    margin-left: 30px;
+    flex: 0 1 25em;
+    height: 30em;
+  }
+}
+
+.filter-title {
+  font-size: 1.2rem;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+#filter-header {
+  font-size: 1.6rem;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  text-decoration: underline;
+  padding-bottom: 25px;
+  padding-top: 40px;
+}
+
+.filter {
+  padding-left: 10px;
+}
+
+.filter-box {
+  border: black solid 2px;
+  width: 1.8em;
+  height: 1.8em;
+  background-color: #ffffff;
+  margin-right: 15px;
+}
+
+.checkbox-container {
+  display: flex;
+  margin: 20px 0px 20px 0px;
+}
+
+.filter-text {
+  font-size: 1rem;
+  font-family: sans-serif;
+}
+
+#show-all-jobs {
+  background-color: #3cbfab;
+}
+
+#posted-today, #show-all-jobs {
+  margin-right: 10px;
 }

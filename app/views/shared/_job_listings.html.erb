@@ -1,37 +1,52 @@
-<div class="filters">
-  <div id="show-all-jobs" class="filter">
-    Show all jobs
-  </div>
-  <div id="posted-today" class="filter">
-    Posted Today
-  </div>
-  <div id="posted-three-days" class="filter">
-    Posted in the last 3 days
-  </div>
-</div>
+<div class="main">
+  <h3 class="jobs-found">We have found <span class="jobs-count"><%= @jobs.count %></span> jobs</h3>
 
-<h3 class="jobs-found">We have found <span class="jobs-count"><%= @jobs.count %></span> jobs</h3>
+  <div class="jobs-container">
+    <div class="filters-container">
+      <span id="filter-header">Filter results</span>
+      <div class="filter">
+        <span class="filter-title">Date Range</span>
+        <div class="date-range-container">
 
-<div class="nothing-yet">
-  <ul class=job-listings>
-    <% @jobs.each do |job| %>
-      <li class="job <%= job.posted_date_range %>">
-        <a class="job-details-container" href=<%= job.job_link %>>
-          <div class="job-left">
-            <span class="company"><%= job.company %></span>
-            <span class="title"><%= job.title %></span>
-            <span class="location"><%= job.location %></span>
-
-            <% if job.rejected? %>
-              </br>
-              <span class="rejected-reason">Reason for rejection: <%= job.status_reason %> </span>
-            <% end %>
+          <div class="checkbox-container">
+            <div id="show-all-jobs" class="filter-box"></div>
+            <span class="filter-text">Jobs posted any time</span>
           </div>
-          <div class="job-right">
-            <span class="posted">Posted <%= time_ago_in_words(job.created_at).remove("over") %> ago</span>
+
+          <div class="checkbox-container">
+            <div id="posted-today" class="filter-box"></div>
+            <span class="filter-text">Jobs posted today</span>
           </div>
-        </a>
-      </li>
-    <% end %>
-  </ul>
+
+          <div class="checkbox-container">
+            <div id="posted-three-days" class="filter-box"></div>
+            <span class="filter-text">Jobs posted in the last 3 days</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <ul class=job-listings>
+      <% @jobs.each do |job| %>
+        <li class="job <%= job.posted_date_range %>">
+          <a class="job-details-container" href=<%= job.job_link %>>
+            <div class="job-left">
+              <span class="company"><%= job.company %></span>
+              <span class="title"><%= job.title %></span>
+              <span class="location"><%= job.location %></span>
+
+              <% if job.rejected? %>
+                </br>
+                <span class="rejected-reason">Reason for rejection: <%= job.status_reason %> </span>
+              <% end %>
+            </div>
+            <div class="job-right">
+              <span class="posted">Posted <%= time_ago_in_words(job.created_at).remove("over") %> ago</span>
+            </div>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
