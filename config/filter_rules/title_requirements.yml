@@ -5,6 +5,7 @@ level:
   - entry
   - apprentice
   - apprenticeship
+  - trainee
 role:
   - developer
   - engineer
