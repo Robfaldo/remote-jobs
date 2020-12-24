@@ -24,8 +24,12 @@ class Job < ApplicationRecord
     Job.where(status: "approved").order(:created_at).reverse
   end
 
-  def self.by_date_and_source(date, source)
-    Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source)
+  def self.by_date_and_source(date, source, status: nil)
+    if status
+      Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source, status: status)
+    else
+      Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source)
+    end
   end
 
   def rejected?

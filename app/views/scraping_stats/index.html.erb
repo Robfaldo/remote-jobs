@@ -8,9 +8,18 @@
   <% @all_dates.each do |date| %>
     <tr>
       <td><%=date%></td>
-      <td><%= Job.by_date_and_source(date, :indeed).count%></td></td>
-      <td><%= Job.by_date_and_source(date, :google).count%></td></td>
-      <td><%= Job.by_date_and_source(date, :stackoverflow).count%></td></td>
+      <td>
+        <%= Job.by_date_and_source(date, :indeed).count%>
+        (<span class="rejected-count"><%= Job.by_date_and_source(date, :indeed, status: "rejected").count %></span>)
+      </td>
+      <td>
+        <%= Job.by_date_and_source(date, :google).count%>
+        (<span class="rejected-count"><%= Job.by_date_and_source(date, :google, status: "rejected").count %></span>)
+      </td>
+      <td>
+        <%= Job.by_date_and_source(date, :stackoverflow).count%>
+        (<span class="rejected-count"><%= Job.by_date_and_source(date, :stackoverflow, status: "rejected").count %></span>)
+      </td>
     </tr>
   <% end %>
 </table>
