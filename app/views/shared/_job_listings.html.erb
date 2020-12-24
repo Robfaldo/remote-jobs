@@ -1,9 +1,21 @@
+<div class="filters">
+  <div id="show-all-jobs" class="filter">
+    Show all jobs
+  </div>
+  <div id="posted-today" class="filter">
+    Posted Today
+  </div>
+  <div id="posted-three-days" class="filter">
+    Posted in the last 3 days
+  </div>
+</div>
+
 <h3 class="jobs-found">We have found <span class="jobs-count"><%= @jobs.count %></span> jobs</h3>
 
 <div class="nothing-yet">
   <ul class=job-listings>
     <% @jobs.each do |job| %>
-      <li class="job">
+      <li class="job <%= job.posted_date_range %>">
         <a class="job-details-container" href=<%= job.job_link %>>
           <div class="job-left">
             <span class="company"><%= job.company %></span>

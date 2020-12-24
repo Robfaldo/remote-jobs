@@ -35,4 +35,19 @@ class Job < ApplicationRecord
   def rejected?
     self.status == "rejected"
   end
+
+  def posted_date_range
+    job_posted_date = self.created_at
+
+    days_since_posting = (Date.today - job_posted_date.to_date).to_i
+
+    case days_since_posting
+    when 0
+      "posted-today"
+    when 1..3
+      "posted-three-days"
+    else
+      "posted-over-three-days"
+    end
+  end
 end
