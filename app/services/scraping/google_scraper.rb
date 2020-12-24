@@ -92,17 +92,5 @@ module Scraping
         })();
       }
     end
-
-    def search_links
-      YAML.load(File.read(yaml_path))
-    end
-
-    def yaml_path
-      Rails.root.join("config", "search_links", "#{class_name_underscored}.yml")
-    end
-
-    def class_name_underscored
-      self.class.name.split("::")[1].underscore
-    end
   end
 end
