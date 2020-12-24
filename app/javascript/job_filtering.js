@@ -1,12 +1,12 @@
 window.addEventListener('DOMContentLoaded', () => {
     const selectFilter = function (id, visible_jobs_count) {
-        let filters = document.getElementsByClassName('filter');
+        let filters = document.getElementsByClassName('filter-box');
 
         for (let i = 0; i < filters.length; i++) {
-            filters[i].style.backgroundColor = "#4CAF50";
+            filters[i].style.backgroundColor = "#ffffff";
         };
 
-        document.getElementById(id).style.backgroundColor = "#89f58d";
+        document.getElementById(id).style.backgroundColor = "#3cbfab";
         document.getElementsByClassName('jobs-count')[0].textContent = visible_jobs_count;
     };
 
