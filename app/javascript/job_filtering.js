@@ -16,10 +16,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i < jobs.length; i++) {
             if (jobs[i].classList.contains('posted-today')) {
-                jobs[i].style.visibility = "visible";
+                jobs[i].style.display = "";
                 visible_jobs_count++
             } else {
-                jobs[i].style.visibility = "hidden";
+                jobs[i].style.display = "none";
             };
         };
 
@@ -34,10 +34,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
         for (let i = 0; i < jobs.length; i++) {
             if (jobs[i].classList.contains('posted-today') || jobs[i].classList.contains('posted-three-days')) {
-                jobs[i].style.visibility = "visible";
+                jobs[i].style.display = "";
                 visible_jobs_count++
             } else {
-                jobs[i].style.visibility = "hidden";
+                jobs[i].style.display = "none";
             };
         };
 
@@ -49,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
         let visible_jobs_count = 0;
 
         for (let i = 0; i < jobs.length; i++) {
-            jobs[i].style.visibility = "visible";
+            jobs[i].style.display = "";
             visible_jobs_count++;
         };
 
