@@ -12,3 +12,70 @@ role:
   - software development
   - software engineering
   - web development
+software_indicator:
+  - software
+  - web
+  - website
+  - webapp
+  - web-app
+# Stack
+  - frontend
+  - front-end
+  - front end
+  - backend
+  - back-end
+  - back end
+  - fullstack
+  - full-stack
+  - full stack
+  - server-side
+  - server side
+  - application
+  - mobile
+  - android
+  - ios
+  - native
+  - systems
+  - infrastructure
+  - machine learning
+  - machine-learning
+  - microservices
+  - micro services
+# languages
+  - go
+  - javascript
+  - java
+  - c++
+  - c#
+  - python
+  - ruby
+  - .net
+  - php
+  - scala
+  - groovy
+  - html
+  - css
+  - elixir
+  - swift
+  - perl
+  - kotlin
+  - rust
+  - dart
+  - unity
+  - node
+# Frameworks
+  - django
+  - flask
+  - symfony
+  - jquery
+  - express
+  - asp
+  - sinatra
+  - drupal
+  - spring
+  - react
+  - angular
+  - laravel
+  - wordpress
+  - rails
+  - salesforce

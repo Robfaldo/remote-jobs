@@ -9,8 +9,9 @@ module JobFiltering
     def can_handle?(job)
       @levels_matched = rules["level"].filter { |rule| job.title.downcase.include?(rule.downcase) }
       @roles_matched = rules["role"].filter { |rule| job.title.downcase.include?(rule.downcase) }
+      @software_indicator_matched = rules["software_indicator"].filter { |rule| job.title.downcase.include?(rule.downcase) }
 
-      @levels_matched.count == 0 || @roles_matched.count == 0
+      @levels_matched.count == 0 || @roles_matched.count == 0 || @software_indicator_matched.count == 0
     end
   end
 end
