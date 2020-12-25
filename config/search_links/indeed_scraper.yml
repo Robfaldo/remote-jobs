@@ -1,3 +1,2 @@
 London:
-  - https://www.indeed.co.uk/rss?q=software+developer&l=London
-
+  - https://www.indeed.co.uk/rss?q=title%3A%28junior+or+grad+or+graduate+or+entry+or+apprentice+or+apprenticeship+or+trainee%29+AND+%28developer+or+engineer+or+%22software+development%22+or+%22web+development%22%29&l=london
