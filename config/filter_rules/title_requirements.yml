@@ -6,12 +6,15 @@ level:
   - apprentice
   - apprenticeship
   - trainee
+  - jr.
 role:
   - developer
   - engineer
   - software development
   - software engineering
   - web development
+  - programmer
+  - programming
 software_indicator:
   - software
   - web
@@ -41,6 +44,9 @@ software_indicator:
   - machine-learning
   - microservices
   - micro services
+  - api
+  - database
+  - data
 # languages
   - go
   - javascript
