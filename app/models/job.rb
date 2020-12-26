@@ -6,7 +6,7 @@ class Job < ApplicationRecord
   validates :company, presence: true
   validates :job_link, presence: true
   validates :location, presence: true
-  validates :source, inclusion: { in: %w(indeed google stackoverflow glassdoor),
+  validates :source, inclusion: { in: %w(indeed google stackoverflow glassdoor technojobs),
     message: "%{value} is not a valid source" }
   validates :description, presence: true
   validates :status, inclusion: { in: %w(scraped rejected approved),
