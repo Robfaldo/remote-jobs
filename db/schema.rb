@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_23_114510) do
+ActiveRecord::Schema.define(version: 2020_12_26_102838) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_12_23_114510) do
     t.string "status"
     t.string "company"
     t.string "status_reason"
+    t.string "salary"
   end
 
 end

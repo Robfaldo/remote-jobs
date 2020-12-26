@@ -14,7 +14,7 @@ module Scraping
       uri_string << "&url=#{CGI.escape(link)}"
       uri_string << "&wait=" + wait_time.to_s
       uri_string << "&premium_proxy=true" if premium_proxy
-      uri_string << "&country_code=gb"
+      uri_string << "&country_code=gb" if premium_proxy
       uri_string << "&js_snippet=#{Base64.strict_encode64(javascript_snippet)}" if javascript_snippet
       uri_string << "&custom_google=True" if custom_google
       uri = URI(uri_string)
