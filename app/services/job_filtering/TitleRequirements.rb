@@ -1,5 +1,9 @@
 module JobFiltering
   class TitleRequirements < BaseHandler
+    def meets_title_requirements?(job)
+      can_handle?(job) == false
+    end
+
     private
 
     def handle(job)
