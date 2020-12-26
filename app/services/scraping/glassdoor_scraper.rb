@@ -56,9 +56,10 @@ module Scraping
             status: "scraped",
             company: company,
             source_id: source_link,
-            job_board: "glassdoor",
-            salary: salary
+            job_board: "glassdoor"
         )
+
+        new_job.salary = salary if salary
 
         new_job.save!
       end
