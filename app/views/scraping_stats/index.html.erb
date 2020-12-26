@@ -20,6 +20,10 @@
         <%= Job.by_date_and_source(date, :stackoverflow).count%>
         (<span class="rejected-count"><%= Job.by_date_and_source(date, :stackoverflow, status: "rejected").count %></span>)
       </td>
+      <td>
+        <%= Job.by_date_and_source(date, :glassdoor).count%>
+        (<span class="rejected-count"><%= Job.by_date_and_source(date, :glassdoor, status: "rejected").count %></span>)
+      </td>
     </tr>
   <% end %>
 </table>
