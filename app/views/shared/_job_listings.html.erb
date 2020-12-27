@@ -8,17 +8,17 @@
 
           <div class="checkbox-container">
             <div id="show-all-jobs" class="filter-box"></div>
-            <span class="filter-text">Jobs posted any time</span>
+            <span class="filter-text">Show all jobs (<%= @jobs.count %>)</span>
           </div>
 
           <div class="checkbox-container">
             <div id="posted-today" class="filter-box"></div>
-            <span class="filter-text">Jobs posted today</span>
+            <span class="filter-text">Posted today (<%= @jobs_posted_today.count %>)</span>
           </div>
 
           <div class="checkbox-container">
             <div id="posted-three-days" class="filter-box"></div>
-            <span class="filter-text">Jobs posted in the last 3 days</span>
+            <span class="filter-text">Posted last 3 days (<%= @jobs_posted_last_3.count %>)</span>
           </div>
 
         </div>
@@ -34,13 +34,10 @@
             <div class="job-left">
               <span class="title"><%= job.title %></span>
               <span class="company"><%= job.company %></span>
-
               <div class="tags-container">
                 <div class="location tag"><%= job.location %></div>
                 <div class="posted-date tag"><%= job.posted_days_ago %></div>
-
               </div>
-
               <% if job.rejected? %>
                 </br>
                 <span class="rejected-reason">Reason for rejection: <%= job.status_reason %> </span>
