@@ -3,7 +3,7 @@ module JobFiltering
     private
 
     def handle(job)
-      reject_job(job, message: "Rejected: Job link has already been added within 1 week, job link: #{job_link}")
+      reject_job(job, message: "Rejected: Job link has already been added within 1 week, job link: #{job.job_link}")
     end
 
     def can_handle?(job)
