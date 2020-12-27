@@ -10,8 +10,7 @@ module JobFiltering
       @identical_links_already_filtered = Job.where('created_at >= ?', 1.week.ago).where(job_link: job.job_link).to_a.filter{|job| job.status != "scraped"}
       @identical_data_already_filtered = Job.where('created_at >= ?', 1.week.ago).where(company: job.company, title: job.title, location: job.location).to_a.filter{|job| job.status != "scraped"}
 
-      # If there's only 1 then it's the current jobs' one, any more means it's already been added in the last week
-      @identical_links_already_filtered.count > 1 || @identical_data_already_filtered.count > 1
+      @identical_links_already_filtered.count > 0 || @identical_data_already_filtered.count > 0
     end
   end
 end
