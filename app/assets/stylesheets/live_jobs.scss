@@ -89,8 +89,12 @@ a:hover, a:visited, a:link, a:active
   justify-content: center;
   background-color: #ffffff;
   border: none;
-  padding: 20px 30px 20px 40px;
+  padding: 30px 30px 30px 40px;
   border-radius: 20px;
+
+  @media (min-width: 992px) {
+    padding: 20px 30px 20px 40px;
+  }
 }
 
 .job-right {
@@ -125,12 +129,21 @@ a:hover, a:visited, a:link, a:active
 }
 .title {
   font-weight: bold;
-  font-size: 1.7rem;
+  font-size: 2.2rem;
+  padding: 10px 0px 10px 0px;
+
+  @media (min-width: 992px) {
+    font-size: 1.7rem;
+  }
 }
 .company {
-  font-size: 1.2rem;
+  font-size: 1.9rem;
   font-weight: bold;
   color: #3cbfab;
+
+  @media (min-width: 992px) {
+    font-size: 1.2rem;
+  }
 }
 
 .header-container {
@@ -235,10 +248,15 @@ a:hover, a:visited, a:link, a:active
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
   border-radius: 7px;
   margin-top: 20px;
   margin-right: 20px;
+  font-size: 25px;
+
+  @media (min-width: 992px) {
+    font-size: 16px;
+
+  }
 }
 
 .location:before {
