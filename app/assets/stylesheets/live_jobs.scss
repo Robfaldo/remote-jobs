@@ -20,12 +20,13 @@ a:hover, a:visited, a:link, a:active
   flex-direction: column;
   min-height: 100vh;
   font-family: sans-serif;
-  padding: 0px 20px 100px 20px;
   margin: 0px;
+  padding: 0px 20px 100px 20px;
 
   @media (min-width: 992px) {
     display: flex;
     flex: 1 1;
+    padding: 0px 60px 100px 20px;
   }
 }
 
@@ -34,12 +35,18 @@ a:hover, a:visited, a:link, a:active
 }
 
 .page-title{
-  font-size: 7rem;
-  margin:0px;
+  font-size: 4rem;
+  font-weight: bold;
+  margin:0px 0px 10px 0px;
+  color: #3cbfab !important;
+}
+
+#title-end {
+  color: #04080F;
 }
 
 .page-subtitle{
-  color: #04080F;
+  color: #04080F !important;
   font-size: 3rem;
 
   @media (min-width: 992px) {
@@ -52,23 +59,21 @@ a:hover, a:visited, a:link, a:active
 }
 
 .jobs-found {
-  color: #04080F;
+  color: #3cbfab;
 
   font-size: 2.5rem;
 
-  text-align: center;
+  text-align: end;
+  padding-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+
 
   @media (min-width: 992px) {
     font-size: 1.6rem;
     margin-top: 20px;
   }
 }
-
-.jobs-count {
-  color: red;
-  font-weight: bold;
-}
-
 
 .company, .title, .location, .posted, .rejected-reason {
   display: block;
@@ -85,6 +90,7 @@ a:hover, a:visited, a:link, a:active
   background-color: #ffffff;
   border: none;
   padding: 20px 30px 20px 40px;
+  border-radius: 20px;
 }
 
 .job-right {
@@ -119,6 +125,12 @@ a:hover, a:visited, a:link, a:active
 }
 .title {
   font-weight: bold;
+  font-size: 1.7rem;
+}
+.company {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #3cbfab;
 }
 
 .header-container {
@@ -128,7 +140,6 @@ a:hover, a:visited, a:link, a:active
   width: 100vw;
   text-align: center;
   margin-bottom: 10px;
-  background-color: #000000;
   align-items: center;
   font-family: sans-serif;
   -webkit-background-size: contain;
@@ -136,9 +147,9 @@ a:hover, a:visited, a:link, a:active
   -o-background-size: contain;
   background-size: contain;
   font-size: 2.8rem;
-  min-height: 600px;
+  min-height: 400px;
   justify-content: center;
-  background-color: #3cbfab;
+  background-color: #ffffff;
 
   @media (min-width: 992px) {
     min-height: 300px;
@@ -163,13 +174,16 @@ a:hover, a:visited, a:link, a:active
   @media (min-width: 992px) {
     background-color: #ffffff;
     margin-left: 30px;
+    margin-right: 20px;
     flex: 0 1 25em;
     height: 30em;
+    margin-top: 20px;
+    border-radius: 20px;
   }
 }
 
 .filter-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-family: sans-serif;
   font-weight: bold;
 }
@@ -178,19 +192,18 @@ a:hover, a:visited, a:link, a:active
   font-size: 1.6rem;
   font-family: sans-serif;
   font-weight: bold;
-  text-align: center;
+  text-align: start;
   display: block;
-  text-decoration: underline;
-  padding-bottom: 25px;
-  padding-top: 40px;
+  padding: 20px 0px 25px 30px;
+
 }
 
 .filter {
-  padding-left: 10px;
+  padding-left: 30px;
 }
 
 .filter-box {
-  border: black solid 2px;
+  border: grey solid 1px;
   width: 1.8em;
   height: 1.8em;
   background-color: #ffffff;
@@ -199,7 +212,7 @@ a:hover, a:visited, a:link, a:active
 
 .checkbox-container {
   display: flex;
-  margin: 20px 0px 20px 0px;
+  margin: 15px 0px 10px 0px;
 }
 
 .filter-text {
@@ -211,6 +224,31 @@ a:hover, a:visited, a:link, a:active
   background-color: #3cbfab;
 }
 
-#posted-today, #show-all-jobs {
-  margin-right: 10px;
+.tags-container {
+  display: flex;
+}
+.tag {
+  background-color: #f8f8f8;
+  border: solid 1px grey;
+  color: #04080F;
+  padding: 13px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 7px;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.location:before {
+  content: url("map-pin.png");
+  padding-right: 10px;
+  //vertical-align: top; // stops the text being pushed down
+}
+
+.posted-date:before {
+  content: url("clock.png");
+  padding-right: 10px;
+  //vertical-align: top; // stops the text being pushed down
 }
