@@ -12,8 +12,8 @@ class Job < ApplicationRecord
   validates :status, inclusion: { in: %w(scraped rejected approved),
     message: "%{value} is not a valid status" }
 
-  scope :created_today, lambda{ where(['created_at > ?', 0.days.ago]) }
-  scope :created_last_3_days, lambda{ where(['created_at > ?', 4.days.ago]) }
+  scope :created_today, lambda{ where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
+  scope :created_last_3_days, lambda{ where(created_at: (Date.today - 3)..Date.today.end_of_day) }
 
   def self.live_jobs
     Job.where(status: "scraped").order(:created_at).reverse
