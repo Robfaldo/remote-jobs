@@ -50,4 +50,17 @@ class Job < ApplicationRecord
       "posted-over-three-days"
     end
   end
+
+  def posted_days_ago
+    days_ago = (Date.today - self.created_at.to_date).to_i
+
+    case days_ago
+    when 0
+      "Today"
+    when 1
+      "1 day ago"
+    else
+      "#{days_ago} days ago"
+    end
+  end
 end
