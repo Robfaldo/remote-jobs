@@ -5,7 +5,8 @@ module Scraping
       Scraping::GlassdoorScraper,
       Scraping::GoogleScraper,
       Scraping::IndeedScraper,
-      Scraping::StackoverflowScraper
+      Scraping::StackoverflowScraper,
+      Scraping::CompaniesDirectScraper
     ]
 
     def call
