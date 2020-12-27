@@ -192,6 +192,12 @@ a:hover, a:visited, a:link, a:active
     height: 30em;
     margin-top: 20px;
     border-radius: 20px;
+
+    // Make it sticky
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    //
   }
 }
 
