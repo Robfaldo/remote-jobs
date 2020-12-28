@@ -1,5 +1,7 @@
 module Scraping
   class ScrapeJobsService
+    class ScrapingError < StandardError; end
+
     SCRAPERS = [
       # Scraping::CvLibraryScraper,
       # Scraping::GlassdoorScraper,
@@ -15,10 +17,10 @@ module Scraping
         scraper.new.get_jobs
 
       rescue => e
-        puts "SentryErrorHere"
+        puts "SentryErrorHere:"
+        puts e.class
         puts e
-        Sentry.capture_message("this is message from scraper serrvice")
-        Sentry.capture_exception(e)
+        Sentry.capture_exception(ScrapingError.new(e.message))
       end
     end
   end
