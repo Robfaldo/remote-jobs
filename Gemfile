@@ -79,3 +79,6 @@ gem 'google-api-client'
 gem "sentry-ruby"
 gem "sentry-rails"
 gem 'rollbar'
+
+# for tagging
+gem 'acts-as-taggable-on', '~> 6.0'
