@@ -4,7 +4,6 @@ module Scraping
 
     def get_jobs
       LOCATIONS.each do |location|
-        raise "deliberate error to test"
         search_links[location].each do |link|
           scraped_all_jobs_page = scrape_page(link: link, wait_time: 10000)
           scraped_jobs = scraped_all_jobs_page.search('.results__item')
