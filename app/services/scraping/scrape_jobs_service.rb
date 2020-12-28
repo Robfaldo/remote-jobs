@@ -6,7 +6,8 @@ module Scraping
       Scraping::GoogleScraper,
       Scraping::IndeedScraper,
       Scraping::StackoverflowScraper,
-      Scraping::CompaniesDirectScraper
+      Scraping::CompaniesDirectScraper,
+      Scraping::TotaljobsScraper
     ]
 
     def call
