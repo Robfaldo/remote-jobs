@@ -17,10 +17,11 @@ module Scraping
         scraper.new.get_jobs
 
       rescue => e
-        puts "SentryErrorHere:"
+        puts "RollBarErrorHere:"
         puts e.class
         puts e
-        Sentry.capture_exception(StandardError.new('this is a fake error'))
+
+        Rollbar.error(e)
       end
     end
   end

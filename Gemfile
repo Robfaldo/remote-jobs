@@ -78,3 +78,4 @@ gem 'google-api-client'
 
 gem "sentry-ruby"
 gem "sentry-rails"
+gem 'rollbar'
