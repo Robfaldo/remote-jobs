@@ -6,6 +6,8 @@ module Scraping
 
     def get_jobs
       LOCATIONS.each do |location|
+        raise "error raised in scraper"
+
         search_links[location].each do |link|
           scraped_page = scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
 
@@ -33,8 +35,6 @@ module Scraping
         job_link = job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', '')
 
         next if Job.where(job_link: job_link).count > 0
-
-        raise "error raised in scraper"
 
         new_job = Job.new(
             title: job["title"],
