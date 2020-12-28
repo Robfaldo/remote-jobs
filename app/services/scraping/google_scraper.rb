@@ -34,7 +34,7 @@ module Scraping
 
         next if Job.where(job_link: job_link).count > 0
 
-        raise error("error raised in scraper")
+        raise "error raised in scraper"
 
         new_job = Job.new(
             title: job["title"],
