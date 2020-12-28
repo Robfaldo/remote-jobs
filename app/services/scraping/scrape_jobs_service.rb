@@ -13,6 +13,9 @@ module Scraping
     def call
       SCRAPERS.each do |scraper|
         scraper.new.get_jobs
+
+      rescue => e
+        Sentry.capture_exception(e)
       end
     end
   end
