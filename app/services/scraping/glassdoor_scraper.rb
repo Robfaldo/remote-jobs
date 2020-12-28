@@ -51,7 +51,7 @@ module Scraping
             title: title,
             job_link: new_link,
             location: location,
-            description: description,
+            description: "",
             source: :glassdoor,
             status: "scraped",
             company: company,
