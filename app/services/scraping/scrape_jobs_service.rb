@@ -17,6 +17,7 @@ module Scraping
       rescue => e
         puts "SentryErrorHere"
         puts e
+        Sentry.capture_message("this is message from scraper serrvice")
         Sentry.capture_exception(e)
       end
     end
