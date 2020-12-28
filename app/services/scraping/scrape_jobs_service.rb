@@ -20,7 +20,7 @@ module Scraping
         puts "SentryErrorHere:"
         puts e.class
         puts e
-        Sentry.capture_exception(e)
+        Sentry.capture_exception(StandardError.new('this is a fake error'))
       end
     end
   end
