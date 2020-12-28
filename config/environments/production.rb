@@ -114,4 +114,6 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
   config.action_mailer.default_url_options = { host: 'https://uk-remote-jobs.herokuapp.com' }
+
+  config.action_dispatch.show_exceptions = true
 end
