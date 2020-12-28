@@ -5,7 +5,7 @@ module Scraping
     SCRAPERS = [
       Scraping::CvLibraryScraper,
       Scraping::GlassdoorScraper,
-      Scraping::GoogleScraper
+      Scraping::GoogleScraper,
       Scraping::IndeedScraper,
       Scraping::StackoverflowScraper,
       Scraping::CompaniesDirectScraper,
