@@ -3,13 +3,13 @@ module Scraping
     class ScrapingError < StandardError; end
 
     SCRAPERS = [
-      # Scraping::CvLibraryScraper,
-      # Scraping::GlassdoorScraper,
+      Scraping::CvLibraryScraper,
+      Scraping::GlassdoorScraper,
       Scraping::GoogleScraper
-      # Scraping::IndeedScraper,
-      # Scraping::StackoverflowScraper,
-      # Scraping::CompaniesDirectScraper,
-      # Scraping::TotaljobsScraper
+      Scraping::IndeedScraper,
+      Scraping::StackoverflowScraper,
+      Scraping::CompaniesDirectScraper,
+      Scraping::TotaljobsScraper
     ]
 
     def call
