@@ -38,7 +38,7 @@ module Scraping
             title: job["title"],
             job_link: job_link,
             location: job["location"],
-            description: job["description"],
+            description: "",
             source: :google,
             status: "scraped",
             company: job["company"]
