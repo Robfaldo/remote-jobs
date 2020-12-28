@@ -15,6 +15,8 @@ module Scraping
         scraper.new.get_jobs
 
       rescue => e
+        puts "SentryErrorHere"
+        puts e
         Sentry.capture_exception(e)
       end
     end
