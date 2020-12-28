@@ -20,7 +20,7 @@ module Scraping
         puts "SentryErrorHere:"
         puts e.class
         puts e
-        Sentry.capture_exception(ScrapingError.new(e.message))
+        # Sentry.capture_exception(ScrapingError.new(e.message))
       end
     end
   end
