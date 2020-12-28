@@ -4,10 +4,10 @@ module Scraping
       Scraping::CvLibraryScraper,
       Scraping::GlassdoorScraper,
       Scraping::GoogleScraper,
-      # Scraping::IndeedScraper,
-      # Scraping::StackoverflowScraper,
-      # Scraping::CompaniesDirectScraper,
-      # Scraping::TotaljobsScraper
+      Scraping::IndeedScraper,
+      Scraping::StackoverflowScraper,
+      Scraping::CompaniesDirectScraper,
+      Scraping::TotaljobsScraper
     ]
 
     def call
