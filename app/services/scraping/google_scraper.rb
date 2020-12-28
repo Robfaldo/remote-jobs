@@ -6,7 +6,7 @@ module Scraping
 
     def get_jobs
       LOCATIONS.each do |location|
-        raise "error raised in google scraper - testing if runtime error gets sent with Sentry.capture_exception"
+        raise "error raised in google scraper - testing if runtime error gets sent with Sentry.capture_exception WHEN WRAPPED in ScrapingError"
         search_links[location].each do |link|
           scraped_page = scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
 
