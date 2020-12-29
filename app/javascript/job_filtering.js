@@ -3,43 +3,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const updateCheckboxes = function() {
         if (isDateRangeFilter(this.id)) {
-            // uncheck them all
-            for (let i = 0; i < dateRangeCheckBoxes.length; i ++) {
-                let checkBox = document.getElementById(dateRangeCheckBoxes[i]);
-                if (checkBox.classList.contains('checked-filter')) {
-                    checkBox.classList.remove('checked-filter');
-                }
-            }
-
-            // Check the box that was clicked
-            if (!this.classList.contains('checked-filter')) {
-                this.classList.add('checked-filter');
-            }
-
-            dateFilterToApply = this.id;
-        } else { // if its a tag
-            // toggle the checkbox
-            if (this.classList.contains('checked-tag')) {
-                this.classList.remove('checked-tag')
-            } else {
-                this.classList.add('checked-tag')
-            }
-
+            updateDateRangeFilterBoxes(this);
+        } else {
+            updateTagFilterBoxes(this);
         }
 
-        // Get the tags to apply
-        let tagsElementsToApply = document.getElementsByClassName('checked-tag');
-        let tagsToApplyArray = [].slice.call(tagsElementsToApply);
-        let tagsToApply = tagsToApplyArray.map(element => element.id);
-
-        // Get the date filter to apply
-        let dateFiltersElements = document.getElementsByClassName('date-filter');
-        let dateFiltersElementsArray = [].slice.call(dateFiltersElements);
-        let dateFilterToApply = dateFiltersElementsArray.filter(element => element.classList.contains('checked-filter'))[0].id;
+        let tagsToApply = getTagsToApply();
+        let dateFilterToApply = getDateFilterToApply();
 
         filterJobs(dateFilterToApply, tagsToApply);
     };
-
 
     const filterJobs = function(dateFilterToApply, tagsToApply) {
         const filtersMapping = {
@@ -59,8 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < jobs.length; i++) {
             const job = jobs[i];
 
-            // change it to jobDateFiltersAllowed and check in the hasRequiredFilter method if at least 1 exxstrs?
-            let jobDateFiltersRequired = filtersMapping[dateFilterToApply]; // this means show-all-jobs is always only posted-today
+            let jobDateFiltersRequired = filtersMapping[dateFilterToApply];
 
             let jobTagsRequired = [];
             tagsToApply.forEach(tag => jobTagsRequired.push(tagsMapping[tag]));
@@ -77,6 +49,43 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementsByClassName('jobs-count')[0].textContent = visibleElements;
     }
 
+    const getDateFilterToApply = function() {
+        let dateFiltersElements = document.getElementsByClassName('date-filter');
+        let dateFiltersElementsArray = [].slice.call(dateFiltersElements);
+        return dateFiltersElementsArray.filter(element => element.classList.contains('checked-filter'))[0].id;
+    }
+
+    const getTagsToApply = function() {
+        let tagsElementsToApply = document.getElementsByClassName('checked-tag');
+        let tagsToApplyArray = [].slice.call(tagsElementsToApply);
+
+        return tagsToApplyArray.map(element => element.id);
+    }
+
+    const updateDateRangeFilterBoxes = function(dateRangeFilterClicked) {
+        // uncheck them all
+        for (let i = 0; i < dateRangeCheckBoxes.length; i ++) {
+            let checkBox = document.getElementById(dateRangeCheckBoxes[i]);
+            if (checkBox.classList.contains('checked-filter')) {
+                checkBox.classList.remove('checked-filter');
+            }
+        }
+
+        // Check the box that was clicked
+        if (!dateRangeFilterClicked.classList.contains('checked-filter')) {
+            dateRangeFilterClicked.classList.add('checked-filter');
+        }
+    };
+
+    const updateTagFilterBoxes = function(tagFilterClicked) {
+        // toggle the checkbox
+        if (tagFilterClicked.classList.contains('checked-tag')) {
+            tagFilterClicked.classList.remove('checked-tag')
+        } else {
+            tagFilterClicked.classList.add('checked-tag')
+        }
+    };
+
     const dateRangeisIncluded = function(datesRangesToInclude, job) {
         let matchedFilters = 0;
 
@@ -90,7 +99,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     const hasRequiredTags = function(requiredTags, job) {
-        debugger;
         let allJobTagsElements = job.querySelectorAll('.tag');
         let allJobTagsElementsArray = [].slice.call(allJobTagsElements);
 
