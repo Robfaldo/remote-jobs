@@ -239,9 +239,9 @@ a:hover, a:visited, a:link, a:active
   font-family: sans-serif;
 }
 
-#show-all-jobs {
-  background-color: #3cbfab;
-}
+//#show-all-jobs {
+//  background-color: #3cbfab;
+//}
 
 .tags-container {
   display: flex;
@@ -277,6 +277,18 @@ a:hover, a:visited, a:link, a:active
   //vertical-align: top; // stops the text being pushed down
 }
 
+.requires-experience:before {
+  content: url("requires-experience.png");
+  padding-right: 10px;
+  //vertical-align: top; // stops the text being pushed down
+}
+
+.requires-stem-degree:before {
+  content: url("requires-degree.png");
+  padding-right: 10px;
+  //vertical-align: top; // stops the text being pushed down
+}
+
 .footer {
   background-color: #3cbfab;
   height: 100px;
@@ -288,4 +300,8 @@ a:hover, a:visited, a:link, a:active
   font-weight: bold;
   padding-top: 40px;
   padding-left: 50px;
+}
+
+.checked-tag, .checked-filter {
+  background-color: #3cbfab;
 }

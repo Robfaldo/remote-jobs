@@ -1,58 +1,119 @@
 window.addEventListener('DOMContentLoaded', () => {
-    const selectFilter = function (id, visible_jobs_count) {
-        let filters = document.getElementsByClassName('filter-box');
+    let dateRangeCheckBoxes = ['posted-today', 'show-all-jobs', 'posted-three-days'];
 
-        for (let i = 0; i < filters.length; i++) {
-            filters[i].style.backgroundColor = "#ffffff";
-        };
+    const updateCheckboxes = function() {
+        if (isDateRangeFilter(this.id)) {
+            // uncheck them all
+            for (let i = 0; i < dateRangeCheckBoxes.length; i ++) {
+                let checkBox = document.getElementById(dateRangeCheckBoxes[i]);
+                if (checkBox.classList.contains('checked-filter')) {
+                    checkBox.classList.remove('checked-filter');
+                }
+            }
 
-        document.getElementById(id).style.backgroundColor = "#3cbfab";
-        document.getElementsByClassName('jobs-count')[0].textContent = visible_jobs_count;
+            // Check the box that was clicked
+            if (!this.classList.contains('checked-filter')) {
+                this.classList.add('checked-filter');
+            }
+
+            dateFilterToApply = this.id;
+        } else { // if its a tag
+            // toggle the checkbox
+            if (this.classList.contains('checked-tag')) {
+                this.classList.remove('checked-tag')
+            } else {
+                this.classList.add('checked-tag')
+            }
+
+        }
+
+        // Get the tags to apply
+        let tagsElementsToApply = document.getElementsByClassName('checked-tag');
+        let tagsToApplyArray = [].slice.call(tagsElementsToApply);
+        let tagsToApply = tagsToApplyArray.map(element => element.id);
+
+        // Get the date filter to apply
+        let dateFiltersElements = document.getElementsByClassName('date-filter');
+        let dateFiltersElementsArray = [].slice.call(dateFiltersElements);
+        let dateFilterToApply = dateFiltersElementsArray.filter(element => element.classList.contains('checked-filter'))[0].id;
+
+        filterJobs(dateFilterToApply, tagsToApply);
     };
 
-    document.getElementById('posted-today').addEventListener('click', function() {
+
+    const filterJobs = function(dateFilterToApply, tagsToApply) {
+        const filtersMapping = {
+            'posted-today': ['posted-today'],
+            'posted-three-days': ['posted-three-days'],
+            'show-all-jobs': ['posted-today', 'posted-over-three-days', 'posted-three-days']
+        };
+
+        const tagsMapping = {
+            'requires-experience-filter': 'requires-experience',
+            'requires-stem-degree-filter': 'requires-stem-degree'
+        };
+
         let jobs = document.getElementsByClassName('job');
-        let visible_jobs_count = 0;
+        let visibleElements = 0;
 
         for (let i = 0; i < jobs.length; i++) {
-            if (jobs[i].classList.contains('posted-today')) {
+            const job = jobs[i];
+
+            // change it to jobDateFiltersAllowed and check in the hasRequiredFilter method if at least 1 exxstrs?
+            let jobDateFiltersRequired = filtersMapping[dateFilterToApply]; // this means show-all-jobs is always only posted-today
+
+            let jobTagsRequired = [];
+            tagsToApply.forEach(tag => jobTagsRequired.push(tagsMapping[tag]));
+
+            if (dateRangeisIncluded(jobDateFiltersRequired, job) && hasRequiredTags(jobTagsRequired, job)) {
                 jobs[i].style.display = "";
-                visible_jobs_count++
+                visibleElements++;
             } else {
-                jobs[i].style.display = "none";
-            };
-        };
+                jobs[i].style.display = "none"
+            }
 
-        document.getElementById('posted-today').style.backgroundColor = "#89f58d";
+        }
 
-        selectFilter('posted-today', visible_jobs_count);
-    });
+        document.getElementsByClassName('jobs-count')[0].textContent = visibleElements;
+    }
 
-    document.getElementById('posted-three-days').addEventListener('click', function() {
-        let jobs = document.getElementsByClassName('job');
-        let visible_jobs_count = 0;
+    const dateRangeisIncluded = function(datesRangesToInclude, job) {
+        let matchedFilters = 0;
 
-        for (let i = 0; i < jobs.length; i++) {
-            if (jobs[i].classList.contains('posted-today') || jobs[i].classList.contains('posted-three-days')) {
-                jobs[i].style.display = "";
-                visible_jobs_count++
-            } else {
-                jobs[i].style.display = "none";
-            };
-        };
+        datesRangesToInclude.forEach(function(dateRange) {
+            if (job.classList.contains(dateRange)) {
+                matchedFilters++
+            }
+        });
 
-        selectFilter('posted-three-days', visible_jobs_count);
-    });
+        return matchedFilters > 0
+    }
 
-    document.getElementById('show-all-jobs').addEventListener('click', function() {
-        let jobs = document.getElementsByClassName('job');
-        let visible_jobs_count = 0;
+    const hasRequiredTags = function(requiredTags, job) {
+        debugger;
+        let allJobTagsElements = job.querySelectorAll('.tag');
+        let allJobTagsElementsArray = [].slice.call(allJobTagsElements);
 
-        for (let i = 0; i < jobs.length; i++) {
-            jobs[i].style.display = "";
-            visible_jobs_count++;
-        };
+        let matchedTags = [];
 
-        selectFilter('show-all-jobs', visible_jobs_count);
-    });
+        requiredTags.forEach(function(tag) {
+            allJobTagsElementsArray.forEach(function(el) {
+                if (el.classList.contains(tag)) {
+                    matchedTags.push(el);
+                }
+            })
+        });
+
+        return matchedTags.length == requiredTags.length
+    }
+
+    const isDateRangeFilter = function(id) {
+        return dateRangeCheckBoxes.includes(id);
+    };
+
+    let checkBoxes = document.getElementsByClassName('filter-box');
+
+    for (let i = 0; i < checkBoxes.length; i++) {
+        checkBoxes[i].addEventListener('click', updateCheckboxes, false);
+    }
 });

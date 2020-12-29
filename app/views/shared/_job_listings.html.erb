@@ -5,22 +5,32 @@
       <div class="filter">
         <span class="filter-title">Date Range</span>
         <div class="date-range-container">
-
           <div class="checkbox-container">
-            <div id="show-all-jobs" class="filter-box"></div>
+            <div id="show-all-jobs" class="filter-box checked-filter date-filter"></div>
             <span class="filter-text">Show all jobs (<%= @jobs.count %>)</span>
           </div>
-
           <div class="checkbox-container">
-            <div id="posted-today" class="filter-box"></div>
-            <span class="filter-text">Posted today (<%= @jobs_posted_today.count %>)</span>
+            <div id="posted-today" class="filter-box date-filter"></div>
+            <span class="filter-text">Posted today (<%= @jobs_posted_today %>)</span>
           </div>
-
           <div class="checkbox-container">
-            <div id="posted-three-days" class="filter-box"></div>
-            <span class="filter-text">Posted last 3 days (<%= @jobs_posted_last_3.count %>)</span>
+            <div id="posted-three-days" class="filter-box date-filter"></div>
+            <span class="filter-text">Posted last 3 days (<%= @jobs_posted_last_3 %>)</span>
           </div>
-
+        </div>
+        <span class="filter-title">Experience</span>
+        <div class="experience-container">
+          <div class="checkbox-container">
+            <div id="requires-experience-filter" class="filter-box"></div>
+            <span class="filter-text"> Show jobs that ask for experience (<%= @jobs_requiring_experience %>)</span>
+          </div>
+        </div>
+        <span class="filter-title">Education</span>
+        <div class="experience-container">
+          <div class="checkbox-container">
+            <div id="requires-stem-degree-filter" class="filter-box"></div>
+            <span class="filter-text"> Show jobs that ask for STEM degree (<%= @jobs_requiring_stem_degree %>)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -35,6 +45,12 @@
               <span class="title"><%= job.title %></span>
               <span class="company"><%= job.company %></span>
               <div class="tags-container">
+                <% if job.requires_experience? %>
+                  <div class="requires-experience tag">Asks for experience</div>
+                <% end %>
+                <% if job.requires_stem_degree? %>
+                  <div class="requires-stem-degree tag">Asks for STEM Degree</div>
+                <% end %>
                 <div class="location tag"><%= job.location %></div>
                 <div class="posted-date tag"><%= job.posted_days_ago %></div>
               </div>

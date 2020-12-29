@@ -1,4 +1,6 @@
 class Job < ApplicationRecord
+  acts_as_taggable_on :tags
+
   geocoded_by :location
   after_validation :geocode
 
@@ -14,6 +16,7 @@ class Job < ApplicationRecord
 
   scope :created_today, lambda{ where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
   scope :created_last_3_days, lambda{ where(created_at: (Date.today - 3)..Date.today.end_of_day) }
+
 
   def self.live_jobs
     Job.where(status: "scraped").order(:created_at).reverse
@@ -41,6 +44,14 @@ class Job < ApplicationRecord
 
   def approved?
     self.status == "approved"
+  end
+
+  def requires_experience?
+    self.tag_list.include?("requires_experience")
+  end
+
+  def requires_stem_degree?
+    self.tag_list.include?("requires_stem_degree")
   end
 
   def posted_date_range
