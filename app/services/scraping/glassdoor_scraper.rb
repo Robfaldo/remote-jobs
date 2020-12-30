@@ -5,61 +5,56 @@ module Scraping
     def get_jobs
       LOCATIONS.each do |location|
         search_links[location].each do |link|
-          scraped_all_jobs_page = scrape_page(link: link, wait_time: 10000)
+          scraped_page = scrape_page(link: link, wait_time: 10000)
 
-          links = get_links(scraped_all_jobs_page)
+          scraped_jobs = scraped_page.search('.react-job-listing')
 
-          extract_and_save_job(links)
+          jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
+
+          jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
+
+          extract_and_save_job(jobs_to_scrape)
         end
       end
     end
 
     private
 
-    def remove_rating(company)
-      company.split("")[0..-5].join
-    end
+    def extract_jobs_to_evaluate(scraped_all_jobs_page)
+      jobs_to_evaluate = []
 
-    def get_links(scraped_page)
-      link_elements = scraped_page.search('.react-job-listing')
+      scraped_all_jobs_page.each do |job|
+        link = 'https://www.glassdoor.co.uk' + job.search('a').first.get_attribute('href')
+        company = job.search('.jobHeader').search('a').text.strip
+        title = job.search('.jobTitle').text.strip
+        location = job.search('.loc').text.strip
 
-      links = []
-
-      link_elements.each do |element|
-        link = element.search('a').first.get_attribute('href')
-        links.push('https://www.glassdoor.co.uk' + link)
+        jobs_to_evaluate.push(JobToEvaluate.new(title: title, link: link, company: company, location: location))
       end
 
-      links
+      jobs_to_evaluate
     end
 
-    def extract_and_save_job(links)
-      links.each do |source_link|
-        next if Job.where(source_id: source_link).count > 0
+    def extract_and_save_job(evaluated_jobs)
+      evaluated_jobs.each do |job|
+        next if Job.where(source_id: job.link).count > 0  # we store original scraped job link as the id
 
-        scraped_job_page = scrape_page(link: source_link, javascript_snippet: javascript, wait_time: 10000)
+        scraped_job_page = scrape_page(link: job.link, javascript_snippet: javascript, wait_time: 10000)
 
-        title = scraped_job_page.search('.e11nt52q6')[0].text
-        location = scraped_job_page.search('.e11nt52q2')[0].text
-        salary = scraped_job_page.search('.e1v3ed7e1')[0].text if scraped_job_page.search('.e1v3ed7e1').count > 0
-        company_with_rating = scraped_job_page.search('.e11nt52q1')[0].text
-        company = remove_rating(company_with_rating)
         description = scraped_job_page.search('.desc')[-1].text
         new_link = scraped_job_page.search('#current-url').first.text # the link changes after this page loads
 
         new_job = Job.new(
-            title: title,
+            title: job.title,
             job_link: new_link,
-            location: location,
+            location: job.location,
             description: description,
-            source: :glassdoor,
+            source: :indeed,
             status: "scraped",
-            company: company,
-            source_id: source_link,
-            job_board: "glassdoor"
+            company: job.company,
+            job_board: "Indeed",
+            source_id: job.link
         )
-
-        new_job.salary = salary if salary
 
         new_job.save!
       end
