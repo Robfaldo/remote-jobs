@@ -57,7 +57,8 @@ module Scraping
 
       raise ScrapingBeeError.new(e_message)
     rescue StandardError => e
-      Sentry.capture_exception(e)
+      Rollbar.error(e)
+
       puts "HTTP Request failed (#{ e.message })"
     end
   end
