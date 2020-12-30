@@ -25,7 +25,7 @@ module Scraping
       http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
       # Create Request
-      req =  Net::HTTP::Get.new(uri)
+      req = Net::HTTP::Get.new(uri)
 
       # Fetch Request
       res = http.request(req)
@@ -33,10 +33,12 @@ module Scraping
       puts "1st Response HTTP Response Body: #{ res.body }"
       return res if res.code == "200"
 
+
       res = http.request(req)
       puts "2nd Response HTTP Status Code: #{ res.code }"
       puts "2nd Response HTTP Response Body: #{ res.body }"
       return res if res.code == "200"
+
 
       res = http.request(req)
       puts "3rd Response HTTP Status Code: #{ res.code }"
@@ -53,10 +55,33 @@ module Scraping
       puts "5th Response HTTP Response Body: #{ res.body }"
       return res if res.code == "200"
 
-      e_message = "Could not scrape after 5 attempts. Link: #{link}. URI String: #{uri_string}. Last response code: #{res.code}. Last response body: #{res.body}"
+      premium_proxy_attempted = false
+
+      if !premium_proxy
+        uri_string << "&premium_proxy=true"
+        uri = URI(uri_string)
+
+        # Create client
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+
+        # Create Request
+        req = Net::HTTP::Get.new(uri)
+
+        binding.pry
+
+        res = http.request(req)
+        puts "6th Response (premium proxy): HTTP Status Code: #{ res.code }"
+        puts "6th Response (premium proxy): HTTP Response Body: #{ res.body }"
+        binding.pry
+        return res if res.code == "200"
+      end
+
+      e_message = "Could not scrape after 5 attempts using #{premium_proxy ? "premium" : "non-premium"} Proxy.#{"Premium proxy (6th attempt) was attempted. " if premium_proxy_attempted} Link: #{link}. URI String: #{uri_string}. Last response code: #{res.code}. Last response body: #{res.body}"
 
       raise ScrapingBeeError.new(e_message)
-    rescue StandardError => e
+    rescue => e
       Rollbar.error(e)
 
       puts "HTTP Request failed (#{ e.message })"
