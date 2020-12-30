@@ -35,5 +35,17 @@ module Scraping
     def client
       ScrapingBee.new
     end
+
+    def evaluate_jobs(jobs_to_evaluate)
+      jobs_to_scrape = []
+
+      jobs_to_evaluate.each do |job|
+        if JobFiltering::TitleRequirements.new.meets_title_requirements?(job)
+          jobs_to_scrape.push(job)
+        end
+      end
+
+      jobs_to_scrape
+    end
   end
 end
