@@ -12,6 +12,7 @@ module Scraping
       )
 
       Nokogiri::HTML.parse(response.body)
+      nil
     rescue => e
       Rollbar.error(e)
     end
