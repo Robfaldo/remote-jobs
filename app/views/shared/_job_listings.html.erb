@@ -40,7 +40,9 @@
     </div>
 
     <ul class=job-listings>
-      <h3 class="jobs-found">We have found <span class="jobs-count"></span> jobs</h3>
+      <div id="jobs-found-container">
+        <h3 class="jobs-found">We have found <span class="jobs-count"></span> jobs</h3>
+      </div>
 
       <% @jobs.each do |job| %>
         <li class="js-job job js-<%= job.posted_date_range %>">
