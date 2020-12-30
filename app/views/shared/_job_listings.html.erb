@@ -1,14 +1,8 @@
 <div class="main">
   <div class="jobs-container">
     <div class="filters-container">
-
-
       <span id="filter-header">Filter results</span>
-
-
       <div class="filter">
-
-
         <span class="filter-title">Date Range</span>
         <div class="date-range-container">
           <div class="checkbox-container">
@@ -27,8 +21,6 @@
           </div>
         </div>
 
-
-
         <span class="filter-title">Experience</span>
         <div class="experience-container">
           <div class="checkbox-container">
@@ -44,22 +36,18 @@
             <span class="filter-text"> Show jobs that ask for STEM degree</span>
           </div>
         </div>
-
-
       </div>
     </div>
 
     <ul class=job-listings>
-      <h3 class="jobs-found">We have found <span class="jobs-count"><%= @jobs.count %></span> jobs</h3>
+      <h3 class="jobs-found">We have found <span class="jobs-count"></span> jobs</h3>
 
       <% @jobs.each do |job| %>
-        <li class="js-job job js-<%= job.posted_date_range %> <%= 'default-hidden' if job.has_required_tags %>">
+        <li class="js-job job js-<%= job.posted_date_range %>">
           <a class="job-details-container" href=<%= job.job_link %>>
             <div class="job-left">
               <span class="title"><%= job.title %></span>
               <span class="company"><%= job.company %></span>
-
-
 
               <div class="tags-container">
                 <% if job.requires_experience? %>
@@ -74,12 +62,10 @@
                 <div class="posted-date none-filter-tag"><%= job.posted_days_ago %></div>
               </div>
 
-
               <% if job.rejected? %>
                 </br>
                 <span class="rejected-reason">Reason for rejection: <%= job.status_reason %> </span>
               <% end %>
-
 
             </div>
           </a>
