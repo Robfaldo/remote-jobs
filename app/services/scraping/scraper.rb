@@ -11,11 +11,9 @@ module Scraping
         premium_proxy: premium_proxy
       )
 
-      if response
-        scraped_page = Nokogiri::HTML.parse(response.body)
-      else
-        puts "There was no response from scraping bee for link: #{link}"
-      end
+      Nokogiri::HTML.parse(response.body)
+    rescue => e
+      Rollbar.error(e)
     end
 
     def search_links
