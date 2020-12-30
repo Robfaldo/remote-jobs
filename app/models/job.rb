@@ -17,7 +17,6 @@ class Job < ApplicationRecord
   scope :created_today, lambda{ where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
   scope :created_last_3_days, lambda{ where(created_at: (Date.today - 3)..Date.today.end_of_day) }
 
-
   def self.live_jobs
     Job.where(status: "scraped").order(:created_at).reverse
   end
@@ -30,21 +29,9 @@ class Job < ApplicationRecord
     Job.where(status: "approved").order(:created_at).reverse
   end
 
-  def has_required_tags
-    self.requires_experience? || self.requires_stem_degree?
-  end
-
   def self.default_live_jobs
          # When user load live page it should show all approved jobs that don't require experience or degrees
     Job.where(status: "approved").order(:created_at).reverse
-  end
-
-  def self.default_live_jobs_created_today
-    Job.created_today.where(status: "approved").order(:created_at).reverse
-  end
-
-  def self.default_live_jobs_created_last_3
-    Job.created_last_3_days.where(status: "approved").order(:created_at).reverse
   end
 
   def self.by_date_and_source(date, source, status: nil)
