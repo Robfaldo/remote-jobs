@@ -1,4 +1,6 @@
 class Job < ApplicationRecord
+  acts_as_taggable_on :tags
+
   geocoded_by :location
   after_validation :geocode
 
@@ -27,6 +29,11 @@ class Job < ApplicationRecord
     Job.where(status: "approved").order(:created_at).reverse
   end
 
+  def self.default_live_jobs
+         # When user load live page it should show all approved jobs that don't require experience or degrees
+    Job.where(status: "approved").order(:created_at).reverse
+  end
+
   def self.by_date_and_source(date, source, status: nil)
     if status
       Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source, status: status)
@@ -41,6 +48,14 @@ class Job < ApplicationRecord
 
   def approved?
     self.status == "approved"
+  end
+
+  def requires_experience?
+    self.tag_list.include?("requires_experience")
+  end
+
+  def requires_stem_degree?
+    self.tag_list.include?("requires_stem_degree")
   end
 
   def posted_date_range
