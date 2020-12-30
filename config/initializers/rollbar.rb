@@ -8,6 +8,7 @@ Rollbar.configure do |config|
     config.enabled = false
   end
 
+  # https://docs.rollbar.com/docs/ruby - this is where I found this info
   config.send_extra_frame_data = :app # or :all
   config.locals = { :enabled => true }
 
