@@ -7,7 +7,7 @@
         <div class="date-range-container">
           <div class="checkbox-container">
             <div id="show-all-jobs" class="filter-box checked-filter date-filter"></div>
-            <span class="filter-text">Show all jobs (<%= @jobs.count %>)</span>
+            <span class="filter-text">Posted anytime (<%= @jobs.count %>)</span>
           </div>
           <div class="checkbox-container">
             <div id="posted-today" class="filter-box date-filter"></div>
@@ -39,7 +39,7 @@
       <h3 class="jobs-found">We have found <span class="jobs-count"><%= @jobs.count %></span> jobs</h3>
 
       <% @jobs.each do |job| %>
-        <li class="job <%= job.posted_date_range %>">
+        <li class="job <%= job.posted_date_range %> <%= 'default-hidden' if job.has_required_tags %>">
           <a class="job-details-container" href=<%= job.job_link %>>
             <div class="job-left">
               <span class="title"><%= job.title %></span>
@@ -51,8 +51,8 @@
                 <% if job.requires_stem_degree? %>
                   <div class="requires-stem-degree tag">Asks for STEM Degree</div>
                 <% end %>
-                <div class="location tag"><%= job.location %></div>
-                <div class="posted-date tag"><%= job.posted_days_ago %></div>
+                <div class="location non-filter-tag"><%= job.location %></div>
+                <div class="posted-date none-filter-tag"><%= job.posted_days_ago %></div>
               </div>
               <% if job.rejected? %>
                 </br>

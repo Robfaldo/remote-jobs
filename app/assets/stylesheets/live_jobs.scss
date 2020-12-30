@@ -246,7 +246,7 @@ a:hover, a:visited, a:link, a:active
 .tags-container {
   display: flex;
 }
-.tag {
+.tag, .non-filter-tag {
   background-color: #f8f8f8;
   border: solid 1px grey;
   color: #04080F;
@@ -304,4 +304,8 @@ a:hover, a:visited, a:link, a:active
 
 .checked-tag, .checked-filter {
   background-color: #3cbfab;
+}
+
+.default-hidden {
+  display: none;
 }

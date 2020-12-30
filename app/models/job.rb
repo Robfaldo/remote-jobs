@@ -30,6 +30,23 @@ class Job < ApplicationRecord
     Job.where(status: "approved").order(:created_at).reverse
   end
 
+  def has_required_tags
+    self.requires_experience? || self.requires_stem_degree?
+  end
+
+  def self.default_live_jobs
+         # When user load live page it should show all approved jobs that don't require experience or degrees
+    Job.where(status: "approved").order(:created_at).reverse
+  end
+
+  def self.default_live_jobs_created_today
+    Job.created_today.where(status: "approved").order(:created_at).reverse
+  end
+
+  def self.default_live_jobs_created_last_3
+    Job.created_last_3_days.where(status: "approved").order(:created_at).reverse
+  end
+
   def self.by_date_and_source(date, source, status: nil)
     if status
       Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source, status: status)
