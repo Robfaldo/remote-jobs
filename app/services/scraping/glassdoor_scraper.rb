@@ -39,25 +39,33 @@ module Scraping
       evaluated_jobs.each do |job|
         next if Job.where(source_id: job.link).count > 0  # we store original scraped job link as the id
 
-        scraped_job_page = scrape_page(link: job.link, javascript_snippet: javascript, wait_time: 10000)
+        begin
+          scraped_job_page = scrape_page(link: job.link, javascript_snippet: javascript, wait_time: 10000)
 
-        description = scraped_job_page.search('.desc')[-1].text
-        new_link = scraped_job_page.search('#current-url').first.text # the link changes after this page loads
-
-        new_job = Job.new(
-            title: job.title,
-            job_link: new_link,
-            location: job.location,
-            description: description,
-            source: :indeed,
-            status: "scraped",
-            company: job.company,
-            job_board: "Indeed",
-            source_id: job.link
-        )
-
-        new_job.save!
+          create_job(job, scraped_job_page)
+        rescue => e
+          Rollbar.error(e)
+        end
       end
+    end
+
+    def create_job(job, scraped_job_page)
+      description = scraped_job_page.search('.desc')[-1].text
+      new_link = scraped_job_page.search('#current-url').first.text # the link changes after this page loads
+
+      new_job = Job.new(
+          title: job.title,
+          job_link: new_link,
+          location: job.location,
+          description: description,
+          source: :indeed,
+          status: "scraped",
+          company: job.company,
+          job_board: "Indeed",
+          source_id: job.link
+      )
+
+      new_job.save!
     end
 
     def javascript
