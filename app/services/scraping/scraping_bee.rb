@@ -23,6 +23,7 @@ module Scraping
 
       # Create client
       http = Net::HTTP.new(uri.host, uri.port)
+      http.read_timeout = 120
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
@@ -61,6 +62,7 @@ module Scraping
 
         # Create client
         http = Net::HTTP.new(uri.host, uri.port)
+        http.read_timeout = 120
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 
