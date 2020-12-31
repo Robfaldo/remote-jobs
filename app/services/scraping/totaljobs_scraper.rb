@@ -51,24 +51,32 @@ module Scraping
       evaluated_jobs.each do |job|
         next if Job.where(job_link: job.link).count > 0
 
-        scraped_job_page = scrape_page(link: job.link, premium_proxy: true)
+        begin
+          scraped_job_page = scrape_page(link: job.link, premium_proxy: true)
 
-        description = scraped_job_page.search('.job-description').text
-
-        new_job = Job.new(
-            title: job.title,
-            job_link: job.link,
-            location: job.location,
-            description: description,
-            source: :totaljobs,
-            status: "scraped",
-            company: job.company,
-            job_board: "Totaljobs",
-            source_id: job.link
-        )
-
-        new_job.save!
+          create_job(job, scraped_job_page)
+        rescue => e
+          Rollbar.error(e)
+        end
       end
+    end
+
+    def create_job(job, scraped_job_page)
+      description = scraped_job_page.search('.job-description').text
+
+      new_job = Job.new(
+          title: job.title,
+          job_link: job.link,
+          location: job.location,
+          description: description,
+          source: :totaljobs,
+          status: "scraped",
+          company: job.company,
+          job_board: "Totaljobs",
+          source_id: job.link
+      )
+
+      new_job.save!
     end
   end
 end

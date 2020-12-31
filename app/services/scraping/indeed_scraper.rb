@@ -40,24 +40,36 @@ module Scraping
       evaluated_jobs.each do |job|
         next if Job.where(job_link: job.link).count > 0
 
-        scraped_job_page = scrape_page(link: job.link)
+        begin
+          description = get_job_description(job)
 
-        description = scraped_job_page.search('#jobDescriptionText').text
-
-        new_job = Job.new(
-            title: job.title,
-            job_link: job.link,
-            location: job.location,
-            description: description,
-            source: :indeed,
-            status: "scraped",
-            company: job.company,
-            job_board: "Indeed",
-            source_id: job.link
-        )
-
-        new_job.save!
+          create_job(job, description)
+        rescue => e
+          Rollbar.error(e)
+        end
       end
+    end
+
+    def get_job_description(job)
+      scraped_job_page = scrape_page(link: job.link)
+
+      scraped_job_page.search('#jobDescriptionText').text
+    end
+
+    def create_job(job, description)
+      new_job = Job.new(
+          title: job.title,
+          job_link: job.link,
+          location: job.location,
+          description: description,
+          source: :indeed,
+          status: "scraped",
+          company: job.company,
+          job_board: "Indeed",
+          source_id: job.link
+      )
+
+      new_job.save!
     end
   end
 end

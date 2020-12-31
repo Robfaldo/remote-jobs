@@ -36,28 +36,36 @@ module Scraping
       jobs.each do |job|
         next if Job.where(source_id: job.link).count > 0
 
-        scraped_job_page = scrape_page(link: job.link)
+        begin
+          scraped_job_page = scrape_page(link: job.link)
 
-        location = scraped_job_page.search('//dd[@data-jd-location]').text
-        first_description = scraped_job_page.search('.premium-description').text
-        second_description = scraped_job_page.search('.job__description').text
-
-        description = first_description == "" ? second_description : first_description
-
-        new_job = Job.new(
-            title: scraped_job_page.search('//span[@data-jd-title]').text,
-            job_link: job.link,
-            location: location,
-            description: description,
-            source: :cv_library,
-            status: "scraped",
-            company: scraped_job_page.search('//dd[@data-jd-company]').text.strip,
-            source_id: job.link,
-            job_board: "cv_library"
-        )
-
-        new_job.save!
+          create_job(job, scraped_job_page)
+        rescue => e
+          Rollbar.error(e)
+        end
       end
+    end
+
+    def create_job(job, scraped_job_page)
+      location = scraped_job_page.search('//dd[@data-jd-location]').text
+      first_description = scraped_job_page.search('.premium-description').text
+      second_description = scraped_job_page.search('.job__description').text
+
+      description = first_description == "" ? second_description : first_description
+
+      new_job = Job.new(
+          title: scraped_job_page.search('//span[@data-jd-title]').text,
+          job_link: job.link,
+          location: location,
+          description: description,
+          source: :cv_library,
+          status: "scraped",
+          company: scraped_job_page.search('//dd[@data-jd-company]').text.strip,
+          source_id: job.link,
+          job_board: "cv_library"
+      )
+
+      new_job.save!
     end
   end
 end
