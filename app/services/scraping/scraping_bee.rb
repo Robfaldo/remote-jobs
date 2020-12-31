@@ -56,6 +56,7 @@ module Scraping
       return res if res.code == "200"
 
       premium_proxy_attempted = false
+      second_premium_proxy_attempted = false
 
       if !premium_proxy
         uri_string << "&premium_proxy=true"
@@ -69,22 +70,22 @@ module Scraping
         # Create Request
         req = Net::HTTP::Get.new(uri)
 
-        binding.pry
-
         res = http.request(req)
         puts "6th Response (premium proxy): HTTP Status Code: #{ res.code }"
         puts "6th Response (premium proxy): HTTP Response Body: #{ res.body }"
-        binding.pry
+        premium_proxy_attempted = true
+        return res if res.code == "200"
+
+        res = http.request(req)
+        puts "7th Response (premium proxy): HTTP Status Code: #{ res.code }"
+        puts "7th Response (premium proxy): HTTP Response Body: #{ res.body }"
+        second_premium_proxy_attempted = true
         return res if res.code == "200"
       end
 
-      e_message = "Could not scrape after 5 attempts using #{premium_proxy ? "premium" : "non-premium"} Proxy.#{"Premium proxy (6th attempt) was attempted. " if premium_proxy_attempted} Link: #{link}. URI String: #{uri_string}. Last response code: #{res.code}. Last response body: #{res.body}"
+      e_message = "Could not scrape after 5 attempts using #{premium_proxy ? "premium" : "non-premium"} Proxy.#{"Premium proxy (6th attempt) was attempted. " if premium_proxy_attempted} #{"Premium proxy (7th attempt) was attempted. " if second_premium_proxy_attempted} Link: #{link}. URI String: #{uri_string}. Last response code: #{res.code}. Last response body: #{res.body}"
 
       raise ScrapingBeeError.new(e_message)
-    rescue => e
-      Rollbar.error(e)
-
-      puts "HTTP Request failed (#{ e.message })"
     end
   end
 end
