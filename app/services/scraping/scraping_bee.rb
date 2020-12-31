@@ -1,6 +1,8 @@
 module Scraping
   class ScrapingBee
     class ScrapingBeeError < StandardError; end
+    class NotFoundResponse < StandardError; end
+    class ApiErrorToRetry < StandardError; end
 
     def initialize(api_key: ENV["SCRAPING_BEE_KEY"])
       raise ScrapingBeeError.new("Missing ScrapingBee API key") unless ENV["SCRAPING_BEE_KEY"]
@@ -27,37 +29,32 @@ module Scraping
       # Create Request
       req = Net::HTTP::Get.new(uri)
 
-      # Fetch Request
-      res = http.request(req)
-      puts "1st Response HTTP Status Code: #{ res.code }"
-      puts "1st Response HTTP Response Body: #{ res.body }"
-      return res if res.code == "200"
+      # X attempts using the requested (premium/non-premium) proxy
+      5.times do |i|
+        begin
+          res = http.request(req)
+          puts "Attempt #{i + 1}: Response HTTP Status Code: #{ res.code }"
+          puts "Attempt #{i + 1}: Response HTTP Response Body: #{ res.body }"
+          return res if res.code == "200"
 
-
-      res = http.request(req)
-      puts "2nd Response HTTP Status Code: #{ res.code }"
-      puts "2nd Response HTTP Response Body: #{ res.body }"
-      return res if res.code == "200"
-
-
-      res = http.request(req)
-      puts "3rd Response HTTP Status Code: #{ res.code }"
-      puts "3rd Response HTTP Response Body: #{ res.body }"
-      return res if res.code == "200"
-
-      res = http.request(req)
-      puts "4th Response HTTP Status Code: #{ res.code }"
-      puts "4th Response HTTP Response Body: #{ res.body }"
-      return res if res.code == "200"
-
-      res = http.request(req)
-      puts "5th Response HTTP Status Code: #{ res.code }"
-      puts "5th Response HTTP Response Body: #{ res.body }"
-      return res if res.code == "200"
+          if res.code == "404"
+            raise NotFoundResponse.new("#{res.code}##SPLITHERE###{res.body}")
+          else
+            raise ApiErrorToRetry.new
+          end
+        rescue ApiErrorToRetry
+          retry
+        rescue NotFoundResponse => e
+          code = e.message.split('##SPLITHERE##')[0]
+          body = e.message.split('##SPLITHERE##')[1]
+          raise ScrapingBeeError.new("404 was returned by ScrapingBee. Link: #{link}. URI String: #{uri_string}. Last response code: #{code}. Last response body: #{body}")
+        end
+      end
 
       premium_proxy_attempted = false
       second_premium_proxy_attempted = false
 
+      # If the above attempts fail and a non-premium proxy was used, try X times with premium proxy
       if !premium_proxy
         uri_string << "&premium_proxy=true"
         uri = URI(uri_string)
@@ -70,17 +67,26 @@ module Scraping
         # Create Request
         req = Net::HTTP::Get.new(uri)
 
-        res = http.request(req)
-        puts "6th Response (premium proxy): HTTP Status Code: #{ res.code }"
-        puts "6th Response (premium proxy): HTTP Response Body: #{ res.body }"
-        premium_proxy_attempted = true
-        return res if res.code == "200"
+        2.times do |i|
+          begin
+            res = http.request(req)
+            puts "Re-attempt with premium proxy: #{i}: Response HTTP Status Code: #{ res.code }"
+            puts "Re-attempt with premium proxy: #{i}: Response HTTP Response Body: #{ res.body }"
+            return res if res.code == "200"
 
-        res = http.request(req)
-        puts "7th Response (premium proxy): HTTP Status Code: #{ res.code }"
-        puts "7th Response (premium proxy): HTTP Response Body: #{ res.body }"
-        second_premium_proxy_attempted = true
-        return res if res.code == "200"
+            if res.code == "404"
+              raise NotFoundResponse.new("#{res.code}##SPLITHERE###{res.body}")
+            else
+              raise ApiErrorToRetry.new
+            end
+          rescue ApiErrorToRetry
+            retry
+          rescue NotFoundResponse => e
+            code = e.message.split('##SPLITHERE##')[0]
+            body = e.message.split('##SPLITHERE##')[1]
+            raise ScrapingBeeError.new("404 was returned by ScrapingBee. Link: #{link}. URI String: #{uri_string}. Last response code: #{code}. Last response body: #{body}")
+          end
+        end
       end
 
       e_message = "Could not scrape after 5 attempts using #{premium_proxy ? "premium" : "non-premium"} Proxy.#{"Premium proxy (6th attempt) was attempted. " if premium_proxy_attempted} #{"Premium proxy (7th attempt) was attempted. " if second_premium_proxy_attempted} Link: #{link}. URI String: #{uri_string}. Last response code: #{res.code}. Last response body: #{res.body}"
