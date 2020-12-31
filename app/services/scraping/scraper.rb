@@ -12,8 +12,6 @@ module Scraping
       )
 
       Nokogiri::HTML.parse(response.body)
-    rescue => e
-      Rollbar.error(e)
     end
 
     def search_links
