@@ -13,13 +13,9 @@ module Scraping
           #   file.write scraped_page
           # end
 
-          scraped_jobs = {}
+          retrieved_jobs = scraped_page.search('#scraped-jobs').text
 
-          begin
-            scraped_jobs = JSON.parse(scraped_page.search('#scraped-jobs').text)
-          rescue => e
-            puts "There are no google scraped jobs - #{Date.new}"
-          end
+          scraped_jobs = JSON.parse(retrieved_jobs)
 
           extract_and_save_job(scraped_jobs)
         end
