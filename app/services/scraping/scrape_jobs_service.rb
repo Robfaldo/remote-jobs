@@ -16,6 +16,8 @@ module Scraping
       SCRAPERS.each do |scraper|
         scraper.new.get_jobs
 
+      rescue Net::ReadTimeout
+        retry
       rescue => e
         puts "RollBarErrorHere:"
         puts e.class
