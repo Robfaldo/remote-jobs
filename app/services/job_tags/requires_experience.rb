@@ -1,7 +1,7 @@
 module JobTags
   class RequiresExperience < Tag
     def add_tag
-      job.tag_list.add("requires_experience")
+      job.tag_list.add(tags_yaml["JobTags"]["requires_experience"])
       job.save!
     end
 

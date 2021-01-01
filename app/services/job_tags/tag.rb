@@ -27,5 +27,9 @@ module JobTags
     def get_description_violations(rules, job)
       rules["description"].filter { |rule| job.description.downcase.include?(rule.downcase) }
     end
+
+    def tags_yaml
+      YAML.load(File.read(Rails.root.join("config", "tags.yml")))
+    end
   end
 end

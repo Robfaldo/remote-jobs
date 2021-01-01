@@ -5,3 +5,6 @@ FilterRules:
   title_requirements_not_met: title_requirements_not_met
   white_listed: white_listed
   wrong_job_type: wrong_job_type
+JobTags:
+  requires_stem_degree: requires_stem_degree
+  requires_experience: requires_experience
