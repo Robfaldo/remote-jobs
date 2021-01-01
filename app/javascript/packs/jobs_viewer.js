@@ -1,3 +1,5 @@
+import {updateJobs} from "../update_jobs";
+
 window.addEventListener('DOMContentLoaded', () => {
     const rejectedReasons = document.getElementsByClassName('js-show-rejected-reason');
     const rejectedReasonsArray = [].slice.call(rejectedReasons);
@@ -17,4 +19,10 @@ window.addEventListener('DOMContentLoaded', () => {
             reason.classList.remove('hide-rejected-reason')
         }
     }
+        // By default show all jobs from today that require experience and stem degrees
+        document.getElementById('js-experience-tag-checkbox').classList.add('checked-tag');
+        document.getElementById('js-stem-degree-tag-checkbox').classList.add('checked-tag');
+        document.getElementById('js-show-all-jobs').classList.remove('checked-date-filter');
+        document.getElementById('js-posted-today').classList.add('checked-date-filter');
+        updateJobs()
 });
