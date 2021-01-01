@@ -2,18 +2,39 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-//.search-technologies {
-//  border: red solid 2px;
-//}
-//
-//.p-2 {
-//  border: green solid 2px;
-//}
-//
-//.search-bar {
-//  text-align: center;
-//}
-//
-//.bottom-filtering {
-//  border: orange solid 2px;
-//}
+.show-rejected-reason {
+  display: block;
+}
+
+.hide-rejected-reason {
+  display: none;
+}
+
+.filter-reason {
+  color: red;
+  padding: 20px 0px 20px 0px;
+}
+
+.second-title {
+  display: inline !important;
+}
+
+.rejected-job, .scraped-job, .approved-job {
+  padding-left: 30px;
+  text-transform: uppercase;
+}
+
+.rejected-job {
+  color: red
+}
+.scraped-job {
+  color: orange
+}
+
+.approved-job {
+  color: green;
+}
+
+.url {
+  padding-top: 20px;
+}

@@ -1,75 +1,52 @@
-<div class="container job-filtering">
-  <%= form_tag '/', :method => 'get' do %>
-    <div class="search-technologies d-flex flex-row">
-      <div class="p-2">
-        Technologies:
-      </div>
-      <div class="flex-grow-1 search-bar">
-        <select class="js-technologies" name="technologies[]" multiple="multiple">
-          <% @technologies.each do |technology| %>
-            <option value="<%= technology.id %>"><%= technology.name.downcase.capitalize %></option>
-          <% end %>
-        </select>
-      </div>
+<div class="main">
+  <div class="jobs-container">
+    <div class="filters-container">
+      <%= render 'shared/filters' %>
     </div>
 
-    <div class="bottom-filtering d-flex flex-row">
-      <div class="p-3">
-        <% @levels.each do |level| %>
-          <div class="d-flex flex-row">
-            <div class="p-2">
-              <%= check_box_tag "levels[]", level.id, checked = @selected_levels.include?(level.id) -%>
-            </div>
-            <div class="p-2">
-              <%= level.name.downcase.capitalize %>
-            </div>
-          </div>
-        <% end %>
+    <ul class=job-listings>
+      <div id="jobs-found-container">
+        <h3 class="jobs-found">We have found <span class="jobs-count"></span> jobs</h3>
       </div>
 
-      <div class="p-3">
-        <% @stacks.each do |stack| %>
-          <div class="d-flex flex-row">
-            <div class="p-2">
-              <%= check_box_tag "stacks[]", stack.id, checked = @selected_stacks.include?(stack.id) -%>
-            </div>
-            <div class="p-2">
-              <%= stack.name.downcase.capitalize %>
+      <% @jobs.each do |job| %>
+        <li class="js-job job js-<%= job.posted_date_range %>">
+          <div class="job-details-container">
+            <div class="job-left">
+              <span class="title second-title"><%= job.title %></span><span class="<%= job.status %>-job">(<%= job.status %>)</span>
+              <span class="company"><%= job.company %></span>
+              <a class="url" href=<%= job.job_link %>>URL: <%= job.job_link %></a>
+
+              <div class="tags-container">
+                <% if job.requires_experience? %>
+                  <div class="requires-experience tag js-experience-job-tag">Asks for experience</div>
+                <% end %>
+
+                <% if job.requires_stem_degree? %>
+                  <div class="requires-stem-degree tag js-stem-degree-job-tag">Asks for STEM Degree</div>
+                <% end %>
+
+                <div class="location non-filter-tag"><%= job.location %></div>
+                <div class="posted-date non-filter-tag"><%= job.posted_days_ago %></div>
+              </div>
+              <div class="tag-filters-container">
+                <% job.tag_list.each do |filter_tag| %>
+                  <div class="filter-reason">
+                    Filter tag: <%= filter_tag %>
+                  </div>
+                <% end %>
+              </div>
+
+              <div class="js-show-rejected-reason">
+                <span>Show rejected reason</span>
+                <span class="hide-rejected-reason js-rejected-reason">Reason for rejection: <%= job.status_reason %> </span>
+              </div>
             </div>
           </div>
-        <% end %>
-      </div>
-
-      <div class="p-3 search-button">
-        <div class="col-sm-5 col-lg-4 form-group">
-          <%= submit_tag "Search" %>
-        </div>
-      </div>
-    </div>
-  <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
 
-<div class="container job-listings">
-  <h3 class="heading">We have found <span class="accent"><%= @jobs.count %></span> jobs</h3>
-  <% @jobs.each do |job| %>
-    <div class="job-listing">
-      <div class="row">
-        <div class="col-md-12 col-lg-6">
-          <div class="row">
-            <div class="col-2"><img src=<%= image_path('default-company-image.jpg') %> alt="Company Logo" class="img-fluid"></div>
-            <div class="col-10">
-              <h4 class="job__title"><a href=<%= job.job_link %>> <%= job.title.capitalize %></a></h4>
-              <p class="job__company">
-                <%= job.company.name.capitalize %>
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-10 col-md-3 col-lg-2 ml-auto"><i class="fa fa-map-marker job__technologies"></i><%= job.technologies.map{|t| t.name.capitalize}.join(", ") %></div>
-        <div class="col-10 col-md-3 col-lg-3 ml-auto">
-          <p>Posted <%= time_ago_in_words(job.published_date).remove("over") %> ago</p>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+<%= javascript_pack_tag 'jobs_viewer' %>
