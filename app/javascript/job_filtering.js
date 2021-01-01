@@ -7,6 +7,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const tagCheckboxes =  document.getElementsByClassName('js-experience-tag-checkbox');
     const tagCheckboxesArray = [].slice.call(tagCheckboxes);
 
+    const filterImage = document.querySelector('.filters-container-mobile').getElementsByClassName('js-filter-image')[0];
+
     // Add event Listeners
     dateRangeCheckboxesArray.forEach(function(checkbox){
         checkbox.addEventListener('click', updateDateRange, false)
@@ -16,10 +18,11 @@ window.addEventListener('DOMContentLoaded', () => {
         checkbox.addEventListener('click', updateTag, false)
     });
 
-    // Run this so that it hides the jobs that require experience/degrees etc.. and updates the job count
+    filterImage.addEventListener('click', toggleFilterForMobile, false)
+
+    // Run this so that it hides the jobs that require experience/degrees etc.. and updates the job count on initial page load
     updateJobs();
 
-    // Methods triggered by the onclick events
     function updateDateRange() {
         updateDateRangeFilters(this, dateRangeCheckboxesArray);
         updateJobs();
@@ -30,6 +33,20 @@ window.addEventListener('DOMContentLoaded', () => {
         updateJobs();
     }
 });
+
+function toggleFilterForMobile() {
+    const filterContainer = document.querySelector('.filters-container-mobile').getElementsByClassName('js-filter-container')[0];
+    const mobileFilterContainer = document.getElementsByClassName('js-mobile-filters-container')[0];
+
+    //  if the filter is not showing then reveal it
+    if (mobileFilterContainer.classList.contains('shortened-mobile-filter-container')) {
+        filterContainer.classList.remove('hide-filter');
+        mobileFilterContainer.classList.remove('shortened-mobile-filter-container');
+    } else { // it must be showing so hide it
+        filterContainer.classList.add('hide-filter');
+        mobileFilterContainer.classList.add('shortened-mobile-filter-container');
+    }
+}
 
 function updateDateRange() {
     updateDateRangeFilters(this, dateRangeCheckboxesArray);
