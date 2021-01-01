@@ -22,7 +22,7 @@ module Scraping
             next if Job.where(job_link: job_link).count > 0
 
             begin
-              create_job(job)
+              create_job(job, job_link)
             rescue => e
               Rollbar.error(e, job.instance_values.to_s)
             end
@@ -33,7 +33,7 @@ module Scraping
 
     private
 
-    def create_job(job)
+    def create_job(job, job_link)
       new_job = Job.new(
           title: job["title"],
           job_link: job_link,
