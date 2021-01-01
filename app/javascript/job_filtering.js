@@ -7,7 +7,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const tagCheckboxes =  document.getElementsByClassName('js-experience-tag-checkbox');
     const tagCheckboxesArray = [].slice.call(tagCheckboxes);
 
-    const filterImage = document.querySelector('.filters-container-mobile').getElementsByClassName('js-filter-image')[0];
+    const filterContainerMobile = document.querySelector('.filters-container-mobile');
+
+    // I'm having to put this in if conditional because I need to share this javascript file with the view jobs page (and it would break here if not)- should refactor this at some point.
+    if (filterContainerMobile) {
+        const filterImage = filterContainerMobile.getElementsByClassName('js-filter-image')[0];
+        filterImage.addEventListener('click', toggleFilterForMobile, false)
+    }
 
     // Add event Listeners
     dateRangeCheckboxesArray.forEach(function(checkbox){
@@ -18,7 +24,6 @@ window.addEventListener('DOMContentLoaded', () => {
         checkbox.addEventListener('click', updateTag, false)
     });
 
-    filterImage.addEventListener('click', toggleFilterForMobile, false)
 
     // Run this so that it hides the jobs that require experience/degrees etc.. and updates the job count on initial page load
     updateJobs();
