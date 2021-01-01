@@ -93,7 +93,7 @@ function getSelectedTags() {
 }
 
 function getDateRange(job) {
-    const possibleJobDateRanges = ["js-posted-today", "js-posted-three-dayapp/javascript/update_jobs.jss", "js-posted-over-three-days"];
+    const possibleJobDateRanges = ["js-posted-today", "js-posted-three-days", "js-posted-over-three-days"];
 
     const dateRangesOnJob = possibleJobDateRanges.filter(dateRange => job.element.classList.contains(dateRange));
 
