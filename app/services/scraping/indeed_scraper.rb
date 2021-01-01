@@ -9,7 +9,7 @@ module Scraping
 
           scraped_jobs = scraped_page.search('.jobsearch-SerpJobCard')
 
-          jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
+          jobs_to_evaluate = jobs_to_evaluate(scraped_jobs)
 
           jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
 
@@ -20,20 +20,31 @@ module Scraping
 
     private
 
-    def extract_jobs_to_evaluate(scraped_all_jobs_page)
+    def jobs_to_evaluate(scraped_jobs)
       jobs_to_evaluate = []
 
-      scraped_all_jobs_page.each do |job|
-        scraped_link = job.search('.title').search('a').first.get_attribute('href')
-        link = 'https://www.indeed.co.uk/viewjob' + scraped_link.gsub('/rc/clk', '')
-        company = job.search('.company').search('a').text.strip
-        title = job.search('.title').search('a').text.strip
-        location = job.search('.location').text
+      scraped_jobs.each do |job|
+        begin
+          raise StandardError.new
+          extracted_job = extract_job_to_evaluate(job)
 
-        jobs_to_evaluate.push(JobToEvaluate.new(title: title, link: link, company: company, location: location))
+          jobs_to_evaluate.push(extracted_job)
+        rescue => e
+          Rollbar.error(e)
+        end
       end
 
       jobs_to_evaluate
+    end
+
+    def extract_job_to_evaluate(job)
+      scraped_link = job.search('.title').search('a').first.get_attribute('href')
+      link = 'https://www.indeed.co.uk/viewjob' + scraped_link.gsub('/rc/clk', '')
+      company = job.search('.company').search('a').text.strip
+      title = job.search('.title').search('a').text.strip
+      location = job.search('.location').text
+
+      JobToEvaluate.new(title: title, link: link, company: company, location: location)
     end
 
     def extract_and_save_job(evaluated_jobs)
@@ -45,7 +56,7 @@ module Scraping
 
           create_job(job, description)
         rescue => e
-          Rollbar.error(e, job.instance_values.to_s)
+          Rollbar.error(e, job: job.instance_values.to_s)
         end
       end
     end

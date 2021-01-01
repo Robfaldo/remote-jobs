@@ -9,7 +9,7 @@ module Scraping
 
           scraped_jobs = scraped_page.search('.job')
 
-          jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
+          jobs_to_evaluate = jobs_to_evaluate(scraped_jobs)
 
           jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
 
@@ -32,19 +32,30 @@ module Scraping
       jobs_to_scrape
     end
 
-    def extract_jobs_to_evaluate(scraped_all_jobs_page)
+    def jobs_to_evaluate(scraped_all_jobs_page)
       jobs_to_evaluate = []
 
       scraped_all_jobs_page.each do |job|
-        link = job.search('.job-title').search('a').first.get_attribute('href')
-        company = job.search('h3').search('a').text
-        title = job.search('h2').text.strip
-        location = job.search('.location').search('span').first.text.strip
 
-        jobs_to_evaluate.push(JobToEvaluate.new(title: title, link: link, company: company, location: location))
+        begin
+          job_to_evaluate = extract_job_to_evaluate(job)
+
+          jobs_to_evaluate.push(job_to_evaluate)
+        rescue => e
+          Rollbar.error(e)
+        end
       end
 
       jobs_to_evaluate
+    end
+
+    def extract_job_to_evaluate(job)
+      link = job.search('.job-title').search('a').first.get_attribute('href')
+      company = job.search('h3').search('a').text
+      title = job.search('h2').text.strip
+      location = job.search('.location').search('span').first.text.strip
+
+      JobToEvaluate.new(title: title, link: link, company: company, location: location)
     end
 
     def extract_and_save_job(evaluated_jobs)
@@ -56,7 +67,7 @@ module Scraping
 
           create_job(job, scraped_job_page)
         rescue => e
-          Rollbar.error(e, job.instance_values.to_s)
+          Rollbar.error(e, job: job.instance_values.to_s)
         end
       end
     end
