@@ -25,7 +25,6 @@ module Scraping
 
       scraped_jobs.each do |job|
         begin
-          raise StandardError.new
           extracted_job = extract_job_to_evaluate(job)
 
           jobs_to_evaluate.push(extracted_job)
