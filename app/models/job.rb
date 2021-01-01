@@ -35,6 +35,15 @@ class Job < ApplicationRecord
     Job.created_last_14_days.where(status: "approved").order(:created_at).reverse
   end
 
+  def self.default_jobs_viewer_jobs
+    jobs = []
+    # So that we have approved jobs at the top
+    jobs.concat(Job.created_last_14_days.where(status: "approved").order(:created_at).reverse)
+    jobs.concat(Job.created_last_14_days.where('status != ?', 'approved').order(:created_at).reverse)
+
+    jobs
+  end
+
   def self.by_date_and_source(date, source, status: nil)
     if status
       Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source, status: status)
@@ -49,6 +58,10 @@ class Job < ApplicationRecord
 
   def approved?
     self.status == "approved"
+  end
+
+  def white_listed?
+    self.tag_list.include?('white_listed')
   end
 
   def requires_experience?

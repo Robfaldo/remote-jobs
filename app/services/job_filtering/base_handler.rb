@@ -78,5 +78,9 @@ module JobFiltering
 
       job.save!
     end
+
+    def tags_yaml
+      YAML.load(File.read(Rails.root.join("config", "tags.yml")))
+    end
   end
 end

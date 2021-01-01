@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get '/search' => "search#index"
   get '/stats' => 'scraping_stats#index'
   get '/rejected' => 'rejected_jobs#index'
-  # post '/create_job' => "create_job#create"
+  get '/jobs_secret' => 'jobs#index'
 end

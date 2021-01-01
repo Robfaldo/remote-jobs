@@ -4,6 +4,8 @@ module JobFiltering
 
     def handle(job)
       reject_job_for_title_or_description_violations(@title_rule_violations, @description_rule_violations, job, class_name_underscored.to_sym)
+      job.tag_list.add(tags_yaml["FilterRules"]["current_students_only"])
+      job.save!
     end
 
     def can_handle?(job)

@@ -8,6 +8,8 @@ module JobFiltering
 
     def handle(job)
       reject_job(job, "Rejected for missing title requirements. Levels matched: #{@levels_matched}. Roles matched: #{@roles_matched}. Software indicators matched: #{@software_indicators_matched}")
+      job.tag_list.add(tags_yaml["FilterRules"]["title_requirements_not_met"])
+      job.save!
     end
 
     def can_handle?(job)
