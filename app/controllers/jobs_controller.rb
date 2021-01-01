@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
   def index
-    @jobs = Job.created_last_14_days
+    @jobs = Job.default_jobs_viewer_jobs
   end
 end
