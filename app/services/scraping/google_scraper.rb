@@ -17,33 +17,36 @@ module Scraping
 
           scraped_jobs = JSON.parse(retrieved_jobs)
 
-          extract_and_save_job(scraped_jobs)
+          scraped_jobs.each do |job|
+            job_link = job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', '')
+            next if Job.where(job_link: job_link).count > 0
+
+            begin
+              create_job(job)
+            rescue => e
+              Rollbar.error(e, job.instance_values.to_s)
+            end
+          end
         end
       end
     end
 
     private
 
-    def extract_and_save_job(scraped_jobs)
-      scraped_jobs.each do |job|
-        job_link = job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', '')
+    def create_job(job)
+      new_job = Job.new(
+          title: job["title"],
+          job_link: job_link,
+          location: job["location"],
+          description: job["description"],
+          source: :google,
+          status: "scraped",
+          company: job["company"]
+      )
 
-        next if Job.where(job_link: job_link).count > 0
+      new_job.job_board = job["job_board"] if job["job_board"]
 
-        new_job = Job.new(
-            title: job["title"],
-            job_link: job_link,
-            location: job["location"],
-            description: job["description"],
-            source: :google,
-            status: "scraped",
-            company: job["company"]
-        )
-
-        new_job.job_board = job["job_board"] if job["job_board"]
-
-        new_job.save!
-      end
+      new_job.save!
     end
 
     def javascript
