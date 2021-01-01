@@ -1,0 +1,7 @@
+FilterRules:
+  already_added_recently: already_added_recently
+  black_listed: black_listed
+  current_students_only: current_students_only
+  title_requirements_not_met: title_requirements_not_met
+  white_listed: white_listed
+  wrong_job_type: wrong_job_type

@@ -4,6 +4,9 @@ module JobFiltering
 
     def handle(job)
       reject_job(job,"Black listed: #{@black_list_violations}.")
+      job.tag_list.add(tags_yaml["FilterRules"]["black_listed"])
+
+      job.save!
     end
 
     def can_handle?(job)
