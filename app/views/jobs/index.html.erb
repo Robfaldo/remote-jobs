@@ -13,9 +13,10 @@
         <li class="js-job job js-<%= job.posted_date_range %>">
           <div class="job-details-container">
             <div class="job-left">
-              <span class="title second-title"><%= job.title %></span><span class="<%= job.status %>-job">(<%= job.status %>)</span>
+              <a class="url" href=<%= job.job_link %>>
+                <span class="title second-title"><%= job.title %></span><span class="<%= job.status %>-job">(<%= job.status %>)</span>
+              </a>
               <span class="company"><%= job.company %></span>
-              <a class="url" href=<%= job.job_link %>>URL: <%= job.job_link %></a>
 
               <div class="tags-container">
                 <% if job.requires_experience? %>
