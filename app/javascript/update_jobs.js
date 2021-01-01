@@ -41,7 +41,7 @@ function Job(element) {
 function jobMatchesSelectedDateRange(job, selectedDateRange) {
     const filtersMapping = {
         'js-posted-today': ['js-posted-today'],
-        'js-posted-three-days': ['js-posted-three-days'],
+        'js-posted-three-days': ['js-posted-three-days', 'js-posted-today'],
         'js-show-all-jobs': ['js-posted-today', 'js-posted-over-three-days', 'js-posted-three-days']
     };
 
