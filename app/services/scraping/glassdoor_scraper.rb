@@ -58,10 +58,10 @@ module Scraping
           job_link: new_link,
           location: job.location,
           description: description,
-          source: :indeed,
+          source: :glassdoor,
           status: "scraped",
           company: job.company,
-          job_board: "Indeed",
+          job_board: "glassdoor",
           source_id: job.link
       )
 
