@@ -32,12 +32,6 @@
                 <div class="location non-filter-tag"><%= job.location %></div>
                 <div class="posted-date non-filter-tag"><%= job.posted_days_ago %></div>
               </div>
-
-              <% if job.rejected? %>
-                </br>
-                <span class="rejected-reason">Reason for rejection: <%= job.status_reason %> </span>
-              <% end %>
-
             </div>
           </a>
         </li>

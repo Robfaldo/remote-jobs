@@ -51,6 +51,10 @@ class Job < ApplicationRecord
     self.status == "approved"
   end
 
+  def white_listed?
+    self.tag_list.include?('white_listed')
+  end
+
   def requires_experience?
     self.tag_list.include?("requires_experience")
   end
