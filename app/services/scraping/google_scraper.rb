@@ -24,7 +24,7 @@ module Scraping
             begin
               create_job(job, job_link)
             rescue => e
-              Rollbar.error(e, job: job.instance_values.to_s)
+              Rollbar.error(e, job: job)
             end
           end
         end
