@@ -15,7 +15,7 @@
   padding: 20px 0px 20px 0px;
 }
 
-.filter-reason-whitelisted {
+.filter-reason-green {
   color: green;
   padding: 20px 0px 20px 0px;
 }
@@ -55,4 +55,16 @@
 
 .source-title {
   padding-right: 40px;
+}
+
+.update-status-approve {
+  padding: 10px;
+  border: solid 2px black;
+  width: 300px;
+  background-color: green;
+  color: white;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
 }

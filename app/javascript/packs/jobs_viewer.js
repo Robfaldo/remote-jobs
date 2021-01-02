@@ -19,10 +19,23 @@ window.addEventListener('DOMContentLoaded', () => {
             reason.classList.remove('hide-rejected-reason')
         }
     }
-        // By default show all jobs from today that require experience and stem degrees
-        document.getElementById('js-experience-tag-checkbox').classList.add('checked-tag');
-        document.getElementById('js-stem-degree-tag-checkbox').classList.add('checked-tag');
-        document.getElementById('js-show-all-jobs').classList.remove('checked-date-filter');
-        document.getElementById('js-posted-today').classList.add('checked-date-filter');
-        updateJobs()
+
+    // By default show all jobs from today that require experience and stem degrees
+    document.getElementById('js-experience-tag-checkbox').classList.add('checked-tag');
+    document.getElementById('js-stem-degree-tag-checkbox').classList.add('checked-tag');
+    document.getElementById('js-show-all-jobs').classList.remove('checked-date-filter');
+    document.getElementById('js-posted-today').classList.add('checked-date-filter');
+    updateJobs()
+
+    // Update ajax calls (made with the links_to in the erb file, we bind the ajax:success/error to the element so that it's triggered when the server responds to the call. https://guides.rubyonrails.org/working_with_javascript_in_rails.html
+    $('.js-status-update').bind('ajax:error', function(event) {
+        const [data, status, xhr] = event.detail;
+        // Currently doing nothing
+    });
+
+    $('.js-status-update').bind('ajax:success', function(response) {
+        const [data, status, xhr] = event.detail;
+        // Currently doing nothing
+    });
 });
+

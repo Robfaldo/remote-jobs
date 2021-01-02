@@ -60,6 +60,10 @@ class Job < ApplicationRecord
     self.status == "approved"
   end
 
+  def marked_as_approved?
+    self.tag_list.include?('marked_as_approved')
+  end
+
   def white_listed?
     self.tag_list.include?('white_listed')
   end
