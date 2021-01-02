@@ -8,3 +8,5 @@ FilterRules:
 JobTags:
   requires_stem_degree: requires_stem_degree
   requires_experience: requires_experience
+ReviewTags:
+  marked_as_approved: marked_as_approved

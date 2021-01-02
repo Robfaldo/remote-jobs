@@ -1,4 +1,6 @@
 class Job < ApplicationRecord
+  include TagHelper
+
   acts_as_taggable_on :tags
 
   geocoded_by :location
@@ -60,6 +62,10 @@ class Job < ApplicationRecord
     self.status == "approved"
   end
 
+  def marked_as_approved?
+    self.tag_list.include?('marked_as_approved')
+  end
+
   def white_listed?
     self.tag_list.include?('white_listed')
   end
@@ -70,6 +76,35 @@ class Job < ApplicationRecord
 
   def requires_stem_degree?
     self.tag_list.include?("requires_stem_degree")
+  end
+
+  def toggle_experience_requirement
+    toggle_tag(self, tags_yaml["JobTags"]["requires_experience"])
+  end
+
+  def toggle_stem_degree_requirement
+    toggle_tag(self, tags_yaml["JobTags"]["requires_stem_degree"])
+  end
+
+  def toggle_status
+    if self.status == "approved"
+      self.status = "rejected"
+
+      unless self.tag_list.include?(tags_yaml["ReviewTags"]["marked_as_rejected"])
+        self.tag_list.add(tags_yaml["ReviewTags"]["marked_as_rejected"])
+      end
+    elsif
+      self.status == "rejected"
+      self.status = "approved"
+
+      unless self.tag_list.include?(tags_yaml["ReviewTags"]["marked_as_approved"])
+        self.tag_list.add(tags_yaml["ReviewTags"]["marked_as_approved"])
+      end
+    end
+  end
+
+  def reviewed?
+    self.reviewed
   end
 
   def posted_date_range
@@ -99,6 +134,16 @@ class Job < ApplicationRecord
       "1 day ago"
     else
       "#{days_ago} days ago"
+    end
+  end
+
+  private
+
+  def toggle_tag(job, tag)
+    if job.tag_list.include?(tag)
+      job.tag_list.remove(tag)
+    else
+      job.tag_list.add(tag)
     end
   end
 end
