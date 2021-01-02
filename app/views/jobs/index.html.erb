@@ -59,6 +59,13 @@
                 <% end %>
               </div>
 
+              <% if job.rejected? %>
+                <div class="js-show-rejected-reason">
+                  <span>Show rejected reason</span>
+                  <span class="hide-rejected-reason js-rejected-reason">Reason for rejection: <%= job.status_reason %> </span>
+                </div>
+              <% end %>
+
               <div class="updater-container">
                 <% if job.rejected? || job.approved? %>
                   <% newStatus = job.rejected? ? 'approved' : 'rejected' %>
