@@ -39,7 +39,7 @@
               <span class="source"><span class="source-title">Source:</span><%= job.source %></span>
               <span class="job-board"><span class="job-board-title">Job Board:</span> <%= job.location %></span>
               <div class="tag-filters-container">
-                <% job.tag_list.each do |tag| %>
+                <% job.tags.each do |tag| %>
                   <% if filter_tag?(tag) && !job.white_listed? %>
                     <div class="filter-reason">
                       Filter tag: <%= tag %>

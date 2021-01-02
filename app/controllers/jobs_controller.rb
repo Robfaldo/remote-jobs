@@ -2,7 +2,7 @@ class JobsController < ApplicationController
   include TagHelper
 
   def index
-    @jobs = Job.default_jobs_viewer_jobs
+    @jobs = Job.includes(:tags).default_jobs_viewer_jobs
   end
 
   def update
