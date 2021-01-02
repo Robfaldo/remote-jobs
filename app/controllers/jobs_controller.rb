@@ -13,41 +13,19 @@ class JobsController < ApplicationController
     render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity unless job
 
     if job_params[:status]
-      job.status = job_params[:status]
-      job.tag_list = []
-      job.tag_list.add(tags_yaml["ReviewTags"]["marked_as_approved"])
-
-      if job.save
-        render json: job, status: :created
-      else
-        render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity
-      end
+      job.toggle_status
     elsif job_params[:requires_experience]
-      if job_params[:requires_experience] == "add-experience-requirement" || job_params[:requires_experience] == "remove-experience-requirement"
-        job.toggle_experience_requirement
-
-        if job.save
-          render json: job, status: :created
-        else
-          render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity
-        end
-      end
+      job.toggle_experience_requirement
     elsif job_params[:requires_stem_degree]
       job.toggle_stem_degree_requirement
-
-      if job.save
-        render json: job, status: :created
-      else
-        render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity
-      end
     elsif job_params[:mark_as_reviewed]
       job.reviewed = true
+    end
 
-      if job.save
-        render json: job, status: :created
-      else
-        render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity
-      end
+    if job.save
+      render json: job, status: :created
+    else
+      render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity
     end
   end
 

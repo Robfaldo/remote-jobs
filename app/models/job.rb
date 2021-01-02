@@ -86,6 +86,23 @@ class Job < ApplicationRecord
     toggle_tag(self, tags_yaml["JobTags"]["requires_stem_degree"])
   end
 
+  def toggle_status
+    if self.status == "approved"
+      self.status = "rejected"
+
+      unless self.tag_list.include?(tags_yaml["ReviewTags"]["marked_as_rejected"])
+        self.tag_list.add(tags_yaml["ReviewTags"]["marked_as_rejected"])
+      end
+    elsif
+      self.status == "rejected"
+      self.status = "approved"
+
+      unless self.tag_list.include?(tags_yaml["ReviewTags"]["marked_as_approved"])
+        self.tag_list.add(tags_yaml["ReviewTags"]["marked_as_approved"])
+      end
+    end
+  end
+
   def reviewed?
     self.reviewed
   end
