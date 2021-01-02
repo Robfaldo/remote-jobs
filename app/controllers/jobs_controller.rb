@@ -40,12 +40,20 @@ class JobsController < ApplicationController
       else
         render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity
       end
+    elsif job_params[:mark_as_reviewed]
+      job.reviewed = true
+
+      if job.save
+        render json: job, status: :created
+      else
+        render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity
+      end
     end
   end
 
   private
 
   def job_params
-    params.require(:job).permit(:status, :id, :requires_experience, :requires_stem_degree)
+    params.require(:job).permit(:status, :id, :requires_experience, :requires_stem_degree, :mark_as_reviewed)
   end
 end

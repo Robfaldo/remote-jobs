@@ -41,10 +41,11 @@ window.addEventListener('DOMContentLoaded', () => {
     $('.js-status-update').bind('ajax:success', function(response) {
         const [data, status, xhr] = event.detail;
 
-        this.closest('.js-job').classList.add('reviewed')
+        this.querySelector('.update-status').style.backgroundColor = "#42c2bb"
+        this.querySelector('.update-status').style.color = "white"
     });
 
-    $('.js-status-update').bind('ajax:error', function(event) {
+    $('.js-experience-update').bind('ajax:error', function(event) {
         const [data, status, xhr] = event.detail;
         // Currently doing nothing
     });
@@ -54,6 +55,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
         this.querySelector('.update-requirement').style.backgroundColor = "green"
         this.querySelector('.update-requirement').style.color = "white"
+    });
+
+    $('.js-mark-as-reviewed').bind('ajax:error', function(event) {
+        const [data, status, xhr] = event.detail;
+        // Currently doing nothing
+    });
+
+    $('.js-mark-as-reviewed').bind('ajax:success', function(response) {
+        const [data, status, xhr] = event.detail;
+
+        this.closest('.js-job').classList.add('reviewed')
     });
 });
 

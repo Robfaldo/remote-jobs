@@ -70,7 +70,7 @@
                 <% if job.rejected? || job.approved? %>
                   <% newStatus = job.rejected? ? 'approved' : 'rejected' %>
                   <%= link_to job_path(job, job: {status: newStatus, id: job.id}), method: 'patch', id: "status-for-#{job.id}", class: "js-status-update status-update-link", remote: true  do%>
-                    <span class="updater update-status-<%= newStatus %>">
+                    <span class="update-status updater update-status-<%= newStatus %>">
                       Mark as <%= newStatus.capitalize %>
                     </span>
                   <% end %>
@@ -79,7 +79,7 @@
                 <% if job.requires_experience? %>
                   <% newStatus = job.rejected? ? 'approved' : 'rejected' %>
                   <%= link_to job_path(job, job: {status: newStatus, id: job.id}), method: 'patch', id: "status-for-#{job.id}", class: "js-status-update status-update-link", remote: true  do%>
-                    <span class="updater update-status-<%= newStatus %>">
+                    <span class="update-status updater update-status-<%= newStatus %>">
                       Mark as <%= newStatus.capitalize %>
                     </span>
                   <% end %>
@@ -99,9 +99,13 @@
                       <%= newRequiresStemDegree.gsub('-', ' ').gsub('requirement', '').capitalize %>
                     </span>
                 <% end %>
+
+                <%= link_to job_path(job, job: {mark_as_reviewed: true, id: job.id}), method: 'patch', id: "mark-reviewed-#{job.id}", class: "js-mark-as-reviewed", remote: true  do%>
+                    <span class="update-requirement updater mark-as-reviewed">
+                      Mark as reviewed
+                    </span>
+                <% end %>
               </div>
-
-
             </div>
           </div>
         </li>

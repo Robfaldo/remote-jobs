@@ -87,14 +87,7 @@ class Job < ApplicationRecord
   end
 
   def reviewed?
-    review_tags = tags_yaml["ReviewTags"].keys
-    job_tags = self.tag_list.to_a
-
-    job_review_tags = job_tags.select do |job_tag|
-      review_tags.include?(job_tag)
-    end
-
-    job_review_tags.count > 0
+    self.reviewed
   end
 
   def posted_date_range
