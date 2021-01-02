@@ -1,4 +1,6 @@
 class Job < ApplicationRecord
+  include TagHelper
+
   acts_as_taggable_on :tags
 
   geocoded_by :location
@@ -74,6 +76,17 @@ class Job < ApplicationRecord
 
   def requires_stem_degree?
     self.tag_list.include?("requires_stem_degree")
+  end
+
+  def reviewed?
+    review_tags = tags_yaml["ReviewTags"].keys
+    job_tags = self.tag_list.to_a
+
+    job_review_tags = job_tags.select do |job_tag|
+      review_tags.include?(job_tag)
+    end
+
+    job_review_tags.count > 0
   end
 
   def posted_date_range

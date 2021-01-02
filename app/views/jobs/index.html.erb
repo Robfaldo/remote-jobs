@@ -10,7 +10,7 @@
       </div>
 
       <% @jobs.each do |job| %>
-        <li class="js-job job js-<%= job.posted_date_range %>">
+        <li class="js-job job js-<%= job.posted_date_range %> <%= "reviewed" if job.reviewed? %>">
           <div class="job-details-container">
             <div class="job-left">
               <a class="url" href=<%= job.job_link %>>
