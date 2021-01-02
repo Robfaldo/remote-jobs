@@ -1,6 +1,6 @@
 class Job < ApplicationRecord
   include TagHelper
-
+  acts_as_taggable
   acts_as_taggable_on :tags
 
   geocoded_by :location
@@ -63,19 +63,19 @@ class Job < ApplicationRecord
   end
 
   def marked_as_approved?
-    self.tag_list.include?('marked_as_approved')
+    self.tags.map{|t| t.name}.include?('marked_as_approved')
   end
 
   def white_listed?
-    self.tag_list.include?('white_listed')
+    self.tags.map{|t| t.name}.include?('white_listed')
   end
 
   def requires_experience?
-    self.tag_list.include?("requires_experience")
+    self.tags.map{|t| t.name}.include?("requires_experience")
   end
 
   def requires_stem_degree?
-    self.tag_list.include?("requires_stem_degree")
+    self.tags.map{|t| t.name}.include?("requires_stem_degree")
   end
 
   def toggle_experience_requirement
