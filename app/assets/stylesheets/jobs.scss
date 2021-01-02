@@ -72,3 +72,25 @@
 .reviewed {
   display:none;
 }
+
+.show-reviewed {
+  background-color: orange;
+}
+
+.show-reviewed-jobs {
+  padding: 10px;
+  border: solid 2px black;
+  width: 250px;
+  background-color: orange;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  font-family: Sans-Serif;
+  font-size: 1.2rem;
+}
+
+#jobs-review-filters-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px 20px 0px;
+}
