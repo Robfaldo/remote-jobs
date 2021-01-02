@@ -36,6 +36,8 @@ window.addEventListener('DOMContentLoaded', () => {
     $('.js-status-update').bind('ajax:success', function(response) {
         const [data, status, xhr] = event.detail;
         // Currently doing nothing
+
+        this.closest('.js-job').classList.add('resolved')
     });
 });
 
