@@ -78,6 +78,14 @@ class Job < ApplicationRecord
     self.tag_list.include?("requires_stem_degree")
   end
 
+  def toggle_experience_requirement
+    if self.tag_list.include?(tags_yaml["JobTags"]["requires_experience"])
+      self.tag_list.remove(tags_yaml["JobTags"]["requires_experience"])
+    else
+      self.tag_list.add(tags_yaml["JobTags"]["requires_experience"])
+    end
+  end
+
   def reviewed?
     review_tags = tags_yaml["ReviewTags"].keys
     job_tags = self.tag_list.to_a

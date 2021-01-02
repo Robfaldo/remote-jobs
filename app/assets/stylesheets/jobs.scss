@@ -57,7 +57,7 @@
   padding-right: 40px;
 }
 
-.update-status-approved, .update-status-rejected {
+.update-status-approved, .update-status-rejected, .update-experience-requirement{
   padding: 10px;
   border: solid 2px black;
   width: 300px;
@@ -76,11 +76,6 @@
   margin-top: 30px;
   background-color: red;
   color: white;
-}
-
-.status-update-link {
-  display: block;
-  margin-top: 20px;
 }
 
 .reviewed {
@@ -107,4 +102,21 @@
   display: flex;
   justify-content: center;
   margin: 20px 0px 20px 0px;
+}
+
+.updater-container {
+  display: flex;
+  margin-top: 20px
+}
+
+.update-requirement {
+  color: black;
+  background-color: #8ab4f8;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.updater {
+  margin: 5px;
 }

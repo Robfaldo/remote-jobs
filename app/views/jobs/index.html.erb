@@ -59,14 +59,34 @@
                 <% end %>
               </div>
 
-              <% if job.rejected? || job.approved? %>
-                <% newStatus = job.rejected? ? 'approved' : 'rejected' %>
-                <%= link_to job_path(job, job: {status: newStatus, id: job.id}), method: 'patch', id: "status-for-#{job.id}", class: "js-status-update status-update-link", remote: true  do%>
-                  <span class="update-status-<%= newStatus %>">
-                    Mark as <%= newStatus.capitalize %>
-                  </span>
+              <div class="updater-container">
+                <% if job.rejected? || job.approved? %>
+                  <% newStatus = job.rejected? ? 'approved' : 'rejected' %>
+                  <%= link_to job_path(job, job: {status: newStatus, id: job.id}), method: 'patch', id: "status-for-#{job.id}", class: "js-status-update status-update-link", remote: true  do%>
+                    <span class="updater update-status-<%= newStatus %>">
+                      Mark as <%= newStatus.capitalize %>
+                    </span>
+                  <% end %>
                 <% end %>
-              <% end %>
+
+                <% if job.requires_experience? %>
+                  <% newStatus = job.rejected? ? 'approved' : 'rejected' %>
+                  <%= link_to job_path(job, job: {status: newStatus, id: job.id}), method: 'patch', id: "status-for-#{job.id}", class: "js-status-update status-update-link", remote: true  do%>
+                    <span class="updater update-status-<%= newStatus %>">
+                      Mark as <%= newStatus.capitalize %>
+                    </span>
+                  <% end %>
+                <% end %>
+
+                <% newRequiresExperience = job.requires_experience? ? 'remove-experience-requirement' : 'add-experience-requirement' %>
+                <%= link_to job_path(job, job: {requires_experience: newRequiresExperience, id: job.id}), method: 'patch', id: "experience-for-#{job.id}", class: "js-experience-update", remote: true  do%>
+                    <span class="update-requirement updater">
+                      <%= newRequiresExperience.gsub('-', ' ').gsub('requirement', '').capitalize %>
+                    </span>
+                <% end %>
+              </div>
+
+
             </div>
           </div>
         </li>

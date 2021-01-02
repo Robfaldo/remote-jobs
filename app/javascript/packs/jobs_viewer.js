@@ -43,6 +43,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
         this.closest('.js-job').classList.add('reviewed')
     });
+
+    $('.js-status-update').bind('ajax:error', function(event) {
+        const [data, status, xhr] = event.detail;
+        // Currently doing nothing
+    });
+
+    $('.js-experience-update').bind('ajax:success', function(response) {
+        const [data, status, xhr] = event.detail;
+
+        this.querySelector('.update-requirement').style.backgroundColor = "green"
+        this.querySelector('.update-requirement').style.color = "white"
+    });
 });
 
 function updateReviewedJobs() {
