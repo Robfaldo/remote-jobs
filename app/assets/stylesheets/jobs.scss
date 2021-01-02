@@ -57,16 +57,30 @@
   padding-right: 40px;
 }
 
-.update-status-approve {
+.update-status-approved, .update-status-rejected {
   padding: 10px;
   border: solid 2px black;
   width: 300px;
-  background-color: green;
-  color: white;
   text-align: center;
   border-radius: 10px;
   color: white;
   text-decoration: none;
+}
+
+.update-status-approved {
+  background-color: green;
+  color: white;
+}
+
+.update-status-rejected {
+  margin-top: 30px;
+  background-color: red;
+  color: white;
+}
+
+.status-update-link {
+  display: block;
+  margin-top: 20px;
 }
 
 .reviewed {

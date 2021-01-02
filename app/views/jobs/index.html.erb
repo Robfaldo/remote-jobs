@@ -46,6 +46,7 @@
                     </div>
                   <% end %>
                 <% end %>
+
                 <% if job.white_listed? %>
                     <div class="filter-reason-green">
                       Filter tag: Whitelisted
@@ -58,10 +59,11 @@
                 <% end %>
               </div>
 
-              <% if job.rejected? %>
-                <%= link_to job_path(job, job: {status: 'approved', id: job.id}), method: 'patch', id: "status-for-#{job.id}", class: "js-status-update", remote: true  do%>
-                  <span class="update-status-approve">
-                    Mark as approved
+              <% if job.rejected? || job.approved? %>
+                <% newStatus = job.rejected? ? 'approved' : 'rejected' %>
+                <%= link_to job_path(job, job: {status: newStatus, id: job.id}), method: 'patch', id: "status-for-#{job.id}", class: "js-status-update status-update-link", remote: true  do%>
+                  <span class="update-status-<%= newStatus %>">
+                    Mark as <%= newStatus.capitalize %>
                   </span>
                 <% end %>
               <% end %>
