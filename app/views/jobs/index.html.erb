@@ -84,6 +84,14 @@
                       <%= newRequiresExperience.gsub('-', ' ').gsub('requirement', '').capitalize %>
                     </span>
                 <% end %>
+
+
+                <% newRequiresStemDegree = job.requires_stem_degree? ? 'remove-stem-degree-requirement' : 'add-stem-degree-requirement' %>
+                <%= link_to job_path(job, job: {requires_stem_degree: newRequiresStemDegree, id: job.id}), method: 'patch', id: "degree-experience-for-#{job.id}", class: "js-experience-update", remote: true  do%>
+                    <span class="update-requirement updater">
+                      <%= newRequiresStemDegree.gsub('-', ' ').gsub('requirement', '').capitalize %>
+                    </span>
+                <% end %>
               </div>
 
 

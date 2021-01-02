@@ -79,11 +79,11 @@ class Job < ApplicationRecord
   end
 
   def toggle_experience_requirement
-    if self.tag_list.include?(tags_yaml["JobTags"]["requires_experience"])
-      self.tag_list.remove(tags_yaml["JobTags"]["requires_experience"])
-    else
-      self.tag_list.add(tags_yaml["JobTags"]["requires_experience"])
-    end
+    toggle_tag(self, tags_yaml["JobTags"]["requires_experience"])
+  end
+
+  def toggle_stem_degree_requirement
+    toggle_tag(self, tags_yaml["JobTags"]["requires_stem_degree"])
   end
 
   def reviewed?
@@ -124,6 +124,16 @@ class Job < ApplicationRecord
       "1 day ago"
     else
       "#{days_ago} days ago"
+    end
+  end
+
+  private
+
+  def toggle_tag(job, tag)
+    if job.tag_list.include?(tag)
+      job.tag_list.remove(tag)
+    else
+      job.tag_list.add(tag)
     end
   end
 end

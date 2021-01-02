@@ -32,12 +32,20 @@ class JobsController < ApplicationController
           render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity
         end
       end
+    elsif job_params[:requires_stem_degree]
+      job.toggle_stem_degree_requirement
+
+      if job.save
+        render json: job, status: :created
+      else
+        render json: {reason: "Job could not be found for #{job.id}"}, status: :unprocessable_entity
+      end
     end
   end
 
   private
 
   def job_params
-    params.require(:job).permit(:status, :id, :requires_experience)
+    params.require(:job).permit(:status, :id, :requires_experience, :requires_stem_degree)
   end
 end
