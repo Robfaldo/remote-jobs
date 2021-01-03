@@ -7,7 +7,25 @@ document.addEventListener("turbolinks:load", function() {
         url = url + '&filters[include_jobs_that]=' + encodeURIComponent(JSON.stringify(getFilterTagsToApply()));
         window.location = url;
     });
+
+    const filterImage = document.getElementsByClassName('js-filter-image')[0];
+    filterImage.addEventListener('click', toggleFilterForMobile, false)
+
 });
+
+function toggleFilterForMobile() {
+    const filterContainer = document.getElementsByClassName('js-filter-container')[0];
+    const mobileFilterContainer = document.getElementsByClassName('js-filters-container')[0];
+
+    //  if the filter is not showing then reveal it
+    if (mobileFilterContainer.classList.contains('shortened-mobile-filter-container')) {
+        filterContainer.classList.remove('hide-filter');
+        mobileFilterContainer.classList.remove('shortened-mobile-filter-container');
+    } else { // it must be showing so hide it
+        filterContainer.classList.add('hide-filter');
+        mobileFilterContainer.classList.add('shortened-mobile-filter-container');
+    }
+}
 
 function updateCheckboxes(checkboxClicked) {
     if (checkboxClicked.classList.contains('js-date-range')) {
