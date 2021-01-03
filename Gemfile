@@ -83,5 +83,5 @@ gem 'rollbar'
 # for tagging
 gem 'acts-as-taggable-on', '~> 6.0'
 
-# pagination 
+# pagination
 gem 'kaminari'
