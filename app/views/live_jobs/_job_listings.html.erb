@@ -1,16 +1,16 @@
 <div class="main">
   <div class="jobs-container">
     <div class="filters-container">
-      <%= render 'shared/filters' %>
+      <%= render 'filters' %>
     </div>
 
     <ul class=job-listings>
-      <div class="filters-container-mobile shortened-mobile-filter-container js-mobile-filters-container">
-        <%= render 'shared/filters' %>
-      </div>
+<!--      <div class="filters-container-mobile shortened-mobile-filter-container js-mobile-filters-container">-->
+        <%#= render 'filters' %>
+<!--      </div>-->
 
       <div id="jobs-found-container">
-        <h3 class="jobs-found">We have found <span class="jobs-count"></span> jobs</h3>
+        <h3 class="jobs-found">We have found <span class="jobs-count"><%= @jobs.count %></span> jobs</h3>
       </div>
 
       <%= render 'jobs' %>

@@ -368,3 +368,11 @@ a:hover, a:visited, a:link, a:active
   background-color: #3cbfab;
 }
 
+
+.filter a:link,
+.filter a:visited,
+.filter a:hover,
+.filter a:active {
+  text-decoration: none;
+  color: #040403;
+}

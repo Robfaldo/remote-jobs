@@ -20,6 +20,25 @@ class Job < ApplicationRecord
   scope :created_last_3_days, lambda{ where(created_at: (Date.today - 3)..Date.today.end_of_day) }
   scope :created_last_14_days, lambda{ where(created_at: (Date.today - 14)..Date.today.end_of_day) }
 
+  scope :remove_jobs_requiring_degree, -> do
+    where(requires_stem_degree: false)
+  end
+
+  scope :remove_jobs_requiring_experience, -> do
+    where(requires_experience: false)
+  end
+
+  scope :approved_jobs_by_date_range, ->(date_range) do
+    case date_range
+    when "14-days"
+      includes(:tags).created_last_14_days.where(status: "approved").reverse_order
+    when "today"
+      includes(:tags).created_today.where(status: "approved").reverse_order
+    when "3-days"
+      includes(:tags).created_last_3_days.where(status: "approved").reverse_order
+    end
+  end
+
   def self.live_jobs
     Job.where(status: "scraped").reverse_order
   end
@@ -71,11 +90,11 @@ class Job < ApplicationRecord
   end
 
   def requires_experience?
-    self.tags.map{|t| t.name}.include?("requires_experience")
+    self.requires_experience
   end
 
   def requires_stem_degree?
-    self.tags.map{|t| t.name}.include?("requires_stem_degree")
+    self.requires_stem_degree
   end
 
   def toggle_experience_requirement
