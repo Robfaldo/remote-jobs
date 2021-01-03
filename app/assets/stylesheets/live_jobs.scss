@@ -30,7 +30,7 @@ a:hover, a:visited, a:link, a:active
   }
 }
 
-.filters-container, .jobs-found, .job-left, .job-right {
+.filters-container, .jobs-found, .job-details, .job-right {
   color: #040403;
 }
 
@@ -129,7 +129,7 @@ a:hover, a:visited, a:link, a:active
   }
 }
 
-.job-left {
+.job-details {
   flex-grow: 3;
   flex-shrink: 0;
   flex-basis: 0;

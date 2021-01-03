@@ -1,6 +1,11 @@
 import {updateJobs} from "./update_jobs";
 
+document.addEventListener("turbolinks:load", function() {
+    console.log('turbolinks load')
+});
+
 window.addEventListener('DOMContentLoaded', () => {
+    console.log('page load')
     // Everything in here will be executed on page load!
 
     const dateRangeCheckboxes = document.getElementsByClassName('js-date-range-checkbox');
