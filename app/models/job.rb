@@ -21,27 +21,27 @@ class Job < ApplicationRecord
   scope :created_last_14_days, lambda{ where(created_at: (Date.today - 14)..Date.today.end_of_day) }
 
   def self.live_jobs
-    Job.where(status: "scraped").order(:created_at).reverse
+    Job.where(status: "scraped").reverse_order
   end
 
   def self.rejected_jobs
-    Job.where(status: "rejected").order(:created_at).reverse
+    Job.where(status: "rejected").reverse_order
   end
 
   def self.approved_jobs
-    Job.where(status: "approved").order(:created_at).reverse
+    Job.where(status: "approved").reverse_order
   end
 
   def self.default_live_jobs
-         # When user load live page it should show all approved jobs that don't require experience or degrees
-    Job.created_last_14_days.where(status: "approved").order(:created_at).reverse
+    # When user load live page it should show all approved jobs that don't require experience or degrees
+    Job.created_last_14_days.where(status: "approved").reverse_order
   end
 
   def self.default_jobs_viewer_jobs
     jobs = []
     # So that we have approved jobs at the top
-    jobs.concat(Job.created_last_14_days.where(status: "approved").order(:created_at).reverse)
-    jobs.concat(Job.created_last_14_days.where('status != ?', 'approved').order(:created_at).reverse)
+    jobs.concat(Job.created_last_14_days.where(status: "approved").reverse_order)
+    jobs.concat(Job.created_last_14_days.where('status != ?', 'approved').reverse_order)
 
     jobs
   end
