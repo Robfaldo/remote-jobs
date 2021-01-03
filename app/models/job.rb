@@ -51,11 +51,6 @@ class Job < ApplicationRecord
     Job.where(status: "approved").reverse_order
   end
 
-  def self.default_live_jobs
-    # When user load live page it should show all approved jobs that don't require experience or degrees
-    Job.created_last_14_days.where(status: "approved").reverse_order
-  end
-
   def self.default_jobs_viewer_jobs
     Job.created_last_14_days.where(reviewed: false).reverse_order.sort_by(&:status)
   end
