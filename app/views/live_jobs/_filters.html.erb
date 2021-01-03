@@ -1,0 +1,39 @@
+<div id="filter-header-container">
+  <span id="filter-header">Filter results</span>
+  <img id="filter-image" class="js-filter-image" alt="filter-dropdown" src="<%=asset_path('dropdown-circle.png')%>"></img>
+</div>
+<div class="filter js-filter-container hide-filter">
+  <span class="filter-title">Date Range</span>
+  <div class="date-range-container">
+    <div class="checkbox-container">
+      <div id="js-show-all-jobs" class="filter-box checked-date-filter js-date-range-checkbox"></div>
+      <span class="filter-text">Posted in the last 14 days</span>
+    </div>
+
+    <div class="checkbox-container">
+      <div id="js-posted-today" class="filter-box js-date-range-checkbox"></div>
+      <span class="filter-text">Posted today</span>
+    </div>
+
+    <div class="checkbox-container">
+      <div id="js-posted-three-days" class="filter-box js-date-range-checkbox"></div>
+      <span class="filter-text">Posted last 3 days</span>
+    </div>
+  </div>
+
+  <span class="filter-title">Experience</span>
+  <div class="experience-container">
+    <div class="checkbox-container">
+      <div id="js-experience-tag-checkbox" class="filter-box js-experience-tag-checkbox"></div>
+      <span class="filter-text"> Show jobs that ask for experience</span>
+    </div>
+  </div>
+
+  <span class="filter-title">Education</span>
+  <div class="experience-container">
+    <div class="checkbox-container">
+      <div id="js-stem-degree-tag-checkbox" class="filter-box js-experience-tag-checkbox"></div>
+      <span class="filter-text"> Show jobs that ask for STEM degree</span>
+    </div>
+  </div>
+</div>
