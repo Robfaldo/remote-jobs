@@ -1,5 +1,3 @@
-import {updateJobs} from "../update_jobs";
-
 window.addEventListener('DOMContentLoaded', () => {
     const rejectedReasons = document.getElementsByClassName('js-show-rejected-reason');
     const rejectedReasonsArray = [].slice.call(rejectedReasons);
