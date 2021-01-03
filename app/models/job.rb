@@ -57,12 +57,7 @@ class Job < ApplicationRecord
   end
 
   def self.default_jobs_viewer_jobs
-    jobs = []
-    # So that we have approved jobs at the top
-    jobs.concat(Job.created_last_14_days.where(status: "approved").reverse_order)
-    jobs.concat(Job.created_last_14_days.where('status != ?', 'approved').reverse_order)
-
-    jobs
+    Job.created_last_14_days.where(reviewed: false).reverse_order.sort_by(&:status)
   end
 
   def self.by_date_and_source(date, source, status: nil)
@@ -98,11 +93,11 @@ class Job < ApplicationRecord
   end
 
   def toggle_experience_requirement
-    toggle_tag(self, tags_yaml["JobTags"]["requires_experience"])
+    self.toggle(:requires_experience)
   end
 
   def toggle_stem_degree_requirement
-    toggle_tag(self, tags_yaml["JobTags"]["requires_stem_degree"])
+    self.toggle(:requires_stem_degree)
   end
 
   def toggle_status
@@ -153,16 +148,6 @@ class Job < ApplicationRecord
       "1 day ago"
     else
       "#{days_ago} days ago"
-    end
-  end
-
-  private
-
-  def toggle_tag(job, tag)
-    if job.tag_list.include?(tag)
-      job.tag_list.remove(tag)
-    else
-      job.tag_list.add(tag)
     end
   end
 end

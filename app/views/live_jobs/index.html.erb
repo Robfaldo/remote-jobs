@@ -1,16 +1,18 @@
-<div class="header-container">
-  <h1 class="page-title">Primo<span id="title-end">Dev</span></h1>
-  <h2 class="page-subtitle">Find your first developer job</h2>
-</div>
-
-<%= render 'job_listings' %>
-
-<%= paginate @jobs %>
-
-<footer class="footer">
-  <div class="copyright">
-    &#169; Copyright 2020 | Changeme.com
+<div class="live_jobs">
+  <div class="header-container">
+    <h1 class="page-title">Primo<span id="title-end">Dev</span></h1>
+    <h2 class="page-subtitle">Find your first developer job</h2>
   </div>
-</footer>
 
-<%= javascript_pack_tag 'live_jobs' %>
+  <%= render 'job_listings' %>
+
+  <%= paginate @jobs %>
+
+  <footer class="footer">
+    <div class="copyright">
+      &#169; Copyright 2020 | Changeme.com
+    </div>
+  </footer>
+
+  <%= javascript_pack_tag 'live_jobs' %>
+</div>
