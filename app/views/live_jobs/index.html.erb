@@ -10,9 +10,10 @@
         <%= render 'filters' %>
       </div>
 
-      <div class="job-listings-container">
-        <%= render 'job_listings' %>
-
+      <div class="jobs-section">
+        <div class="job-listings-container">
+          <%= render 'job_listings' %>
+        </div>
         <div class="pagy-container flex-wrap pagination">
           <%== render partial: 'pagy/bootstrap_nav', locals: {pagy: @pagy} %>
         </div>
