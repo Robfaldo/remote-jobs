@@ -1,5 +1,6 @@
 class LiveJobsController < ApplicationController
   DEFAULT_DATE_RANGE = "14-days"
+  MAX_JOBS_TO_SHOW = 100
 
   def index
     date_range = DEFAULT_DATE_RANGE
@@ -18,7 +19,7 @@ class LiveJobsController < ApplicationController
 
     @checked_date_range = date_range
     @checked_filter_tags = include_jobs_with
-    @pagy, @jobs = pagy(query)
+    @pagy, @jobs = pagy(query.limit(MAX_JOBS_TO_SHOW))
   end
 
   private

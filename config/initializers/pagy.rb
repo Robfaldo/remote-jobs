@@ -84,7 +84,7 @@ require 'pagy/extras/bootstrap'
 # See https://ddnexus.github.io/pagy/extras/items
 # require 'pagy/extras/items'
 # Pagy::VARS[:items_param] = :items    # default
-# Pagy::VARS[:max_items]   = 100       # default
+# Pagy::VARS[:max_items]   = 10       # default
 
 # Overflow extra: Allow for easy handling of overflowing pages
 # See https://ddnexus.github.io/pagy/extras/overflow
@@ -113,7 +113,7 @@ require 'pagy/extras/bootstrap'
 
 # Instance variables
 # See https://ddnexus.github.io/pagy/api/pagy#instance-variables
-Pagy::VARS[:items] = 20                                   # default
+Pagy::VARS[:items] = 20                                 # default
 
 
 # Other Variables
