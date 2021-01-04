@@ -356,7 +356,6 @@ DEPENDENCIES
   geocoder
   google-api-client
   jbuilder (~> 2.7)
-  kaminari
   listen (~> 3.2)
   pagy (~> 3.5)
   pg (>= 0.18, < 2.0)
