@@ -5,12 +5,21 @@ document.addEventListener("turbolinks:load", function() {
         let url = "/?";
         url = url + 'filters[date_range]=' + getSelectedDateRange();
         url = url + '&filters[include_jobs_that]=' + encodeURIComponent(JSON.stringify(getFilterTagsToApply()));
-        window.location = url;
+
+        $.ajax({
+            url: url,
+            success: function(data) {
+                // do nothing atm (because it's re-rendering the job listing with the job_listings partial)
+            },
+            error: function() {
+                // do nothing atm (because it's re-rendering the job listing with the job_listings partial)
+            }
+        });
     });
+
 
     const filterImage = document.getElementsByClassName('js-filter-image')[0];
     filterImage.addEventListener('click', toggleFilterForMobile, false)
-
 });
 
 function toggleFilterForMobile() {

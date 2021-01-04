@@ -18,3 +18,4 @@ require("jquery")
 // const imagePath = (name) => images(name, true)
 
 import "../technologies"
+global.$ = jQuery;

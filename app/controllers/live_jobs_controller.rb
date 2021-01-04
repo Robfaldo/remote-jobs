@@ -20,6 +20,11 @@ class LiveJobsController < ApplicationController
     @checked_date_range = date_range
     @checked_filter_tags = include_jobs_that
     @pagy, @jobs = pagy(query.limit(MAX_JOBS_TO_SHOW))
+
+    respond_to do |format|
+      format.js {render layout: false}
+      format.html { render 'index'}
+    end
   end
 
   private
