@@ -4,13 +4,13 @@ class LiveJobsController < ApplicationController
 
   def index
     date_range = DEFAULT_DATE_RANGE
-    include_jobs_with = []
+    include_jobs_that = []
 
     if filter_params
-      include_jobs_with = JSON.parse(filter_params["include_jobs_that"])
+      include_jobs_that = JSON.parse(filter_params["include_jobs_that"])
       date_range = filter_params["date_range"]
-      include_jobs_requiring_experience = include_jobs_with&.include?('requires-experience')
-      include_jobs_requiring_degree = include_jobs_with&.include?('requires-stem-degree')
+      include_jobs_requiring_experience = include_jobs_that&.include?('requires-experience')
+      include_jobs_requiring_degree = include_jobs_that&.include?('requires-stem-degree')
     end
 
     query = Job.approved_jobs_by_date_range(date_range)
@@ -18,7 +18,7 @@ class LiveJobsController < ApplicationController
     query = query.remove_jobs_requiring_experience unless include_jobs_requiring_experience
 
     @checked_date_range = date_range
-    @checked_filter_tags = include_jobs_with
+    @checked_filter_tags = include_jobs_that
     @pagy, @jobs = pagy(query.limit(MAX_JOBS_TO_SHOW))
   end
 
