@@ -1,0 +1,42 @@
+<div id="filter-header-container">
+  <span id="filter-header">Filter results</span>
+  <img id="filter-image" class="js-filter-image" alt="filter-dropdown" src="<%=asset_path('dropdown-circle.png')%>"></img>
+</div>
+
+<div class="filter js-filter-container hide-filter">
+  <span class="filter-title">Date Range</span>
+
+  <div class="checkbox-container js-filter js-date-range">
+    <div id="date-range-14-days" class="filter-box js-date-range-checkbox <%= "checked-date-filter" if @checked_date_range == "14-days" %>"></div>
+    <span class="filter-text">Posted in the last 14 days</span>
+  </div>
+
+  <div class="checkbox-container js-filter js-date-range">
+    <div id="date-range-today" class="filter-box js-date-range-checkbox <%= "checked-date-filter" if @checked_date_range == "today" %>"></div>
+    <span class="filter-text">Posted today</span>
+  </div>
+
+  <div class="checkbox-container js-filter js-date-range">
+    <div id="date-range-3-days" class="filter-box js-date-range-checkbox <%= "checked-date-filter" if @checked_date_range == "3-days" %>"></div>
+    <span class="filter-text">Posted last 3 days</span>
+  </div>
+
+  <span class="filter-title">Experience</span>
+
+  <div class="experience-container js-filter js-filter-tag">
+    <div class="checkbox-container">
+      <div id="filter-tag-requires-experience" class="filter-box js-filter-tag-checkbox <%= "checked-tag" if @checked_filter_tags.include?('requires-experience') %>"></div>
+      <span class="filter-text"> Show jobs that ask for experience</span>
+    </div>
+  </div>
+
+  <span class="filter-title">Education</span>
+
+  <div class="experience-container js-filter js-filter-tag">
+    <div class="checkbox-container">
+      <div id="filter-tag-requires-stem-degree" class="filter-box js-filter-tag-checkbox <%= "checked-tag" if @checked_filter_tags.include?('requires-stem-degree') %>"></div>
+      <span class="filter-text"> Show jobs that ask for STEM degree</span>
+    </div>
+  </div>
+
+</div>

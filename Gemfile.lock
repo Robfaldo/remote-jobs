@@ -183,6 +183,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     os (1.1.1)
+    pagy (3.10.0)
     pg (1.2.3)
     polyamorous (2.3.2)
       activerecord (>= 5.2.1)
@@ -355,7 +356,9 @@ DEPENDENCIES
   geocoder
   google-api-client
   jbuilder (~> 2.7)
+  kaminari
   listen (~> 3.2)
+  pagy (~> 3.5)
   pg (>= 0.18, < 2.0)
   pry-byebug
   pry-rails

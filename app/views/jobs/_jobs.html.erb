@@ -1,0 +1,85 @@
+<% @jobs.each do |job| %>
+  <li class="js-job job js-<%= job.posted_date_range %> <%= "reviewed" if job.reviewed? %>">
+    <div class="job-details-container">
+      <div class="job-details job-<%= job.status %>">
+        <a class="url" href=<%= job.job_link %>>
+          <span class="title second-title"><%= job.title %></span><span class="<%= job.status %>-job">(<%= job.status %>)</span>
+        </a>
+        <span class="company"><%= job.company %></span>
+        <div class="tags-container">
+          <% if job.requires_experience? %>
+            <div class="requires-experience tag js-experience-job-tag">Asks for experience</div>
+          <% end %>
+
+          <% if job.requires_stem_degree? %>
+            <div class="requires-stem-degree tag js-stem-degree-job-tag">Asks for STEM Degree</div>
+          <% end %>
+
+          <div class="location non-filter-tag"><%= job.location %></div>
+          <div class="posted-date non-filter-tag"><%= job.posted_days_ago %></div>
+        </div>
+        <span class="source"><span class="source-title">Source:</span><%= job.source %></span>
+        <span class="job-board"><span class="job-board-title">Job Board:</span> <%= job.location %></span>
+        <div class="tag-filters-container">
+          <% job.tags.each do |tag| %>
+            <% if filter_tag?(tag) && !job.white_listed? %>
+              <div class="filter-reason">
+                Filter tag: <%= tag %>
+              </div>
+            <% end %>
+          <% end %>
+
+          <% if job.white_listed? %>
+            <div class="filter-reason-green">
+              Filter tag: Whitelisted
+            </div>
+          <% end %>
+          <% if job.marked_as_approved? %>
+            <div class="filter-reason-green">
+              Filter tag: Marked as approved
+            </div>
+          <% end %>
+        </div>
+
+        <% if job.rejected? %>
+          <div class="js-show-rejected-reason">
+            <span>Show rejected reason</span>
+            <span class="hide-rejected-reason js-rejected-reason">Reason for rejection: <%= job.status_reason %> </span>
+          </div>
+        <% end %>
+
+        <div class="updater-container">
+          <% if job.rejected? || job.approved? %>
+            <% newStatus = job.rejected? ? 'approved' : 'rejected' %>
+            <%= link_to job_path(job, job: {status: newStatus, id: job.id}), method: 'patch', id: "status-for-#{job.id}", class: "js-status-update status-update-link", remote: true  do%>
+                    <span class="update-status updater update-status-<%= newStatus %>">
+                      Mark as <%= newStatus.capitalize %>
+                    </span>
+            <% end %>
+          <% end %>
+
+          <% newRequiresExperience = job.requires_experience? ? 'remove-experience-requirement' : 'add-experience-requirement' %>
+          <%= link_to job_path(job, job: {requires_experience: newRequiresExperience, id: job.id}), method: 'patch', id: "experience-for-#{job.id}", class: "js-experience-update", remote: true  do%>
+                    <span class="update-requirement updater">
+                      <%= newRequiresExperience.gsub('-', ' ').gsub('requirement', '').capitalize %>
+                    </span>
+          <% end %>
+
+
+          <% newRequiresStemDegree = job.requires_stem_degree? ? 'remove-stem-degree-requirement' : 'add-stem-degree-requirement' %>
+          <%= link_to job_path(job, job: {requires_stem_degree: newRequiresStemDegree, id: job.id}), method: 'patch', id: "degree-experience-for-#{job.id}", class: "js-experience-update", remote: true  do%>
+                    <span class="update-requirement updater">
+                      <%= newRequiresStemDegree.gsub('-', ' ').gsub('requirement', '').gsub('stem', '').capitalize %>
+                    </span>
+          <% end %>
+
+          <%= link_to job_path(job, job: {mark_as_reviewed: true, id: job.id}), method: 'patch', id: "mark-reviewed-#{job.id}", class: "js-mark-as-reviewed", remote: true  do%>
+                    <span class="update-requirement updater mark-as-reviewed">
+                      Mark reviewed
+                    </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </li>
+<% end %>

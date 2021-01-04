@@ -1,12 +1,31 @@
-<div class="header-container">
-  <h1 class="page-title">Primo<span id="title-end">Dev</span></h1>
-  <h2 class="page-subtitle">Find your first developer job</h2>
-</div>
-
-<%= render 'shared/job_listings' %>
-
-<footer class="footer">
-  <div class="copyright">
-    &#169; Copyright 2020 | Changeme.com
+<div class="live_jobs">
+  <div class="header-container">
+    <h1 class="page-title">Primo<span id="title-end">Dev</span></h1>
+    <h2 class="page-subtitle">Find your first developer job</h2>
   </div>
-</footer>
+
+  <div class="main">
+    <div class="jobs-container">
+      <div class="filters-container js-filters-container shortened-mobile-filter-container">
+        <%= render 'filters' %>
+      </div>
+
+      <div class="job-listings-container">
+        <%= render 'job_listings' %>
+
+        <div class="pagy-container flex-wrap pagination">
+          <%== render partial: 'pagy/bootstrap_nav', locals: {pagy: @pagy} %>
+          <%#== pagy_bootstrap_nav(@pagy).html_safe %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="copyright">
+      &#169; Copyright 2020 | Changeme.com
+    </div>
+  </footer>
+
+  <%= javascript_pack_tag 'live_jobs' %>
+</div>

@@ -20,30 +20,39 @@ class Job < ApplicationRecord
   scope :created_last_3_days, lambda{ where(created_at: (Date.today - 3)..Date.today.end_of_day) }
   scope :created_last_14_days, lambda{ where(created_at: (Date.today - 14)..Date.today.end_of_day) }
 
+  scope :remove_jobs_requiring_degree, -> do
+    where(requires_stem_degree: false)
+  end
+
+  scope :remove_jobs_requiring_experience, -> do
+    where(requires_experience: false)
+  end
+
+  scope :approved_jobs_by_date_range, ->(date_range) do
+    case date_range
+    when "14-days"
+      includes(:tags).created_last_14_days.where(status: "approved").reverse_order
+    when "today"
+      includes(:tags).created_today.where(status: "approved").reverse_order
+    when "3-days"
+      includes(:tags).created_last_3_days.where(status: "approved").reverse_order
+    end
+  end
+
   def self.live_jobs
-    Job.where(status: "scraped").order(:created_at).reverse
+    Job.where(status: "scraped").reverse_order
   end
 
   def self.rejected_jobs
-    Job.where(status: "rejected").order(:created_at).reverse
+    Job.where(status: "rejected").reverse_order
   end
 
   def self.approved_jobs
-    Job.where(status: "approved").order(:created_at).reverse
-  end
-
-  def self.default_live_jobs
-         # When user load live page it should show all approved jobs that don't require experience or degrees
-    Job.created_last_14_days.where(status: "approved").order(:created_at).reverse
+    Job.where(status: "approved").reverse_order
   end
 
   def self.default_jobs_viewer_jobs
-    jobs = []
-    # So that we have approved jobs at the top
-    jobs.concat(Job.created_last_14_days.where(status: "approved").order(:created_at).reverse)
-    jobs.concat(Job.created_last_14_days.where('status != ?', 'approved').order(:created_at).reverse)
-
-    jobs
+    Job.created_last_14_days.where(reviewed: false).reverse_order.sort_by(&:status)
   end
 
   def self.by_date_and_source(date, source, status: nil)
@@ -71,19 +80,19 @@ class Job < ApplicationRecord
   end
 
   def requires_experience?
-    self.tags.map{|t| t.name}.include?("requires_experience")
+    self.requires_experience
   end
 
   def requires_stem_degree?
-    self.tags.map{|t| t.name}.include?("requires_stem_degree")
+    self.requires_stem_degree
   end
 
   def toggle_experience_requirement
-    toggle_tag(self, tags_yaml["JobTags"]["requires_experience"])
+    self.toggle(:requires_experience)
   end
 
   def toggle_stem_degree_requirement
-    toggle_tag(self, tags_yaml["JobTags"]["requires_stem_degree"])
+    self.toggle(:requires_stem_degree)
   end
 
   def toggle_status
@@ -134,16 +143,6 @@ class Job < ApplicationRecord
       "1 day ago"
     else
       "#{days_ago} days ago"
-    end
-  end
-
-  private
-
-  def toggle_tag(job, tag)
-    if job.tag_list.include?(tag)
-      job.tag_list.remove(tag)
-    else
-      job.tag_list.add(tag)
     end
   end
 end
