@@ -8,8 +8,9 @@
 // $sidebar-width: 242px;
 
 // Active Admin's got SASS!
-@import "active_admin/mixins";
-@import "active_admin/base";
+//@import "active_admin/mixins";
+//@import "active_admin/base";
+// I've had to remove the above 2 lines (that import the css) because it overrides the css for pagy (and generally it's annoying that we have active admin css leaking into the app). I can't find a solution for rails 6.
 
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
