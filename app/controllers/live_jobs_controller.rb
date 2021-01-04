@@ -16,9 +16,9 @@ class LiveJobsController < ApplicationController
     query = query.remove_jobs_requiring_degree unless include_jobs_requiring_degree
     query = query.remove_jobs_requiring_experience unless include_jobs_requiring_experience
 
-    @jobs = query.page params[:page]
     @checked_date_range = date_range
     @checked_filter_tags = include_jobs_with
+    @pagy, @jobs = pagy(query)
   end
 
   private
