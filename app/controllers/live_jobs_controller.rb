@@ -4,7 +4,6 @@ class LiveJobsController < ApplicationController
 
   def index
     date_range = DEFAULT_DATE_RANGE
-    include_jobs_that = []
 
     if filter_params
       include_jobs_that = JSON.parse(filter_params["include_jobs_that"])
@@ -17,8 +16,6 @@ class LiveJobsController < ApplicationController
     query = query.remove_jobs_requiring_degree unless include_jobs_requiring_degree
     query = query.remove_jobs_requiring_experience unless include_jobs_requiring_experience
 
-    @checked_date_range = date_range
-    @checked_filter_tags = include_jobs_that
     @total_jobs = query.limit(MAX_JOBS_TO_SHOW)
     @pagy, @jobs = pagy(@total_jobs)
     @total_jobs_count = @total_jobs.count
