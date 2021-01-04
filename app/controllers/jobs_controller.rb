@@ -1,8 +1,10 @@
 class JobsController < ApplicationController
   include TagHelper
 
+  MAX_JOBS_TO_SHOW = 50
+
   def index
-    @jobs = Job.includes(:tags).default_jobs_viewer_jobs
+    @jobs = Job.default_jobs_viewer_jobs.limit(MAX_JOBS_TO_SHOW)
   end
 
   def update

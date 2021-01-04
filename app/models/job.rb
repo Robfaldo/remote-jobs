@@ -39,6 +39,10 @@ class Job < ApplicationRecord
     end
   end
 
+  scope :default_jobs_viewer_jobs, -> do
+    includes(:tags).where(reviewed: false).reverse_order.order(status: :desc)
+  end
+
   def self.live_jobs
     Job.where(status: "scraped").reverse_order
   end
@@ -49,10 +53,6 @@ class Job < ApplicationRecord
 
   def self.approved_jobs
     Job.where(status: "approved").reverse_order
-  end
-
-  def self.default_jobs_viewer_jobs
-    Job.created_last_14_days.where(reviewed: false).reverse_order.sort_by(&:status)
   end
 
   def self.by_date_and_source(date, source, status: nil)
