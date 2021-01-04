@@ -30,8 +30,8 @@ class Job < ApplicationRecord
 
   scope :approved_jobs_by_date_range, ->(date_range) do
     case date_range
-    when "14-days"
-      includes(:tags).created_last_14_days.where(status: "approved").reverse_order
+    when "anytime"
+      includes(:tags).where(status: "approved").reverse_order
     when "today"
       includes(:tags).created_today.where(status: "approved").reverse_order
     when "3-days"

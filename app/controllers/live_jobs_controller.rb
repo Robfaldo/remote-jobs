@@ -1,5 +1,5 @@
 class LiveJobsController < ApplicationController
-  DEFAULT_DATE_RANGE = "14-days"
+  DEFAULT_DATE_RANGE = "anytime"
   MAX_JOBS_TO_SHOW = 100
 
   def index
