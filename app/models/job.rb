@@ -40,7 +40,7 @@ class Job < ApplicationRecord
   end
 
   scope :default_jobs_viewer_jobs, -> do
-    includes(:tags).where(reviewed: false).reverse_order.order(status: :desc)
+    includes(:tags).where(reviewed: false).reverse_order
   end
 
   def self.live_jobs

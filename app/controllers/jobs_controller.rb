@@ -6,7 +6,7 @@ class JobsController < ApplicationController
   MAX_JOBS_TO_SHOW = 50
 
   def index
-    @jobs = Job.default_jobs_viewer_jobs.limit(MAX_JOBS_TO_SHOW)
+    @jobs = Job.default_jobs_viewer_jobs.limit(MAX_JOBS_TO_SHOW).sort_by(&:status)
   end
 
   def update
