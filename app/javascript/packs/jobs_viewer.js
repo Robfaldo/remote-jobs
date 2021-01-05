@@ -55,4 +55,33 @@ window.addEventListener('DOMContentLoaded', () => {
         let jobsCount = document.getElementsByClassName('jobs-count')[0]
         jobsCount.textContent = parseInt(jobsCount.textContent) - 1;
     });
+
+
+    // job review filters
+    $('.js-show-reviewed-jobs').click(function(){
+        updateReviewedJobs();
+    });
 });
+
+function updateReviewedJobs() {
+    const reviewedJobs = document.getElementsByClassName('reviewed');
+    const reviewedJobsArray = [].slice.call(reviewedJobs);
+
+    const showReviewedJobs = document.getElementsByClassName('show-reviewed');
+    const showReviewedJobsArray = [].slice.call(showReviewedJobs);
+
+
+    if (reviewedJobsArray.length > 0) {
+        reviewedJobsArray.forEach(function(job){
+            job.classList.remove('reviewed');
+            job.classList.add('show-reviewed');
+        });
+    } else if (showReviewedJobsArray.length > 0) {
+        showReviewedJobsArray.forEach(function(job){
+            job.classList.remove('show-reviewed');
+            job.classList.add('reviewed');
+        });
+    } else {
+        console.log('no reviewed jobs')
+    }
+}
