@@ -369,5 +369,14 @@
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 20px;
+
+    a {
+      color: #3cbfab;
+    }
+
+    .page-item.active .page-link {
+      background-color: #3cbfab;
+      border-color: #3cbfab;
+    }
   }
 }
