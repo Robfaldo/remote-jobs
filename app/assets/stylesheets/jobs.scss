@@ -61,7 +61,7 @@
     background-color: #ffffff;
     border: none;
     border-radius: 20px;
-    max-width: 70vw;
+    max-width: 95vw;
   }
 
   .job-details {
@@ -84,6 +84,7 @@
     font-size: 1.9rem;
     font-weight: bold;
     color: #3cbfab;
+    display: block;
 
     @media (min-width: 992px) {
       font-size: 1.2rem;
@@ -274,6 +275,4 @@
   .mark-as-reviewed {
     background-color: #fbffb3;
   }
-
-
 }
