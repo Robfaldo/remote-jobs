@@ -6,7 +6,12 @@ class JobsController < ApplicationController
   MAX_JOBS_TO_SHOW = 50
 
   def index
-    @jobs = Job.default_jobs_viewer_jobs.limit(MAX_JOBS_TO_SHOW).sort_by(&:status)
+    jobs = Job.default_jobs_viewer_jobs.limit(MAX_JOBS_TO_SHOW)
+    ## this is so I get them in the right order. There's a better way to do this but i can't work it out >.<
+    approved_jobs_without_reqs = jobs.to_ary.select{|j| j.approved? == true && !j.has_requirements?}
+    approved_jobs_with_reqs = jobs.to_ary.select{|j| j.approved? == true && j.has_requirements?}
+    rejected_jobs = jobs.to_ary.select{|j| j.approved? == false}
+    @jobs = approved_jobs_without_reqs.concat(approved_jobs_with_reqs.concat(rejected_jobs))
   end
 
   def update

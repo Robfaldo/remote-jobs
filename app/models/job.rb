@@ -146,7 +146,11 @@ class Job < ApplicationRecord
     end
   end
 
-  def approved_with_restrictions
-    self.approved? && (self.requires_stem_degree? || self.requires_experience?)
+  def has_requirements?
+    self.requires_stem_degree? || self.requires_experience?
+  end
+
+  def approved_with_requirements
+    self.approved? && self.has_requirements?
   end
 end
