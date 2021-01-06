@@ -15,7 +15,7 @@ role:
   - web development
   - programmer
   - programming
-software_indicator:
+software_terms:
   - product
   - software
   - web
@@ -48,7 +48,10 @@ software_indicator:
   - api
   - database
   - data
-# languages
+  - software development
+  - software engineering
+  - web development
+languages:
   - go
   - javascript
   - java
@@ -70,7 +73,8 @@ software_indicator:
   - dart
   - unity
   - node
-# Frameworks
+  - dotnet
+frameworks:
   - django
   - flask
   - symfony
