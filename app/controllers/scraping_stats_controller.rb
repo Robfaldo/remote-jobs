@@ -1,4 +1,6 @@
 class ScrapingStatsController < ApplicationController
+  before_action :authenticate_admin_user!
+
   def index
     start_date = Job.order(:created_at).first.created_at.to_date
     end_date = Date.today
