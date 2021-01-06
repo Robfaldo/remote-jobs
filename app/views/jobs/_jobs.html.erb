@@ -1,7 +1,7 @@
 <% @jobs.each do |job| %>
   <li class="js-job job js-<%= job.posted_date_range %> <%= "reviewed" if job.reviewed? %>">
     <div class="job-details-container">
-      <div class="job-details job-<%= job.status %> <%= "job-has-requirement" if job.requires_stem_degree? || job.requires_experience? %>">
+      <div class="job-details job-<%= job.status %> <%= "job-has-requirement" if job.approved_with_restrictions %>">
         <a class="url" href=<%= job.job_link %>>
           <span class="title second-title"><%= job.title %></span><span class="<%= job.status %>-job">(<%= job.status %>)</span>
         </a>

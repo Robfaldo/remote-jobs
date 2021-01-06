@@ -145,4 +145,8 @@ class Job < ApplicationRecord
       "#{days_ago} days ago"
     end
   end
+
+  def approved_with_restrictions
+    self.approved? && (self.requires_stem_degree? || self.requires_experience?)
+  end
 end
