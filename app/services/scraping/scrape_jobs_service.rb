@@ -5,11 +5,12 @@ module Scraping
     SCRAPERS = [
       Scraping::CvLibraryScraper,
       Scraping::GlassdoorScraper,
-      Scraping::GoogleScraper,
       Scraping::IndeedScraper,
       Scraping::StackoverflowScraper,
       Scraping::CompaniesDirectScraper,
-      Scraping::TotaljobsScraper
+      Scraping::TotaljobsScraper,
+      Scraping::TechnojobsScraper,
+      Scraping::GoogleScraper
     ]
 
     def call
