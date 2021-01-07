@@ -1,6 +1,6 @@
 module JobFiltering
   class TitleRequirements < BaseHandler
-    INDICATORS_NEEDED_WITH_DESCRIPTION = 3
+    INDICATORS_NEEDED_WITH_DESCRIPTION = 4
 
     def meets_title_requirements?(job)
       can_handle?(job) == false
@@ -57,7 +57,7 @@ module JobFiltering
       level_satisfied = level_matches.count > 0
       roles_satisfied = role_matches.count > 0
       software_indicator_satisfied = (software_term_matches.count + language_matches.count + framework_matches.count) > INDICATORS_NEEDED_WITH_DESCRIPTION
-
+      
       level_satisfied && roles_satisfied && software_indicator_satisfied
     end
 
@@ -66,7 +66,7 @@ module JobFiltering
     end
 
     def description_matches(yaml_title)
-      rules[yaml_title].filter { |rule| job.description.downcase.include?(rule.downcase) }
+      rules[yaml_title].filter { |rule| job.description.downcase.include?(" " + rule.downcase + " ") }
     end
   end
 end
