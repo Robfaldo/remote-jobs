@@ -2,10 +2,6 @@ module JobFiltering
   class TitleRequirements < BaseHandler
     INDICATORS_NEEDED_WITH_DESCRIPTION = 4
 
-    def job_to_eval_meets_minimum_requirements(job)
-      check_job_to_eval_meets_minimum_requirements(job)
-    end
-
     private
 
     attr_reader :job
@@ -26,14 +22,6 @@ module JobFiltering
       @meets_title_and_description_requirements = meets_requirements_for_title_with_description
 
       return true unless @meets_title_and_description_requirements # if it doesn't meet title OR title_and_description requirements then we need to reject
-    end
-
-    def check_job_to_eval_meets_minimum_requirements(job)
-      @job = job
-      level_matches = title_matches("level")
-      role_matches = title_matches("role")
-
-      level_matches.count > 0 && role_matches.count > 0
     end
 
     def meets_requirements_for_only_title
