@@ -8,6 +8,7 @@
     <th>CV Library</th>
     <th>Companies Direct</th>
     <th>Totaljobs</th>
+    <th>Technojobs</th>
   </tr>
   <% @all_dates.each do |date| %>
     <tr>
@@ -39,6 +40,10 @@
       <td>
         <%= Job.by_date_and_source(date, :totaljobs).count%>
         (<span class="rejected-count"><%= Job.by_date_and_source(date, :totaljobs, status: "rejected").count %></span>)
+      </td>
+      <td>
+        <%= Job.by_date_and_source(date, :technojobs).count%>
+        (<span class="rejected-count"><%= Job.by_date_and_source(date, :technojobs, status: "rejected").count %></span>)
       </td>
     </tr>
   <% end %>

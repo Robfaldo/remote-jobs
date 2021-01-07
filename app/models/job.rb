@@ -55,7 +55,7 @@ class Job < ApplicationRecord
     Job.where(status: "approved").reverse_order
   end
 
-  def self.by_date_and_source(date, source, status: nil)
+  def self.by_date_and_source(date, source, status: "approved")
     if status
       Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source, status: status)
     else
