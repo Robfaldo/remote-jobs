@@ -36,7 +36,7 @@ module Scraping
       jobs_to_scrape = []
 
       jobs_to_evaluate.each do |job|
-        if JobFiltering::TitleRequirements.new.meets_title_requirements?(job)
+        if JobFiltering::TitleRequirements.new.job_to_eval_meets_minimum_requirements(job)
           jobs_to_scrape.push(job)
         end
       end

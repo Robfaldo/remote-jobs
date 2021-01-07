@@ -20,7 +20,7 @@ module Scraping
     def extract_and_save_job(jobs_from_rss, location)
       jobs_from_rss.items.each do |job|
         unless Job.where(source_id: job[:link]).count > 0
-          passes_title_requirements = JobFiltering::TitleRequirements.new.meets_title_requirements?(job)
+          passes_title_requirements = JobFiltering::TitleRequirements.new.job_to_eval_meets_minimum_requirements(job)
           final_location = location
           description = job[:description]
           company = "Unknown"

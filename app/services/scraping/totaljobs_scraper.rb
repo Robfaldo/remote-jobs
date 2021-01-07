@@ -20,18 +20,6 @@ module Scraping
 
     private
 
-    def evaluate_jobs(jobs_to_evaluate)
-      jobs_to_scrape = []
-
-      jobs_to_evaluate.each do |job|
-        if JobFiltering::TitleRequirements.new.meets_title_requirements?(job)
-          jobs_to_scrape.push(job)
-        end
-      end
-
-      jobs_to_scrape
-    end
-
     def jobs_to_evaluate(scraped_all_jobs_page)
       jobs_to_evaluate = []
 

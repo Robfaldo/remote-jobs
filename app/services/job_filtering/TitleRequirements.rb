@@ -2,8 +2,8 @@ module JobFiltering
   class TitleRequirements < BaseHandler
     INDICATORS_NEEDED_WITH_DESCRIPTION = 4
 
-    def meets_title_requirements?(job)
-      can_handle?(job) == false
+    def job_to_eval_meets_minimum_requirements(job)
+      check_job_to_eval_meets_minimum_requirements(job)
     end
 
     private
@@ -23,11 +23,17 @@ module JobFiltering
 
       return false if @meets_title_requirements # If it meets title requirements then no need to check description
 
-      return false if job.class == JobToEvaluate # Bit messy but we use this can_handle? to check jobs_to_evaluate where we usually don't have description.
-
       @meets_title_and_description_requirements = meets_requirements_for_title_with_description
 
       return true unless @meets_title_and_description_requirements # if it doesn't meet title OR title_and_description requirements then we need to reject
+    end
+
+    def check_job_to_eval_meets_minimum_requirements(job)
+      @job = job
+      level_matches = title_matches("level")
+      role_matches = title_matches("role")
+
+      level_matches.count > 0 && role_matches.count > 0
     end
 
     def meets_requirements_for_only_title
