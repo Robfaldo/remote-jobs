@@ -47,29 +47,37 @@ module Scraping
 
     def extract_and_save_job(evaluated_jobs)
       evaluated_jobs.each do |job|
-        unless Job.where(source_id: job.link).count > 0
-          scraped_job_page = scrape_page(link: job.link)
+        next if Job.where(source_id: job.link).count > 0
 
-          job_summary_rows = scraped_job_page.search('.job-listing-table').first.search('tbody').search('tr')
-          company = job_summary_rows.to_a.filter{|row| row.text.include?('Recruiter:')}.first.text.gsub('Recruiter:', '').strip
-          location = job_summary_rows.to_a.filter{|row| row.text.include?('Location:')}.first.text.gsub('Location:', '').strip
-          description = scraped_job_page.search('.job-listing-body').first.text
-
-          new_job = Job.new(
-              title: job.title,
-              job_link: job.link,
-              location: location,
-              description: description,
-              source: :technojobs,
-              status: "scraped",
-              company: company,
-              job_board: "technojobs",
-              source_id: job.link
-          )
-
-          new_job.save!
+        begin
+          extract_and_save(job)
+        rescue => e
+          Rollbar.error(e)
         end
       end
+    end
+
+    def extract_and_save(job)
+      scraped_job_page = scrape_page(link: job.link)
+
+      job_summary_rows = scraped_job_page.search('.job-listing-table').first.search('tbody').search('tr')
+      company = job_summary_rows.to_a.filter{|row| row.text.include?('Recruiter:')}.first.text.gsub('Recruiter:', '').strip
+      location = job_summary_rows.to_a.filter{|row| row.text.include?('Location:')}.first.text.gsub('Location:', '').strip
+      description = scraped_job_page.search('.job-listing-body').first.text
+
+      new_job = Job.new(
+          title: job.title,
+          job_link: job.link,
+          location: location,
+          description: description,
+          source: :technojobs,
+          status: "scraped",
+          company: company,
+          job_board: "technojobs",
+          source_id: job.link
+      )
+
+      new_job.save!
     end
   end
 end
