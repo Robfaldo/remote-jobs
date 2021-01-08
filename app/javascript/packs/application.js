@@ -18,4 +18,6 @@ require("jquery")
 // const imagePath = (name) => images(name, true)
 
 import "../technologies"
+import gtag from 'src/analytics'
+
 global.$ = jQuery;
