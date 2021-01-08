@@ -49,6 +49,8 @@ class Job < ApplicationRecord
     includes(:tags).where(reviewed: false).reverse_order
   end
 
+  scope :to_review, -> { where(reviewed: false) }
+
   def self.live_jobs
     Job.where(status: "scraped").reverse_order
   end

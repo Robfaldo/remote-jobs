@@ -12,6 +12,7 @@ class JobsController < ApplicationController
     approved_jobs_with_reqs = jobs.to_ary.select{|j| j.approved? == true && j.has_requirements?}
     rejected_jobs = jobs.to_ary.select{|j| j.approved? == false}
     @jobs = approved_jobs_without_reqs.concat(approved_jobs_with_reqs.concat(rejected_jobs))
+    @jobs_to_review = Job.to_review.count
   end
 
   def update

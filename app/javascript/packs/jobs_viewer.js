@@ -54,6 +54,9 @@ window.addEventListener('DOMContentLoaded', () => {
         this.closest('.js-job').classList.add('reviewed');
         let jobsCount = document.getElementsByClassName('jobs-count')[0]
         jobsCount.textContent = parseInt(jobsCount.textContent) - 1;
+
+        let reviewsRemaining = document.getElementsByClassName('js-reviews-remaining')[0];
+        reviewsRemaining.textContent = parseInt(reviewsRemaining.textContent) - 1;
     });
 
 
