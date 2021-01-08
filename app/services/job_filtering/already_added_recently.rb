@@ -5,6 +5,7 @@ module JobFiltering
     def handle(job)
       reject_job(job, message: "Rejected: Job link has already been added within 1 week. existing_job_links: #{job.job_link}. jobs_with_identical_data, title:  #{job.title}, company: #{job.company}, location: #{job.location}")
       job.tag_list.add(tags_yaml["FilterRules"]["already_added_recently"])
+      job.reviewed = true # There's so many of these and I always just mark as reviewed, might aswell just save the effort and mark reviewed here
       job.save!
     end
 
