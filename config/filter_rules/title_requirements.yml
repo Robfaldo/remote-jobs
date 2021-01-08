@@ -74,6 +74,7 @@ languages:
   - unity
   - node
   - dotnet
+  - sql
 frameworks:
   - django
   - flask
