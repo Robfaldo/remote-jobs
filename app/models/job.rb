@@ -39,6 +39,12 @@ class Job < ApplicationRecord
     end
   end
 
+  scope :with_requirements, ->(requires_experience:, requires_degree:) do
+    where(requires_experience: requires_experience, requires_stem_degree: requires_degree)
+  end
+
+  scope :approved, -> { where(status: "approved") }
+
   scope :default_jobs_viewer_jobs, -> do
     includes(:tags).where(reviewed: false).reverse_order
   end
@@ -62,6 +68,7 @@ class Job < ApplicationRecord
       Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source)
     end
   end
+
 
   def rejected?
     self.status == "rejected"

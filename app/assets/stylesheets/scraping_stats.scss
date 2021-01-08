@@ -9,3 +9,21 @@ table, th, td {
 .rejected-count {
   color: red;
 }
+
+.approved-container {
+  display: flex;
+  width: 50vw;
+  padding-left: 20px
+}
+
+.approved-titles {
+  width: 50vw;
+}
+
+.approved-values {
+  width: 25vw;
+}
+
+.approved-header {
+  padding: 50px 0px 30px 0px;
+}

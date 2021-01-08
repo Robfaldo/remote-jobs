@@ -48,3 +48,23 @@
     </tr>
   <% end %>
 </table>
+
+<h2 class="approved-header"> Approved jobs stats </h2>
+
+<div class="approved-container">
+  <div class="approved-titles">
+    <div>No requirements</div>
+    <div>Requires degree only</div>
+    <div>Requires experience only</div>
+    <div>Requires degree & experience</div>
+    <div>Total approved jobs</div>
+  </div>
+
+  <div class="approved-values">
+    <div><%= @total_approved_jobs_with_no_requirements %></div>
+    <div><%= @total_approved_jobs_requiring_only_degree %></div>
+    <div><%= @total_approved_jobs_requiring_only_experience %></div>
+    <div><%= @total_approved_jobs_requiring_degree_and_experience  %></div>
+    <div><%= @total_approved_jobs %></div>
+  </div>
+</div>

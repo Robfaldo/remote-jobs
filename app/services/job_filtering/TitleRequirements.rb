@@ -52,7 +52,7 @@ module JobFiltering
       level_satisfied = level_matches.count > 0
       roles_satisfied = role_matches.count > 0
       software_indicator_satisfied = (software_term_matches.count + language_matches.count + framework_matches.count + description_only_term_matches.count) > INDICATORS_NEEDED_WITH_DESCRIPTION
-      
+
       level_satisfied && roles_satisfied && software_indicator_satisfied
     end
 
