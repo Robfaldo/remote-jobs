@@ -24,10 +24,13 @@ class JobsController < ApplicationController
 
     if job_params[:status]
       job.toggle_status
+      job.edited = true
     elsif job_params[:requires_experience]
       job.toggle_experience_requirement
+      job.edited = true
     elsif job_params[:requires_stem_degree]
       job.toggle_stem_degree_requirement
+      job.edited = true
     elsif job_params[:mark_as_reviewed]
       job.reviewed = true
     end
