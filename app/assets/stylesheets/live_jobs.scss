@@ -154,6 +154,12 @@
         font-size: 1.2rem;
       }
     }
+
+    .location, .requires-experience, .requires-stem-degree {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
 
@@ -324,19 +330,19 @@
   .location:before {
     content: url("map-pin.png");
     padding-right: 10px;
-    //vertical-align: top; // stops the text being pushed down
+    vertical-align: top; // stops the text being pushed down
   }
 
   .requires-experience:before {
     content: url("requires-experience.png");
     padding-right: 10px;
-    //vertical-align: top; // stops the text being pushed down
+    vertical-align: top; // stops the text being pushed down
   }
 
   .requires-stem-degree:before {
     content: url("requires-degree.png");
     padding-right: 10px;
-    //vertical-align: top; // stops the text being pushed down
+    vertical-align: top; // stops the text being pushed down
   }
 
   .footer {
