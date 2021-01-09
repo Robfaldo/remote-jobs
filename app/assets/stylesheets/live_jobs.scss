@@ -245,13 +245,12 @@
     border-radius: 20px;
     font-family: sans-serif;
 
-
     @media (min-width: 992px) {
       margin-left: 30px;
       margin-right: 20px;
       font-size: 1rem;
       flex: 0 0 20em;
-      height: 30em;
+      height: 36em;
 
       // Make it sticky
       position: -webkit-sticky;
@@ -279,6 +278,11 @@
     display: block;
     font-size: 3rem;
 
+    @media (max-width: 991px) {
+      padding-top: 50px;
+      padding-left: 50px;
+    }
+
     @media (min-width: 992px) {
       font-size: 1.6rem;
     }
@@ -291,7 +295,9 @@
   #filter-image {
     content: url("dropdown-circle.png");
     margin-left: auto;
-    padding: 15px;
+    padding: 40px 40px 0px 0px;
+    width: 12%;
+    height: 12%;
 
     @media (min-width: 992px) {
       display: none;
@@ -310,6 +316,10 @@
 
   .filter {
     padding-left: 30px;
+
+    @media (max-width: 991px) {
+      margin: 30px 0px 50px 30px;
+    }
   }
 
   .filter-box {
@@ -320,9 +330,13 @@
     margin-right: 15px;
   }
 
-  .checkbox-container {
+  .checkbox-container, dropdown-container {
     display: flex;
     margin: 15px 0px 10px 0px;
+
+    @media (max-width: 992px) {
+      padding: 20px 0px 20px 0px;
+    }
   }
 
   .tags-container {
@@ -344,7 +358,6 @@
 
     @media (min-width: 992px) {
       font-size: 16px;
-
     }
   }
 
@@ -432,4 +445,65 @@
       }
     }
   }
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+      //position: relative;
+      //display: inline-block;
+      width: 100%;
+      margin: 10px 0px 10px 0px;
+
+
+      /* Dropdown Button */
+      .dropbtn {
+        width: 70%;
+        height: 20%;
+
+        background-color: #f8f8f8;
+        color: rgba(56, 66, 89, 1);
+        padding: 16px;
+        font-size: 16px;
+        border: solid 1.5px rgba(209, 216, 227, 1);
+        border-radius: 10px;
+        font-family: sans-serif;
+        font-weight: bold;
+        font-size: 1.1em;
+        text-align: start;
+        padding-left: 40px;
+
+        @media (max-width: 991px) {
+          margin: 40px 0px 40px 0px;
+        }
+      }
+
+      /* Dropdown Content (Hidden by Default) */
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+
+
+      /* Links inside the dropdown */
+      .dropdown-content a, span {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {background-color: #ddd;}
+    .dropdown-content span:hover {background-color: #ddd;}
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {display: block;}
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {background-color: #3cbfab; color: #FFFFFF}
+
 }
