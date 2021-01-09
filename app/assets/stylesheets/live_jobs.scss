@@ -278,6 +278,11 @@
     display: block;
     font-size: 3rem;
 
+    @media (max-width: 991px) {
+      padding-top: 50px;
+      padding-left: 50px;
+    }
+
     @media (min-width: 992px) {
       font-size: 1.6rem;
     }
