@@ -130,26 +130,58 @@
     @media (min-width: 992px) {
       font-size: 1.5rem;
     }
-  }
 
-  .title {
-    font-weight: bold;
-    font-size: 2.2rem;
-    padding: 10px 0px 10px 0px;
+    .title {
+      font-weight: bold;
+      font-size: 2.2rem;
+      padding: 10px 0px 10px 0px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
-    @media (min-width: 992px) {
-      font-size: 1.7rem;
+
+      @media (min-width: 992px) {
+        font-size: 1.7rem;
+      }
+    }
+
+    .company {
+      font-size: 1.9rem;
+      font-weight: bold;
+      color: #3cbfab;
+
+      @media (min-width: 992px) {
+        font-size: 1.2rem;
+      }
+    }
+
+    .requires-experience, .requires-stem-degree {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+    }
+
+    .location {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      width: 150px;
+      padding-left: 15px;
+
+      .location-image {
+          content: url("map-pin.png");
+          width: 15%;
+      }
+
+      .location-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-left: 10px;
+      }
     }
   }
-  .company {
-    font-size: 1.9rem;
-    font-weight: bold;
-    color: #3cbfab;
 
-    @media (min-width: 992px) {
-      font-size: 1.2rem;
-    }
-  }
 
   .header-container {
     display: flex;
@@ -300,7 +332,7 @@
     background-color: #f8f8f8;
     border: solid 1px grey;
     color: #04080F;
-    padding: 13px 25px;
+    padding: 13px 25px 13px 13px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -308,6 +340,7 @@
     margin-top: 20px;
     margin-right: 20px;
     font-size: 25px;
+    width: 220px;
 
     @media (min-width: 992px) {
       font-size: 16px;
@@ -315,28 +348,16 @@
     }
   }
 
-  .location:before {
-    content: url("map-pin.png");
-    padding-right: 10px;
-    //vertical-align: top; // stops the text being pushed down
-  }
-
-  .posted-date:before {
-    content: url("clock.png");
-    padding-right: 10px;
-    //vertical-align: top; // stops the text being pushed down
-  }
-
   .requires-experience:before {
     content: url("requires-experience.png");
     padding-right: 10px;
-    //vertical-align: top; // stops the text being pushed down
+    vertical-align: top; // stops the text being pushed down
   }
 
   .requires-stem-degree:before {
     content: url("requires-degree.png");
     padding-right: 10px;
-    //vertical-align: top; // stops the text being pushed down
+    vertical-align: top; // stops the text being pushed down
   }
 
   .footer {
@@ -377,6 +398,38 @@
     .page-item.active .page-link {
       background-color: #3cbfab;
       border-color: #3cbfab;
+    }
+  }
+
+  .posted-container {
+    //border: solid red 2px;
+    width: 170px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+
+    .posted-date {
+      //border: green solid 2px;
+      background: radial-gradient(
+                      ellipse at center,
+                      rgba(234, 254, 251, 1) 0%,
+                      rgba(234, 254, 251, 1) 70%,
+                      rgba(234, 254, 251, 0) 70.3%
+      );
+      height: 60%;
+      width: 60%;
+      color: rgba(29, 183, 163, 1);
+      position: relative;
+      margin-top: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        padding-top: 15px;
+        font-weight: bolder;
+        font-size: 1.2rem;
+      }
     }
   }
 }
