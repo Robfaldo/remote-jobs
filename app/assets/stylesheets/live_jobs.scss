@@ -117,6 +117,10 @@
       padding: 20px 30px 20px 40px;
       max-width: 70vw;
     }
+
+    @media (max-width: 991px) {
+      margin: 10px 15px 10px 15px;
+    }
   }
 
   .job-details {
@@ -254,6 +258,10 @@
     margin-top: 40px;
     border-radius: 20px;
     font-family: sans-serif;
+
+    @media (max-width: 991px) {
+      margin: 50px 40px 10px 45px;
+    }
 
     @media (min-width: 992px) {
       margin-left: 30px;
