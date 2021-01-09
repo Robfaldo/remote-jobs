@@ -450,8 +450,8 @@
                       rgba(234, 254, 251, 1) 70%,
                       rgba(234, 254, 251, 0) 70.3%
       );
-      height: 60%;
-      width: 60%;
+      height: 70%;
+      width: 70%;
       color: rgba(29, 183, 163, 1);
       position: relative;
       margin-top: 5px;
@@ -459,11 +459,21 @@
       justify-content: center;
       align-items: center;
 
+      @media (min-width: 992px) {
+        height: 60%;
+        width: 60%;
+      }
+
       p {
         padding-top: 15px;
         font-weight: bolder;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
+
+        @media (min-width: 992px) {
+          font-size: 1.2rem;
+        }
       }
+
     }
   }
 
