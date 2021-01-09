@@ -168,10 +168,13 @@
       width: 150px;
       padding-left: 15px;
 
-      .location-image {
+      @media (min-width: 992px) {
+        .location-image {
           content: url("map-pin.png");
           width: 15%;
+        }
       }
+
 
       .location-text {
         overflow: hidden;
@@ -361,17 +364,20 @@
     }
   }
 
-  .requires-experience:before {
-    content: url("requires-experience.png");
-    padding-right: 10px;
-    vertical-align: top; // stops the text being pushed down
+  @media (min-width: 992px) {
+    .requires-experience:before {
+      content: url("requires-experience.png");
+      padding-right: 10px;
+      vertical-align: top; // stops the text being pushed down
+    }
+
+    .requires-stem-degree:before {
+      content: url("requires-degree.png");
+      padding-right: 10px;
+      vertical-align: top; // stops the text being pushed down
+    }
   }
 
-  .requires-stem-degree:before {
-    content: url("requires-degree.png");
-    padding-right: 10px;
-    vertical-align: top; // stops the text being pushed down
-  }
 
   .footer {
     background-color: #3cbfab;
