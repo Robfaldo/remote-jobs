@@ -143,15 +143,15 @@ class Job < ApplicationRecord
   def posted_days_ago
     days_ago = (Date.today - self.created_at.to_date).to_i
 
-    return "30+ days ago" if days_ago > 29
+    return "30+ days" if days_ago > 29
 
     case days_ago
     when 0
       "Today"
     when 1
-      "1 day ago"
+      "1 day"
     else
-      "#{days_ago} days ago"
+      "#{days_ago} days"
     end
   end
 

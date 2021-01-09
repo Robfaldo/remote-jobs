@@ -321,12 +321,6 @@
     //vertical-align: top; // stops the text being pushed down
   }
 
-  .posted-date:before {
-    content: url("clock.png");
-    padding-right: 10px;
-    //vertical-align: top; // stops the text being pushed down
-  }
-
   .requires-experience:before {
     content: url("requires-experience.png");
     padding-right: 10px;
@@ -377,6 +371,38 @@
     .page-item.active .page-link {
       background-color: #3cbfab;
       border-color: #3cbfab;
+    }
+  }
+
+  .posted-container {
+    //border: solid red 2px;
+    width: 170px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: start;
+
+    .posted-date {
+      //border: green solid 2px;
+      background: radial-gradient(
+                      ellipse at center,
+                      rgba(234, 254, 251, 1) 0%,
+                      rgba(234, 254, 251, 1) 70%,
+                      rgba(234, 254, 251, 0) 70.3%
+      );
+      height: 60%;
+      width: 60%;
+      color: rgba(29, 183, 163, 1);
+      position: relative;
+      margin-top: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        padding-top: 15px;
+        font-weight: bolder;
+        font-size: 1.2rem;
+      }
     }
   }
 }
