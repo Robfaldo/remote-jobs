@@ -250,7 +250,7 @@
       margin-right: 20px;
       font-size: 1rem;
       flex: 0 0 20em;
-      height: 42em;
+      height: 36em;
 
       // Make it sticky
       position: -webkit-sticky;
@@ -309,6 +309,10 @@
 
   .filter {
     padding-left: 30px;
+
+    @media (max-width: 991px) {
+      margin: 30px 0px 50px 30px;
+    }
   }
 
   .filter-box {
