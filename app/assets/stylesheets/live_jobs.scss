@@ -130,26 +130,32 @@
     @media (min-width: 992px) {
       font-size: 1.5rem;
     }
-  }
 
-  .title {
-    font-weight: bold;
-    font-size: 2.2rem;
-    padding: 10px 0px 10px 0px;
+    .title {
+      font-weight: bold;
+      font-size: 2.2rem;
+      padding: 10px 0px 10px 0px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
 
-    @media (min-width: 992px) {
-      font-size: 1.7rem;
+
+      @media (min-width: 992px) {
+        font-size: 1.7rem;
+      }
+    }
+
+    .company {
+      font-size: 1.9rem;
+      font-weight: bold;
+      color: #3cbfab;
+
+      @media (min-width: 992px) {
+        font-size: 1.2rem;
+      }
     }
   }
-  .company {
-    font-size: 1.9rem;
-    font-weight: bold;
-    color: #3cbfab;
 
-    @media (min-width: 992px) {
-      font-size: 1.2rem;
-    }
-  }
 
   .header-container {
     display: flex;
