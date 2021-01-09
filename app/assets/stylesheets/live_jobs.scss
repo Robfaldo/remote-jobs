@@ -295,7 +295,9 @@
   #filter-image {
     content: url("dropdown-circle.png");
     margin-left: auto;
-    padding: 15px;
+    padding: 40px 40px 0px 0px;
+    width: 12%;
+    height: 12%;
 
     @media (min-width: 992px) {
       display: none;
