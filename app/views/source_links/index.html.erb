@@ -1,0 +1,18 @@
+<div class="source-links">
+  <h1>Source Links</h1>
+
+
+  <% @sources.each do |source| %>
+    <div class="source-container">
+      <h2 class="source"><%= source %></h2>
+      <% links_for_all_locations(source).each do |location_with_links| %>
+        <h4 class="location"><%= location_with_links.first %></h4>
+        <ul>
+          <% location_with_links.last.each do |link| %>
+            <li><a href="<%= link %>"><%= link %></a><</li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+</div>

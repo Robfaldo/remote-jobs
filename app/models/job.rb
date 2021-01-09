@@ -1,5 +1,8 @@
 class Job < ApplicationRecord
   include TagHelper
+
+  SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library companies_direct totaljobs)
+
   acts_as_taggable
   acts_as_taggable_on :tags
 
@@ -10,7 +13,7 @@ class Job < ApplicationRecord
   validates :company, presence: true
   validates :job_link, presence: true
   validates :location, presence: true
-  validates :source, inclusion: { in: %w(indeed google stackoverflow glassdoor technojobs cv_library companies_direct totaljobs),
+  validates :source, inclusion: { in: SOURCES,
     message: "%{value} is not a valid source" }
   validates :description, presence: true
   validates :status, inclusion: { in: %w(scraped rejected approved),
@@ -71,6 +74,9 @@ class Job < ApplicationRecord
     end
   end
 
+  def self.sources
+    SOURCES
+  end
 
   def rejected?
     self.status == "rejected"

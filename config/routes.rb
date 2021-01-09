@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'source_links/index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
@@ -8,5 +9,6 @@ Rails.application.routes.draw do
   get '/stats' => 'scraping_stats#index'
   get '/rejected' => 'rejected_jobs#index'
   get '/jobs_secret' => 'jobs#index'
+  get '/source_links' => 'source_links#index'
   resources :jobs, only: [:update]
 end
