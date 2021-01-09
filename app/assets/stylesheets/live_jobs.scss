@@ -159,16 +159,23 @@
       display: flex;
       justify-content: start;
       align-items: center;
+
+      @media (max-width: 991px) {
+        width: 170px;
+      }
+
     }
 
     .location {
       display: flex;
       justify-content: start;
       align-items: center;
-      width: 150px;
+      width: 160px;
       padding-left: 15px;
 
       @media (min-width: 992px) {
+        width: 150px;
+
         .location-image {
           content: url("map-pin.png");
           width: 15%;
