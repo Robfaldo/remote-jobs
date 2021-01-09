@@ -155,10 +155,30 @@
       }
     }
 
-    .location, .requires-experience, .requires-stem-degree {
+    .requires-experience, .requires-stem-degree {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .location {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      width: 150px;
+      padding-left: 15px;
+
+      .location-image {
+          content: url("map-pin.png");
+          width: 15%;
+      }
+
+      .location-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-left: 10px;
+      }
     }
   }
 
@@ -325,12 +345,6 @@
       font-size: 16px;
 
     }
-  }
-
-  .location:before {
-    content: url("map-pin.png");
-    padding-right: 10px;
-    vertical-align: top; // stops the text being pushed down
   }
 
   .requires-experience:before {
