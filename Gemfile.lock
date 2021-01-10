@@ -129,6 +129,7 @@ GEM
     has_scope (0.7.2)
       actionpack (>= 4.1)
       activesupport (>= 4.1)
+    high_voltage (3.1.2)
     httpclient (2.8.3)
     hurley (0.2)
     i18n (1.8.3)
@@ -355,6 +356,7 @@ DEPENDENCIES
   devise
   geocoder
   google-api-client
+  high_voltage (~> 3.1)
   jbuilder (~> 2.7)
   listen (~> 3.2)
   pagy (~> 3.5)

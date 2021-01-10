@@ -1,0 +1,34 @@
+<div class="header">
+  <div class="wrapper">
+    <header class="main-header">
+      <nav>
+        <input type="checkbox" name="" id="input__menu-toggle" class="menu-toggle">
+        <div class="masthead">
+          <h1><a href="/">Primodev</a></h1>
+          <label for="input__menu-toggle" class="label-for-menu">
+            <div class="burger js-burger">
+              <div class="one"></div>
+              <div class="two"></div>
+              <div class="three"></div>
+            </div>
+          </label>
+        </div>
+
+        <div class="main-nav-list">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <%= link_to 'About Us', page_path('about') %>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+      <div class="header-container">
+        <div class="js-header-text">
+          <h1 class="page-title">Primo<span id="title-end">Dev</span></h1>
+          <h2 class="page-subtitle">Find your first developer job</h2>
+        </div>
+      </div>
+  </div>
+</div>
+<%= javascript_pack_tag 'header', 'data-turbolinks-track': 'reload' %>
