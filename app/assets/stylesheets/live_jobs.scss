@@ -251,24 +251,28 @@
   }
 
   .filters-container {
-    background-color: #ffffff;
     margin-left: 15px;
-    margin-right: 15px;
-    font-size: 2.1em;
     margin-top: 40px;
-    border-radius: 20px;
+    font-size: 2.1em;
     font-family: sans-serif;
 
     @media (max-width: 991px) {
       margin: 50px 40px 10px 45px;
+      margin-right: 15px;
     }
+  }
+
+  .filters-background {
+    background-color: #ffffff;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    border-radius: 20px;
 
     @media (min-width: 992px) {
       margin-left: 30px;
       margin-right: 20px;
       font-size: 1rem;
       flex: 0 0 20em;
-      height: 36em;
 
       // Make it sticky
       position: -webkit-sticky;
@@ -330,6 +334,23 @@
     @media (min-width: 992px) {
       font-size: 1rem;
     }
+  }
+
+ .question-mark {
+    content: url("question-mark.png");
+    padding-left: 5px;
+  }
+
+  .question-text {
+    display: none;
+  }
+
+  .question-text {
+    background-color: rgba(234, 254, 251, 1);
+    padding: 17px;
+    margin: 20px 30px 20px 0px;
+    text-align: center;
+    font: inherit;
   }
 
   .filter {

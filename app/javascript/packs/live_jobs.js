@@ -20,6 +20,24 @@ document.addEventListener("turbolinks:load", function() {
 
     const filterImage = document.getElementsByClassName('js-filter-image')[0];
     filterImage.addEventListener('click', toggleFilterForMobile, false)
+
+    /// The question mark symbols next to experience and education with help text
+    $(".js-toggle-title-question").click(function() {
+        if ($(".js-title-question-text").css("display") == "none") {
+            $(".js-title-question-text").show()
+        } else {
+            $(".js-title-question-text").hide()
+        }
+    });
+
+    $(".js-toggle-exp-question").click(function() {
+        if ($(".js-exp-question-text").css("display") == "none") {
+            $(".js-exp-question-text").show()
+        } else {
+            $(".js-exp-question-text").hide()
+        }
+    });
+    /////////
 });
 
 function toggleFilterForMobile() {
