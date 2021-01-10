@@ -1,22 +1,24 @@
-<%= render 'shared/header' %>
+<div class="page">
+  <%= render 'shared/header' %>
 
-<div class="live_jobs">
-  <div class="main">
-    <div class="jobs-container">
-      <div class="filters-container js-filters-container shortened-mobile-filter-container">
-        <%= render 'filters' %>
-      </div>
-
-      <div class="jobs-section">
-        <div class="js-job-listings">
-          <%= render 'job_listings' %>
+  <div class="live_jobs">
+    <div class="main">
+      <div class="jobs-container">
+        <div class="filters-container js-filters-container shortened-mobile-filter-container">
+          <%= render 'filters' %>
         </div>
-        <div class="pagy-container flex-wrap pagination">
-          <%== render partial: 'pagy/bootstrap_nav', locals: {pagy: @pagy} %>
+
+        <div class="jobs-section">
+          <div class="js-job-listings">
+            <%= render 'job_listings' %>
+          </div>
+          <div class="pagy-container flex-wrap pagination">
+            <%== render partial: 'pagy/bootstrap_nav', locals: {pagy: @pagy} %>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<%= render 'shared/footer' %>
+  <%= render 'shared/footer' %>
+</div>
