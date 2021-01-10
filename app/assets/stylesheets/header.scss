@@ -116,7 +116,7 @@
 
   .main-nav-list{
     background-color: #FFFFFF; // NOTE: this is the background of the dropdowns
-    position: fixed;
+    //position: fixed; // NOTE: this is what fixes the nav bar options to the top (disabled so that the nav bar links stay at top of page when you scroll)
     width: 93%;
     transition-property: transform;
     transform: scale(1,0);
@@ -124,6 +124,7 @@
     transition-duration: .25s;
     transition-timing-function: cubic-bezier(.6,.13,.32,1.46);
     text-align: center;
+    display: none;
   }
 
   .main-nav-list a{
