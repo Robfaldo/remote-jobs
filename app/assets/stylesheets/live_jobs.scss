@@ -339,6 +339,11 @@
  .question-mark {
     content: url("question-mark.png");
     padding-left: 5px;
+
+   @media (min-width: 992px) {
+     width: 11%;
+     height: 11%;
+   }
   }
 
   .question-text {
