@@ -17,9 +17,9 @@ document.addEventListener("turbolinks:load", function() {
         });
     });
 
-
-    const filterImage = document.getElementsByClassName('js-filter-image')[0];
-    filterImage.addEventListener('click', toggleFilterForMobile, false)
+    $(".js-filter-image").click(function () {
+        toggleFilterForMobile()
+    });
 
     /// The question mark symbols next to experience and education with help text
     $(".js-toggle-title-question").click(function() {

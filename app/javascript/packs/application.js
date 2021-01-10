@@ -3,11 +3,11 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
-require("jquery")
+require("@rails/ujs").start();
+require("turbolinks").start();
+require("@rails/activestorage").start();
+require("channels");
+require("jquery");
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -17,7 +17,9 @@ require("jquery")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import "../technologies"
 import gtag from 'src/analytics'
+require('packs/live_jobs');
+require('packs/header.js');
+require('packs/jobs_viewer');
 
 global.$ = jQuery;
