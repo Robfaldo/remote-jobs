@@ -350,6 +350,14 @@
     display: none;
   }
 
+  .filter-with-question-container {
+    margin: 30px 0px 30px 0px;
+
+    @media (min-width: 992px) {
+      margin: 0px;
+    }
+  }
+
   .question-text {
     background-color: rgba(234, 254, 251, 1);
     padding: 17px;
