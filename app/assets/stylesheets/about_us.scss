@@ -1,3 +1,33 @@
 .about-us-page {
+  background-color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  font-family: sans-serif;
+  font-size: 1.5rem;
 
+  .content {
+    width: 80%;
+    padding: 50px;
+    background-color: #FFFFFF;
+    margin: 50px 0px 50px 0px;
+
+    @media (min-width: 992px) {
+      width: 60%;
+    }
+  }
+
+  .our-mission-title, .about-title {
+    text-align: center;
+  }
+
+  .our-mission-title {
+    font-size: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  .about-title {
+    padding: 30px 0px 30px 0px;
+    font-size: 2.5rem;
+  }
 }
