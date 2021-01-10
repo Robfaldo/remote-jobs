@@ -124,11 +124,12 @@
     transform-origin: top;
     transition-duration: .25s;
     transition-timing-function: cubic-bezier(.6,.13,.32,1.46);
+    text-align: center;
   }
 
   .main-nav-list a{
     display: block;
-    font-size: 1.5em;
+    font-size: 3em;
     margin-bottom: 8px;
     transition-property: opacity;
     opacity: 0;
