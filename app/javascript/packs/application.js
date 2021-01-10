@@ -19,7 +19,7 @@ require("jquery");
 
 import gtag from 'src/analytics'
 import '../live_jobs';
-import '../header.js';
+import '../header';
 import '../jobs_viewer';
 
 global.$ = jQuery;
