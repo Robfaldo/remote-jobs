@@ -1,29 +1,31 @@
 <div class="header">
-<!--  <div id="nav-bar">-->
-<!--    <ul>-->
-      <%#= link_to 'About Us', page_path('about'), class: "nav-link" %>
-<!--    </ul>-->
-<!--  </div>-->
+  <div class="wrapper">
+    <header class="main-header">
+      <nav>
+        <input type="checkbox" name="" id="input__menu-toggle" class="menu-toggle">
+        <div class="masthead">
+          <h1><a href="/">Primodev</a></h1>
+          <label for="input__menu-toggle" class="label-for-menu">
+            <div class="burger">
+              <div class="one"></div>
+              <div class="two"></div>
+              <div class="three"></div>
+            </div>
+          </label>
+        </div>
 
+        <div class="main-nav-list">
+          <ul>
+            <li><a href="/">Home</a></li>
+            <%= link_to 'About Us', page_path('about') %>
+          </ul>
+        </div>
+      </nav>
+    </header>
 
-
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">PrimoDev</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-        <li class="nav-item active">
-          <%= link_to 'About Us', page_path('about'), class: "nav-link" %>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <div class="header-container">
-    <h1 class="page-title">Primo<span id="title-end">Dev</span></h1>
-    <h2 class="page-subtitle">Find your first developer job</h2>
+      <div class="header-container">
+        <h1 class="page-title">Primo<span id="title-end">Dev</span></h1>
+        <h2 class="page-subtitle">Find your first developer job</h2>
+      </div>
   </div>
 </div>
