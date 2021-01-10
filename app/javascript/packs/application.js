@@ -18,8 +18,8 @@ require("jquery");
 // const imagePath = (name) => images(name, true)
 
 import gtag from 'src/analytics'
-require('packs/live_jobs');
-require('packs/header.js');
-require('packs/jobs_viewer');
+require('live_jobs');
+require('header.js');
+require('jobs_viewer');
 
 global.$ = jQuery;
