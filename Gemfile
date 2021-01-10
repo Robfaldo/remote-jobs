@@ -85,3 +85,6 @@ gem 'acts-as-taggable-on', '~> 6.0'
 
 # pagination
 gem 'pagy', '~> 3.5'
+
+# static pages
+gem 'high_voltage', '~> 3.1'
