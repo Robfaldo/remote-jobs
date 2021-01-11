@@ -13,7 +13,7 @@ module JobFiltering
     def can_handle?(job)
       @identical_links_already_approved = Job.where('created_at >= ?', 1.week.ago).where(job_link: job.job_link, status: 'approved')
       @identical_description_already_approved = Job.where('created_at >= ?', 1.week.ago).where(description: job.description, status: 'approved')
-      @identical_data_already_approved = Job.where('created_at >= ?', 1.week.ago).where(title: job.title, company: job.company, location: job.location, status: 'approved')
+      @identical_data_already_approved = Job.where('created_at >= ?', 1.week.ago).where(title: job.title, company: job.company, status: 'approved')
 
       @identical_links_already_approved.count > 0 || @identical_description_already_approved.count > 0 || @identical_data_already_approved.count > 0
     end
