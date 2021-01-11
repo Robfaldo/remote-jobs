@@ -10,10 +10,10 @@ module JobFiltering
     end
 
     def can_handle?(job)
-      @identical_links_already_filtered = Job.where('created_at >= ?', 1.week.ago).where(job_link: job.job_link).to_a.select{|job| job.status != "scraped"}
-      @identical_data_already_filtered = Job.where('created_at >= ?', 1.week.ago).where(company: job.company, title: job.title, location: job.location).to_a.select{|job| job.status != "scraped"}
+      @identical_links_already_approved = Job.where('created_at >= ?', 1.week.ago).where(job_link: job.job_link, status: 'approved')
+      @identical_description_already_approved = Job.where('created_at >= ?', 1.week.ago).where(description: job.description, status: 'approved')
 
-      @identical_links_already_filtered.count > 0 || @identical_data_already_filtered.count > 0
+      @identical_links_already_approved.count > 0 || @identical_description_already_approved.count > 0
     end
   end
 end
