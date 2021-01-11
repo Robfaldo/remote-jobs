@@ -1,6 +1,7 @@
 class LiveJobsController < ApplicationController
   DEFAULT_DATE_RANGE = "anytime"
   MAX_JOBS_TO_SHOW = 100
+  ITEMS_PER_PAGE = 20 # set in pagy.rb
 
   def index
     date_range = DEFAULT_DATE_RANGE
@@ -19,6 +20,7 @@ class LiveJobsController < ApplicationController
     @total_jobs = query.limit(MAX_JOBS_TO_SHOW)
     @pagy, @jobs = pagy(@total_jobs)
     @total_jobs_count = @total_jobs.count
+    @show_pagination = @total_jobs_count > ITEMS_PER_PAGE
 
     respond_to do |format|
       format.js {render layout: false}

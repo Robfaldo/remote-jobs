@@ -4,5 +4,11 @@
   </div>
 
   <%= render 'jobs' %>
+
+  <% if @show_pagination %>
+    <div class="pagy-container flex-wrap pagination">
+      <%== render partial: 'pagy/bootstrap_nav', locals: {pagy: @pagy} %>
+    </div>
+  <% end %>
 </ul>
 
