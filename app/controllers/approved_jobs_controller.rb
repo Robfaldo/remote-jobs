@@ -1,5 +1,5 @@
 class ApprovedJobsController < ApplicationController
-  before_action :authenticate_admin_user!
+  before_action :authenticate_admin!
 
   include TagHelper
 
