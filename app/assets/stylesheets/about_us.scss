@@ -15,11 +15,11 @@
 
     @media (min-width: 992px) {
       width: 60%;
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
   }
 
-  .our-mission-title, .about-title {
+  .our-mission-title, .about-title, .mission-text {
     text-align: center;
   }
 
@@ -33,7 +33,4 @@
     font-size: 2.5rem;
   }
 
-  .mission-text {
-    font-weight: bold;
-  }
 }
