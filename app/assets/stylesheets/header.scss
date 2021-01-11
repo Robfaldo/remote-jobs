@@ -61,10 +61,14 @@
     max-width: 96.87em;
     display: flex;
     flex-direction: column;
-    //height: 100vh;
     margin: 0 auto;
     width: 93%;
     padding-top: 2em;
+    height: 30rem; // this (and the media Q below) is what sets the height of the header
+
+    @media (min-width: 992px) {
+      height: 20rem;
+    }
   }
 
   .masthead{
@@ -125,11 +129,6 @@
     transition-timing-function: cubic-bezier(.6,.13,.32,1.46);
     text-align: center;
     display: none;
-    margin-bottom: 258px;
-
-    @media (min-width: 992px) {
-      margin-bottom: 58px;
-    }
   }
 
   .main-nav-list a{
