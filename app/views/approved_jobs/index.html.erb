@@ -1,0 +1,21 @@
+<div class="approved-jobs">
+  <div class="jobs_review">
+    <div class="main">
+      <div id="jobs-review-filters-container">
+        <div class="show-reviewed-jobs js-show-reviewed-jobs">
+          Show reviewed jobs
+        </div>
+      </div>
+      <div class="jobs-container">
+        <ul class=job-listings>
+          <div id="jobs-found-container">
+            <h3 class="jobs-found">We have found <span class="jobs-count"><%=@jobs.count %></span> jobs</h3>
+          </div>
+
+          <%= render 'shared/jobs' %>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

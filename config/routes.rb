@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/stats' => 'scraping_stats#index'
   get '/rejected' => 'rejected_jobs#index'
   get '/jobs_secret' => 'jobs#index'
+  get '/jobs_secret_approved' => 'approved_jobs#index'
   get '/source_links' => 'source_links#index'
   resources :jobs, only: [:update]
 end
