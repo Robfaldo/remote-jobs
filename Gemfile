@@ -88,3 +88,5 @@ gem 'pagy', '~> 3.5'
 
 # static pages
 gem 'high_voltage', '~> 3.1'
+
+gem 'rails_admin', '~> 2.0'

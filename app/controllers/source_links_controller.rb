@@ -1,5 +1,5 @@
 class SourceLinksController < ApplicationController
-  before_action :authenticate_admin_user!
+  before_action :authenticate_admin!
 
   def index
     @sources = Job.sources
