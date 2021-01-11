@@ -125,6 +125,11 @@
     transition-timing-function: cubic-bezier(.6,.13,.32,1.46);
     text-align: center;
     display: none;
+    margin-bottom: 258px;
+
+    @media (min-width: 992px) {
+      margin-bottom: 58px;
+    }
   }
 
   .main-nav-list a{
