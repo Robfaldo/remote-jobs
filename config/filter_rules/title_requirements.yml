@@ -75,6 +75,8 @@ languages:
   - node
   - dotnet
   - sql
+  - github
+  - git
 frameworks:
   - django
   - flask
@@ -91,6 +93,7 @@ frameworks:
   - wordpress
   - rails
   - salesforce
+  - WordPress
 description_only_software_terms:
   - computer science
   - code
