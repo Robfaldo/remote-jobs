@@ -25,7 +25,7 @@ module JobTags
     end
 
     def get_description_violations(rules, job)
-      rules["description"].filter { |rule| job.description.downcase.include?(rule.downcase) }
+      rules["description"].filter { |rule| job.description.downcase.include?(rule.to_s.strip.downcase) }
     end
 
     def tags_yaml
