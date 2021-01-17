@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
+
+  devise_scope :user do
+    # See https://github.com/heartcombo/devise/issues/4573#issuecomment-445018377. Workaround for clicking refresh after failed registration
+    get '/users', to: 'devise/registrations#new'
+  end
+
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
