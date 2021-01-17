@@ -5,6 +5,7 @@ module JobFiltering
     def handle(job)
       reject_job(job,"Black listed: @black_list_link_violations: #{@black_list_link_violations}. @black_list_company_violations: #{@black_list_company_violations}. @black_list_description_violations: #{@black_list_description_violations}")
       job.tag_list.add(tags_yaml["FilterRules"]["black_listed"])
+      job.reviewed = true # I always just mark as reviewed, might aswell just save the effort and mark reviewed here
 
       job.save!
     end
