@@ -38,6 +38,14 @@ document.addEventListener("turbolinks:load", function() {
         }
     });
     /////////
+
+    // alert button
+    if ($(".js-close-alert").length > 0) {
+        $(".js-close-alert").click(function() {
+            $(".js-flash-container").hide()
+        })
+    }
+    ////////
 });
 
 function toggleFilterForMobile() {
