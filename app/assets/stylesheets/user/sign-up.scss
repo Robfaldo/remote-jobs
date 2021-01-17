@@ -3,21 +3,44 @@
     font-size: 2.5rem;
     padding-top: 50px;
 
+    @media (min-width: 992px) {
+      font-size: 2.5rem;
+      padding-bottom: 50px;
+    }
+
     .register-title {
       font-size: 3rem;
+      font-weight: bold;
+
+      @media (min-width: 992px) {
+        font-size: 2.5rem;
+      }
     }
 
     .register-sub-title {
       font-size: 2.2rem;
+
+      @media (min-width: 992px) {
+        font-size: 1.8rem;
+      }
     }
 
     .register-sub-title, .register-title {
       padding: 15px 0px 15px 0px;
+
+      @media (min-width: 992px) {
+        padding: 10px 0px 10px 0px;
+      }
     }
 
     .sign-up-form {
       padding: 30px 0px 30px 0px;
       width: 70vw;
+
+      @media (min-width: 992px) {
+        width: 30vw;
+        padding: 20px 0px 20px 0px;
+      }
     }
 
     .sign-up-button {
@@ -27,6 +50,10 @@
 
       .shared-button {
         font-size: 3rem;
+
+        @media (min-width: 992px) {
+          font-size: 1.7rem;
+        }
       }
     }
 
@@ -40,10 +67,10 @@
         border: #f8f8f8 1px solid;
         height: 100px;
         margin: 10px 0px 10px 0px;
-      }
 
-      label {
-        font-size: 2.5rem;
+        @media (min-width: 992px) {
+          height: 50px;
+        }
       }
     }
 
@@ -54,11 +81,21 @@
     .field {
       padding: 10px 0px 10px 0px;
       width: 100%;
+      font-size: 2.5rem;
+
+      @media (min-width: 992px) {
+        padding: 0px;
+        font-size: 1.5rem;
+      }
     }
 
     #error_explanation {
       background-color: rgba(234, 254, 251, 1);
       padding: 50px;
+
+      @media (min-width: 992px) {
+        padding: 25px;
+      }
 
       h2 {
         font-size: 2.5rem;
@@ -67,6 +104,10 @@
 
       li {
         font-size: 2.2rem;
+
+        @media (min-width: 992px) {
+          font-size: 1.5rem;
+        }
       }
     }
 
