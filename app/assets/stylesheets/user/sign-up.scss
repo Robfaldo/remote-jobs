@@ -1,0 +1,77 @@
+.user-sign-up {
+  .page-content-wrap {
+    font-size: 2.5rem;
+    padding-top: 50px;
+
+    .register-title {
+      font-size: 3rem;
+    }
+
+    .register-sub-title {
+      font-size: 2.2rem;
+    }
+
+    .register-sub-title, .register-title {
+      padding: 15px 0px 15px 0px;
+    }
+
+    .sign-up-form {
+      padding: 30px 0px 30px 0px;
+      width: 70vw;
+    }
+
+    .sign-up-button {
+      display: flex;
+      justify-content: center;
+      padding: 30px 0px 0px 0px;
+
+      .shared-button {
+        font-size: 3rem;
+      }
+    }
+
+    .fields-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      input {
+        border: #f8f8f8 1px solid;
+        height: 100px;
+        margin: 10px 0px 10px 0px;
+      }
+
+      label {
+        font-size: 2.5rem;
+      }
+    }
+
+    .form-field {
+      width: 100%;
+    }
+
+    .field {
+      padding: 10px 0px 10px 0px;
+      width: 100%;
+    }
+
+    #error_explanation {
+      background-color: rgba(234, 254, 251, 1);
+      padding: 50px;
+
+      h2 {
+        font-size: 2.5rem;
+        display: none;
+      }
+
+      li {
+        font-size: 2.2rem;
+      }
+    }
+
+    .error-heading {
+      font-size: 2rem;
+    }
+  }
+}
