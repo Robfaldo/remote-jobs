@@ -2,6 +2,8 @@ require "scraper_api"
 
 module Scraping
   class Scraper
+    include ScrapingHelper
+
     def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false)
       response = client.scrape_page(
         link: link,
