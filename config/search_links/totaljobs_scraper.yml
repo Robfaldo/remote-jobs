@@ -1,9 +1,13 @@
 London:
-#  "Junior Web Developer" OR "Trainee Web Developer" OR "Jr. Web Developer" OR "Apprentice Web Developer" OR "Grad Web Developer" OR "Graduate Web Developer"
-  - https://www.totaljobs.com/jobs/junior-web-developer-or-trainee-web-developer-or-jr-web-developer-or-apprentice-web-developer-or-grad-web-developer-or-graduate-web-developer/in-london?q=%22Junior+Web+Developer%22+OR+%22Trainee+Web+Developer%22+OR+%22Jr.+Web+Developer%22+OR+%22Apprentice+Web+Developer%22+OR+%22grad+web+developer%22+OR+%22graduate+web+developer%22&postedwithin=1&radius=20&Sort=2
-#  "junior software developer" OR "junior software engineer" OR "Jr. software developer" OR "Jr. software developer" OR "Junior programmer"
-  - https://www.totaljobs.com/jobs/junior-software-developer-or-junior-software-engineer-or-jr-software-developer-or-jr-software-developer-or-junior-programmer/in-london?q=%22Junior+Software+Developer%22+OR+%22Junior+Software+Engineer%22+OR+%22Jr.+Software+Developer%22+OR+%22Jr.+Software+Developer%22+OR+%22Junior+Programmer%22&radius=20&Sort=2
-#  "grad software engineer" OR "grad software developer" OR "graduate software developer" OR "graduate software developer" OR "graduate software development" OR "graduate software engineer"
-  - https://www.totaljobs.com/jobs/grad-software-engineer-or-grad-software-developer-or-graduate-software-developer-or-graduate-software-developer-or-graduate-software-development-or-graduate-software-engineer/in-london?q=%22Grad+Software+Engineer%22+OR+%22Grad+Software+Developer%22+OR+%22Graduate+Software+Developer%22+OR+%22Graduate+Software+Developer%22+OR+%22Graduate+Software+Development%22+OR+%22Graduate+Software+Engineer%22&radius=20&postedwithin=1&Sort=2
-#  "Apprentice Software Developer" OR "Apprentice Software Engineer" OR "Software Developer Apprentice" OR Software Engineer Apprentice"
-  - https://www.totaljobs.com/jobs/apprentice-software-developer-or-apprentice-software-engineer-or-software-developer-apprentice-or-software-engineer-apprentice/in-london?q=%22apprentice+software+developer%22+OR+%22Apprentice+software+engineer%22+OR+%22software+developer+apprentice%22+OR+software+engineer+apprentice%22&postedwithin=1&radius=20&Sort=2
+# Graduate Developer
+  - https://www.totaljobs.com/jobs/graduate-developer/in-london?radius=20&postedwithin=1&Sort=2
+# Graduate Software
+  - https://www.totaljobs.com/jobs/graduate-software/in-london?postedwithin=1&radius=20&Sort=2
+# Junior AND Engineer
+  - https://www.totaljobs.com/jobs/junior-and-engineer/in-london?q=Junior+AND+Engineer&postedwithin=1&Sort=2
+# Junior AND Developer
+  - https://www.totaljobs.com/jobs/junior-and-developer/in-london?q=Junior+AND+developer&postedwithin=1&Sort=2
+# Apprentice AND Software
+  - https://www.totaljobs.com/jobs/apprentice-and-software/in-london?q=apprentice+AND+software&postedwithin=1&radius=20&Sort=2
+# Apprentice AND Developer
+  - https://www.totaljobs.com/jobs/apprentice-and-developer/in-london?q=Apprentice+AND+developer&postedwithin=1&radius=20

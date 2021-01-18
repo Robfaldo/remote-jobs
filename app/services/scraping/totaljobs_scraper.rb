@@ -5,20 +5,48 @@ module Scraping
     def get_jobs
       LOCATIONS.each do |location|
         search_links[location].each do |link|
-          scraped_page = scrape_page(link: link, wait_time: 5000)
+          # have to use premium because need UK location
+          scraped_page = scrape_page(link: link, wait_time: 5000, premium_proxy: true)
 
-          scraped_jobs = scraped_page.search('.job')
+          scrape_and_save_jobs(scraped_page)
 
-          jobs_to_evaluate = jobs_to_evaluate(scraped_jobs)
+          ## Handle Pagination
+          extra_pages = calculate_additional_pages(scraped_page)
 
-          jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
-
-          extract_and_save_job(jobs_to_scrape)
+          scrape_additional_pages(extra_pages, link)
         end
       end
     end
 
     private
+
+    def scrape_additional_pages(extra_pages, link)
+      extra_pages.times do |page|
+        # page will start at 0, and the first page (i.e. first additional page after the original page scrape) we want to scrape is 2
+        link_to_scrape = link + "&page=#{page + 2}"
+
+        scraped_page = scrape_page(link: link_to_scrape, wait_time: 5000, premium_proxy: true)
+
+        scrape_and_save_jobs(scraped_page)
+      end
+    end
+
+    def calculate_additional_pages(scraped_page)
+      jobs_appearing_in_search = scraped_page.search('.page-title').search('span').first.text.to_i
+      jobs_per_page = 20
+      total_pages_to_scrape = (jobs_appearing_in_search / jobs_per_page.to_f).ceil
+      total_pages_to_scrape - 1 # we already scraped the 1st page
+    end
+
+    def scrape_and_save_jobs(scraped_page)
+      scraped_jobs = scraped_page.search('.job')
+
+      jobs_to_evaluate = jobs_to_evaluate(scraped_jobs)
+
+      jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
+
+      extract_and_save_job(jobs_to_scrape)
+    end
 
     def jobs_to_evaluate(scraped_all_jobs_page)
       jobs_to_evaluate = []
