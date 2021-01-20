@@ -18,6 +18,9 @@
           <ul>
             <li><a href="/">Home</a></li>
             <%= link_to 'About Us', page_path('about') %>
+            <% if current_user %>
+              <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
+            <% end %>
           </ul>
         </div>
       </nav>
