@@ -41,10 +41,13 @@
               <%= f.submit "Sign up for free", class: 'shared-button' %>
             </div>
           <% end %>
+
+          <div class="account-links">
+            <%= render "users/shared/links" %>
+          </div>
         </div>
       </div>
 
-      <%#= render "users/shared/links" %>
     </div>
 
     <%= render 'shared/footer' %>

@@ -59,6 +59,14 @@
           font-size: 1.7rem;
         }
       }
+
+      #send-pwd-instructions {
+        font-size: 2.2rem;
+
+        @media (min-width: 992px) {
+          font-size: 1.3rem;
+        }
+      }
     }
 
     .fields-container {
@@ -132,13 +140,21 @@
     .form-container {
       background-color: #FFFFFF;
       padding: 20px;
+      margin-bottom: 80px;
 
       .account-links {
         padding: 20px;
         font-size: 2.5rem;
+        text-align: center !important;
+
+        a:hover, a:visited, a:link, a:active
+        {
+          text-decoration: none;
+          color: #04080F;
+        }
 
         @media (min-width: 992px) {
-          font-size: 1.2rem;
+          font-size: 1.5rem;
         }
       }
 
@@ -177,7 +193,7 @@
           height: 1em;
           margin: 0;
           border: none;
-          background-color: white;
+          background-color: #FFFFFF;
           border-radius: 10%;
           transform: scale(0.8);
         }
@@ -204,7 +220,7 @@
           border: none;
           background-color: #3b88fd;
           border-radius: 10%;
-          color: white;
+          color: #FFFFFF;
           text-align: center;
           line-height: 1;
         }
