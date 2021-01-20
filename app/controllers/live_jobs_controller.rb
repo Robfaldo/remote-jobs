@@ -40,7 +40,7 @@ class LiveJobsController < ApplicationController
 
   def require_login
     unless current_user
-      redirect_to page_path('logged_out_homepage')
+      redirect_to page_path('homepage')
     end
   end
 end

@@ -74,16 +74,27 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      width: 100%;
+
+      br {
+        display: none;
+      }
 
       input {
         border: #f8f8f8 1px solid;
         height: 100px;
         margin: 10px 0px 10px 0px;
         background-color: #f8f8f8;
+        width: 100%;
 
         @media (min-width: 992px) {
           height: 50px;
         }
+      }
+
+      .field_with_errors {
+        width: 100%;
+        padding: 0px;
       }
     }
 
@@ -156,6 +167,16 @@
         @media (min-width: 992px) {
           font-size: 1.5rem;
         }
+      }
+
+      .error-messages {
+        width: 90%
+      }
+
+      .error-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
       }
 
       .checkbox {
