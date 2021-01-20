@@ -1,4 +1,4 @@
-.user-sign-up {
+.user-account-form {
   .page-content-wrap {
     font-size: 2.5rem;
     padding-top: 50px;
@@ -8,13 +8,17 @@
       padding-bottom: 50px;
     }
 
-    .register-title {
+    .title {
       font-size: 3rem;
       font-weight: bold;
 
       @media (min-width: 992px) {
         font-size: 2.5rem;
       }
+    }
+
+    .login-title {
+      margin-bottom: 50px;
     }
 
     .register-sub-title {
@@ -33,7 +37,7 @@
       }
     }
 
-    .sign-up-form {
+    .account-form {
       padding: 30px 0px 30px 0px;
       width: 70vw;
 
@@ -43,7 +47,7 @@
       }
     }
 
-    .sign-up-button {
+    .account-button {
       display: flex;
       justify-content: center;
       padding: 30px 0px 0px 0px;
@@ -128,6 +132,83 @@
     .form-container {
       background-color: #FFFFFF;
       padding: 20px;
+
+      .account-links {
+        padding: 20px;
+        font-size: 2.5rem;
+
+        @media (min-width: 992px) {
+          font-size: 1.2rem;
+        }
+      }
+
+      .checkbox {
+        padding-left: 25px;
+
+        label{
+          position: relative;
+          line-height: 1.4;
+        }
+
+        input[type=checkbox]{
+          width: 1em;
+          font-size: inherit;
+          margin: 0;
+          transform: translateX(-9999px);
+        }
+        input[type=checkbox] + label:before{
+          position: absolute;
+          content: '';
+          left: -1.3em;
+          top: 0;
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          border:none;
+          //border-radius: 10%;
+          background-color: #bbbbbb;
+        }
+        input[type=checkbox] + label:after{
+          position: absolute;
+          content: '';
+          left: -1.3em;
+          top: 0;
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          border: none;
+          background-color: white;
+          border-radius: 10%;
+          transform: scale(0.8);
+        }
+        /*checked*/
+        input[type=checkbox]:checked + label:before{
+          position:absolute;
+          content:'';
+          left: -1.3em;
+          top: 0;
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          border: none;
+          background-color: #3b88fd;
+        }
+        input[type=checkbox]:checked + label:after{
+          position: absolute;
+          content: "\2713";
+          left: -1.3em;
+          top: 0;
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          border: none;
+          background-color: #3b88fd;
+          border-radius: 10%;
+          color: white;
+          text-align: center;
+          line-height: 1;
+        }
+      }
     }
   }
 }
