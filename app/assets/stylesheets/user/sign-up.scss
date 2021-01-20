@@ -67,6 +67,7 @@
         border: #f8f8f8 1px solid;
         height: 100px;
         margin: 10px 0px 10px 0px;
+        background-color: #f8f8f8;
 
         @media (min-width: 992px) {
           height: 50px;
@@ -75,13 +76,22 @@
     }
 
     .form-field {
-      width: 100%;
+      width: 95%;
+    }
+
+    .form-field-container {
+      display: flex;
+      justify-content: center;
     }
 
     .field {
       padding: 10px 0px 10px 0px;
       width: 100%;
       font-size: 2.5rem;
+
+      label {
+        padding-left: 20px;
+      }
 
       @media (min-width: 992px) {
         padding: 0px;
@@ -113,6 +123,11 @@
 
     .error-heading {
       font-size: 2rem;
+    }
+
+    .form-container {
+      background-color: #FFFFFF;
+      padding: 20px;
     }
   }
 }
