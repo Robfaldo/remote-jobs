@@ -1,0 +1,18 @@
+.logged-out-homepage {
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    font-family: sans-serif;
+
+    .logo{
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #3cbfab;
+
+      .logo-end {
+        color: #04080F;
+      }
+    }
+  }
+}
