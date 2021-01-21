@@ -69,7 +69,9 @@ module Scraping
         # Create Request
         req = Net::HTTP::Get.new(uri)
 
-        2.times do |i|
+        premium_proxy_attempts = 2
+
+        premium_proxy_attempts.times do |i|
           begin
             res = http.request(req)
             puts "Re-attempt with premium proxy: #{i}: Response HTTP Status Code: #{ res.code }"
@@ -79,9 +81,14 @@ module Scraping
             if res.code == "404"
               raise NotFoundResponse.new("#{res.code}##SPLITHERE###{res.body}")
             else
-              raise ApiErrorToRetry.new
+              raise ApiErrorToRetry.new("#{res.code}##SPLITHERE###{res.body}")
             end
           rescue ApiErrorToRetry
+            code = e.message.split('##SPLITHERE##')[0]
+            body = e.message.split('##SPLITHERE##')[1]
+            e_message = "Could not scrape after 5 attempts using #{premium_proxy ? "premium" : "non-premium"} Proxy.#{premium_proxy_attempts} Premium proxies attempted. Link: #{link}. URI String: #{uri_string}. Last response code: #{code}. Last response body: #{body}"
+
+            raise ScrapingBeeError.new(e_message) if i == premium_proxy_attempted - 1 # minus 1 because i is 0 indexed
             next # to retry go to the next iteration of the loop
           rescue NotFoundResponse => e
             code = e.message.split('##SPLITHERE##')[0]
@@ -90,10 +97,6 @@ module Scraping
           end
         end
       end
-
-      e_message = "Could not scrape after 5 attempts using #{premium_proxy ? "premium" : "non-premium"} Proxy.#{"Premium proxy (6th attempt) was attempted. " if premium_proxy_attempted} #{"Premium proxy (7th attempt) was attempted. " if second_premium_proxy_attempted} Link: #{link}. URI String: #{uri_string}. Last response code: #{res.code}. Last response body: #{res.body}"
-
-      raise ScrapingBeeError.new(e_message)
     end
   end
 end
