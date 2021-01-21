@@ -90,6 +90,8 @@ frameworks:
   - spring
   - react
   - angular
+  - AngularJS
+  - reactjs
   - laravel
   - wordpress
   - rails
@@ -111,6 +113,13 @@ description_only_software_terms:
   - CI/CD
   - aws
   - Azure
+<<<<<<< Updated upstream
   - REST
   - Software Engineering
   - software development
+=======
+  - TDD
+  - BDD
+  - SCRUM
+  - agile
+>>>>>>> Stashed changes
