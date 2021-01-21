@@ -168,6 +168,38 @@
           margin: 50px 0px 40px 0px;
         }
       }
+
+      .job-boards {
+        .indeed {
+          content: url("indeed.png");
+          width: 200px;
+        }
+
+        .totaljobs {
+          content: url("totaljobs.png");
+          width: 200px;
+        }
+
+        .technojobs {
+          content: url("technojobs.png");
+          width: 200px;
+        }
+
+        .google {
+          content: url("google.png");
+          width: 200px;
+        }
+
+        .reed {
+          content: url("reed.png");
+          width: 200px;
+        }
+
+        .glassdoor {
+          content: url("glassdoor.png");
+          width: 200px;
+        }
+      }
     }
   }
 }
