@@ -44,7 +44,7 @@ module Scraping
             raise ApiErrorToRetry.new
           end
         rescue ApiErrorToRetry
-          retry
+          next # to retry go to the next iteration of the loop
         rescue NotFoundResponse => e
           code = e.message.split('##SPLITHERE##')[0]
           body = e.message.split('##SPLITHERE##')[1]
@@ -82,7 +82,7 @@ module Scraping
               raise ApiErrorToRetry.new
             end
           rescue ApiErrorToRetry
-            retry
+            next # to retry go to the next iteration of the loop
           rescue NotFoundResponse => e
             code = e.message.split('##SPLITHERE##')[0]
             body = e.message.split('##SPLITHERE##')[1]
