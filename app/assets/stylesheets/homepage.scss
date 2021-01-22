@@ -170,34 +170,48 @@
       }
 
       .job-boards {
+        display: flex;
+        margin-bottom: 30px;
+
+        div { // all the logos
+          overflow: auto; // this stops it from being bigger than its container
+          border: solid 1px #04080F;
+          width: 150px;
+          padding: 20px;
+
+          @media (min-width: 992px) {
+            padding: 40px;
+          }
+        }
+
         .indeed {
           content: url("indeed.png");
-          width: 200px;
+          flex-grow: 1; // this means they will take up remaining space in the container
         }
 
         .totaljobs {
           content: url("totaljobs.png");
-          width: 200px;
+          flex-grow: 1;
         }
 
         .technojobs {
           content: url("technojobs.png");
-          width: 200px;
+          flex-grow: 1;
         }
 
         .google {
           content: url("google.png");
-          width: 200px;
+          flex-grow: 1;
         }
 
         .reed {
           content: url("reed.png");
-          width: 200px;
+          flex-grow: 1;
         }
 
         .glassdoor {
           content: url("glassdoor.png");
-          width: 200px;
+          flex-grow: 1;
         }
       }
     }
