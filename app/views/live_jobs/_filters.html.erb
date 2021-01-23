@@ -1,7 +1,12 @@
-<div class="filters-background">
+<div class="filters-background js-filters-background">
   <div id="filter-header-container">
     <span id="filter-header">Filter results</span>
-    <img id="filter-image" class="js-filter-image" alt="filter-dropdown" src="<%=asset_path('dropdown-circle.png')%>"></img>
+    <div class="mobile-filters js-filter-image">
+      <div class="filter-icon-container js-filter-icon">
+        <div class="filter-icon"></div>
+        <div>Filters</div>
+      </div>
+    </div>
   </div>
 
   <div class="filter js-filter-container hide-filter">
