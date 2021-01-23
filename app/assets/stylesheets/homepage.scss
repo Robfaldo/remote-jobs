@@ -145,9 +145,11 @@
           padding: 20px;
           flex-basis: 33%;
           max-width: 33%;
+          max-height: 130px;
 
           @media (min-width: 992px) {
             padding: 40px;
+            max-height: 200px;
           }
         }
 
