@@ -2,6 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+.live-jobs-alerts {
+  .flash-container {
+    width: 100%;
+
+    .banner-alert {
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      font-size: 1.5rem;
+    }
+  }
+}
+
 .live_jobs {
   margin-bottom: 100px;
 
@@ -454,7 +467,6 @@
           font-size: 1.2rem;
         }
       }
-
     }
   }
 

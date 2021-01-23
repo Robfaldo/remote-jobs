@@ -1,13 +1,13 @@
 window.addEventListener('turbolinks:load', function() {
-    $(".js-burger").click(function () {
-        if ($(".js-header-text").is(":hidden")) {
-            $('.js-header-text').show()
-            $('.js-header-container').show()
-            $('.js-main-nav-list').hide()
-        } else {
-            $('.js-header-text').hide()
-            $('.js-header-container').hide()
-            $('.js-main-nav-list').show()
-        }
-    });
+    // alert button
+    if ($(".js-close-alert").length > 0) {
+        setInterval(function(){
+            $(".js-close-alert").click()
+        }, 3000);
+
+        $(".js-close-alert").click(function() {
+            $(".js-flash-container").hide()
+        })
+    }
+    ////////
 });

@@ -1,0 +1,251 @@
+.user-account-form {
+  .page-content-wrap {
+    font-size: 2.5rem;
+    padding-top: 50px;
+
+    @media (min-width: 992px) {
+      font-size: 2.5rem;
+      padding-bottom: 50px;
+    }
+
+    .title {
+      font-size: 3rem;
+      font-weight: bold;
+
+      @media (min-width: 992px) {
+        font-size: 2.5rem;
+      }
+    }
+
+    .login-title {
+      margin-bottom: 50px;
+    }
+
+    .register-sub-title {
+      font-size: 2.2rem;
+
+      @media (min-width: 992px) {
+        font-size: 1.8rem;
+      }
+    }
+
+    .register-sub-title, .register-title {
+      padding: 15px 0px 15px 0px;
+
+      @media (min-width: 992px) {
+        padding: 10px 0px 10px 0px;
+      }
+    }
+
+    .account-form {
+      padding: 30px 0px 30px 0px;
+      width: 70vw;
+
+      @media (min-width: 992px) {
+        width: 30vw;
+        padding: 20px 0px 20px 0px;
+      }
+    }
+
+    .account-button {
+      display: flex;
+      justify-content: center;
+      padding: 30px 0px 0px 0px;
+
+      .shared-button {
+        font-size: 3rem;
+
+        @media (min-width: 992px) {
+          font-size: 1.7rem;
+        }
+      }
+
+      #send-pwd-instructions {
+        font-size: 2.2rem;
+
+        @media (min-width: 992px) {
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    .fields-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      width: 100%;
+
+      br {
+        display: none;
+      }
+
+      input {
+        border: #f8f8f8 1px solid;
+        height: 100px;
+        margin: 10px 0px 10px 0px;
+        background-color: #f8f8f8;
+        width: 100%;
+
+        @media (min-width: 992px) {
+          height: 50px;
+        }
+      }
+
+      .field_with_errors {
+        width: 100%;
+        padding: 0px;
+      }
+    }
+
+    .form-field {
+      width: 95%;
+    }
+
+    .form-field-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .field {
+      padding: 10px 0px 10px 0px;
+      width: 100%;
+      font-size: 2.5rem;
+
+      label {
+        padding-left: 20px;
+      }
+
+      @media (min-width: 992px) {
+        padding: 0px;
+        font-size: 1.5rem;
+      }
+    }
+
+    #error_explanation {
+      background-color: rgba(234, 254, 251, 1);
+      padding: 50px;
+
+      @media (min-width: 992px) {
+        padding: 25px;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        display: none;
+      }
+
+      li {
+        font-size: 2.2rem;
+
+        @media (min-width: 992px) {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .error-heading {
+      font-size: 2rem;
+    }
+
+    .form-container {
+      background-color: #FFFFFF;
+      padding: 20px;
+      margin-bottom: 80px;
+
+      .account-links {
+        padding: 20px;
+        font-size: 2.5rem;
+        text-align: center !important;
+
+        a:hover, a:visited, a:link, a:active
+        {
+          text-decoration: none;
+          color: #04080F;
+        }
+
+        @media (min-width: 992px) {
+          font-size: 1.5rem;
+        }
+      }
+
+      .error-messages {
+        width: 90%
+      }
+
+      .error-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .checkbox {
+        padding-left: 25px;
+
+        label{
+          position: relative;
+          line-height: 1.4;
+        }
+
+        input[type=checkbox]{
+          width: 1em;
+          font-size: inherit;
+          margin: 0;
+          transform: translateX(-9999px);
+        }
+        input[type=checkbox] + label:before{
+          position: absolute;
+          content: '';
+          left: -1.3em;
+          top: 0;
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          border:none;
+          //border-radius: 10%;
+          background-color: #bbbbbb;
+        }
+        input[type=checkbox] + label:after{
+          position: absolute;
+          content: '';
+          left: -1.3em;
+          top: 0;
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          border: none;
+          background-color: #FFFFFF;
+          border-radius: 10%;
+          transform: scale(0.8);
+        }
+        /*checked*/
+        input[type=checkbox]:checked + label:before{
+          position:absolute;
+          content:'';
+          left: -1.3em;
+          top: 0;
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          border: none;
+          background-color: #3b88fd;
+        }
+        input[type=checkbox]:checked + label:after{
+          position: absolute;
+          content: "\2713";
+          left: -1.3em;
+          top: 0;
+          width: 1em;
+          height: 1em;
+          margin: 0;
+          border: none;
+          background-color: #3b88fd;
+          border-radius: 10%;
+          color: #FFFFFF;
+          text-align: center;
+          line-height: 1;
+        }
+      }
+    }
+  }
+}

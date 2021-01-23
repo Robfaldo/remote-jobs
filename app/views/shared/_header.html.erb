@@ -1,33 +1,25 @@
-<div class="header">
-  <div class="wrapper">
-    <header class="main-header">
-      <nav>
-        <input type="checkbox" name="" id="input__menu-toggle" class="menu-toggle">
-        <div class="masthead">
-          <h1><a href="/">Primodev</a></h1>
-          <label for="input__menu-toggle" class="label-for-menu">
-            <div class="burger js-burger">
-              <div class="one"></div>
-              <div class="two"></div>
-              <div class="three"></div>
-            </div>
-          </label>
-        </div>
-
-        <div class="main-nav-list js-main-nav-list">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <%= link_to 'About Us', page_path('about') %>
-          </ul>
-        </div>
-      </nav>
-    </header>
-
-      <div class="header-container js-header-container">
-        <div class="js-header-text">
-          <h1 class="page-title">Primo<span id="title-end">Dev</span></h1>
-          <h2 class="page-subtitle">Find your first developer job</h2>
-        </div>
-      </div>
+<% unless local_assigns[:dont_include_flash] %>
+  <div class="live-jobs-alerts">
+    <%= render :partial => "shared/flash_messages" %>
   </div>
-</div>
+<% end %>
+
+<header class="header-container">
+  <nav class="navbar">
+    <div class="logo">
+      <a href="/">Primo<span class="logo-end">Dev</span></a>
+    </div>
+    <div class="account-buttons">
+      <% if current_user %>
+        <%= link_to 'Sign out', destroy_user_session_path, :method => :delete, class: 'sign-out-button shared-button' %>
+      <% else %>
+        <a href="/users/sign_in">
+          <div class="login-button">Log in</div>
+        </a>
+        <a href="/users/sign_up">
+          <div class="sign-up-button shared-button">Sign up</div>
+        </a>
+      <% end %>
+    </div>
+  </nav>
+</header>

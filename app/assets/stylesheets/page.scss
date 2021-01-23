@@ -4,6 +4,8 @@
   min-height: 100vh;
   position: relative;
   background-color: #f8f8f8;
+  font-family: Sans-Serif;
+  color: #04080F;
 
   .footer {
     position: absolute;
@@ -13,5 +15,9 @@
 
   .page-content-wrap {
     margin-bottom: 100px; // the width of the footer (see: https://www.freecodecamp.org/news/how-to-keep-your-footer-where-it-belongs-59c6aa05c59c/)
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

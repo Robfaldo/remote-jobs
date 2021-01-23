@@ -65,6 +65,25 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Emails: https://medium.com/@rachelchervin/sending-emails-with-godaddy-and-ruby-on-rails-fc503a45af10
+  config.action_mailer.default_url_options = {
+      host: "https://www.primodev.co.uk/"
+  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = {from: 'rob@primodev.co.uk'}
+  config.action_mailer.smtp_settings = {
+      address:              'smtpout.secureserver.net',
+      port:                 25,
+      domain:               'primodev.co.uk',
+      user_name:            'rob@primodev.co.uk',
+      password:             ENV["SMTP_EMAIL_PASSWORD"],
+      authentication:       :login,
+      enable_starttls_auto: false
+  }
+  ######
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
@@ -112,8 +131,6 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-
-  config.action_mailer.default_url_options = { host: 'https://uk-remote-jobs.herokuapp.com' }
 
   config.action_dispatch.show_exceptions = true
 end

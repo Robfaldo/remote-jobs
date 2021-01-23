@@ -1,4 +1,6 @@
 class LiveJobsController < ApplicationController
+  before_action :require_login
+
   DEFAULT_DATE_RANGE = "anytime"
   MAX_JOBS_TO_SHOW = 100
   ITEMS_PER_PAGE = 20 # set in pagy.rb
@@ -33,6 +35,12 @@ class LiveJobsController < ApplicationController
   def filter_params
     if params[:filters]
       params.require(:filters).permit(:date_range, :include_jobs_that)
+    end
+  end
+
+  def require_login
+    unless current_user
+      redirect_to page_path('homepage')
     end
   end
 end
