@@ -9,12 +9,12 @@
       background-color: #ffffff;
       border: none;
       padding: 30px 30px 30px 40px;
-      //border-radius: 20px;
       max-width: 95vw;
-
+      border: 0.5px solid #3cbfab;
+      box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
       @media (min-width: 992px) {
         padding: 20px 30px 20px 40px;
-        max-width: 70vw;
+        max-width: 55vw;
       }
 
       @media (max-width: 991px) {
@@ -35,81 +35,74 @@
 
         .tags-container {
           display: flex;
-        }
-        .tag, .non-filter-tag {
-          background-color: #f8f8f8;
-          border: solid 1px grey;
-          color: #04080F;
-          padding: 13px 25px 13px 13px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          border-radius: 7px;
-          margin-top: 20px;
-          margin-right: 20px;
-          font-size: 25px;
-          width: 220px;
-
-          @media (min-width: 992px) {
-            font-size: 16px;
-          }
+          flex-direction: column;
+          justify-content: flex-start;
+          width: 70%;
         }
 
-        @media (min-width: 992px) {
-          .requires-experience:before {
-            content: url("requires-experience.png");
-            padding-right: 10px;
-            vertical-align: top; // stops the text being pushed down
-          }
+        .requires-experience:before {
+          content: url("exclamation.png");
+          padding-right: 10px;
+          vertical-align: top; // stops the text being pushed down
+        }
 
-          .requires-stem-degree:before {
-            content: url("requires-degree.png");
-            padding-right: 10px;
-            vertical-align: top; // stops the text being pushed down
-          }
+        .requires-stem-degree:before {
+          content: url("exclamation.png");
+          padding-right: 10px;
+          vertical-align: top; // stops the text being pushed down
         }
 
         .title {
           font-weight: bold;
-          font-size: 2.2rem;
+          font-size: 2.5rem;
           padding: 10px 0px 10px 0px;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
           text-transform: capitalize;
-
-          @media (min-width: 992px) {
-            font-size: 1.7rem;
-          }
-        }
-
-        .company {
-          font-size: 1.9rem;
-          font-weight: bold;
           color: #3cbfab;
 
           @media (min-width: 992px) {
-            font-size: 1.2rem;
+            font-size: 2rem;
+          }
+        }
+
+        .posted-info {
+          font-size: 1.8rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: 80%;
+
+          @media (min-width: 992px) {
+            font-size: 1.1rem;
           }
         }
 
         .requires-experience, .requires-stem-degree {
           display: flex;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
+          width: 80%;
+          padding-left: 13px;
 
-          @media (max-width: 991px) {
-            width: 170px;
+          @media (min-width: 992px) {
+            font-size: 1.3rem;
           }
+        }
 
+        .requires-tags {
+          padding-top: 20px;
         }
 
         .location {
           display: flex;
-          justify-content: center;
           align-items: center;
-          width: 180px;
-          padding-left: 15px;
+          padding: 20px 0px 10px 15px;
+
+          @media (min-width: 992px) {
+            font-size: 1.3rem;
+          }
 
           .location-text {
             padding-left: 10px;
@@ -118,14 +111,9 @@
             white-space: nowrap;
           }
 
-          @media (min-width: 992px) {
-            width: 150px;
-
-
-            .location-image {
-              content: url("map-pin.png");
-              width: 15%;
-            }
+          .location-image {
+            content: url("map-pin.png");
+            width: 5%;
           }
         }
       }
