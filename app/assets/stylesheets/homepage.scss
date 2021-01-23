@@ -78,22 +78,50 @@
     .page-content {
       .blurb {
         display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        flex-direction: row;
-        color: #04080F;
 
-        .image {
+        .image-container {
           @media (min-width: 992px) {
-            content: url("hiring-image.svg");
-            width: 45%;
+            flex-basis: 50%;
+            overflow: auto; // this stops it from being bigger than its container
+            flex-grow: 1; // this stops it from being bigger than its container
+
+            display: flex;
+            align-items: center;
+            max-width: 100%;
+          }
+
+          .image {
+            @media (min-width: 992px) {
+              max-width: 100%;
+              content: url("hiring-image.svg");
+            }
+          }
+        }
+
+        .mobile-image-container {
+          @media (max-width: 991px) {
+            flex-basis: 50%;
+            overflow: auto; // this stops it from being bigger than its container
+            flex-grow: 1; // this stops it from being bigger than its container
+
+            display: flex;
+            align-items: center;
+            max-width: 100%;
+          }
+
+          .mobile-image {
+            @media (max-width: 991px) {
+              max-width: 100%;
+              content: url("hiring-image.svg");
+            }
           }
         }
 
         .written {
+          flex-basis: 100%;
+
           @media (min-width: 992px) {
-            flex-grow: 1;
-            padding-right: 150px;
+            flex-basis: 50%;
           }
         }
 
@@ -129,21 +157,15 @@
           margin-bottom: 40px;
           display: flex;
           padding: 20px 0px 20px 0px;
+          display: flex;
 
           .text {
             margin-right: 40px;
+            flex-basis: 50%;
           }
 
           @media (min-width: 992px) {
             font-size: 1.2rem;
-          }
-
-          @media (max-width: 992px) { // ONLY FOR MOBILE
-            .mobile-image {
-              content: url("hiring-image.svg");
-              height: 50%;
-              width: 50%;
-            }
           }
         }
 
