@@ -47,9 +47,14 @@ function toggleFilterForMobile() {
     if (mobileFilterContainer.classList.contains('shortened-mobile-filter-container')) {
         filterContainer.classList.remove('hide-filter');
         mobileFilterContainer.classList.remove('shortened-mobile-filter-container');
+        $(".js-filters-background").addClass('mobile-filter-selected');
+        $(".js-filter-icon").addClass('filter-icon-selected');
+
     } else { // it must be showing so hide it
         filterContainer.classList.add('hide-filter');
         mobileFilterContainer.classList.add('shortened-mobile-filter-container');
+        $(".js-filters-background").removeClass('mobile-filter-selected');
+        $(".js-filter-icon").removeClass('filter-icon-selected');
     }
 }
 
