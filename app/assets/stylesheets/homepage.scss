@@ -127,7 +127,7 @@
         }
 
         .tag {
-          background-color: rgba(234, 254, 251, 1);
+          background-color: rgba(213, 240, 235, 1);
           width: max-content;
           font-size: 1.7rem;
           padding: 10px 20px 10px 20px;
@@ -201,12 +201,14 @@
       .job-boards {
         display: flex;
         margin-bottom: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0px 50px 0px 50px;
 
         div { // all the logos
-          overflow: auto; // this stops it from being bigger than its container
-          border: solid 1px #04080F;
-          width: 150px;
           padding: 20px;
+          flex-basis: 33%;
+          max-width: 33%;
 
           @media (min-width: 992px) {
             padding: 40px;
@@ -215,32 +217,26 @@
 
         .indeed {
           content: url("indeed.png");
-          flex-grow: 1; // this means they will take up remaining space in the container
         }
 
         .totaljobs {
           content: url("totaljobs.png");
-          flex-grow: 1;
         }
 
         .technojobs {
           content: url("technojobs.png");
-          flex-grow: 1;
         }
 
         .google {
           content: url("google.png");
-          flex-grow: 1;
         }
 
         .reed {
           content: url("reed.png");
-          flex-grow: 1;
         }
 
         .glassdoor {
           content: url("glassdoor.png");
-          flex-grow: 1;
         }
       }
     }
