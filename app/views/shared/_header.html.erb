@@ -4,7 +4,7 @@
   </div>
 <% end %>
 
-<header class="header-container <%= "header-container-live-jobs" if local_assigns[:live_jobs_page] %>">
+<header class="header-container <%= "header-container-live-jobs" if local_assigns[:logged_in] %>">
   <nav class="navbar">
     <div class="logo">
       <a href="/">Primo<span class="logo-end">Dev</span></a>
