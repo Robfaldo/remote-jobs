@@ -58,6 +58,8 @@
 
   #jobs-found-container {
     @media (min-width: 992px) {
+      max-width: 55vw;
+
       // Make it sticky
       position: -webkit-sticky;
       position: sticky;
