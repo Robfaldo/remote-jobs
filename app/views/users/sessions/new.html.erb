@@ -3,9 +3,10 @@
     <%= render 'shared/header' %>
 
     <div class="page-content-wrap">
-      <h2 class="title login-title">Login to your account</h2>
-
       <div class="form-container">
+        <div class="titles-container">
+          <h2 class="title login-title">Log in </h2>
+        </div>
         <div class="account-form">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="fields-container">
@@ -43,8 +44,6 @@
           </div>
         </div>
       </div>
-
-      <%#= render "users/shared/links" %>
     </div>
 
     <%= render 'shared/footer' %>

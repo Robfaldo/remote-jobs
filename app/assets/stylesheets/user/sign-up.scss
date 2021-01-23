@@ -8,6 +8,10 @@
       padding-bottom: 50px;
     }
 
+    .titles-container {
+      text-align: center;
+    }
+
     .title {
       font-size: 3rem;
       font-weight: bold;
@@ -15,10 +19,6 @@
       @media (min-width: 992px) {
         font-size: 2.5rem;
       }
-    }
-
-    .login-title {
-      margin-bottom: 50px;
     }
 
     .register-sub-title {
