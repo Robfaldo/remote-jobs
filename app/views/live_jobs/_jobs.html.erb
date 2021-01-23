@@ -1,13 +1,9 @@
 <% @jobs.each do |job| %>
   <li class="job">
     <a class="job-details-container" href=<%= job.job_link %>>
-      <div class="posted-container">
-        <div class="posted-date">
-          <p><%= job.posted_days_ago %></p>
-        </div>
-      </div>
+
       <div class="job-details">
-        <span class="title"><%= job.title %></span>
+        <span class="title"><%= job.title.downcase %></span>
         <span class="company"><%= job.company %></span>
 
         <div class="tags-container">

@@ -37,7 +37,6 @@ document.addEventListener("turbolinks:load", function() {
             $(".js-exp-question-text").hide()
         }
     });
-    /////////
 });
 
 function toggleFilterForMobile() {
