@@ -1,6 +1,11 @@
 .homepage {
   .homepage-page {
     background-color: #FFFFFF;
+    padding: 0px 70px 0px 70px;
+
+    @media (min-width: 992px) {
+      padding: 0px 150px 0px 150px;
+    }
 
     .header-container {
       display: flex;
@@ -10,7 +15,7 @@
       padding: 40px 30px 30px 40px;
 
       @media (min-width: 992px) {
-        padding: 40px 70px 40px 70px;
+        padding: 40px 0px 40px 0px;
       }
 
       .logo{
@@ -71,8 +76,6 @@
     }
 
     .page-content {
-      padding: 0px 70px 0px 70px;
-
       .blurb {
         display: flex;
         justify-content: center;
@@ -88,8 +91,6 @@
         }
 
         .written {
-          //border: red solid 2px;
-
           @media (min-width: 992px) {
             flex-grow: 1;
             padding-right: 150px;
