@@ -122,6 +122,7 @@
 
           @media (min-width: 992px) {
             flex-basis: 50%;
+            padding-right: 60px;
           }
         }
 
@@ -130,21 +131,22 @@
           width: max-content;
           font-size: 1.7rem;
           padding: 10px 20px 10px 20px;
-          margin: 20px 0px 40px 0px;
+          margin: 80px 0px 40px 0px;
 
           @media (min-width: 992px) {
             font-size: 1.1rem;
+            margin-top: 20px;
           }
         }
 
         .headline {
           font-size: 3rem;
           font-weight: bold;
-          margin: 80px 0px 80px 0px;
+          margin: 60px 0px 60px 0px;
 
           @media (min-width: 992px) {
             font-size: 2rem;
-            margin-bottom: 40px;
+            margin: 40px 0px 20px 0px;
           }
 
           .highlight {
@@ -154,7 +156,7 @@
 
         .description {
           font-size: 2rem;
-          margin-bottom: 40px;
+          margin-bottom: 30px;
           display: flex;
           padding: 20px 0px 20px 0px;
           display: flex;
@@ -162,6 +164,10 @@
           .text {
             margin-right: 40px;
             flex-basis: 50%;
+
+            @media (min-width: 992px) {
+              flex-basis: 100%;
+            }
           }
 
           @media (min-width: 992px) {
@@ -184,7 +190,7 @@
         color: black;
         font-size: 2rem;
         font-weight: bold;
-        margin: 20px 0px 40px 0px;
+        margin: 30px 0px 70px 0px;
 
         @media (min-width: 992px) {
           font-size: 1.5rem;
