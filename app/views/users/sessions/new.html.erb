@@ -1,13 +1,10 @@
-<div class="user-account-form">
-  <div class="page">
-    <%= render 'shared/header' %>
+<%= render :partial => "shared/flash_messages" %>
 
-    <div class="page-content-wrap">
+<div class="account-page">
+    <div class="content">
+      <a class="logo" href="/">PrimoDev</a>
+
       <div class="form-container">
-        <div class="titles-container">
-          <h2 class="title login-title">Log in </h2>
-        </div>
-        <div class="account-form">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="fields-container">
               <div class="field">
@@ -25,7 +22,7 @@
               </div>
 
               <% if devise_mapping.rememberable? %>
-                <div class="field">
+                <div class="field remember-me">
                   <div class="checkbox">
                     <%= f.check_box :remember_me %>
                     <%= f.label :remember_me %>
@@ -38,17 +35,9 @@
               <%= f.submit "Log in", class: 'shared-button' %>
             </div>
           <% end %>
-
-          <div class="account-links">
-            <%= render "users/shared/links" %>
-          </div>
-        </div>
       </div>
-    </div>
-
-    <%= render 'shared/footer' %>
+      <div class="account-links">
+        <%= render "users/shared/links" %>
+      </div>
   </div>
 </div>
-
-
-

@@ -1,47 +1,39 @@
-<div class="user-account-form">
-  <div class="page">
-    <%= render 'shared/header' %>
+<%= render :partial => "shared/flash_messages" %>
 
-    <div class="page-content-wrap">
+<div class="sign-up-page">
+  <div class="account-page">
+    <div class="content">
+      <a class="logo" href="/">PrimoDev</a>
+      <h3 class="sub-title">Change your password</h3>
+
       <div class="form-container">
-        <div class="titles-container">
-          <h2 class="title login-title">Change your password</h2>
-        </div>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <%= f.hidden_field :reset_password_token %>
 
-        <div class="account-form">
-
-          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-            <%= render "devise/shared/error_messages", resource: resource %>
-            <%= f.hidden_field :reset_password_token %>
-
-            <div class="fields-container">
-              <div class="field">
-                <%= f.label :password, "New password" %><br />
-                <% if @minimum_password_length %>
-                  <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-                <% end %>
-                <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-field" %>
-              </div>
-
-              <div class="field">
-                <%= f.label :password_confirmation, "Confirm new password" %><br />
-                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-field" %>
-              </div>
+          <div class="fields-container">
+            <div class="field">
+              <%= f.label :password, "New password" %><br />
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+              <% end %>
+              <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-field" %>
             </div>
 
-            <div class="actions account-button">
-              <%= f.submit "Change my password", class: 'shared-button', id: 'send-pwd-instructions' %>
+            <div class="field">
+              <%= f.label :password_confirmation, "Confirm new password" %><br />
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-field" %>
             </div>
-          <% end %>
-
-          <div class="account-links">
-            <%= render "users/shared/links" %>
           </div>
-        </div>
+
+          <div class="actions account-button">
+            <%= f.submit "Change my password", class: 'shared-button', id: 'send-pwd-instructions' %>
+          </div>
+        <% end %>
+      </div>
+      <div class="account-links">
+        <%= render "users/shared/links" %>
       </div>
     </div>
-
-    <%= render 'shared/footer' %>
   </div>
 </div>
-
