@@ -3,7 +3,7 @@
     <div class="flash-container js-flash-container">
       <div id="alert_message" class="banner-alert alert-<%= name.to_s == 'notice' ? "success" : "danger" %>">
         <button type="button" class="close js-close-alert" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+        <%= content_tag :div, msg, :id => "account-error-message", class: "account-error-message" %>
         <%#= flash[:alert] %>
         <%#= flash[:notice] %>
       </div>
