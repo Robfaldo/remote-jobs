@@ -50,7 +50,7 @@
     }
 
     a:hover {
-      text-decoration-color: #3cbfab;
+      text-decoration-color: rgba(53, 60, 76, 1);
     }
 
     .shared-button {
@@ -76,7 +76,7 @@
 }
 
 .header-container-live-jobs {
-  background-color: #3cbfab;
+  background-color: rgba(53, 60, 76, 1);
 
   .logo{
     a:hover, a:visited, a:link, a:active
@@ -94,7 +94,7 @@
     padding: 10px 30px 10px 30px;
     font-size: 2rem;
     background-color: #FFFFFF;
-    color: #3cbfab !important;
+    color: rgba(53, 60, 76, 1) !important;
     font-weight: bold;
 
     @media (min-width: 992px) {
