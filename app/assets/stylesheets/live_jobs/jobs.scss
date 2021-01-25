@@ -68,6 +68,14 @@
           }
         }
 
+        .title:hover {
+          text-decoration: underline;
+        }
+
+        .title:visited {
+          color: #A882DD;
+        }
+
         .posted-info {
           font-size: 1.8rem;
           white-space: nowrap;
