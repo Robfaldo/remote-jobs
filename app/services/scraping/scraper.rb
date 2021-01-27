@@ -4,14 +4,22 @@ module Scraping
   class Scraper
     include ScrapingHelper
 
-    def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false)
-      response = client.scrape_page(
-        link: link,
-        javascript_snippet: javascript_snippet,
-        wait_time: wait_time,
-        custom_google: custom_google,
-        premium_proxy: premium_proxy
-      )
+    def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false, use_zenscrape: false)
+      if use_zenscrape
+        response = Zenscrape.new.scrape_page(
+          link: link,
+          wait_time: wait_time,
+          premium_proxy: premium_proxy
+        )
+      else
+        response = ScrapingBee.new.scrape_page(
+          link: link,
+          javascript_snippet: javascript_snippet,
+          wait_time: wait_time,
+          custom_google: custom_google,
+          premium_proxy: premium_proxy
+        )
+      end
 
       Nokogiri::HTML.parse(response.body)
     end
@@ -29,10 +37,6 @@ module Scraping
     end
 
     private
-
-    def client
-      ScrapingBee.new
-    end
 
     def evaluate_jobs(jobs_to_evaluate)
       jobs_to_scrape = []

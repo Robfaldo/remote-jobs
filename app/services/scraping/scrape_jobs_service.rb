@@ -1,6 +1,7 @@
 module Scraping
   class ScrapeJobsService
     class ScrapingError < StandardError; end
+    MAX_NET_TIMEOUT_RETRIES = 3
 
     SCRAPERS = [
       Scraping::CvLibraryScraper,
@@ -15,10 +16,13 @@ module Scraping
 
     def call
       SCRAPERS.each do |scraper|
+        retries ||= 0
+
         scraper.new.get_jobs
 
       rescue Net::ReadTimeout
-        retry
+        sleep 5
+        retry if (retries += 1) < MAX_NET_TIMEOUT_RETRIES
       rescue => e
         puts "RollBarErrorHere:"
         puts e.class
