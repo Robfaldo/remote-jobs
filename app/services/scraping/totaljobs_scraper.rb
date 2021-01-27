@@ -6,7 +6,7 @@ module Scraping
       LOCATIONS.each do |location|
         search_links[location].each do |link|
           # have to use premium because need UK location
-          scraped_page = scrape_page(link: link, wait_time: 5000, premium_proxy: true)
+          scraped_page = scrape_page(link: link, wait_time: 5000, premium_proxy: true, use_zenscrape: true)
 
           scrape_and_save_jobs(scraped_page)
 
@@ -25,7 +25,7 @@ module Scraping
         # page will start at 0, and the first page (i.e. first additional page after the original page scrape) we want to scrape is 2
         link_to_scrape = link + "&page=#{page + 2}"
 
-        scraped_page = scrape_page(link: link_to_scrape, wait_time: 5000, premium_proxy: true)
+        scraped_page = scrape_page(link: link_to_scrape, wait_time: 5000, premium_proxy: true, use_zenscrape: true)
 
         scrape_and_save_jobs(scraped_page)
       end
@@ -79,7 +79,7 @@ module Scraping
         next if Job.where(job_link: job.link).count > 0
 
         begin
-          scraped_job_page = scrape_page(link: job.link, premium_proxy: true)
+          scraped_job_page = scrape_page(link: job.link, premium_proxy: true, use_zenscrape: true)
 
           create_job(job, scraped_job_page)
         rescue => e
