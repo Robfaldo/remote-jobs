@@ -1,5 +1,6 @@
 module Scraping
   class TotaljobsScraper < Scraper
+    MAX_GROUP_PAGES_TO_SCRAPE = 2 #TODO: rename this, can't think of better
     LOCATIONS = ["London"]
 
     def get_jobs
@@ -22,8 +23,11 @@ module Scraping
 
     def scrape_additional_pages(extra_pages, link)
       extra_pages.times do |page|
-        # page will start at 0, and the first page (i.e. first additional page after the original page scrape) we want to scrape is 2
-        link_to_scrape = link + "&page=#{page + 2}"
+        current_page = page + 2 # page will start at 0, and the first page (i.e. first additional page after the original page scrape) we want to scrape is 2
+
+        break if current_page > MAX_GROUP_PAGES_TO_SCRAPE
+
+        link_to_scrape = link + "&page=#{current_page}"
 
         scraped_page = scrape_page(link: link_to_scrape, wait_time: 5000, premium_proxy: true, use_zenscrape: true)
 
