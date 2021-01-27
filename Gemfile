@@ -90,3 +90,5 @@ gem 'pagy', '~> 3.5'
 gem 'high_voltage', '~> 3.1'
 
 gem 'rails_admin', '~> 2.0'
+
+gem 'httparty'
