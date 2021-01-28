@@ -9,15 +9,19 @@ module Scraping
     def get_jobs
       LOCATIONS.each do |location|
         search_links[location].each do |link|
-          scraped_all_jobs_page = scraper.scrape_page(link: link, wait_time: 10000)
+          begin
+            scraped_all_jobs_page = scraper.scrape_page(link: link, wait_time: 10000)
 
-          scraped_jobs = scraped_all_jobs_page.search(job_element)
+            scraped_jobs = scraped_all_jobs_page.search(job_element)
 
-          jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
+            jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
 
-          jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
+            jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
 
-          extract_and_save_job(jobs_to_scrape)
+            extract_and_save_job(jobs_to_scrape)
+          rescue => e
+            Rollbar.error(e, link: link, location: location)
+          end
         end
       end
     end
@@ -30,12 +34,16 @@ module Scraping
       jobs_to_evaluate = []
 
       scraped_all_jobs_page.each do |job|
-        title = job_element_title(job)
-        link = job_element_link(job)
+        begin
+          title = job_element_title(job)
+          link = job_element_link(job)
 
-        jobs_to_evaluate.push(
-          JobToEvaluate.new(title: title, link: link)
-        )
+          jobs_to_evaluate.push(
+              JobToEvaluate.new(title: title, link: link)
+          )
+        rescue => e
+          Rollbar.error(e, job: job)
+        end
       end
 
       jobs_to_evaluate
