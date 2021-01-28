@@ -10,7 +10,9 @@ module Scraping
       LOCATIONS.each do |location|
         search_links[location].each do |link|
           begin
-            scraped_all_jobs_page = scraper.scrape_page(link: link, wait_time: 10000)
+            options = scrape_page_options(link)
+
+            scraped_all_jobs_page = scraper.scrape_page(options)
 
             scraped_jobs = scraped_all_jobs_page.search(job_element)
 

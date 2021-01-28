@@ -3,6 +3,13 @@ module Scraping
 
     private
 
+    def scrape_page_options(link)
+      {
+          link: link,
+          wait_time: 10000
+      }
+    end
+
     def job_element
       '.results__item'
     end
