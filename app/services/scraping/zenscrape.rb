@@ -75,7 +75,7 @@ module Scraping
             else
               raise ApiErrorToRetry.new("#{res.code}##SPLITHERE###{res.body}")
             end
-          rescue ApiErrorToRetry
+          rescue ApiErrorToRetry => e
             code = e.message.split('##SPLITHERE##')[0]
             body = e.message.split('##SPLITHERE##')[1]
             e_message = "Could not scrape after 2 additional attempts using. Link: #{link}. Last response code: #{code}. Last response body: #{body}"
