@@ -3,10 +3,16 @@ module Scraping
 
     private
 
-    def scrape_page_options(link)
+    def scrape_all_jobs_page_options(link)
       {
-          link: link,
-          wait_time: 10000
+        link: link,
+        wait_time: 10000
+      }
+    end
+
+    def scrape_job_page_options(job)
+      {
+        link: job.link
       }
     end
 

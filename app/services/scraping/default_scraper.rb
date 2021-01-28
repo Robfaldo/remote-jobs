@@ -1,6 +1,7 @@
 module Scraping
   class DefaultScraper
     LOCATIONS = ["London"]
+    MAX_PAGINATION_PAGES_TO_SCRAPE = 2
 
     def initialize(scraper: Scraper.new)
       @scraper = scraper
@@ -10,17 +11,17 @@ module Scraping
       LOCATIONS.each do |location|
         search_links[location].each do |link|
           begin
-            options = scrape_page_options(link)
+            options = scrape_all_jobs_page_options(link)
 
             scraped_all_jobs_page = scraper.scrape_page(options)
 
-            scraped_jobs = scraped_all_jobs_page.search(job_element)
+            scrape_and_save_jobs(scraped_all_jobs_page)
 
-            jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
+            if handle_pagination
+              remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
 
-            jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
-
-            extract_and_save_job(jobs_to_scrape)
+              scrape_additional_pages(remaining_pages, link)
+            end
           rescue => e
             Rollbar.error(e, link: link, location: location)
           end
@@ -32,6 +33,48 @@ module Scraping
 
     attr_reader :scraper
 
+    #### Defaults ####
+
+    def job_element_company(job)
+      nil # optional to scrape so children can overwrite if used
+    end
+
+    def job_element_location(job)
+      nil # optional to scrape so children can overwrite if used
+    end
+
+    def handle_pagination
+      false
+    end
+
+    ###################
+
+    def scrape_additional_pages(pages_remaining_to_scrape, link)
+      pages_remaining_to_scrape.times do |page|
+        current_paginated_page = page + 1 # + 1 because page starts at 0. The first pagination page (i.e. the 2nd total page) will have current_paginated_page == 1
+
+        paginated_page_link = paginated_page_link(link, current_paginated_page)
+
+        break if current_paginated_page > MAX_PAGINATION_PAGES_TO_SCRAPE
+
+        options = scrape_all_jobs_page_options(paginated_page_link)
+
+        scraped_all_jobs_page = scraper.scrape_page(options)
+
+        scrape_and_save_jobs(scraped_all_jobs_page)
+      end
+    end
+
+    def scrape_and_save_jobs(scraped_all_jobs_page)
+      scraped_jobs = scraped_all_jobs_page.search(job_element)
+
+      jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
+
+      jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
+
+      extract_and_save_job(jobs_to_scrape)
+    end
+
     def extract_jobs_to_evaluate(scraped_all_jobs_page)
       jobs_to_evaluate = []
 
@@ -39,10 +82,17 @@ module Scraping
         begin
           title = job_element_title(job)
           link = job_element_link(job)
+          company = job_element_company(job)
+          location = job_element_location(job)
 
-          jobs_to_evaluate.push(
-              JobToEvaluate.new(title: title, link: link)
+          new_job = JobToEvaluate.new(
+              title: title,
+              link: link
           )
+          new_job.company = company if company
+          new_job.location = location if location
+
+          jobs_to_evaluate.push(new_job)
         rescue => e
           Rollbar.error(e, job: job)
         end
@@ -68,7 +118,9 @@ module Scraping
         next if Job.where(source_id: job.link).count > 0
 
         begin
-          scraped_job_page = scraper.scrape_page(link: job.link)
+          options = scrape_job_page_options(job)
+
+          scraped_job_page = scraper.scrape_page(options)
 
           create_job(job, scraped_job_page)
         rescue => e
