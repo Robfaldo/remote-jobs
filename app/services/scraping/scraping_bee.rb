@@ -73,7 +73,7 @@ module Scraping
             body = e.message.split('##SPLITHERE##')[1]
             e_message = "Could not scrape after 2 additional attempts using. Link: #{link}. Last response code: #{code}. Last response body: #{body}"
 
-            raise ScrapingBeeError.new(e_message) if i == premium_proxy_attempted - 1 # minus 1 because i is 0 indexed
+            raise ScrapingBeeError.new(e_message) if (i + 1) == premium_proxy_attempts # i + 1 because i is 0 indexed
             next # to retry go to the next iteration of the loop
           rescue NotFoundResponse => e
             code = e.message.split('##SPLITHERE##')[0]
