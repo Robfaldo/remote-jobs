@@ -45,7 +45,6 @@ module Scraping
             raise ApiErrorToRetry.new
           end
         rescue ApiErrorToRetry
-          binding.pry
           next # to retry go to the next iteration of the loop
         rescue NotFoundResponse => e
           code = e.message.split('##SPLITHERE##')[0]
