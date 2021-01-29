@@ -2,9 +2,7 @@ require 'simple-rss'
 require 'open-uri'
 
 module Scraping
-  class StackoverflowScraper < Scraper
-    LOCATIONS = ["London"]
-
+  class StackoverflowScraper < DefaultScraper
     def get_jobs
       LOCATIONS.each do |location|
         search_links[location].each do |link|
