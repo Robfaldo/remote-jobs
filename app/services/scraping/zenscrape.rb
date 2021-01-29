@@ -5,6 +5,9 @@ module Scraping
     class ApiErrorToRetry < StandardError; end
     include ScrapingHelper
 
+    NUM_OF_INITIAL_ATTEMPTS = 5
+    PREMIUM_ATTEMPTS = 2
+
     def initialize(api_key: ENV["ZENSCRAPE_API_KEY"])
       raise ZenscrapeError.new("Missing ZenscrapeError API key") unless ENV["ZENSCRAPE_API_KEY"]
 
@@ -29,7 +32,7 @@ module Scraping
       zenscrape_url = 'https://app.zenscrape.com/api/v1/get'
 
       # X attempts using the requested (premium/non-premium) proxy
-      5.times do |i|
+      NUM_OF_INITIAL_ATTEMPTS.times do |i|
         begin
           res = HTTParty.get(zenscrape_url,
                              query: query,
@@ -53,13 +56,13 @@ module Scraping
         end
       end
 
-      # If the above attempts fail and a non-premium proxy was used, try X times with premium proxy
-      unless query[:premium_proxy]
+      if query[:premium_proxy]
+        raise ZenscrapeError.new("#{NUM_OF_INITIAL_ATTEMPTS} Premium proxy attempts failed. Query: #{query.to_s}")
+      else
+        # If the above attempts fail and a non-premium proxy was used, try X times with premium proxy
         query[:premium_proxy] = "true"
 
-        premium_proxy_attempts = 2
-
-        premium_proxy_attempts.times do |i|
+        PREMIUM_ATTEMPTS.times do |i|
           begin
             res = HTTParty.get(zenscrape_url,
                                query: query,
@@ -79,7 +82,7 @@ module Scraping
             body = e.message.split('##SPLITHERE##')[1]
             e_message = "Could not scrape after 2 additional attempts using. Link: #{link}. Last response code: #{code}. Last response body: #{body}"
 
-            raise ZenscrapeError.new(e_message) if (i + 1) == premium_proxy_attempts # i + 1 because i is 0 indexed
+            raise ZenscrapeError.new(e_message) if (i + 1) == PREMIUM_ATTEMPTS # i + 1 because i is 0 indexed
             next # to retry go to the next iteration of the loop
           rescue NotFoundResponse => e
             code = e.message.split('##SPLITHERE##')[0]
