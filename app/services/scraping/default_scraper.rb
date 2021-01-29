@@ -1,5 +1,7 @@
 module Scraping
   class DefaultScraper
+    include ScrapingHelper
+
     LOCATIONS = ["London"]
     MAX_PAGINATION_PAGES_TO_SCRAPE = 2
 
@@ -49,22 +51,6 @@ module Scraping
 
     ###################
 
-    def scrape_additional_pages(pages_remaining_to_scrape, link)
-      pages_remaining_to_scrape.times do |page|
-        current_paginated_page = page + 1 # + 1 because page starts at 0. The first pagination page (i.e. the 2nd total page) will have current_paginated_page == 1
-
-        paginated_page_link = paginated_page_link(link, current_paginated_page)
-
-        break if current_paginated_page > MAX_PAGINATION_PAGES_TO_SCRAPE
-
-        options = scrape_all_jobs_page_options(paginated_page_link)
-
-        scraped_all_jobs_page = scraper.scrape_page(options)
-
-        scrape_and_save_jobs(scraped_all_jobs_page)
-      end
-    end
-
     def scrape_and_save_jobs(scraped_all_jobs_page)
       scraped_jobs = scraped_all_jobs_page.search(job_element)
 
@@ -75,10 +61,10 @@ module Scraping
       extract_and_save_job(jobs_to_scrape)
     end
 
-    def extract_jobs_to_evaluate(scraped_all_jobs_page)
+    def extract_jobs_to_evaluate(scraped_jobs)
       jobs_to_evaluate = []
 
-      scraped_all_jobs_page.each do |job|
+      scraped_jobs.each do |job|
         begin
           title = job_element_title(job)
           link = job_element_link(job)
@@ -126,6 +112,22 @@ module Scraping
         rescue => e
           Rollbar.error(e, job: job.instance_values.to_s)
         end
+      end
+    end
+
+    def scrape_additional_pages(pages_remaining_to_scrape, link)
+      pages_remaining_to_scrape.times do |page|
+        current_paginated_page = page + 1 # + 1 because page starts at 0. The first pagination page (i.e. the 2nd total page) will have current_paginated_page == 1
+
+        paginated_page_link = paginated_page_link(link, current_paginated_page)
+
+        break if current_paginated_page > MAX_PAGINATION_PAGES_TO_SCRAPE
+
+        options = scrape_all_jobs_page_options(paginated_page_link)
+
+        scraped_all_jobs_page = scraper.scrape_page(options)
+
+        scrape_and_save_jobs(scraped_all_jobs_page)
       end
     end
 
