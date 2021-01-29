@@ -13,16 +13,10 @@ module Scraping
       LOCATIONS.each do |location|
         search_links[location].each do |link|
           begin
-            options = scrape_all_jobs_page_options(link)
-
-            scraped_all_jobs_page = scraper.scrape_page(options)
-
-            scrape_and_save_jobs(scraped_all_jobs_page)
-
-            if handle_pagination
-              remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
-
-              scrape_additional_pages(remaining_pages, link)
+            if initial_method == :rss
+              get_jobs_from_rss(link)
+            else
+              get_jobs_from_scraping(link)
             end
           rescue => e
             Rollbar.error(e, link: link, location: location)
@@ -49,16 +43,46 @@ module Scraping
       false
     end
 
+    def initial_method
+      :scraping
+    end
+
     ###################
+
+    def get_jobs_from_rss(link)
+      jobs_from_rss = SimpleRSS.parse open(link.gsub(' ', '%20'))
+
+      jobs_to_scrape = evaluated_jobs(jobs_from_rss.items)
+
+      extract_and_save_job(jobs_to_scrape)
+    end
+
+    def get_jobs_from_scraping(link)
+      options = scrape_all_jobs_page_options(link)
+
+      scraped_all_jobs_page = scraper.scrape_page(options)
+
+      scrape_and_save_jobs(scraped_all_jobs_page)
+
+      if handle_pagination
+        remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
+
+        scrape_additional_pages(remaining_pages, link)
+      end
+    end
 
     def scrape_and_save_jobs(scraped_all_jobs_page)
       scraped_jobs = scraped_all_jobs_page.search(job_element)
 
-      jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
-
-      jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
+      jobs_to_scrape = evaluated_jobs(scraped_jobs)
 
       extract_and_save_job(jobs_to_scrape)
+    end
+
+    def evaluated_jobs(scraped_jobs)
+      jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
+
+      evaluate_jobs(jobs_to_evaluate)
     end
 
     def extract_jobs_to_evaluate(scraped_jobs)
