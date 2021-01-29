@@ -49,6 +49,8 @@ module Scraping
 
     ###################
 
+    ##### Initial Method #####
+
     def get_jobs_from_rss(link)
       jobs_from_rss = SimpleRSS.parse open(link.gsub(' ', '%20'))
 
@@ -70,6 +72,8 @@ module Scraping
         scrape_additional_pages(remaining_pages, link)
       end
     end
+
+    ##########################
 
     def scrape_and_save_jobs(scraped_all_jobs_page)
       scraped_jobs = scraped_all_jobs_page.search(job_element)
