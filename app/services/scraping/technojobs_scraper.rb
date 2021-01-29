@@ -16,6 +16,10 @@ module Scraping
       :rss
     end
 
+    def rss_link_top_open(link)
+      link.gsub(' ', '%20')
+    end
+
     def job_element_title(job)
       job[:title]
     end

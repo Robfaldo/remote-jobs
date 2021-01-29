@@ -52,7 +52,9 @@ module Scraping
     ##### Initial Method #####
 
     def get_jobs_from_rss(link)
-      jobs_from_rss = SimpleRSS.parse open(link.gsub(' ', '%20'))
+      link_to_open = rss_link_top_open(link)
+
+      jobs_from_rss = SimpleRSS.parse open(link_to_open)
 
       jobs_to_scrape = evaluated_jobs(jobs_from_rss.items)
 
