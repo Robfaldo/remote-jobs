@@ -3,7 +3,7 @@ module Scraping
     include ScrapingHelper
 
     LOCATIONS = ["London"]
-    MAX_PAGINATION_PAGES_TO_SCRAPE = 2
+    MAX_PAGINATION_PAGES_TO_SCRAPE = 1
 
     def initialize(scraper: Scraper.new)
       @scraper = scraper
