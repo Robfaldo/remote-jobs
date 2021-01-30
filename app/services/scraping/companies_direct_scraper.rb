@@ -2,7 +2,7 @@ require 'simple-rss'
 require 'open-uri'
 
 module Scraping
-  class CompaniesDirectScraper < Scraper
+  class CompaniesDirectScraper < DefaultScraper
     LOCATIONS = ["London"]
 
     def get_jobs
