@@ -2,13 +2,13 @@ require 'simple-rss'
 require 'open-uri'
 
 module Scraping
-  class CompaniesDirectScraper < Scraper
+  class CompaniesDirectScraper < DefaultScraper
     LOCATIONS = ["London"]
 
     def get_jobs
       LOCATIONS.each do |location|
         search_links[location].each do |link|
-          scraped_page = scrape_page(link: link, wait_time: 5000)
+          scraped_page = scraper.scrape_page(link: link, wait_time: 5000)
 
           scraped_jobs = scraped_page.search('.job_listing')
 

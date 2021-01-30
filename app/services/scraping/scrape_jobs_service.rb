@@ -11,7 +11,7 @@ module Scraping
       Scraping::TotaljobsScraper,
       Scraping::TechnojobsScraper,
       Scraping::GoogleScraper
-      # Scraping::CompaniesDirectScraper,
+      # Scraping::CompaniesDirectScraper
     ]
 
     def call
