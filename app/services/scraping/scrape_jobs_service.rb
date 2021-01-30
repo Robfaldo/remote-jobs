@@ -26,6 +26,7 @@ module Scraping
         { scraper => Time.now - scraper_start_time, scraper_start_time: scraper_start_time }
       rescue Net::ReadTimeout
         sleep 5
+        Rollbar.info("Net::ReadTimeout in ScrapeJobsService", :time_started => time_started, sraper: scraper)
         retry if (retries += 1) < MAX_NET_TIMEOUT_RETRIES
       rescue => e
         puts "RollBarErrorHere:"
