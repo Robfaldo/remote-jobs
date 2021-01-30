@@ -18,11 +18,12 @@ module Scraping
       time_started = Time.now
 
       results = Parallel.map(SCRAPERS, in_threads: SCRAPERS.count) do |scraper|
+        scraper_start_time = Time.now
         retries ||= 0
 
         scraper.new.get_jobs
 
-        { scraper => Time.now - time_started }
+        { scraper => Time.now - scraper_start_time, scraper_start_time: scraper_start_time }
       rescue Net::ReadTimeout
         sleep 5
         retry if (retries += 1) < MAX_NET_TIMEOUT_RETRIES
