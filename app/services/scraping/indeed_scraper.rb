@@ -59,6 +59,10 @@ module Scraping
     def create_job(job, scraped_job_page)
       description = scraped_job_page.search('#jobDescriptionText').text
 
+      if job.company == ""
+        job.company = scraped_job_page.xpath('//div[contains(@class, "companyrating")]').first.text
+      end
+
       new_job = Job.new(
           title: job.title,
           job_link: job.link,
