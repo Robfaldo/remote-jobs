@@ -8,10 +8,10 @@ module Scraping
       Scraping::GlassdoorScraper,
       Scraping::IndeedScraper,
       Scraping::StackoverflowScraper,
-      Scraping::CompaniesDirectScraper,
       Scraping::TotaljobsScraper,
       Scraping::TechnojobsScraper,
       Scraping::GoogleScraper
+      # Scraping::CompaniesDirectScraper
     ]
 
     def call

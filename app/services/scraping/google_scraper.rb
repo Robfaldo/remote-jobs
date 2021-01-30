@@ -5,7 +5,7 @@ module Scraping
     def get_jobs
       LOCATIONS.each do |location|
         search_links[location].each do |link|
-          scraped_page = scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
+          scraped_page = scraper.scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
 
           retrieved_jobs = scraped_page.search('#scraped-jobs').text
 
