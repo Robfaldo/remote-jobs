@@ -13,10 +13,16 @@ module Scraping
       LOCATIONS.each do |location|
         search_links[location].each do |link|
           begin
-            if initial_method == :rss
-              get_jobs_from_rss(link)
-            else
-              get_jobs_from_scraping(link)
+            options = scrape_all_jobs_page_options(link)
+
+            scraped_all_jobs_page = scraper.scrape_page(options)
+
+            scrape_and_save_jobs(scraped_all_jobs_page)
+
+            if handle_pagination
+              remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
+
+              scrape_additional_pages(remaining_pages, link)
             end
           rescue => e
             Rollbar.error(e, link: link, location: location)
@@ -28,54 +34,6 @@ module Scraping
     private
 
     attr_reader :scraper
-
-    #### Defaults ####
-
-    def job_element_company(job)
-      nil # optional to scrape so children can overwrite if used
-    end
-
-    def job_element_location(job)
-      nil # optional to scrape so children can overwrite if used
-    end
-
-    def handle_pagination
-      false
-    end
-
-    def initial_method
-      :scraping
-    end
-
-    ###################
-
-    ##### Initial Method #####
-
-    def get_jobs_from_rss(link)
-      link_to_open = rss_link_top_open(link)
-
-      jobs_from_rss = SimpleRSS.parse open(link_to_open)
-
-      jobs_to_scrape = evaluated_jobs(jobs_from_rss.items)
-
-      extract_and_save_job(jobs_to_scrape)
-    end
-
-    def get_jobs_from_scraping(link)
-      options = scrape_all_jobs_page_options(link)
-
-      scraped_all_jobs_page = scraper.scrape_page(options)
-
-      scrape_and_save_jobs(scraped_all_jobs_page)
-
-      if handle_pagination
-        remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
-
-        scrape_additional_pages(remaining_pages, link)
-      end
-    end
-
-    ##########################
 
     def scrape_and_save_jobs(scraped_all_jobs_page)
       scraped_jobs = scraped_all_jobs_page.search(job_element)
@@ -89,44 +47,6 @@ module Scraping
       jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
 
       evaluate_jobs(jobs_to_evaluate)
-    end
-
-    def extract_jobs_to_evaluate(scraped_jobs)
-      jobs_to_evaluate = []
-
-      scraped_jobs.each do |job|
-        begin
-          title = job_element_title(job)
-          link = job_element_link(job)
-          company = job_element_company(job)
-          location = job_element_location(job)
-
-          new_job = JobToEvaluate.new(
-              title: title,
-              link: link
-          )
-          new_job.company = company if company
-          new_job.location = location if location
-
-          jobs_to_evaluate.push(new_job)
-        rescue => e
-          Rollbar.error(e, job: job)
-        end
-      end
-
-      jobs_to_evaluate
-    end
-
-    def evaluate_jobs(jobs_to_evaluate)
-      jobs_to_scrape = []
-
-      jobs_to_evaluate.each do |job|
-        if job.meets_minimum_requirements?
-          jobs_to_scrape.push(job)
-        end
-      end
-
-      jobs_to_scrape
     end
 
     def extract_and_save_job(jobs)
@@ -161,7 +81,57 @@ module Scraping
       end
     end
 
-    ########## non job/scraping related ##########
+    def extract_jobs_to_evaluate(scraped_jobs)
+      jobs_to_evaluate = []
+
+      scraped_jobs.each do |job|
+        begin
+          title = job_element_title(job)
+          link = job_element_link(job)
+          company = job_element_company(job)
+          location = job_element_location(job)
+
+          new_job = JobToEvaluate.new(
+            title: title,
+            link: link
+          )
+          new_job.company = company if company
+          new_job.location = location if location
+
+          jobs_to_evaluate.push(new_job)
+        rescue => e
+          Rollbar.error(e, job: job)
+        end
+      end
+
+      jobs_to_evaluate
+    end
+
+    def evaluate_jobs(jobs_to_evaluate)
+      jobs_to_scrape = []
+
+      jobs_to_evaluate.each do |job|
+        if job.meets_minimum_requirements?
+          jobs_to_scrape.push(job)
+        end
+      end
+
+      jobs_to_scrape
+    end
+
+    #### Defaults ####
+
+    def job_element_company(job)
+      nil # optional to scrape so children can overwrite if used
+    end
+
+    def job_element_location(job)
+      nil # optional to scrape so children can overwrite if used
+    end
+
+    def handle_pagination
+      false
+    end
 
     def search_links
       YAML.load(File.read(yaml_path))
@@ -174,5 +144,7 @@ module Scraping
     def class_name_underscored
       self.class.name.split("::")[1].underscore
     end
+
+    #####################
   end
 end

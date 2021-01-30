@@ -4,20 +4,24 @@ require 'open-uri'
 module Scraping
   class TechnojobsScraper < DefaultScraper
 
+    def get_jobs
+      LOCATIONS.each do |location|
+        search_links[location].each do |link|
+          jobs_from_rss = SimpleRSS.parse open(link.gsub(' ', '%20'))
+
+          jobs_to_scrape = evaluated_jobs(jobs_from_rss.items)
+
+          extract_and_save_job(jobs_to_scrape)
+        end
+      end
+    end
+
     private
 
     def scrape_job_page_options(job)
       {
         link: job.link
       }
-    end
-
-    def initial_method
-      :rss
-    end
-
-    def rss_link_top_open(link)
-      link.gsub(' ', '%20')
     end
 
     def job_element_title(job)
