@@ -1,17 +1,11 @@
 require 'open-uri'
 
 module Scraping
-  class GoogleScraper < Scraper
-    LOCATIONS = ["London"]
-
+  class GoogleScraper < DefaultScraper
     def get_jobs
       LOCATIONS.each do |location|
         search_links[location].each do |link|
           scraped_page = scrape_page(link: link, javascript_snippet: javascript, wait_time: 25000, custom_google: true, premium_proxy: true)
-
-          # File.open("google_jobs_page_scrape.html", 'w') do |file|
-          #   file.write scraped_page
-          # end
 
           retrieved_jobs = scraped_page.search('#scraped-jobs').text
 

@@ -1,5 +1,5 @@
 class JobToEvaluate
-  attr_reader :title, :link, :location, :company
+  attr_accessor :title, :link, :location, :company
 
   def initialize(title:, link:, location: nil, company: nil)
     @title = title

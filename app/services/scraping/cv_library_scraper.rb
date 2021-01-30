@@ -1,49 +1,31 @@
 module Scraping
-  class CvLibraryScraper < Scraper
-    LOCATIONS = ["London"]
-
-    def get_jobs
-      LOCATIONS.each do |location|
-        search_links[location].each do |link|
-          scraped_all_jobs_page = scrape_page(link: link, wait_time: 10000)
-          scraped_jobs = scraped_all_jobs_page.search('.results__item')
-
-          jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
-
-          jobs_to_scrape = evaluate_jobs(jobs_to_evaluate)
-
-          extract_and_save_job(jobs_to_scrape)
-        end
-      end
-    end
+  class CvLibraryScraper < DefaultScraper
 
     private
 
-    def extract_jobs_to_evaluate(scraped_all_jobs_page)
-      jobs_to_evaluate = []
-
-      scraped_all_jobs_page.each do |job|
-        title = job.search('.job__title').text.gsub('Quick Apply', '').strip
-        link = 'https://www.cv-library.co.uk' + job.search('.job__title').search('a').first.get_attribute('href')
-
-        jobs_to_evaluate.push(JobToEvaluate.new(title: title, link: link))
-      end
-
-      jobs_to_evaluate
+    def scrape_all_jobs_page_options(link)
+      {
+        link: link,
+        wait_time: 10000
+      }
     end
 
-    def extract_and_save_job(jobs)
-      jobs.each do |job|
-        next if Job.where(source_id: job.link).count > 0
+    def scrape_job_page_options(job)
+      {
+        link: job.link
+      }
+    end
 
-        begin
-          scraped_job_page = scrape_page(link: job.link)
+    def job_element
+      '.results__item'
+    end
 
-          create_job(job, scraped_job_page)
-        rescue => e
-          Rollbar.error(e, job: job.instance_values.to_s)
-        end
-      end
+    def job_element_title(job)
+      job.search('.job__title').text.gsub('Quick Apply', '').strip
+    end
+
+    def job_element_link(job)
+      'https://www.cv-library.co.uk' + job.search('.job__title').search('a').first.get_attribute('href')
     end
 
     def create_job(job, scraped_job_page)
