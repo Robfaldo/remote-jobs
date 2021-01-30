@@ -7,6 +7,7 @@ module Scraping
 
     NUM_OF_INITIAL_ATTEMPTS = 5
     PREMIUM_ATTEMPTS = 2
+    USER_AGENTS = YAML.load(File.read('config/user_agents.yml'))
 
     def initialize(api_key: ENV["ZENSCRAPE_API_KEY"])
       raise ZenscrapeError.new("Missing ZenscrapeError API key") unless ENV["ZENSCRAPE_API_KEY"]
@@ -16,14 +17,16 @@ module Scraping
 
     def scrape_page(link:, wait_time:, premium_proxy:)
       headers = {
-        apikey: @api_key
+        apikey: @api_key,
+        "User-Agent" => USER_AGENTS.sample
       }
 
       query = {
         url: link,
         wait_for: (wait_time/1000).to_s, # send in seconds, not milliseconds
         block_resources: 'stylesheet,image,media', # I could add more here
-        render: "true" # this costs 5 credits and could sometimes be skipped (future optimisation)
+        render: "true", # this costs 5 credits and could sometimes be skipped (future optimisation)
+        keep_headers: "true"
       }
 
       query[:premium_proxy] = "true" if premium_proxy
