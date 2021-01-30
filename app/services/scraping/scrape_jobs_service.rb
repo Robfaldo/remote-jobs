@@ -8,14 +8,14 @@ module Scraping
       Scraping::GlassdoorScraper,
       Scraping::IndeedScraper,
       Scraping::StackoverflowScraper,
-      Scraping::CompaniesDirectScraper,
       Scraping::TotaljobsScraper,
       Scraping::TechnojobsScraper,
       Scraping::GoogleScraper
+      # Scraping::CompaniesDirectScraper,
     ]
 
     def call
-      SCRAPERS.each do |scraper|
+      Parallel.map(SCRAPERS, in_threads: SCRAPERS.count) do |scraper|
         retries ||= 0
 
         scraper.new.get_jobs

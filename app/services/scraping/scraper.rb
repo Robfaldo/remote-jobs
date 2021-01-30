@@ -5,18 +5,18 @@ module Scraping
     include ScrapingHelper
 
     def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false, use_zenscrape: false)
-      if use_zenscrape
-        response = Zenscrape.new.scrape_page(
-          link: link,
-          wait_time: wait_time,
-          premium_proxy: premium_proxy
-        )
-      else
+      if javascript_snippet || custom_google
         response = ScrapingBee.new.scrape_page(
           link: link,
           javascript_snippet: javascript_snippet,
           wait_time: wait_time,
           custom_google: custom_google,
+          premium_proxy: premium_proxy
+        )
+      else
+        response = Zenscrape.new.scrape_page(
+          link: link,
+          wait_time: wait_time,
           premium_proxy: premium_proxy
         )
       end
