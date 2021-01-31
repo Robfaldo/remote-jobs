@@ -4,6 +4,7 @@ module Scraping
     MAX_NET_TIMEOUT_RETRIES = 3
 
     SCRAPERS = [
+      Scraping::ReedScraper,
       Scraping::JobserveScraper,
       Scraping::CvLibraryScraper,
       Scraping::GlassdoorScraper,
@@ -12,8 +13,11 @@ module Scraping
       Scraping::TotaljobsScraper,
       Scraping::TechnojobsScraper,
       Scraping::GoogleScraper
-      # Scraping::CompaniesDirectScraper
     ]
+
+    ## Decomissioned
+    # Scraping::CompaniesDirectScraper
+    ################
 
     def call
       time_started = Time.now

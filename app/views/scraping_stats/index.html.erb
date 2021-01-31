@@ -1,50 +1,19 @@
 <table style="width:100%">
   <tr>
     <th>Date Scraped</th>
-    <th>Indeed</th>
-    <th>Google</th>
-    <th>Stackoverflow</th>
-    <th>Glassdoor</th>
-    <th>CV Library</th>
-    <th>Jobserve</th>
-    <th>Totaljobs</th>
-    <th>Technojobs</th>
+    <% @sites.each do |site| %>
+      <th><%= site.gsub('_scraper', '').capitalize %></th>
+    <% end %>
   </tr>
   <% @all_dates.each do |date| %>
     <tr>
       <td><%=date%></td>
-      <td>
-        <%= Job.by_date_and_source(date, :indeed).count%>
-        (<span class="rejected-count"><%= Job.by_date_and_source(date, :indeed, status: "rejected").count %></span>)
-      </td>
-      <td>
-        <%= Job.by_date_and_source(date, :google).count%>
-        (<span class="rejected-count"><%= Job.by_date_and_source(date, :google, status: "rejected").count %></span>)
-      </td>
-      <td>
-        <%= Job.by_date_and_source(date, :stackoverflow).count%>
-        (<span class="rejected-count"><%= Job.by_date_and_source(date, :stackoverflow, status: "rejected").count %></span>)
-      </td>
-      <td>
-        <%= Job.by_date_and_source(date, :glassdoor).count%>
-        (<span class="rejected-count"><%= Job.by_date_and_source(date, :glassdoor, status: "rejected").count %></span>)
-      </td>
-      <td>
-        <%= Job.by_date_and_source(date, :cv_library).count%>
-        (<span class="rejected-count"><%= Job.by_date_and_source(date, :cv_library, status: "rejected").count %></span>)
-      </td>
-      <td>
-        <%= Job.by_date_and_source(date, :jobserve).count%>
-        (<span class="rejected-count"><%= Job.by_date_and_source(date, :jobserve, status: "rejected").count %></span>)
-      </td>
-      <td>
-        <%= Job.by_date_and_source(date, :totaljobs).count%>
-        (<span class="rejected-count"><%= Job.by_date_and_source(date, :totaljobs, status: "rejected").count %></span>)
-      </td>
-      <td>
-        <%= Job.by_date_and_source(date, :technojobs).count%>
-        (<span class="rejected-count"><%= Job.by_date_and_source(date, :technojobs, status: "rejected").count %></span>)
-      </td>
+      <% @sites.each do |site| %>
+        <td>
+          <%= Job.by_date_and_source(date, site.to_sym).count%>
+          (<span class="rejected-count"><%= Job.by_date_and_source(date, site.to_sym, status: "rejected").count %></span>)
+        </td>
+      <% end %>
     </tr>
   <% end %>
 </table>
