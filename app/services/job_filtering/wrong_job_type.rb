@@ -1,5 +1,11 @@
 module JobFiltering
   class WrongJobType < BaseHandler
+    def wrong_job_title?(job)
+      title_rule_violations = get_title_violations(rules, job)
+
+      title_rule_violations.count > 0
+    end
+
     private
 
     def handle(job)

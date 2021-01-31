@@ -51,7 +51,7 @@ module Scraping
 
     def extract_and_save_job(jobs)
       jobs.each do |job|
-        next if Job.recently_added?(job)
+        next if already_added_filter.recently_added?(job) || wrong_job_type_filter.wrong_job_title?(job)
 
         begin
           options = scrape_job_page_options(job)
@@ -145,6 +145,13 @@ module Scraping
       self.class.name.split("::")[1].underscore
     end
 
+    def already_added_filter
+      JobFiltering::AlreadyAddedRecently.new
+    end
+
+    def wrong_job_type_filter
+      JobFiltering::WrongJobType.new
+    end
     #####################
   end
 end

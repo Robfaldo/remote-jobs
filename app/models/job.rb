@@ -79,35 +79,6 @@ class Job < ApplicationRecord
     SOURCES
   end
 
-  def self.recently_added?(job)
-    if job.class == JobToEvaluate
-      job_link = job.link
-      description = nil
-    else
-      job_link = job.job_link
-      description = job.description
-    end
-
-    identical_links_already_approved = created_last_week.where(job_link: job_link)
-    identical_description_already_approved = created_last_week.where(description: description)
-
-    identical_data_already_approved = created_last_week.select do |database_job|
-      company_matches(database_job, job) && title_matches(database_job, job)
-    end
-
-    identical_links_already_approved.count > 0 || identical_description_already_approved.count > 0 || identical_data_already_approved.count > 0
-  end
-
-  def self.company_matches(database_job, job)
-    return false unless job.company
-
-    database_job.company.downcase.strip.gsub(' ltd', '') == job.company.downcase.strip.gsub(' ltd', '')
-  end
-
-  def self.title_matches(database_job, job)
-    database_job.title.downcase.strip == job.title.downcase.strip
-  end
-
   def rejected?
     self.status == "rejected"
   end
