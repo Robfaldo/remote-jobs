@@ -51,7 +51,7 @@ module Scraping
 
     def extract_and_save_job(jobs)
       jobs.each do |job|
-        next if Job.where(source_id: job.link).count > 0
+        next if Job.recently_added?(job)
 
         begin
           options = scrape_job_page_options(job)

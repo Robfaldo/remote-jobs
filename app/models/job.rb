@@ -78,6 +78,14 @@ class Job < ApplicationRecord
     SOURCES
   end
 
+  def self.recently_added?(job)
+    @identical_links_already_approved = Job.where('created_at >= ?', 1.week.ago).where(job_link: job.job_link)
+    @identical_description_already_approved = Job.where('created_at >= ?', 1.week.ago).where(description: job.description)
+    @identical_data_already_approved = Job.where('created_at >= ?', 1.week.ago).where(title: job.title, company: job.company)
+
+    @identical_links_already_approved.count > 0 || @identical_description_already_approved.count > 0 || @identical_data_already_approved.count > 0
+  end
+
   def rejected?
     self.status == "rejected"
   end
