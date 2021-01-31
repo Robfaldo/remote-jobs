@@ -1,7 +1,7 @@
 class Job < ApplicationRecord
   include TagHelper
 
-  SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library companies_direct totaljobs)
+  SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library companies_direct totaljobs jobserve)
 
   acts_as_taggable
   acts_as_taggable_on :tags
