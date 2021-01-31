@@ -4,6 +4,7 @@ module Scraping
     MAX_NET_TIMEOUT_RETRIES = 3
 
     SCRAPERS = [
+      Scraping::CwjobsScraper,
       Scraping::ReedScraper,
       Scraping::JobserveScraper,
       Scraping::CvLibraryScraper,

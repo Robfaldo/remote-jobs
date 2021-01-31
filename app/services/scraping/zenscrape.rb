@@ -71,8 +71,8 @@ module Scraping
                                query: query,
                                headers: headers)
 
-            puts "Re-attempt with premium proxy: #{i}: Response HTTP Status Code: #{ res.code }"
-            puts "Re-attempt with premium proxy: #{i}: Response HTTP Response Body: #{ res.body }"
+            puts "Re-attempt with premium proxy: #{i + 1}: Response HTTP Status Code: #{ res.code }"
+            puts "Re-attempt with premium proxy: #{i + 1}: Response HTTP Response Body: #{ res.body }"
             return res if res.code == 200
 
             if res.code == 404
