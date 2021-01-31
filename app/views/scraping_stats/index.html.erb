@@ -9,6 +9,7 @@
     <th>Jobserve</th>
     <th>Totaljobs</th>
     <th>Technojobs</th>
+    <th>Reed</th>
   </tr>
   <% @all_dates.each do |date| %>
     <tr>
@@ -44,6 +45,10 @@
       <td>
         <%= Job.by_date_and_source(date, :technojobs).count%>
         (<span class="rejected-count"><%= Job.by_date_and_source(date, :technojobs, status: "rejected").count %></span>)
+      </td>
+      <td>
+        <%= Job.by_date_and_source(date, :reed).count%>
+        (<span class="rejected-count"><%= Job.by_date_and_source(date, :reed, status: "rejected").count %></span>)
       </td>
     </tr>
   <% end %>
