@@ -22,6 +22,7 @@ class Job < ApplicationRecord
   scope :created_today, lambda{ where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
   scope :created_last_3_days, lambda{ where(created_at: (Date.today - 3)..Date.today.end_of_day) }
   scope :created_last_14_days, lambda{ where(created_at: (Date.today - 14)..Date.today.end_of_day) }
+  scope :created_last_week, lambda{ where(created_at: (Date.today - 7)..Date.today.end_of_day) }
 
   scope :remove_jobs_requiring_degree, -> do
     where(requires_stem_degree: false)
@@ -79,11 +80,32 @@ class Job < ApplicationRecord
   end
 
   def self.recently_added?(job)
-    @identical_links_already_approved = Job.where('created_at >= ?', 1.week.ago).where(job_link: job.job_link)
-    @identical_description_already_approved = Job.where('created_at >= ?', 1.week.ago).where(description: job.description)
-    @identical_data_already_approved = Job.where('created_at >= ?', 1.week.ago).where(title: job.title, company: job.company)
+    if job.class == JobToEvaluate
+      job_link = job.link
+      description = nil
+    else
+      job_link = job.job_link
+      description = job.description
+    end
 
-    @identical_links_already_approved.count > 0 || @identical_description_already_approved.count > 0 || @identical_data_already_approved.count > 0
+    identical_links_already_approved = created_last_week.where(job_link: job_link)
+    identical_description_already_approved = created_last_week.where(description: description)
+
+    identical_data_already_approved = created_last_week.select do |database_job|
+      company_matches(database_job, job) && title_matches(database_job, job)
+    end
+
+    identical_links_already_approved.count > 0 || identical_description_already_approved.count > 0 || identical_data_already_approved.count > 0
+  end
+
+  def self.company_matches(database_job, job)
+    return false unless job.company
+
+    database_job.company.downcase.strip.gsub(' ltd', '') == job.company.downcase.strip.gsub(' ltd', '')
+  end
+
+  def self.title_matches(database_job, job)
+    database_job.title.downcase.strip == job.title.downcase.strip
   end
 
   def rejected?
