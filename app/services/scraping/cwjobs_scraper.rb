@@ -2,13 +2,14 @@ module Scraping
 	class CwjobsScraper < DefaultScraper
 		private
 
-def scrape_all_jobs_page_options(link)
-{
-	link: link,
-	wait_time: 5000,
-	premium_proxy: true
-}
+		def scrape_all_jobs_page_options(link)
+			{
+				link: link,
+				wait_time: 5000,
+				premium_proxy: true
+			}
 		end
+
 
 		def scrape_job_page_options(job)
 			{
