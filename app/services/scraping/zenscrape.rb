@@ -56,6 +56,9 @@ module Scraping
           code = e.message.split('##SPLITHERE##')[0]
           body = e.message.split('##SPLITHERE##')[1]
           raise ZenscrapeError.new("404 was returned by Zenscrape. Link: #{link}. Last response code: #{code}. Last response body: #{body}")
+        rescue => e
+          sleep 5
+          next # to retry go to the next iteration of the loop
         end
       end
 
@@ -91,6 +94,9 @@ module Scraping
             code = e.message.split('##SPLITHERE##')[0]
             body = e.message.split('##SPLITHERE##')[1]
             raise ZenscrapeError.new("404 was returned by Zenscrape. Link: #{link}. Last response code: #{code}. Last response body: #{body}")
+          rescue => e
+            sleep 5
+            next # to retry go to the next iteration of the loop
           end
         end
       end
