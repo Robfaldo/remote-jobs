@@ -93,14 +93,14 @@ module Scraping
 
           scraped_job = ScrapedJob.new(
             title: title,
-            link: link
+            job_link: link
           )
           scraped_job.company = company if company
           scraped_job.location = location if location
 
           scraped_job.save!
 
-          jobs_to_evaluate.push(new_job)
+          jobs_to_evaluate.push(scraped_job)
         rescue => e
           Rollbar.error(e, job: job)
         end
