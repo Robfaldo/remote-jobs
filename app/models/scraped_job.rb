@@ -1,10 +1,6 @@
-class ScrapedJob
+class ScrapedJob < ApplicationRecord
   attr_accessor :title, :link, :location, :company
 
-  def initialize(title:, link:, location: nil, company: nil)
-    @title = title
-    @link = link
-    @company = company
-    @location = location
-  end
+  validates :title, presence: true
+  validates :job_link, presence: true
 end
