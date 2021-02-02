@@ -38,7 +38,9 @@ module Scraping
         Rollbar.error(e)
       end
 
-      Rollbar.info("Scraping Completed", :time_started => time_started, results: results)
+      total_time_to_scrape = Time.now - time_started
+
+      Rollbar.info("Scraping Completed", time_started: time_started, total_time_to_scrape: total_time_to_scrape, results: results)
     end
   end
 end
