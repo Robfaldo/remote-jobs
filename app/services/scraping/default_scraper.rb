@@ -91,12 +91,14 @@ module Scraping
           company = job_element_company(job)
           location = job_element_location(job)
 
-          new_job = ScrapedJob.new(
+          scraped_job = ScrapedJob.new(
             title: title,
             link: link
           )
-          new_job.company = company if company
-          new_job.location = location if location
+          scraped_job.company = company if company
+          scraped_job.location = location if location
+
+          scraped_job.save!
 
           jobs_to_evaluate.push(new_job)
         rescue => e
