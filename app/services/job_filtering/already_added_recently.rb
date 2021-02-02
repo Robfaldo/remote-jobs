@@ -29,7 +29,13 @@ module JobFiltering
         company_matches(database_job, job) && title_matches(database_job, job)
       end
 
-      identical_links_already_approved.count > 0 || identical_description_already_approved.count > 0 || identical_data_already_approved.count > 0
+      if job.class == JobToEvaluate
+        # we won't have a description to check, and any matches of actual jobs (i.e. Jobs, not JobsToEvaluate) means there's duplicates
+        identical_links_already_approved.count > 0 || identical_data_already_approved.count > 0
+      else
+        # over 1 because the Job has already been saved (we run this service after scraping & saving jobs) so there will be 1 matching already, any more means there's duplicates.
+        identical_links_already_approved.count > 1 || identical_description_already_approved.count > 1 || identical_data_already_approved.count > 1
+      end
     end
 
     def company_matches(database_job, job)
