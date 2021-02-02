@@ -3,9 +3,18 @@ module JobFiltering
     private
 
     def handle(job)
-      reject_job(job,"Black listed: @black_list_link_violations: #{@black_list_link_violations}. @black_list_company_violations: #{@black_list_company_violations}. @black_list_description_violations: #{@black_list_description_violations}")
-      job.tag_list.add(tags_yaml["FilterRules"]["black_listed"])
-      job.reviewed = true # I always just mark as reviewed, might aswell just save the effort and mark reviewed here
+      reject_message = %{
+        Black listed: @black_list_link_violations: #{@black_list_link_violations}.
+        @black_list_company_violations: #{@black_list_company_violations}.
+      }
+      reject_message << "@black_list_description_violations: #{@black_list_description_violations}" if job.class == Job
+
+      reject_job(job, reject_message)
+
+      if job.class == Job
+        job.tag_list.add(tags_yaml["FilterRules"]["black_listed"])
+        job.reviewed = true
+      end
 
       job.save!
     end
@@ -13,9 +22,14 @@ module JobFiltering
     def can_handle?(job)
       @black_list_link_violations = rules["job_link"].filter { |rule| job.job_link.downcase.include?(rule.downcase.strip) }
       @black_list_company_violations = rules["company"].filter { |rule| job.company.downcase.strip.include?(rule.downcase.strip) }
-      @black_list_description_violations = rules["description"].filter { |rule| job.description.downcase.include?(rule.downcase.strip) }
 
-      @black_list_link_violations.count > 0 || @black_list_company_violations.count > 0 || @black_list_description_violations.count > 0
+      if job.class == Job
+        @black_list_description_violations = rules["description"].filter { |rule| job.description.downcase.include?(rule.downcase.strip) }
+
+        return true if @black_list_description_violations.count > 0
+      end
+
+      @black_list_link_violations.count > 0 || @black_list_company_violations.count > 0
     end
   end
 end
