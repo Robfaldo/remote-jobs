@@ -91,7 +91,7 @@ module Scraping
           company = job_element_company(job)
           location = job_element_location(job)
 
-          new_job = JobToEvaluate.new(
+          new_job = ScrapedJob.new(
             title: title,
             link: link
           )

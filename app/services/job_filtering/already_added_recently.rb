@@ -14,7 +14,7 @@ module JobFiltering
     end
 
     def can_handle?(job)
-      if job.class == JobToEvaluate
+      if job.class == ScrapedJob
         job_link = job.link
         description = nil
       else
@@ -29,7 +29,7 @@ module JobFiltering
         company_matches(database_job, job) && title_matches(database_job, job)
       end
 
-      if job.class == JobToEvaluate
+      if job.class == ScrapedJob
         # we won't have a description to check, and any matches of actual jobs (i.e. Jobs, not JobsToEvaluate) means there's duplicates
         identical_links_already_approved.count > 0 || identical_data_already_approved.count > 0
       else

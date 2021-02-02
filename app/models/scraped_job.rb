@@ -1,14 +1,10 @@
 class ScrapedJob
-  attr_reader :title, :company, :link, :location, :description, :source, :source_id, :job_board
+  attr_accessor :title, :link, :location, :company
 
-  def initialize(title:, company:, link:, location:, description:, source:, job_board: nil, source_id: nil)
+  def initialize(title:, link:, location: nil, company: nil)
     @title = title
-    @company = company
     @link = link
+    @company = company
     @location = location
-    @description = description
-    @source = source
-    @source_id = source_id
-    @job_board = job_board
   end
 end
