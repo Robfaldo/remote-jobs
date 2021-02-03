@@ -21,7 +21,11 @@ module JobFiltering
 
     def can_handle?(job)
       @black_list_link_violations = rules["job_link"].filter { |rule| job.job_link.downcase.include?(rule.downcase.strip) }
-      @black_list_company_violations = rules["company"].filter { |rule| job.company.downcase.strip.include?(rule.downcase.strip) }
+      @black_list_company_violations = []
+
+      if job.company
+        @black_list_company_violations = rules["company"].filter { |rule| job.company.downcase.strip.include?(rule.downcase.strip) }
+      end
 
       if job.class == Job
         @black_list_description_violations = rules["description"].filter { |rule| job.description.downcase.include?(rule.downcase.strip) }
