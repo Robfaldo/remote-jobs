@@ -3,7 +3,11 @@ module JobFiltering
     private
 
     def handle(job)
-      approve_job(job, message: "Approved: Did not violate any filters")
+      if job.class == Job
+        approve_job(job, message: "Approved: Did not violate any filters")
+      elsif job.class == ScrapedJob
+        approve_job(job, message: "Approved for scraping")
+      end
     end
 
     def can_handle?(job)
