@@ -3,7 +3,7 @@ module JobFiltering
     private
 
     def handle(job)
-      reject_job(job, message: "Rejected: Job link has already been added within 1 week.")
+      reject_job(job, message: "Rejected: Job has already been added within 1 week. #{@identical_jobs.map{|j| { id: j.id, link: j.job_link } }}")
 
       if job.class == Job
         job.tag_list.add(tags_yaml["FilterRules"]["already_added_recently"])
@@ -22,9 +22,12 @@ module JobFiltering
 
       if job.class == ScrapedJob
         # we won't have a description to check, and any matches of actual jobs (i.e. Jobs, not JobsToEvaluate) means there's duplicates
+        @identical_jobs = identical_links_already_approved.to_ary.concat(identical_data_already_approved.to_ary)
         identical_links_already_approved.count > 0 || identical_data_already_approved.count > 0
       else
         identical_description_already_approved = Job.created_last_week.where(description: job.description)
+
+        @identical_jobs = identical_links_already_approved.to_ary.concat(identical_data_already_approved.to_ary).concat(identical_description_already_approved.to_ary)
 
         # over 1 because the Job has already been saved (we run this service after scraping & saving jobs) so there will be 1 matching already, any more means there's duplicates.
         identical_links_already_approved.count > 1 || identical_description_already_approved.count > 1 || identical_data_already_approved.count > 1
