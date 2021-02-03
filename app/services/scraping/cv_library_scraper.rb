@@ -21,7 +21,7 @@ module Scraping
     end
 
     def job_element_title(job)
-      job.search('.job__title').text.gsub('Quick Apply', '').strip
+      job.search('.job-title').search('h2').text
     end
 
     def job_element_link(job)
