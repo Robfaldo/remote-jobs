@@ -9,6 +9,8 @@ module JobFiltering
     end
 
     def can_handle?(job)
+      return false if job.class == ScrapedJob # we still want to scrape grad jobs
+
       @title_rule_violations = get_title_violations(rules, job)
       @description_rule_violations = get_description_violations(rules, job)
 
