@@ -23,7 +23,7 @@ module JobFiltering
       @job = job
 
       if job.class == ScrapedJob
-        return meets_requirements_to_scrape?
+        return does_not_meet_requirements_to_scrape?
       else
         @meets_title_requirements = meets_requirements_for_only_title
 
@@ -67,11 +67,12 @@ module JobFiltering
       level_satisfied && roles_satisfied && software_indicator_satisfied
     end
 
-    def meets_requirements_to_scrape?
+    def does_not_meet_requirements_to_scrape?
       level_matches = title_matches("level")
       role_matches = title_matches("role")
 
-      level_matches.count > 0 && role_matches.count > 0
+      # unless they've got both level and role matches then we don't want to scrape
+      level_matches.count == 0 || role_matches.count == 0
     end
 
     def title_matches(yaml_title)
