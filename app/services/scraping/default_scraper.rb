@@ -61,14 +61,7 @@ module Scraping
           scraped_job.company = company if company
           scraped_job.location = location if location
 
-          job_save_retries = 0
-          begin
-            scraped_job.save!
-          rescue ActiveRecord::ConnectionTimeoutError
-            sleep 1.5
-            job_save_retries += 1
-            retry if job_save_retries < 3
-          end
+          save_job(scraped_job)
 
           jobs.push(scraped_job)
         rescue => e
@@ -103,6 +96,18 @@ module Scraping
         scraped_all_jobs_page = scraper.scrape_page(options)
 
         process_all_jobs_page(scraped_all_jobs_page)
+      end
+    end
+
+    def save_job(job)
+      job_save_retries = 0
+
+      begin
+        job.save!
+      rescue ActiveRecord::ConnectionTimeoutError
+        sleep 1.5
+        job_save_retries += 1
+        retry if job_save_retries < 3
       end
     end
 
