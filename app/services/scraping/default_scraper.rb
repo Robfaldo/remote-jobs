@@ -105,7 +105,7 @@ module Scraping
       begin
         job.save!
       rescue ActiveRecord::ConnectionTimeoutError
-        sleep 1.5
+        sleep rand(5)
         job_save_retries += 1
         retry if job_save_retries < 3
       end

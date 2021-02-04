@@ -49,7 +49,7 @@ module Scraping
 				source_id: job.job_link
 			)
 
-			new_job.save!
+			save_job(new_job)
 		end
 	end
 end

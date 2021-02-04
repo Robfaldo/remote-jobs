@@ -50,7 +50,7 @@ module Scraping
           job_board: "cv_library"
       )
 
-      new_job.save!
+      save_job(new_job)
     end
   end
 end

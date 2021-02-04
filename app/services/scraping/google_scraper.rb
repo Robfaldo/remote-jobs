@@ -44,7 +44,7 @@ module Scraping
 
       new_job.job_board = job["job_board"] if job["job_board"]
 
-      new_job.save!
+      save_job(new_job)
     end
 
     def javascript
