@@ -1,8 +1,10 @@
 module Scraping
   class CvLibraryScraper < DefaultScraper
-    SOURCE = :cv_library
-
     private
+
+    def source
+      :cv_library
+    end
 
     def scrape_all_jobs_page_options(link)
       {
@@ -41,7 +43,7 @@ module Scraping
           job_link: job.job_link,
           location: location,
           description: description,
-          source: SOURCE,
+          source: source,
           status: "scraped",
           company: scraped_job_page.search('//dd[@data-jd-company]').text.strip,
           source_id: job.job_link,

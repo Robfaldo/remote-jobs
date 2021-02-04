@@ -1,8 +1,10 @@
 module Scraping
   class TotaljobsScraper < DefaultScraper
-    SOURCE = :totaljobs
-
     private
+
+    def source
+      :totaljobs
+    end
 
     def scrape_all_jobs_page_options(link)
       {
@@ -64,7 +66,7 @@ module Scraping
           job_link: job.job_link,
           location: job.location,
           description: description,
-          source: SOURCE,
+          source: source,
           status: "scraped",
           company: job.company,
           job_board: "Totaljobs",

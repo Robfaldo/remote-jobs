@@ -1,8 +1,10 @@
 module Scraping
   class GlassdoorScraper < DefaultScraper
-    SOURCE = :glassdoor
-
     private
+
+    def source
+      :glassdoor
+    end
 
     def scrape_all_jobs_page_options(link)
       {
@@ -48,7 +50,7 @@ module Scraping
         job_link: new_link,
         location: job.location,
         description: description,
-        source: SOURCE,
+        source: source,
         status: "scraped",
         company: job.company,
         job_board: "glassdoor",

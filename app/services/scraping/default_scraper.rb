@@ -56,7 +56,7 @@ module Scraping
           scraped_job = ScrapedJob.new(
             title: title,
             job_link: link,
-            source: SOURCE
+            source: source
           )
           scraped_job.company = company if company
           scraped_job.location = location if location
