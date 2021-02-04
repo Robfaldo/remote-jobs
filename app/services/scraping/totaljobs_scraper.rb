@@ -2,6 +2,10 @@ module Scraping
   class TotaljobsScraper < DefaultScraper
     private
 
+    def source
+      :totaljobs
+    end
+
     def scrape_all_jobs_page_options(link)
       {
         link: link,
@@ -13,7 +17,7 @@ module Scraping
 
     def scrape_job_page_options(job)
       {
-        link: job.link,
+        link: job.job_link,
         premium_proxy: true,
         use_zenscrape: true
       }
@@ -59,17 +63,17 @@ module Scraping
 
       new_job = Job.new(
           title: job.title,
-          job_link: job.link,
+          job_link: job.job_link,
           location: job.location,
           description: description,
-          source: :totaljobs,
+          source: source,
           status: "scraped",
           company: job.company,
           job_board: "Totaljobs",
-          source_id: job.link
+          source_id: job.job_link
       )
 
-      new_job.save!
+      save_job(new_job)
     end
   end
 end

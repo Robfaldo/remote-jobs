@@ -2,6 +2,10 @@ module Scraping
 	class ReedScraper < DefaultScraper
 		private
 
+		def source
+			:reed
+		end
+
 		def scrape_all_jobs_page_options(link)
 			{
 				link: link,
@@ -12,7 +16,7 @@ module Scraping
 
 		def scrape_job_page_options(job)
 			{
-				link: job.link
+				link: job.job_link
 			}
 		end
 
@@ -35,17 +39,17 @@ module Scraping
 
 			new_job = Job.new(
 				title: job.title,
-				job_link: job.link,
+				job_link: job.job_link,
 				location: location,
 				description: description,
-				source: :reed,
+				source: source,
 				status: "scraped",
 				company: company,
 				job_board: "Reed",
-				source_id: job.link
+				source_id: job.job_link
 			)
 
-			new_job.save!
+			save_job(new_job)
 		end
 	end
 end

@@ -9,6 +9,8 @@ module JobFiltering
     end
 
     def can_handle?(job)
+      return false if job.class == ScrapedJob
+
       @white_list_matches = []
       @white_list_matches.concat(get_title_violations(rules, job))
       @white_list_matches.concat(get_description_violations(rules, job))

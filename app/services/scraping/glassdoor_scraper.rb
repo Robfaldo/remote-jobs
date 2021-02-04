@@ -1,7 +1,10 @@
 module Scraping
   class GlassdoorScraper < DefaultScraper
-
     private
+
+    def source
+      :glassdoor
+    end
 
     def scrape_all_jobs_page_options(link)
       {
@@ -12,7 +15,7 @@ module Scraping
 
     def scrape_job_page_options(job)
       {
-        link: job.link,
+        link: job.job_link,
         javascript_snippet: javascript,
         wait_time: 10000
       }
@@ -47,14 +50,14 @@ module Scraping
         job_link: new_link,
         location: job.location,
         description: description,
-        source: :glassdoor,
+        source: source,
         status: "scraped",
         company: job.company,
         job_board: "glassdoor",
-        source_id: job.link
+        source_id: job.job_link
       )
 
-      new_job.save!
+      save_job(new_job)
     end
 
     def javascript

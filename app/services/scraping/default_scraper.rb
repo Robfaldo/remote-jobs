@@ -14,14 +14,12 @@ module Scraping
         search_links[location].each do |link|
           begin
             options = scrape_all_jobs_page_options(link)
-
             scraped_all_jobs_page = scraper.scrape_page(options)
 
-            scrape_and_save_jobs(scraped_all_jobs_page)
+            process_all_jobs_page(scraped_all_jobs_page)
 
             if handle_pagination
               remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
-
               scrape_additional_pages(remaining_pages, link)
             end
           rescue => e
@@ -35,27 +33,49 @@ module Scraping
 
     attr_reader :scraper
 
-    def scrape_and_save_jobs(scraped_all_jobs_page)
-      scraped_jobs = scraped_all_jobs_page.search(job_element)
+    def process_all_jobs_page(scraped_all_jobs_page)
+      job_elements = scraped_all_jobs_page.search(job_element)
+      jobs_to_filter = extract_jobs_to_filter(job_elements)
+      filtered_jobs = JobFiltering::FilterJobs.new(jobs_to_filter).call
 
-      jobs_to_scrape = evaluated_jobs(scraped_jobs)
+      jobs_to_scrape = filtered_jobs.select{ |j| j.status == "approved" }
 
       extract_and_save_job(jobs_to_scrape)
     end
 
-    def evaluated_jobs(scraped_jobs)
-      jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
+    def extract_jobs_to_filter(job_elements)
+      jobs = []
 
-      evaluate_jobs(jobs_to_evaluate)
+      job_elements.each do |job|
+        begin
+          title = job_element_title(job)
+          link = job_element_link(job)
+          company = job_element_company(job)
+          location = job_element_location(job)
+
+          scraped_job = ScrapedJob.new(
+            title: title,
+            job_link: link,
+            source: source
+          )
+          scraped_job.company = company if company
+          scraped_job.location = location if location
+
+          save_job(scraped_job)
+
+          jobs.push(scraped_job)
+        rescue => e
+          Rollbar.error(e, job: job)
+        end
+      end
+
+      jobs
     end
 
     def extract_and_save_job(jobs)
       jobs.each do |job|
-        next if already_added_filter.recently_added?(job) || wrong_job_type_filter.wrong_job_title?(job)
-
         begin
           options = scrape_job_page_options(job)
-
           scraped_job_page = scraper.scrape_page(options)
 
           create_job(job, scraped_job_page)
@@ -68,55 +88,27 @@ module Scraping
     def scrape_additional_pages(pages_remaining_to_scrape, link)
       pages_remaining_to_scrape.times do |page|
         current_paginated_page = page + 1 # + 1 because page starts at 0. The first pagination page (i.e. the 2nd total page) will have current_paginated_page == 1
-
         paginated_page_link = paginated_page_link(link, current_paginated_page)
 
         break if current_paginated_page > MAX_PAGINATION_PAGES_TO_SCRAPE
 
         options = scrape_all_jobs_page_options(paginated_page_link)
-
         scraped_all_jobs_page = scraper.scrape_page(options)
 
-        scrape_and_save_jobs(scraped_all_jobs_page)
+        process_all_jobs_page(scraped_all_jobs_page)
       end
     end
 
-    def extract_jobs_to_evaluate(scraped_jobs)
-      jobs_to_evaluate = []
+    def save_job(job)
+      job_save_retries = 0
 
-      scraped_jobs.each do |job|
-        begin
-          title = job_element_title(job)
-          link = job_element_link(job)
-          company = job_element_company(job)
-          location = job_element_location(job)
-
-          new_job = JobToEvaluate.new(
-            title: title,
-            link: link
-          )
-          new_job.company = company if company
-          new_job.location = location if location
-
-          jobs_to_evaluate.push(new_job)
-        rescue => e
-          Rollbar.error(e, job: job)
-        end
+      begin
+        job.save!
+      rescue ActiveRecord::ConnectionTimeoutError
+        sleep rand(5)
+        job_save_retries += 1
+        retry if job_save_retries < 3
       end
-
-      jobs_to_evaluate
-    end
-
-    def evaluate_jobs(jobs_to_evaluate)
-      jobs_to_scrape = []
-
-      jobs_to_evaluate.each do |job|
-        if job.meets_minimum_requirements?
-          jobs_to_scrape.push(job)
-        end
-      end
-
-      jobs_to_scrape
     end
 
     #### Defaults ####

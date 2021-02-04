@@ -31,7 +31,7 @@ module Scraping
               source_id: job[:guid]
           )
 
-          new_job.save!
+          save_job(new_job)
         end
       end
     end
