@@ -1,5 +1,6 @@
 module Scraping
   class IndeedScraper < DefaultScraper
+    SOURCE = :indeed
 
     private
 
@@ -68,7 +69,7 @@ module Scraping
           job_link: job.job_link,
           location: job.location,
           description: description,
-          source: :indeed,
+          source: SOURCE,
           status: "scraped",
           company: job.company,
           job_board: "Indeed",

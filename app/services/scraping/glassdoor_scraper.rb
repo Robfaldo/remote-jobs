@@ -1,5 +1,6 @@
 module Scraping
   class GlassdoorScraper < DefaultScraper
+    SOURCE = :glassdoor
 
     private
 
@@ -47,7 +48,7 @@ module Scraping
         job_link: new_link,
         location: job.location,
         description: description,
-        source: :glassdoor,
+        source: SOURCE,
         status: "scraped",
         company: job.company,
         job_board: "glassdoor",

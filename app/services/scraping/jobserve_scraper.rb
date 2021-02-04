@@ -1,5 +1,7 @@
 module Scraping
   class JobserveScraper < DefaultScraper
+    SOURCE = :jobserve
+
     private
 
     def scrape_all_jobs_page_options(link)
@@ -40,7 +42,7 @@ module Scraping
           job_link: job.job_link,
           location: job.location,
           description: description,
-          source: :jobserve,
+          source: SOURCE,
           status: "scraped",
           company: company,
           job_board: "Jobserve",

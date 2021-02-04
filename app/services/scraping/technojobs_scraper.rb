@@ -3,6 +3,7 @@ require 'open-uri'
 
 module Scraping
   class TechnojobsScraper < DefaultScraper
+    SOURCE = :technojobs
 
     def get_jobs
       LOCATIONS.each do |location|
@@ -44,7 +45,7 @@ module Scraping
           job_link: job.job_link,
           location: location,
           description: description,
-          source: :technojobs,
+          source: SOURCE,
           status: "scraped",
           company: company,
           job_board: "technojobs",

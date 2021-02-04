@@ -3,6 +3,8 @@ require 'open-uri'
 
 module Scraping
   class StackoverflowScraper < DefaultScraper
+    SOURCE = :stackoverflow
+
     def get_jobs
       LOCATIONS.each do |location|
         search_links[location].each do |link|
@@ -24,7 +26,7 @@ module Scraping
               job_link: job[:link],
               location: job[:title].split(" at ")[1].split("(")[1].strip.split(",")[0],
               description: job[:description],
-              source: :stackoverflow,
+              source: SOURCE,
               status: "scraped",
               company: job[:title].split(" at ")[1].split("(")[0].strip,
               job_board: "Stackoverflow",

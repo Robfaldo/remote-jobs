@@ -1,5 +1,7 @@
 module Scraping
 	class ReedScraper < DefaultScraper
+		SOURCE = :reed
+
 		private
 
 		def scrape_all_jobs_page_options(link)
@@ -38,7 +40,7 @@ module Scraping
 				job_link: job.job_link,
 				location: location,
 				description: description,
-				source: :reed,
+				source: SOURCE,
 				status: "scraped",
 				company: company,
 				job_board: "Reed",

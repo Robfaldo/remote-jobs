@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_085753) do
+ActiveRecord::Schema.define(version: 2021_02_04_183518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_085753) do
     t.string "status_reason"
     t.string "status"
     t.datetime "created_at"
+    t.string "source"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
