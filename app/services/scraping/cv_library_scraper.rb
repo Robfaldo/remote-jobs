@@ -12,7 +12,7 @@ module Scraping
 
     def scrape_job_page_options(job)
       {
-        link: job.link
+        link: job.job_link
       }
     end
 
@@ -21,7 +21,7 @@ module Scraping
     end
 
     def job_element_title(job)
-      job.search('.job-title').search('h2').text
+      job.search('.job__title').text.gsub('Quick Apply', '').strip
     end
 
     def job_element_link(job)
@@ -37,13 +37,13 @@ module Scraping
 
       new_job = Job.new(
           title: scraped_job_page.search('//span[@data-jd-title]').text,
-          job_link: job.link,
+          job_link: job.job_link,
           location: location,
           description: description,
           source: :cv_library,
           status: "scraped",
           company: scraped_job_page.search('//dd[@data-jd-company]').text.strip,
-          source_id: job.link,
+          source_id: job.job_link,
           job_board: "cv_library"
       )
 

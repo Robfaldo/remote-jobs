@@ -14,14 +14,12 @@ module Scraping
         search_links[location].each do |link|
           begin
             options = scrape_all_jobs_page_options(link)
-
             scraped_all_jobs_page = scraper.scrape_page(options)
 
-            scrape_and_save_jobs(scraped_all_jobs_page)
+            process_all_jobs_page(scraped_all_jobs_page)
 
             if handle_pagination
               remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
-
               scrape_additional_pages(remaining_pages, link)
             end
           rescue => e
@@ -35,56 +33,20 @@ module Scraping
 
     attr_reader :scraper
 
-    def scrape_and_save_jobs(scraped_all_jobs_page)
-      scraped_jobs = scraped_all_jobs_page.search(job_element)
+    def process_all_jobs_page(scraped_all_jobs_page)
+      job_elements = scraped_all_jobs_page.search(job_element)
+      jobs_to_filter = extract_jobs_to_filter(job_elements)
+      filtered_jobs = JobFiltering::FilterJobs.new(jobs_to_filter).call
 
-      jobs_to_scrape = evaluated_jobs(scraped_jobs)
+      jobs_to_scrape = filtered_jobs.select{ |j| j.status == "approved" }
 
       extract_and_save_job(jobs_to_scrape)
     end
 
-    def evaluated_jobs(scraped_jobs)
-      jobs_to_evaluate = extract_jobs_to_evaluate(scraped_jobs)
+    def extract_jobs_to_filter(job_elements)
+      jobs = []
 
-      evaluate_jobs(jobs_to_evaluate)
-    end
-
-    def extract_and_save_job(jobs)
-      jobs.each do |job|
-        next if already_added_filter.recently_added?(job) || wrong_job_type_filter.wrong_job_title?(job)
-
-        begin
-          options = scrape_job_page_options(job)
-
-          scraped_job_page = scraper.scrape_page(options)
-
-          create_job(job, scraped_job_page)
-        rescue => e
-          Rollbar.error(e, job: job.instance_values.to_s)
-        end
-      end
-    end
-
-    def scrape_additional_pages(pages_remaining_to_scrape, link)
-      pages_remaining_to_scrape.times do |page|
-        current_paginated_page = page + 1 # + 1 because page starts at 0. The first pagination page (i.e. the 2nd total page) will have current_paginated_page == 1
-
-        paginated_page_link = paginated_page_link(link, current_paginated_page)
-
-        break if current_paginated_page > MAX_PAGINATION_PAGES_TO_SCRAPE
-
-        options = scrape_all_jobs_page_options(paginated_page_link)
-
-        scraped_all_jobs_page = scraper.scrape_page(options)
-
-        scrape_and_save_jobs(scraped_all_jobs_page)
-      end
-    end
-
-    def extract_jobs_to_evaluate(scraped_jobs)
-      jobs_to_evaluate = []
-
-      scraped_jobs.each do |job|
+      job_elements.each do |job|
         begin
           title = job_element_title(job)
           link = job_element_link(job)
@@ -100,25 +62,40 @@ module Scraping
 
           scraped_job.save!
 
-          jobs_to_evaluate.push(scraped_job)
+          jobs.push(scraped_job)
         rescue => e
           Rollbar.error(e, job: job)
         end
       end
 
-      jobs_to_evaluate
+      jobs
     end
 
-    def evaluate_jobs(jobs_to_evaluate)
-      jobs_to_scrape = []
+    def extract_and_save_job(jobs)
+      jobs.each do |job|
+        begin
+          options = scrape_job_page_options(job)
+          scraped_job_page = scraper.scrape_page(options)
 
-      jobs_to_evaluate.each do |job|
-        if job.meets_minimum_requirements?
-          jobs_to_scrape.push(job)
+          create_job(job, scraped_job_page)
+        rescue => e
+          Rollbar.error(e, job: job.instance_values.to_s)
         end
       end
+    end
 
-      jobs_to_scrape
+    def scrape_additional_pages(pages_remaining_to_scrape, link)
+      pages_remaining_to_scrape.times do |page|
+        current_paginated_page = page + 1 # + 1 because page starts at 0. The first pagination page (i.e. the 2nd total page) will have current_paginated_page == 1
+        paginated_page_link = paginated_page_link(link, current_paginated_page)
+
+        break if current_paginated_page > MAX_PAGINATION_PAGES_TO_SCRAPE
+
+        options = scrape_all_jobs_page_options(paginated_page_link)
+        scraped_all_jobs_page = scraper.scrape_page(options)
+
+        process_all_jobs_page(scraped_all_jobs_page)
+      end
     end
 
     #### Defaults ####

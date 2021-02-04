@@ -13,7 +13,7 @@ module Scraping
 
     def scrape_job_page_options(job)
       {
-        link: job.link,
+        link: job.job_link,
         premium_proxy: true,
         use_zenscrape: true
       }
@@ -59,14 +59,14 @@ module Scraping
 
       new_job = Job.new(
           title: job.title,
-          job_link: job.link,
+          job_link: job.job_link,
           location: job.location,
           description: description,
           source: :totaljobs,
           status: "scraped",
           company: job.company,
           job_board: "Totaljobs",
-          source_id: job.link
+          source_id: job.job_link
       )
 
       new_job.save!

@@ -12,7 +12,7 @@ module Scraping
 
     def scrape_job_page_options(job)
       {
-        link: job.link,
+        link: job.job_link,
         javascript_snippet: javascript,
         wait_time: 10000
       }
@@ -51,7 +51,7 @@ module Scraping
         status: "scraped",
         company: job.company,
         job_board: "glassdoor",
-        source_id: job.link
+        source_id: job.job_link
       )
 
       new_job.save!
