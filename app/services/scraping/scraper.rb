@@ -4,8 +4,8 @@ module Scraping
   class Scraper
     include ScrapingHelper
 
-    def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false, use_zenscrape: false)
-      if javascript_snippet || custom_google
+    def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false, use_bee: false)
+      if javascript_snippet || custom_google || use_bee
         response = ScrapingBee.new.scrape_page(
           link: link,
           javascript_snippet: javascript_snippet,
