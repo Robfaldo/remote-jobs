@@ -8,7 +8,7 @@ module Scraping
       Scraping::JobserveScraper,
       Scraping::CvLibraryScraper,
       Scraping::IndeedScraper,
-      Scraping::StackoverflowScraper
+      Scraping::StackoverflowScraper,
       Scraping::TotaljobsScraper,
       Scraping::TechnojobsScraper,
     ]
