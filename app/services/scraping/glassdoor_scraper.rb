@@ -9,7 +9,8 @@ module Scraping
     def scrape_all_jobs_page_options(link)
       {
         link: link,
-        wait_time: 10000
+        wait_time: 10000,
+        premium_proxy: true
       }
     end
 
@@ -17,7 +18,8 @@ module Scraping
       {
         link: job.job_link,
         javascript_snippet: javascript,
-        wait_time: 10000
+        wait_time: 10000,
+        premium_proxy: true
       }
     end
 
