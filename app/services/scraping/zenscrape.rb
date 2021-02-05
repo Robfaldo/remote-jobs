@@ -17,7 +17,6 @@ module Scraping
 
     def scrape_page(link:, wait_time:, premium_proxy:)
       headers = {
-        apikey: @api_key,
         "User-Agent" => USER_AGENTS.sample
       }
 
@@ -26,7 +25,8 @@ module Scraping
         wait_for: (wait_time/1000).to_s, # send in seconds, not milliseconds
         block_resources: 'stylesheet,image,media', # I could add more here
         render: "true", # this costs 5 credits and could sometimes be skipped (future optimisation)
-        keep_headers: "true"
+        keep_headers: "true",
+        apikey: @api_key
       }
 
       query[:premium_proxy] = "true" if premium_proxy
