@@ -11,7 +11,7 @@ module Scraping
         link: link,
         wait_time: 5000,
         premium_proxy: true,
-        use_zenscrape: true
+        use_bee: true
       }
     end
 
@@ -19,7 +19,7 @@ module Scraping
       {
         link: job.job_link,
         premium_proxy: true,
-        use_zenscrape: true
+        use_bee: true
       }
     end
 
