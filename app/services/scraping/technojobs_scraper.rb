@@ -10,8 +10,9 @@ module Scraping
 
           jobs_to_filter = extract_jobs_to_filter(jobs_from_rss.items)
           filtered_jobs = JobFiltering::FilterJobs.new(jobs_to_filter).call
+          jobs_to_scrape = filtered_jobs.select{ |j| j.status == "approved" }
 
-          extract_and_save_job(filtered_jobs)
+          extract_and_save_job(jobs_to_scrape)
         end
       end
     end
