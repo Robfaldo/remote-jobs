@@ -1,7 +1,7 @@
 <% flash.each do |name, msg| %>
   <% if msg.is_a?(String) %>
     <div class="flash-container js-flash-container">
-      <div id="alert_message" class="banner-alert alert-<%= name.to_s == 'notice' ? "success" : "danger" %>">
+      <div id="alert_message" class="banner-alert alert-<%= name.to_s == 'notice' || name.to_s == 'success' ? "success" : "danger" %>">
         <button type="button" class="close js-close-alert" data-dismiss="alert" aria-hidden="true">&times;</button>
         <%= content_tag :div, msg, :id => "account-error-message", class: "account-error-message" %>
         <%#= flash[:alert] %>
