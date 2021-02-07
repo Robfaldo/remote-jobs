@@ -412,6 +412,7 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.7)
   listen (~> 3.2)
+  omniauth
   omniauth-google-oauth2
   pagy (~> 3.5)
   parallel

@@ -96,4 +96,5 @@ gem 'httparty'
 
 gem 'parallel'
 
+gem 'omniauth'
 gem 'omniauth-google-oauth2'
