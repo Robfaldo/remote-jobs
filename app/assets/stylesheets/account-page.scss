@@ -2,6 +2,7 @@
   font-size: 3rem;
   padding: 10px;
   text-align: center;
+  color: #04080F;
 
   @media (min-width: 992px) {
     font-size: 1.5rem;
@@ -19,6 +20,7 @@
 
   .content {
     display: flex;
+    align-items: center;
     flex-direction: column;
 
     .sub-title {

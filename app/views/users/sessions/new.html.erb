@@ -4,7 +4,12 @@
     <div class="content">
       <a class="logo" href="/">PrimoDev</a>
 
-      <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
+      <div class="google-oauth">
+        <%= link_to user_google_oauth2_omniauth_authorize_path, class: 'google-oauth-link' do %>
+          <img class="google-logo" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+          <span class="google-login">Log in with Google<span>
+        <% end %>
+      </div>
 
       <div class="form-container">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
