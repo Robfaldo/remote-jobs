@@ -7,90 +7,20 @@ rake db:migrate
 rake db:seed # for activeadmin
 ```
 
-## ActiveAdmin
+## Rails Admin
 
-We use [ActiveAdmin](https://activeadmin.info/documentation.html) for the backend. 
+We use [Rails Admin](https://activeadmin.info/documentation.html) for the backend. 
 
-You can log in by going to http://localhost:3000/admin with:
+You can log in by going to http://localhost:3000/admin
 ```
-User: admin@example.com
-Password: password
-
-## Creating admin account 
-
-run `heroku run bundle exec rails c`
-then run
-```
+## Creating admin account in production 
+heroku run bundle exec rails c
 AdminUser.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
-
 ```
 
-## Models 
+# Omniauth 
 
-Job has many technologies 
-```
-job = Job.new(title: 'Ruby dev')
-job.save
-ruby = Technologies.new(name: 'Ruby')
-ruby.save
-job.technologies << ruby
-job.save
+We allow users to sign in using omniauth. List of [strategies](https://github.com/omniauth/omniauth/wiki/List-of-Strategies) for what omniauths are available. 
 
-job.technologies.include?(ruby)
-=> true
-
-ruby.jobs.include?(job)
-=> true
-
-```
-
-Job has one level (and a level has many jobs) 
-```clickhouse
-job = Job.new(title: 'Ruby dev')
-job.save
-mid_level = Level.new(name: 'mid')
-level.save
-job.level = mid_level
-job.save
-
-job.level == mid_level
-=> true
-
-level.jobs.count 
-=> 1
-
-```
-
-Job has one stack (and a stack has many jobs)
-```clickhouse
-job = Job.new(title: 'Ruby dev')
-job.save
-backend = Stack.new(name: 'backend')
-backend.save
-job.stack = backend
-job.save
-
-job.stack == backend
-=> true
-
-stack.jobs.count 
-=> 1
-
-```
-
-Job has one company (and a company has many jobs)
-```clickhouse
-job = Job.new(title: 'Ruby dev')
-job.save
-kelvinltd = Company.new(name: 'kelvinltd')
-kelvinltd.save
-job.company = kelvinltd
-job.save
-
-job.company == kelvinltd
-=> true
-
-kelvinltd.jobs.count 
-=> 1
-
-```
+We currently use [GoogleOAuth2](https://github.com/zquestz/omniauth-google-oauth2) 
+and I set this up following [this guide](https://medium.com/@adamlangsner/google-oauth-rails-5-using-devise-and-omniauth-1b7fa5f72c8e).
