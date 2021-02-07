@@ -4,6 +4,8 @@
     <div class="content">
       <a class="logo" href="/">PrimoDev</a>
 
+      <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
+
       <div class="form-container">
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="fields-container">
