@@ -69,6 +69,10 @@
       @media (min-width: 992px) {
         font-size: 1.5rem;
       }
+
+      a[href="/users/auth/google_oauth2"] {
+        display: none;
+      }
     }
 
     .form-container {
