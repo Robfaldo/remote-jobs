@@ -81,6 +81,7 @@ languages:
   - sql
   - github
   - git
+  - SQLite
 frameworks:
   - django
   - flask
@@ -100,6 +101,7 @@ frameworks:
   - rails
   - salesforce
   - WordPress
+  - Bootstrap
 description_only_software_terms:
   - computer science
   - code
@@ -123,3 +125,4 @@ description_only_software_terms:
   - BDD
   - SCRUM
   - agile
+  - BitBucket
