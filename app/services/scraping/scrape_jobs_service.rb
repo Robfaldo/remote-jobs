@@ -21,6 +21,8 @@ module Scraping
     ]
 
     def call
+      Rollbar.info("Scraping Started")
+
       time_started = Time.now
 
       results = Parallel.map(SCRAPERS_CONCURRENT, in_threads: SCRAPERS_CONCURRENT.count) do |scraper|

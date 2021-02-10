@@ -49,7 +49,7 @@ module Scraping
 				source_id: job.job_link
 			)
 
-			save_job(new_job)
+			save_job(new_job, scraped_job_page)
 		end
 	end
 end

@@ -39,7 +39,7 @@ Rails.application.configure do
 
   ###### Sending emails in dev environment through gmail #######
 
-  config.action_mailer.perform_deliveries = true # set this to false to disable emails being sent
+  config.action_mailer.perform_deliveries = false # set this to true to send emails in dev env
 
   config.action_mailer.raise_delivery_errors = true  # For why: https://stackoverflow.com/a/53254247/5615805
   config.action_mailer.default_options = { from: 'emailfromdevenv@gmail.com' } # For why: https://stackoverflow.com/questions/45014520/rails-devise-with-gmail-errors

@@ -99,7 +99,7 @@ module Scraping
       end
     end
 
-    def save_job(job)
+    def save_job(job, scraped_page = nil)
       job_save_retries = 0
 
       begin
@@ -109,6 +109,20 @@ module Scraping
         job_save_retries += 1
         retry if job_save_retries < 3
         raise e
+      rescue => e
+        rollbar_error = Rollbar.error(e, job: job.attributes)
+
+        if scraped_page
+          job_for_email = job.attributes
+          job_for_email["description"] = "removed"
+
+          ScraperMailer.job_save_error_html(
+            html: scraped_page.to_html,
+            job: job_for_email,
+            error: e,
+            rollbar_uuid: rollbar_error[:uuid]
+          ).deliver_now
+        end
       end
     end
 
