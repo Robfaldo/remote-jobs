@@ -50,7 +50,7 @@ module Scraping
           job_board: "cv_library"
       )
 
-      save_job(new_job)
+      save_job(new_job, scraped_job_page)
     end
   end
 end

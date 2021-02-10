@@ -24,3 +24,11 @@ We allow users to sign in using omniauth. List of [strategies](https://github.co
 
 We currently use [GoogleOAuth2](https://github.com/zquestz/omniauth-google-oauth2) 
 and I set this up following [this guide](https://medium.com/@adamlangsner/google-oauth-rails-5-using-devise-and-omniauth-1b7fa5f72c8e).
+
+# Delivering emails 
+
+To enable emails to be sent in development env go to `config/environments/development.rb` 
+and change `config.action_mailer.perform_deliveries` to `true`
+
+By default production uses GoDaddy (set up follow [these instructions](https://medium.com/@rachelchervin/sending-emails-with-godaddy-and-ruby-on-rails-fc503a45af10)) and 
+development uses gmail. 

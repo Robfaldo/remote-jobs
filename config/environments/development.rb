@@ -35,15 +35,30 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
-  # Emails: https://medium.com/@rachelchervin/sending-emails-with-godaddy-and-ruby-on-rails-fc503a45af10
-  config.action_mailer.default_url_options = {
-      :host => "localhost", port: 3000
+
+
+  ###### Sending emails in dev environment through gmail #######
+
+  config.action_mailer.perform_deliveries = false # set this to true to send emails in dev env
+
+  config.action_mailer.raise_delivery_errors = true  # For why: https://stackoverflow.com/a/53254247/5615805
+  config.action_mailer.default_options = { from: 'emailfromdevenv@gmail.com' } # For why: https://stackoverflow.com/questions/45014520/rails-devise-with-gmail-errors
+
+  # https://dev.to/morinoko/sending-emails-in-rails-with-action-mailer-and-gmail-35g4
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { :host => 'localhost:3000', protocol: 'http' }
+
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'gmail.com',
+    :user_name            => "robswebscraper@gmail.com",
+    :password             => ENV["GMAIL_PASSWORD"],
+    :authentication       => "plain",
+    :enable_starttls_auto => true
   }
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = {from: 'rob@primodev.co.uk'}
-  #######
+  ####################################################################
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
