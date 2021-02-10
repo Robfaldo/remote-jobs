@@ -103,8 +103,6 @@ module Scraping
       job_save_retries = 0
 
       begin
-        njob = Job.new()
-        njob.save! if scraped_page
         job.save!
       rescue ActiveRecord::ConnectionTimeoutError => e
         sleep rand(5)
