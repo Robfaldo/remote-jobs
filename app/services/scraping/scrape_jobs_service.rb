@@ -3,21 +3,21 @@ module Scraping
     class ScrapingError < StandardError; end
 
     SCRAPERS_CONCURRENT = [
-      # Scraping::CwjobsScraper,
-      # Scraping::ReedScraper,
-      # Scraping::JobserveScraper,
-      # Scraping::CvLibraryScraper,
-      Scraping::IndeedScraper
-      # Scraping::StackoverflowScraper,
-      # Scraping::TotaljobsScraper,
-      # Scraping::TechnojobsScraper,
+      Scraping::CwjobsScraper,
+      Scraping::ReedScraper,
+      Scraping::JobserveScraper,
+      Scraping::CvLibraryScraper,
+      Scraping::IndeedScraper,
+      Scraping::StackoverflowScraper,
+      Scraping::TotaljobsScraper,
+      Scraping::TechnojobsScraper,
     ]
 
     # ones that use ScrapingBee that can't be run concurrently
     SCRAPERS_CONSECUTIVE = [
-      # Scraping::LinkedinScraper,
-      # Scraping::GlassdoorScraper,
-      # Scraping::GoogleScraper
+      Scraping::LinkedinScraper,
+      Scraping::GlassdoorScraper,
+      Scraping::GoogleScraper
     ]
 
     def call
