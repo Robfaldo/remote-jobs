@@ -46,6 +46,12 @@ module Scraping
     def create_job(job, scraped_job_page)
       description = scraped_job_page.search('.show-more-less-html__markup').text
 
+      if field_empty?(job.company)
+        company = scraped_job_page.search('.topcard__content-left').search('h3').search('span').first.text.strip
+      else
+        company = job.company
+      end
+
       new_job = Job.new(
         title: job.title,
         job_link: job.job_link,
@@ -53,7 +59,7 @@ module Scraping
         description: description,
         source: source,
         status: "scraped",
-        company: job.company,
+        company: company,
         job_board: "Linkedin",
         source_id: job.job_link
       )

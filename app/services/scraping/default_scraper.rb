@@ -159,6 +159,10 @@ module Scraping
     def wrong_job_type_filter
       JobFiltering::WrongJobType.new
     end
+
+    def field_empty?(field)
+      field == "" || field == " " || field == nil
+    end
     #####################
   end
 end
