@@ -80,7 +80,19 @@ module Scraping
 
           create_job(job, scraped_job_page)
         rescue => e
-          Rollbar.error(e, job: job.instance_values.to_s)
+          rollbar_error = Rollbar.error(e, job: job.instance_values.to_s)
+
+          if scraped_job_page
+            job_for_email = job.attributes
+            job_for_email["description"] = "removed"
+
+            ScraperMailer.job_save_error_html(
+              html: scraped_job_page.to_html,
+              job: job_for_email,
+              error: e,
+              rollbar_uuid: rollbar_error[:uuid]
+            ).deliver_now
+          end
         end
       end
     end
