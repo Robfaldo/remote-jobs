@@ -49,6 +49,14 @@ module Scraping
       description = scraped_job_page.search('.desc')[-1].text
       new_link = scraped_job_page.search('#current-url').first.text # the link changes after this page loads
 
+      if field_empty?(job.company)
+        rating = scraped_job_page.search('.e11nt52q1').first.search('span').first.text
+        full_text = scraped_job_page.search('.e11nt52q1').first.text.strip
+        company = full_text.gsub(rating, '')
+      else
+        company = job.company
+      end
+
       new_job = Job.new(
         title: job.title,
         job_link: new_link,
@@ -56,7 +64,7 @@ module Scraping
         description: description,
         source: source,
         status: "scraped",
-        company: job.company,
+        company: company,
         job_board: "glassdoor",
         source_id: job.job_link
       )
