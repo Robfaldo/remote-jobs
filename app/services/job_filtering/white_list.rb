@@ -5,6 +5,8 @@ module JobFiltering
     def handle(job)
       approve_job(job, message: "White listed: #{@white_list_matches}.")
       job.tag_list.add(tags_yaml["FilterRules"]["white_listed"])
+      job.requires_experience = false
+      job.requires_stem_degree = true
       job.save!
     end
 
