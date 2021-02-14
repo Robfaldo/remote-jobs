@@ -50,9 +50,9 @@ module Scraping
       new_link = scraped_job_page.search('#current-url').first.text # the link changes after this page loads
 
       if field_empty?(job.company)
-        rating = scraped_job_page.search('.e11nt52q1').first.search('span').first.text
-        full_text = scraped_job_page.search('.e11nt52q1').first.text.strip
-        company = full_text.gsub(rating, '')
+        rating = scraped_job_page.search('.e11nt52q1').first.search('span').first&.text
+        company = scraped_job_page.search('.e11nt52q1').first.text.strip
+        company.gsub(rating, '') if rating # doesn't always have a rating
       else
         company = job.company
       end
