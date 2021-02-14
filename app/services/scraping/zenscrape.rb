@@ -15,9 +15,11 @@ module Scraping
       @api_key = api_key
     end
 
-    def scrape_page(link:, wait_time:, premium_proxy:)
+    def scrape_page(link:, wait_time:, premium_proxy:, javascript_snippet:)
+      # Removing this temporarily as it's breaking glassdoor and we might not need it.
       headers = {
-        "User-Agent" => USER_AGENTS.sample
+        apikey: @api_key # this can go in query params if we want to add custom headers (adding custom headers and keeping API key here will send the API key to the job site)
+        # "User-Agent" => USER_AGENTS.sample # see note on keep_headers below for why I'm removing it
       }
 
       query = {
@@ -25,8 +27,7 @@ module Scraping
         wait_for: (wait_time/1000).to_s, # send in seconds, not milliseconds
         block_resources: 'stylesheet,image,media', # I could add more here
         render: "true", # this costs 5 credits and could sometimes be skipped (future optimisation)
-        keep_headers: "true",
-        apikey: @api_key
+        # keep_headers: "true", # adding this is making glassdoor return an empty page and I'm not sure why. Maybe if we overwrite headers we need to provide all headers?
       }
 
       query[:premium_proxy] = "true" if premium_proxy
