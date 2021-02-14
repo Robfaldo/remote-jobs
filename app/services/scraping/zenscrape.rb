@@ -5,7 +5,7 @@ module Scraping
     class ApiErrorToRetry < StandardError; end
     include ScrapingHelper
 
-    NUM_OF_INITIAL_ATTEMPTS = 15
+    NUM_OF_INITIAL_ATTEMPTS = 10
     PREMIUM_ATTEMPTS = 2
     USER_AGENTS = YAML.load(File.read('config/user_agents.yml'))
 
