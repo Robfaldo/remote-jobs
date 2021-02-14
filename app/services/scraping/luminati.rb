@@ -12,9 +12,7 @@ module Scraping
       proxy_port = '22225'
       proxy_user = 'lum-customer-c_f6cb99f4-zone-residential-route_err-pass_dyn-country-gb'
       proxy_pass = '3a90iifv02zf'
-      session = Random.rand(100000)
 
-      uri = URI.parse(URI::encode("https://www.totaljobs.com/"))
       headers = {
         'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
         "Accept" => "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
@@ -22,22 +20,14 @@ module Scraping
         "Upgrade-Insecure-Requests" => "1"
       }
 
-      proxy = Net::HTTP::Proxy(proxy_host, proxy_port, "#{proxy_user}", proxy_pass)
-      http = proxy.new(uri.host,uri.port)
-
-      if uri.scheme == 'https'
-        http.use_ssl = true
-      end
-
-      req = Net::HTTP::Get.new(uri.path, headers)
-
-      result = http.start do |con|
-        con.request(req)
-      end
-
-      page = Nokogiri::HTML.parse(result.body)
-      binding.pry
-
+      options = {
+        http_proxyaddr: proxy_host,
+        http_proxyport: proxy_port,
+        http_proxyuser:proxy_user,
+        http_proxypass: proxy_pass,
+        headers: headers
+      }
+      response = HTTParty.get('https://www.httpbin.org/headers?json', options)
     end
   end
 end
