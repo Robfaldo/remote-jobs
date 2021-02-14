@@ -6,12 +6,12 @@ module Scraping
   class Luminati
     include ScrapingHelper
 
-    def scrape_page(link:)
+    def scrape_page
       # following: https://luminati.io/cp/api_example?example=main
       proxy_host = 'zproxy.lum-superproxy.io'
       proxy_port = '22225'
       proxy_user = 'lum-customer-c_f6cb99f4-zone-residential-route_err-pass_dyn-country-gb'
-      proxy_pass = '3a90iifv02zf'
+      proxy_pass = ENV["LUMINATI_API_KEY"]
 
       headers = {
         'User-Agent' => 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
@@ -28,6 +28,7 @@ module Scraping
         headers: headers
       }
       response = HTTParty.get('https://www.httpbin.org/headers?json', options)
+      binding.pry
     end
   end
 end
