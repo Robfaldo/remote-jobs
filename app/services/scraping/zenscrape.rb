@@ -30,7 +30,7 @@ module Scraping
       }
 
       query[:premium_proxy] = "true" if premium_proxy
-      query[:location] = "uk" if premium_proxy
+      query[:location] = "gb" if premium_proxy
 
       zenscrape_url = 'https://app.zenscrape.com/api/v1/get'
 
