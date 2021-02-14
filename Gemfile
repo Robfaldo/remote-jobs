@@ -98,3 +98,5 @@ gem 'parallel'
 
 gem 'omniauth', '~> 1.1'
 gem 'omniauth-google-oauth2'
+
+gem "figaro"
