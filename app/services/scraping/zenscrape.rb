@@ -15,7 +15,7 @@ module Scraping
       @api_key = api_key
     end
 
-    def scrape_page(link:, wait_time:, premium_proxy:, javascript_snippet:)
+    def scrape_page(link:, wait_time:, premium_proxy:)
       # Removing this temporarily as it's breaking glassdoor and we might not need it.
       headers = {
         apikey: @api_key # this can go in query params if we want to add custom headers (adding custom headers and keeping API key here will send the API key to the job site)
