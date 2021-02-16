@@ -2,6 +2,8 @@ require "scraper_api"
 
 module Scraping
   class Scraper
+    class NotFoundResponse < StandardError; end
+    class ApiErrorToRetry < StandardError; end
     include ScrapingHelper
 
     def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false, use_bee: false)

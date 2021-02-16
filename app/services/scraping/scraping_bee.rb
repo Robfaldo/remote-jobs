@@ -1,8 +1,6 @@
 module Scraping
   class ScrapingBee
     class ScrapingBeeError < StandardError; end
-    class NotFoundResponse < StandardError; end
-    class ApiErrorToRetry < StandardError; end
     include ScrapingHelper
 
     NUM_OF_INITIAL_ATTEMPTS = 5
