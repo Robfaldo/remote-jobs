@@ -30,7 +30,6 @@ module Scraping
 
       NUM_OF_INITIAL_ATTEMPTS.times do |i|
         begin
-          link = 'https://www.totaljobs.com/jobs/junior-and-developer/in-london?q=Junior+AND+Developer&radius=20'
           res = HTTParty.get(link, options)
 
           puts "Attempt #{i + 1}: Response HTTP Status Code: #{ res.code }"
