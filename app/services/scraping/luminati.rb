@@ -2,6 +2,8 @@
 module Scraping
   class Luminati
     class LuminatiError < StandardError; end
+    class NotFoundResponse < StandardError; end
+    class ApiErrorToRetry < StandardError; end
     include ScrapingHelper
 
     NUM_OF_INITIAL_ATTEMPTS = 1 # Unblocker should never fail so let's break & raise an error if it does.
@@ -15,22 +17,24 @@ module Scraping
     def scrape_page(link:)
       proxy_host = 'zproxy.lum-superproxy.io'
       proxy_port = '22225'
-      proxy_user = 'lum-customer-c_f6cb99f4-zone-uk_data_unblock-unblocker'
+      proxy_user = 'lum-customer-c_f6cb99f4-zone-uk_data_unblock-country-gb-unblocker'
       proxy_pass = @api_key
 
-      options = {
-        http_proxyaddr: proxy_host,
-        http_proxyport: proxy_port,
-        http_proxyuser:proxy_user,
-        http_proxypass: proxy_pass
-      }
-
-      # Will get an SSL error ("certificate verify failed (unable to get local issuer certificate)") without this. https://stackoverflow.com/a/25901450/5615805
-      HTTParty::Basement.default_options.update(verify: false)
+      uri = URI.parse(link)
+      proxy = Net::HTTP::Proxy(proxy_host, proxy_port, proxy_user, proxy_pass)
 
       NUM_OF_INITIAL_ATTEMPTS.times do |i|
         begin
-          res = HTTParty.get(link, options)
+          req = Net::HTTP::Get.new(uri.path)
+
+          res = proxy.start(
+            uri.host,
+            uri.port,
+            :use_ssl => uri.scheme == 'https',
+            :verify_mode => OpenSSL::SSL::VERIFY_NONE
+          ) do |http|
+            http.request(req)
+          end
 
           puts "Attempt #{i + 1}: Response HTTP Status Code: #{ res.code }"
           puts "Attempt #{i + 1}: Response HTTP Response Body: #{ res.body }"

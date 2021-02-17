@@ -10,7 +10,7 @@ module Scraping
       Scraping::IndeedScraper,
       Scraping::StackoverflowScraper,
       Scraping::TotaljobsScraper,
-      Scraping::TechnojobsScraper,
+      Scraping::TechnojobsScraper
     ]
 
     # ones that use ScrapingBee that can't be run concurrently
