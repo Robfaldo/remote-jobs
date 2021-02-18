@@ -37,7 +37,7 @@ module JobFiltering
     def company_matches(database_job, job)
       return false unless job.company
 
-      database_job.company.downcase.strip.gsub(' ltd', '').gsub('.com', '').gsub('limited', '') == job.company.downcase.strip.gsub(' ltd', '').gsub('.com', '').gsub('limited', '')
+      database_job.company.downcase.strip.gsub(' ltd', '').gsub('.com', '').gsub('limited', '').strip == job.company.downcase.strip.gsub(' ltd', '').gsub('.com', '').gsub('limited', '').strip
     end
 
     def title_matches(database_job, job)
