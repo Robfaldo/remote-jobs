@@ -39,9 +39,9 @@ module Scraping
           puts "Attempt #{i + 1}: Response HTTP Status Code: #{ res.code }"
           puts "Attempt #{i + 1}: Response HTTP Response Body: #{ res.body }"
 
-          return res if res.code == 200
+          return res if res.code == "200"
 
-          if res.code == 404
+          if res.code == "404"
             raise NotFoundResponse.new("#{res.code}##SPLITHERE###{res.body}")
           else
             raise ApiErrorToRetry.new
