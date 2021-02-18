@@ -81,6 +81,8 @@ languages:
   - github
   - git
   - SQLite
+  - vue
+  - vue.js
 frameworks:
   - django
   - flask
