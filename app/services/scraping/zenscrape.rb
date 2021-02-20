@@ -5,8 +5,8 @@ module Scraping
     class ApiErrorToRetry < StandardError; end
     include ScrapingHelper
 
-    NUM_OF_INITIAL_ATTEMPTS = 10
-    PREMIUM_ATTEMPTS = 2
+    NUM_OF_INITIAL_ATTEMPTS = 5
+    PREMIUM_ATTEMPTS = 5
     USER_AGENTS = YAML.load(File.read('config/user_agents.yml'))
 
     def initialize(api_key: ENV["ZENSCRAPE_API_KEY"])
@@ -35,72 +35,34 @@ module Scraping
 
       zenscrape_url = 'https://app.zenscrape.com/api/v1/get'
 
-      # X attempts using the requested (premium/non-premium) proxy
-      NUM_OF_INITIAL_ATTEMPTS.times do |i|
-        begin
-          res = HTTParty.get(zenscrape_url,
-                             query: query,
-                             headers: headers)
+      api_request_options = {
+        number_of_attempts: NUM_OF_INITIAL_ATTEMPTS,
+        link: link,
+        scraper: :zenscrape,
+        raise_error_after_attempts: query[:premium_proxy] # only suppress error if non-premium (so we can try premium after)
+      }
 
-          puts "Attempt #{i + 1}: Response HTTP Status Code: #{ res.code }"
-          puts "Attempt #{i + 1}: Response HTTP Response Body: #{ res.body }"
-          return res if res.code == 200
-
-          if res.code == 404
-            raise NotFoundResponse.new("#{res.code}##SPLITHERE###{res.body}")
-          else
-            raise ApiErrorToRetry.new
-          end
-        rescue ApiErrorToRetry
-          next # to retry go to the next iteration of the loop
-        rescue NotFoundResponse => e
-          code = e.message.split('##SPLITHERE##')[0]
-          body = e.message.split('##SPLITHERE##')[1]
-          raise ZenscrapeError.new("404 was returned by Zenscrape. Link: #{link}. Last response code: #{code}. Last response body: #{body}")
-        rescue => e
-          sleep 5
-          next # to retry go to the next iteration of the loop
-        end
+      res = ApiRequestService.call(api_request_options) do
+        HTTParty.get(zenscrape_url, query: query, headers: headers)
       end
 
-      if query[:premium_proxy]
-        raise ZenscrapeError.new("#{NUM_OF_INITIAL_ATTEMPTS} Premium proxy attempts failed. Query: #{query.to_s}")
-      else
-        # If the above attempts fail and a non-premium proxy was used, try X times with premium proxy
-        query[:premium_proxy] = "true"
+      return res if res
 
-        PREMIUM_ATTEMPTS.times do |i|
-          begin
-            res = HTTParty.get(zenscrape_url,
-                               query: query,
-                               headers: headers)
+      # try the premium proxy if non-premium has failed
+      query[:premium_proxy] = "true"
 
-            puts "Re-attempt with premium proxy: #{i + 1}: Response HTTP Status Code: #{ res.code }"
-            puts "Re-attempt with premium proxy: #{i + 1}: Response HTTP Response Body: #{ res.body }"
-            return res if res.code == 200
+      api_request_options = {
+        number_of_attempts: PREMIUM_ATTEMPTS,
+        link: link,
+        scraper: :zenscrape,
+        raise_error_after_attempts: true
+      }
 
-            if res.code == 404
-              raise NotFoundResponse.new("#{res.code}##SPLITHERE###{res.body}")
-            else
-              raise ApiErrorToRetry.new("#{res.code}##SPLITHERE###{res.body}")
-            end
-          rescue ApiErrorToRetry => e
-            code = e.message.split('##SPLITHERE##')[0]
-            body = e.message.split('##SPLITHERE##')[1]
-            e_message = "Could not scrape after 2 additional attempts using. Link: #{link}. Last response code: #{code}. Last response body: #{body}"
-
-            raise ZenscrapeError.new(e_message) if (i + 1) == PREMIUM_ATTEMPTS # i + 1 because i is 0 indexed
-            next # to retry go to the next iteration of the loop
-          rescue NotFoundResponse => e
-            code = e.message.split('##SPLITHERE##')[0]
-            body = e.message.split('##SPLITHERE##')[1]
-            raise ZenscrapeError.new("404 was returned by Zenscrape. Link: #{link}. Last response code: #{code}. Last response body: #{body}")
-          rescue => e
-            sleep 5
-            next # to retry go to the next iteration of the loop
-          end
-        end
+      res = ApiRequestService.call(api_request_options) do
+        HTTParty.get(zenscrape_url, query: query, headers: headers)
       end
+
+      return res
     end
   end
 end
