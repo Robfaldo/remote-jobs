@@ -27,7 +27,12 @@ module Scraping
         )
       end
 
-      Nokogiri::HTML.parse(response.body)
+      begin
+        Nokogiri::HTML.parse(response.body)
+      rescue Exception
+        # https://stackoverflow.com/a/4789702/5615805
+        raise $!, "Error parsing response. Response: #{response}. Link: #{link}", $!.backtrace
+      end
     end
 
     def search_links

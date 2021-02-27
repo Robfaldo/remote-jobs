@@ -3,13 +3,13 @@ module Scraping
     class ScrapingError < StandardError; end
 
     SCRAPERS_CONCURRENT = [
-      Scraping::CwjobsScraper,
+      # Scraping::CwjobsScraper,
+      # Scraping::TotaljobsScraper,
       Scraping::ReedScraper,
       Scraping::JobserveScraper,
       Scraping::CvLibraryScraper,
       Scraping::IndeedScraper,
       Scraping::StackoverflowScraper,
-      Scraping::TotaljobsScraper,
       Scraping::TechnojobsScraper
     ]
 
