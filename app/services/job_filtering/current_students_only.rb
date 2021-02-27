@@ -4,7 +4,11 @@ module JobFiltering
 
     def handle(job)
       reject_job(job, @title_rule_violations)
-      job.tag_list.add(tags_yaml["FilterRules"]["current_students_only"])
+
+      if job.class == Job
+        job.tag_list.add(tags_yaml["FilterRules"]["current_students_only"])
+      end
+
       job.save!
     end
 
