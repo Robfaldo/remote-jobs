@@ -10,7 +10,8 @@ module Scraping
 			{
 				link: link,
 				wait_time: 5000,
-				premium_proxy: true
+				premium_proxy: true,
+				use_luminati: true
 			}
 		end
 
@@ -18,7 +19,8 @@ module Scraping
 		def scrape_job_page_options(job)
 			{
 				link: job.job_link,
-				premium_proxy: true
+				premium_proxy: true,
+				use_luminati: true
 			}
 		end
 
