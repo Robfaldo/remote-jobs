@@ -36,22 +36,20 @@ module JobFiltering
     end
 
     def meets_requirements_for_only_title
-      level_matches = title_matches("level")
       role_matches = title_matches("role")
+
       software_term_matches = title_matches("software_terms")
       language_matches = title_matches("languages")
       framework_matches = title_matches("frameworks")
 
-      level_satisfied = level_matches.count > 0
       roles_satisfied = role_matches.count > 0
       software_indicator_satisfied = software_term_matches.count > 0 || language_matches.count > 0 || framework_matches.count > 0
 
-      level_satisfied && roles_satisfied && software_indicator_satisfied
+      roles_satisfied && software_indicator_satisfied
     end
 
     def meets_requirements_for_title_with_description
       # Must have these two in the title
-      level_matches = title_matches("level")
       role_matches = title_matches("role")
 
       # Search the description for the software indicator
@@ -60,19 +58,16 @@ module JobFiltering
       framework_matches = description_matches("frameworks")
       description_only_term_matches = description_matches("description_only_software_terms")
 
-      level_satisfied = level_matches.count > 0
       roles_satisfied = role_matches.count > 0
       software_indicator_satisfied = (software_term_matches.count + language_matches.count + framework_matches.count + description_only_term_matches.count) > INDICATORS_NEEDED_WITH_DESCRIPTION
 
-      level_satisfied && roles_satisfied && software_indicator_satisfied
+      roles_satisfied && software_indicator_satisfied
     end
 
     def does_not_meet_requirements_to_scrape?
-      level_matches = title_matches("level")
       role_matches = title_matches("role")
-
-      # unless they've got both level and role matches then we don't want to scrape
-      level_matches.count == 0 || role_matches.count == 0
+      # if they don't match the roles we look for then we don't want to scrape
+      role_matches.count == 0
     end
 
     def title_matches(yaml_title)
