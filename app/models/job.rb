@@ -90,6 +90,10 @@ class Job < ApplicationRecord
     self.tags.map{|t| t.name}.include?('white_listed')
   end
 
+  def entry_level?
+    self.tags.map{|t| t.name}.include?('entry_level')
+  end
+
   def requires_experience?
     self.requires_experience
   end

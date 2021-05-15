@@ -10,3 +10,5 @@ JobTags:
   requires_experience: requires_experience
 ReviewTags:
   marked_as_approved: marked_as_approved
+Groups:
+  entry_level: entry_level
