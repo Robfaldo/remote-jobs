@@ -93,6 +93,7 @@ frameworks:
   - salesforce
   - WordPress
   - Bootstrap
+  - splunk
 description_only_software_terms:
   - computer science
   - code
