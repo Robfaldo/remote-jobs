@@ -6,13 +6,9 @@ module JobTags
     end
 
     def can_handle?
-      level_matches = title_matches("level")
+      level_matches = get_title_violations(rules, job)
 
       level_matches.count > 0
-    end
-
-    def title_matches(yaml_title)
-      rules[yaml_title].filter { |rule| job.title.downcase.include?(rule.downcase) }
     end
   end
 end
