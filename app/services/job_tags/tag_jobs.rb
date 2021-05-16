@@ -4,7 +4,8 @@ module JobTags
         JobTags::RequiresExperience,
         JobTags::RequiresStemDegree,
         JobTags::EntryLevel,
-        JobTags::Developer
+        JobTags::Developer,
+        JobTags::CurrentStudentsOnly
     ]
 
     def initialize(jobs)
