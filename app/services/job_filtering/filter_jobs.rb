@@ -5,7 +5,7 @@ module JobFiltering
     end
 
     def call
-      chain = AlreadyAddedRecently.new(BlackList.new(WhiteList.new(TitleRequirements.new(WrongJobType.new((ApproveJob.new()))))))
+      chain = AlreadyAddedRecently.new(BlackList.new(TitleRequirements.new(WrongJobType.new((ApproveJob.new())))))
 
       jobs.each do |job|
         chain.call(job)
