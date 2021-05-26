@@ -52,7 +52,6 @@ languages:
   - c#
   - python
   - ruby
-  - .net
   - php
   - scala
   - groovy
@@ -68,12 +67,11 @@ languages:
   - node
   - dotnet
   - sql
-  - github
-  - git
   - SQLite
+frameworks:
+  - .net
   - vue
   - vue.js
-frameworks:
   - django
   - flask
   - symfony
@@ -118,3 +116,5 @@ description_only_software_terms:
   - SCRUM
   - agile
   - BitBucket
+  - git
+  - github
