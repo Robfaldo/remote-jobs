@@ -44,7 +44,7 @@ module Scraping
     end
 
     def handle_pagination
-      true
+      false
     end
 
     def pages_remaining_to_scrape(scraped_all_jobs_page)
