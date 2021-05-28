@@ -15,7 +15,7 @@ You can log in by going to http://localhost:3000/admin
 ```
 ## Creating admin account in production 
 heroku run bundle exec rails c
-AdminUser.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
+Admin.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
 ```
 
 # Omniauth 
