@@ -1,7 +1,7 @@
 module JobTags
   class RequiresStemDegree < Tag
     def add_tag
-      job.requires_stem_degree = true
+      job.tag_list.add(tags_yaml["JobTags"]["requires_stem_degree"])
       job.save!
     end
 

@@ -2,7 +2,11 @@ module JobTags
   class TagJobs
     TAGS = [
         JobTags::RequiresExperience,
-        JobTags::RequiresStemDegree
+        JobTags::RequiresStemDegree,
+        JobTags::EntryLevel,
+        JobTags::Developer,
+        JobTags::CurrentStudentsOnly,
+        JobTags::SuitableForBootcampGrads
     ]
 
     def initialize(jobs)

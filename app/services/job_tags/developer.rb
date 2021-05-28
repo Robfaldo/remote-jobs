@@ -1,43 +1,26 @@
-module JobFiltering
-  class TitleRequirements < BaseHandler
+# Purpose of this tag is to determine if the job is a developer (rather than tester, devops, data etc...)
+
+module JobTags
+  class Developer < Tag
     INDICATORS_NEEDED_WITH_DESCRIPTION = 4
 
-    private
-
-    attr_reader :job
-
-    def handle(job)
-      reject_message = "Rejected for title requiremenets. @meets_title_requirements: #{@meets_title_requirements}. "
-      reject_message << "@meets_title_and_description_requirements: #{@meets_title_and_description_requirements}" if job.class == Job
-
-      reject_job(job, reject_message)
-
-      if job.class == Job
-        job.tag_list.add(tags_yaml["FilterRules"]["title_requirements_not_met"])
-      end
-
+    def add_tag
+      job.tag_list.add(tags_yaml["Groups"]["developer"])
       job.save!
     end
 
-    def can_handle?(job)
-      @job = job
+    def can_handle?
+      @meets_title_requirements = meets_requirements_for_only_title
 
-      if job.class == ScrapedJob
-        return does_not_meet_requirements_to_scrape?
-      else
-        @meets_title_requirements = meets_requirements_for_only_title
+      return true if @meets_title_requirements # If it meets title requirements then no need to check description
 
-        return false if @meets_title_requirements # If it meets title requirements then no need to check description
+      @meets_title_and_description_requirements = meets_requirements_for_title_with_description
 
-        @meets_title_and_description_requirements = meets_requirements_for_title_with_description
-
-        return true unless @meets_title_and_description_requirements # if it doesn't meet title OR title_and_description requirements then we need to reject
-      end
+      return true if @meets_title_and_description_requirements # if it meets title_and_description requirements then we want to tag
     end
 
     def meets_requirements_for_only_title
       role_matches = title_matches("role")
-
       software_term_matches = title_matches("software_terms")
       language_matches = title_matches("languages")
       framework_matches = title_matches("frameworks")
@@ -49,7 +32,6 @@ module JobFiltering
     end
 
     def meets_requirements_for_title_with_description
-      # Must have these two in the title
       role_matches = title_matches("role")
 
       # Search the description for the software indicator
@@ -62,12 +44,6 @@ module JobFiltering
       software_indicator_satisfied = (software_term_matches.count + language_matches.count + framework_matches.count + description_only_term_matches.count) > INDICATORS_NEEDED_WITH_DESCRIPTION
 
       roles_satisfied && software_indicator_satisfied
-    end
-
-    def does_not_meet_requirements_to_scrape?
-      role_matches = title_matches("role")
-      # if they don't match the roles we look for then we don't want to scrape
-      role_matches.count == 0
     end
 
     def title_matches(yaml_title)

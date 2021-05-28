@@ -15,7 +15,7 @@ software_terms:
   - website
   - webapp
   - web-app
-# Stack
+  # Stack
   - frontend
   - front-end
   - front end
@@ -52,6 +52,7 @@ languages:
   - c#
   - python
   - ruby
+  - .net
   - php
   - scala
   - groovy
@@ -67,11 +68,12 @@ languages:
   - node
   - dotnet
   - sql
+  - github
+  - git
   - SQLite
-frameworks:
-  - .net
   - vue
   - vue.js
+frameworks:
   - django
   - flask
   - symfony
@@ -91,7 +93,6 @@ frameworks:
   - salesforce
   - WordPress
   - Bootstrap
-  - splunk
 description_only_software_terms:
   - computer science
   - code
@@ -116,5 +117,3 @@ description_only_software_terms:
   - SCRUM
   - agile
   - BitBucket
-  - git
-  - github

@@ -1,5 +1,19 @@
 London:
-# junior developer
-  - https://www.reed.co.uk/jobs/junior-developer-jobs-in-london?datecreatedoffset=Today&proximity=15
-# junior software engineer
-  - https://www.reed.co.uk/jobs/junior-software-engineer-jobs-in-london?datecreatedoffset=Today&proximity=15
+  # software AND (developer OR engineer)
+  - https://www.reed.co.uk/jobs/jobs-in-london?keywords=software%20AND%20%28developer%20OR%20engineer%29&sortby=DisplayDate&datecreatedoffset=Today&proximity=20
+  # (backend OR back-end OR "back end") AND (developer OR Engineer)
+  - https://www.reed.co.uk/jobs/jobs-in-london?keywords=%28backend%20OR%20back-end%20OR%20%22back%20end%22%29%20AND%20%28developer%20OR%20Engineer%29&sortby=DisplayDate&datecreatedoffset=Today&proximity=20
+  # (frontend OR front-end OR "front end") AND (developer OR Engineer)
+  - https://www.reed.co.uk/jobs/jobs-in-london?keywords=%28frontend%20OR%20front-end%20OR%20%22front%20end%22%29%20AND%20%28developer%20OR%20Engineer%29&sortby=DisplayDate&datecreatedoffset=Today&proximity=20
+  # (full-stack OR "full stack" OR fullstack) AND (engineer OR developer)
+  - https://www.reed.co.uk/jobs/jobs-in-london?keywords=%28full-stack%20OR%20%22full%20stack%22%20OR%20fullstack%29%20AND%20%28engineer%20OR%20developer%29&sortby=DisplayDate&datecreatedoffset=Today&proximity=20
+  # ("software Development" or "software Engineering" or "web Development" or Programmer or Programming OR coding)
+  - https://www.reed.co.uk/jobs/jobs-in-london?keywords=%28%22software%20Development%22%20or%20%22software%20Engineering%22%20or%20%22web%20Development%22%20or%20Programmer%20or%20Programming%20OR%20coding%29&sortby=DisplayDate&datecreatedoffset=Today&proximity=20
+
+  # Langauges
+  # (go OR javascript OR java OR c++ OR c# OR python OR ruby OR php OR scala OR groovy OR html OR css OR elixir OR swift OR perl OR kotlin OR rust OR dart OR unity OR node OR dotnet OR sql OR SQLite) AND (developer OR engineer)
+  - https://www.reed.co.uk/jobs/jobs-in-london?keywords=%28go%20OR%20javascript%20OR%20java%20OR%20c%2B%2B%20OR%20c%23%20OR%20python%20OR%20ruby%20OR%20php%20OR%20scala%20OR%20groovy%20OR%20html%20OR%20css%20OR%20elixir%20OR%20swift%20OR%20perl%20OR%20kotlin%20OR%20rust%20OR%20dart%20OR%20unity%20OR%20node%20OR%20dotnet%20OR%20sql%20OR%20SQLite%29%20AND%20%28developer%20OR%20engineer%29&sortby=DisplayDate&datecreatedoffset=Today&proximity=20
+
+  # Frameworks
+  # (.net OR vue OR vue.js OR django OR flask OR symfony OR jquery OR express OR asp OR sinatra OR drupal OR spring OR react OR angular OR AngularJS OR reactjs OR laravel OR wordpress OR rails OR salesforce OR WordPress OR Bootstrap OR splunk) AND (developer OR engineer)
+  - https://www.reed.co.uk/jobs/jobs-in-london?keywords=%28.net%20OR%20vue%20OR%20vue.js%20OR%20django%20OR%20flask%20OR%20symfony%20OR%20jquery%20OR%20express%20OR%20asp%20OR%20sinatra%20OR%20drupal%20OR%20spring%20OR%20react%20OR%20angular%20OR%20AngularJS%20OR%20reactjs%20OR%20laravel%20OR%20wordpress%20OR%20rails%20OR%20salesforce%20OR%20WordPress%20OR%20Bootstrap%20OR%20splunk%29%20AND%20%28developer&sortby=DisplayDate&datecreatedoffset=Today&proximity=20
