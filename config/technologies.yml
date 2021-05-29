@@ -1,0 +1,258 @@
+- name: javascript
+  aliases: [js, jquery, typescript]
+  is_language: false
+  is_framework: true
+  used_for_frontend: true
+  used_for_backend: true
+
+- name: ruby
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: go
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: java
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: c++
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: c#
+  aliases: ["c sharp", csharp, c-sharp]
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: python
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: php
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: scala
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: groovy
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: elixir
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: erlang
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: perl
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: kotlin
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: rust
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: html
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: true
+  used_for_backend: false
+
+- name: css
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: true
+  used_for_backend: false
+
+- name: swift
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: node
+  aliases: [node.js, node-js]
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: unity
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: .net
+  aliases: ["dot net", dotnet, dot-net]
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: sql
+  aliases: [sqllite, sql-lite, mysql]
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: vue
+  aliases: [vue.js]
+  is_language: false
+  is_framework: true
+  used_for_frontend: true
+  used_for_backend: false
+
+- name: django
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: flask
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: symfony
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: express
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: asp
+  aliases: [asp.net]
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: sinatra
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: drupal
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: spring
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: react
+  aliases: [react.js, reactjs, react-js]
+  is_language: false
+  is_framework: true
+  used_for_frontend: true
+  used_for_backend: false
+
+- name: angular
+  aliases: [angular.js, angularjs, angular-js]
+  is_language: false
+  is_framework: true
+  used_for_frontend: true
+  used_for_backend: false
+
+- name: laravel
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: false
+  used_for_backend: true
+
+- name: wordpress
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: true
+  used_for_backend: true
+
+- name: rails
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: true
+  used_for_backend: true
+
+- name: bootstrap
+  aliases: []
+  is_language: false
+  is_framework: true
+  used_for_frontend: true
+  used_for_backend: false
