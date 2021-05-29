@@ -256,3 +256,10 @@
   is_framework: true
   used_for_frontend: true
   used_for_backend: false
+
+- name: clojure
+  aliases: [clojurescript]
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
