@@ -8,4 +8,24 @@ class Technology < ApplicationRecord
   validates :is_framework, inclusion: [true, false]
   validates :used_for_frontend, inclusion: [true, false]
   validates :used_for_backend, inclusion: [true, false]
+
+  def self.all_names_including_aliases
+    all_names.concat(all_aliases)
+  end
+
+  def self.all_names
+    all.map(&:name)
+  end
+
+  def self.all_aliases
+    aliases = all.map(&:aliases)
+
+    aliases.reject! {|a| a == "[]"} # we don't want empty aliases
+
+    all_aliases = aliases.map do |a|
+      JSON.parse(a)
+    end
+
+    all_aliases.flatten
+  end
 end
