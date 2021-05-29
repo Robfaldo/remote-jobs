@@ -1,0 +1,70 @@
+#- name:
+#  aliases: []
+#  is_language:
+#  is_framework:
+#  used_for_frontend:
+#  used_for_backend:
+
+- name: javascript
+  aliases: [js, jquery, typescript]
+  is_language: false
+  is_framework: true
+  used_for_frontend: true
+  used_for_backend: true
+
+- name: ruby
+  aliases: []
+  is_language: true
+  is_framework: false
+  used_for_frontend: false
+  used_for_backend: true
+
+
+#languages:
+#  - go
+#  - javascript
+#  - java
+#  - c++
+#  - c#
+#  - python
+#  - ruby
+#  - php
+#  - scala
+#  - groovy
+#  - html
+#  - css
+#  - elixir
+#  - swift
+#  - perl
+#  - kotlin
+#  - rust
+#  - dart
+#  - unity
+#  - node
+#  - dotnet
+#  - sql
+#  - SQLite
+#frameworks:
+#  - .net
+#  - vue
+#  - vue.js
+#  - django
+#  - flask
+#  - symfony
+#  - jquery
+#  - express
+#  - asp
+#  - sinatra
+#  - drupal
+#  - spring
+#  - react
+#  - angular
+#  - AngularJS
+#  - reactjs
+#  - laravel
+#  - wordpress
+#  - rails
+#  - salesforce
+#  - WordPress
+#  - Bootstrap
+#  - splunk
