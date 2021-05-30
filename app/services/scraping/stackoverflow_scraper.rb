@@ -4,8 +4,10 @@ require 'open-uri'
 module Scraping
   class StackoverflowScraper < DefaultScraper
     def get_jobs
-      LOCATIONS.each do |location|
-        search_links[location].each do |link|
+      search_links.each do |location, data|
+        links_to_scrape = Scraping::GetLinksForLocation.call(data)
+
+        links_to_scrape.each do |link|
           jobs_from_rss = SimpleRSS.parse open(link)
 
           extract_and_save_job(jobs_from_rss, location)

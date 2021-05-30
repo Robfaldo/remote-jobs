@@ -1,3 +1,4 @@
 London:
-  # All jobs in London, ordered by most recent
-  - https://www.technojobs.co.uk/rss.php/any/excludekeywords/locationlondon/radius25/termsin0/salary0/postedwithinall/jobtypeall/searchfieldRSearchIndex/page1
+  links:
+    # All jobs in London, ordered by most recent
+    - https://www.technojobs.co.uk/rss.php/any/excludekeywords/locationlondon/radius25/termsin0/salary0/postedwithinall/jobtypeall/searchfieldRSearchIndex/page1

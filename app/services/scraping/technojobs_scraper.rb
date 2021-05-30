@@ -4,8 +4,10 @@ require 'open-uri'
 module Scraping
   class TechnojobsScraper < DefaultScraper
     def get_jobs
-      LOCATIONS.each do |location|
-        search_links[location].each do |link|
+      search_links.each do |location, data|
+        links_to_scrape = Scraping::GetLinksForLocation.call(data)
+
+        links_to_scrape.each do |link|
           jobs_from_rss = SimpleRSS.parse open(link.gsub(' ', '%20'))
 
           jobs_to_filter = extract_jobs_to_filter(jobs_from_rss.items, location)
