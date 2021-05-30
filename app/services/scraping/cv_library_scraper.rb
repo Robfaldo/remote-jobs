@@ -47,7 +47,8 @@ module Scraping
           status: "scraped",
           company: scraped_job_page.search('//dd[@data-jd-company]').text.strip,
           source_id: job.job_link,
-          job_board: "cv_library"
+          job_board: "cv_library",
+          searched_location: job.searched_location
       )
 
       save_job(new_job, scraped_job_page)

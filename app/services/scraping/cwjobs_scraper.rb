@@ -53,7 +53,8 @@ module Scraping
 				status: "scraped",
 				company: job.company,
 				job_board: "Cwjobs",
-				source_id: job.job_link
+				source_id: job.job_link,
+				searched_location: job.searched_location
 			)
 
 			save_job(new_job, scraped_job_page)

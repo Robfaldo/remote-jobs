@@ -27,9 +27,9 @@ module Scraping
 
     private
 
-    def create_job(job, job_link, location)
+    def create_job(job, job_link, searched_location)
       if !job["location"]
-        job["location"] = location
+        job["location"] = searched_location
       end
 
       new_job = Job.new(
@@ -39,7 +39,8 @@ module Scraping
           description: job["description"],
           source: :google,
           status: "scraped",
-          company: job["company"]
+          company: job["company"],
+          searched_location: searched_location
       )
 
       new_job.job_board = job["job_board"] if job["job_board"]
