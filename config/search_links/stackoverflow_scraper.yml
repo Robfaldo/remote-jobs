@@ -1,4 +1,4 @@
 London:
-  - # All jobs based w/in 20 miles of London
-  - http://stackoverflow.com/jobs/feed?l=London%2c+UK&u=Miles&d=20
-
+  links:
+    # All jobs based w/in 20 miles of London
+    - http://stackoverflow.com/jobs/feed?l=London%2c+UK&u=Miles&d=20

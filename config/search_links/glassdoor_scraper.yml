@@ -1,3 +1,4 @@
 London:
-  # All engineering jobs in London
-  - https://www.glassdoor.co.uk/Job/london-jobs-SRCH_IL.0,6_IC2671300.htm?fromAge=1&cityId=3317926&sgocId=7
+  links:
+    # All engineering jobs in London
+    - https://www.glassdoor.co.uk/Job/london-jobs-SRCH_IL.0,6_IC2671300.htm?fromAge=1&cityId=3317926&sgocId=7

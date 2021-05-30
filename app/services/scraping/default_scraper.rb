@@ -2,7 +2,6 @@ module Scraping
   class DefaultScraper
     include ScrapingHelper
 
-    LOCATIONS = ["London"]
     MAX_PAGINATION_PAGES_TO_SCRAPE = 1
 
     def initialize(scraper: Scraper.new)
@@ -10,21 +9,21 @@ module Scraping
     end
 
     def get_jobs
-      LOCATIONS.each do |location|
-        search_links[location].each do |link|
-          begin
-            options = scrape_all_jobs_page_options(link)
-            scraped_all_jobs_page = scraper.scrape_page(options)
+      search_links.each do |location, data|
+        links_to_scrape = Scraping::GetLinksForLocation.call(data)
 
-            process_all_jobs_page(scraped_all_jobs_page, location)
+        links_to_scrape.each do |link|
+          options = scrape_all_jobs_page_options(link)
+          scraped_all_jobs_page = scraper.scrape_page(options)
 
-            if handle_pagination
-              remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
-              scrape_additional_pages(remaining_pages, link, location)
-            end
-          rescue => e
-            Rollbar.error(e, link: link, location: location)
+          process_all_jobs_page(scraped_all_jobs_page, location)
+
+          if handle_pagination
+            remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
+            scrape_additional_pages(remaining_pages, link, location)
           end
+        rescue => e
+          Rollbar.error(e, link: link, location: location)
         end
       end
     end
