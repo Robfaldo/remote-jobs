@@ -16,11 +16,11 @@ module Scraping
             options = scrape_all_jobs_page_options(link)
             scraped_all_jobs_page = scraper.scrape_page(options)
 
-            process_all_jobs_page(scraped_all_jobs_page)
+            process_all_jobs_page(scraped_all_jobs_page, location)
 
             if handle_pagination
               remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
-              scrape_additional_pages(remaining_pages, link)
+              scrape_additional_pages(remaining_pages, link, location)
             end
           rescue => e
             Rollbar.error(e, link: link, location: location)
@@ -33,9 +33,9 @@ module Scraping
 
     attr_reader :scraper
 
-    def process_all_jobs_page(scraped_all_jobs_page)
+    def process_all_jobs_page(scraped_all_jobs_page, searched_location)
       job_elements = scraped_all_jobs_page.search(job_element)
-      jobs_to_filter = extract_jobs_to_filter(job_elements)
+      jobs_to_filter = extract_jobs_to_filter(job_elements, searched_location)
       filtered_jobs = JobFiltering::FilterJobs.new(jobs_to_filter).call
 
       jobs_to_scrape = filtered_jobs.select{ |j| j.status == "approved" }
@@ -43,7 +43,7 @@ module Scraping
       extract_and_save_job(jobs_to_scrape)
     end
 
-    def extract_jobs_to_filter(job_elements)
+    def extract_jobs_to_filter(job_elements, searched_location)
       jobs = []
 
       job_elements.each do |job|
@@ -51,15 +51,16 @@ module Scraping
           title = job_element_title(job)
           link = job_element_link(job)
           company = job_element_company(job)
-          location = job_element_location(job)
+          scraped_location = job_element_location(job)
 
           scraped_job = ScrapedJob.new(
             title: title,
             job_link: link,
-            source: source
+            source: source,
+            searched_location: searched_location
           )
           scraped_job.company = company if company
-          scraped_job.location = location if location
+          scraped_job.location = scraped_location if scraped_location
 
           save_job(scraped_job)
 
@@ -97,7 +98,7 @@ module Scraping
       end
     end
 
-    def scrape_additional_pages(pages_remaining_to_scrape, link)
+    def scrape_additional_pages(pages_remaining_to_scrape, link, searched_location)
       pages_remaining_to_scrape.times do |page|
         current_paginated_page = page + 1 # + 1 because page starts at 0. The first pagination page (i.e. the 2nd total page) will have current_paginated_page == 1
         paginated_page_link = paginated_page_link(link, current_paginated_page)
@@ -107,7 +108,7 @@ module Scraping
         options = scrape_all_jobs_page_options(paginated_page_link)
         scraped_all_jobs_page = scraper.scrape_page(options)
 
-        process_all_jobs_page(scraped_all_jobs_page)
+        process_all_jobs_page(scraped_all_jobs_page, searched_location)
       end
     end
 

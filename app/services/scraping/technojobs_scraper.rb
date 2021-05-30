@@ -8,7 +8,7 @@ module Scraping
         search_links[location].each do |link|
           jobs_from_rss = SimpleRSS.parse open(link.gsub(' ', '%20'))
 
-          jobs_to_filter = extract_jobs_to_filter(jobs_from_rss.items)
+          jobs_to_filter = extract_jobs_to_filter(jobs_from_rss.items, location)
           filtered_jobs = JobFiltering::FilterJobs.new(jobs_to_filter).call
           jobs_to_scrape = filtered_jobs.select{ |j| j.status == "approved" }
 
@@ -52,7 +52,8 @@ module Scraping
           status: "scraped",
           company: company,
           job_board: "technojobs",
-          source_id: job.job_link
+          source_id: job.job_link,
+          searched_location: job.searched_location
       )
 
       save_job(new_job, scraped_job_page)

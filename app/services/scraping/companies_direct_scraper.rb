@@ -19,7 +19,7 @@ module Scraping
 
     private
 
-    def extract_and_save_job(scraped_jobs, location)
+    def extract_and_save_job(scraped_jobs, searched_location)
       scraped_jobs.each do |job|
         link = job.search('a').first.get_attribute('href')
         company = job.search('strong').text
@@ -31,12 +31,13 @@ module Scraping
         new_job = Job.new(
             title: title,
             job_link: link,
-            location: location,
+            location: searched_location,
             description: description,
             source: :companies_direct,
             status: "scraped",
             company: company,
-            job_board: "Companies Direct"
+            job_board: "Companies Direct",
+            searched_location: searched_location
         )
 
         new_job.save!

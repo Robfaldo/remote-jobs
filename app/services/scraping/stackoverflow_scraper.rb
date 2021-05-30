@@ -8,14 +8,14 @@ module Scraping
         search_links[location].each do |link|
           jobs_from_rss = SimpleRSS.parse open(link)
 
-          extract_and_save_job(jobs_from_rss)
+          extract_and_save_job(jobs_from_rss, location)
         end
       end
     end
 
     private
 
-    def extract_and_save_job(jobs_from_rss)
+    def extract_and_save_job(jobs_from_rss, searched_location)
       jobs_from_rss.items.each do |job|
         unless Job.where(source_id: job[:guid]).count > 0
 
@@ -28,7 +28,8 @@ module Scraping
               status: "scraped",
               company: job[:title].split(" at ")[1].split("(")[0].strip,
               job_board: "Stackoverflow",
-              source_id: job[:guid]
+              source_id: job[:guid],
+              searched_location: searched_location
           )
 
           save_job(new_job)
