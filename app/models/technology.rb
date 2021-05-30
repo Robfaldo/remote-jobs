@@ -13,6 +13,10 @@ class Technology < ApplicationRecord
     all_names.concat(all_aliases)
   end
 
+  def parsed_aliases
+    JSON.parse(aliases)
+  end
+
   def self.all_names
     all.map(&:name)
   end

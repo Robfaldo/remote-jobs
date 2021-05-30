@@ -6,7 +6,8 @@ module JobTags
         JobTags::EntryLevel,
         JobTags::Developer,
         JobTags::CurrentStudentsOnly,
-        JobTags::SuitableForBootcampGrads
+        JobTags::SuitableForBootcampGrads,
+        JobTags::AddTechnologies
     ]
 
     def initialize(jobs)

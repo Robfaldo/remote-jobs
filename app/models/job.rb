@@ -172,4 +172,15 @@ class Job < ApplicationRecord
   def approved_with_requirements
     self.approved? && self.has_requirements?
   end
+
+  def technology_matches
+    self.job_technologies.map do |job_technology|
+      {
+        job_technology.technology.name => {
+          title: job_technology.title_matches,
+          description: job_technology.description_matches
+        }
+      }
+    end
+  end
 end
