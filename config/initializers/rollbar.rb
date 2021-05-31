@@ -4,9 +4,9 @@ Rollbar.configure do |config|
 
   config.access_token = ENV["ROLLBAR_TOKEN"]
 
-  # unless Rails.env.production?
-  #   config.enabled = false
-  # end
+  unless Rails.env.production?
+    config.enabled = false
+  end
 
   # https://docs.rollbar.com/docs/ruby - this is where I found this info
   config.send_extra_frame_data = :app # or :all
