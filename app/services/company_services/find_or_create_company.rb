@@ -1,6 +1,9 @@
 module CompanyServices
   class FindOrCreateCompany
     def self.call(company_name)
+      return if company_name == ""
+      return unless company_name
+
       existing_company = CompanyServices::FindCompany.call(company_name)
 
       if existing_company
