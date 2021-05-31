@@ -61,20 +61,22 @@ module CompanyServices
     end
 
     def self.search_all_existing_companies(name_to_search)
-      all_existing_company_names = Company.all.map{|company| { company.name => company.id }}
+      all_company_names_with_ids = Company.all.map{|company| { company.name => company.id }}
 
       matching_existing_company_ids = []
 
-      all_existing_company_names.each do |existing_company_name, existing_company_id|
-        # If the name to search begins with the company name (and has anything afterwards)
-        # So 'Apple' would match 'AppleInc' and 'Apple.inc' and 'Apple inc' etc
-        # Ignore cases (the 'i' does that)
-        if /^#{existing_company_name}*/i.match(name_to_search)
-          matching_existing_company_ids.push(existing_company_id)
+      all_company_names_with_ids.each do |company_name_with_id|
+        company_name_with_id.each do |company_name, id|
+          # If the name to search begins with the company name (and has anything afterwards)
+          # So 'Apple' would match 'AppleInc' and 'Apple.inc' and 'Apple inc' etc
+          # Ignore cases (the 'i' does that)
+          if /^#{company_name}*/i.match(name_to_search)
+            matching_existing_company_ids.push(id)
+          end
+          # I almost used the below to only allow a space, '.', ',' or '-' after the company name.
+          # If I find that the pure wildcard is making too many false positives then I can use this
+          # /^#{existing_company_name}[\s.,-]/.match(name_to_search)
         end
-        # I almost used the below to only allow a space, '.', ',' or '-' after the company name.
-        # If I find that the pure wildcard is making too many false positives then I can use this
-        # /^#{existing_company_name}[\s.,-]/.match(name_to_search)
       end
 
       matching_existing_company_ids
