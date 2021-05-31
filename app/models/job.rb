@@ -3,6 +3,7 @@ class Job < ApplicationRecord
 
   has_many :job_technologies
   has_many :technologies, through: :job_technologies
+  belongs_to :company
 
   SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library totaljobs jobserve reed cwjobs linkedin)
 
