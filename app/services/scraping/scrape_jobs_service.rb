@@ -4,7 +4,7 @@ module Scraping
 
     SCRAPERS_CONCURRENT = [
       # Scraping::CwjobsScraper,
-      # Scraping::TotaljobsScraper,
+      # # Scraping::TotaljobsScraper,
       Scraping::ReedScraper,
       Scraping::JobserveScraper,
       Scraping::CvLibraryScraper,

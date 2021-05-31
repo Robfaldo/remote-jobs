@@ -51,7 +51,7 @@ module Scraping
 				description: description,
 				source: source,
 				status: "scraped",
-				company: FindOrCreateCompany.call(job.company),
+				company: CompanyServices::FindOrCreateCompany.call(job.company),
 				scraped_company: job.company,
 				job_board: "Cwjobs",
 				source_id: job.job_link,
