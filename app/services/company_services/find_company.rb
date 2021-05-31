@@ -38,7 +38,7 @@ module CompanyServices
       message = %{
         More than 1 company found when searching for #{company_name}.
         There were #{matched_names.count} matches.
-        The matches were: #{matched_names}
+        The matches were: #{matched_names.to_ary}
       }
       Rollbar.info(message)
     end
