@@ -83,12 +83,16 @@ module CompanyServices
       # (very uncommon imo) but it seems like an easy step to add.
       name.gsub(' ltd', '')
           .gsub(' ltd ', '')
+          .gsub(' ltd.')
+          .gsub(' ltd. ')
           .gsub(' pvt', '')
           .gsub(' pvt ', '')
           .gsub(' limited', '')
           .gsub(' limited ', '')
           .gsub(' plc', '')
           .gsub(' plc ', '')
+          .gsub(' plc.', '')
+          .gsub(' plc. ', '')
           .gsub(' llc', '')
           .gsub(' llc ', '')
     end
