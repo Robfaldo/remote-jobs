@@ -1,20 +1,41 @@
 module CompanyServices
   class FindCompany
-    def self.call(company_name)
+    def self.call(company_name, only_return_one: true)
       return nil unless company_name
       return nil if company_name == ""
+      raise Rollbar.error(
+        "Invalid company type in FindCompany service. Expected String, got #{company_name.class}. Company name given was #{company_name}"
+      ) unless company_name.class == String
 
-      ###################### First Fuzzy match
-      name_to_search = clean_company_name(company_name)
+      companies_found_in_database = first_fuzzy_match(company_name)
+
+      if companies_found_in_database.present?
+        return only_return_one ? companies_found_in_database.first : companies_found_in_database
+      end
+
+      companies_found_from_inverse_search = second_fuzzy_match(company_name)
+
+      if companies_found_from_inverse_search.present?
+        return only_return_one ? companies_found_from_inverse_search.first : companies_found_from_inverse_search
+      end
+
+      nil # Return nil if nothing was matched
+    end
+
+    private
+
+    def self.first_fuzzy_match(company_name)
       # First use the provided company name to fuzzy match it to companies in the database
+      name_to_search = clean_company_name(company_name)
       companies_found_in_database = search_database_for_company(name_to_search)
 
       rollbar_for_multiple_companies(company_name, companies_found_in_database) if companies_found_in_database.count > 1
-      return companies_found_in_database.first if companies_found_in_database.first
-      ###################### /First Fuzzy match
 
-      ###################### Second Fuzzy match
-      # If we couldn't find a match above then get all the companies from the database and
+      companies_found_in_database
+    end
+
+    def self.second_fuzzy_match(company_name)
+      # If we couldn't find a match from the first fuzzy match then get all the companies from the database and
       # fuzzy match them against the provided company name
       companies_found_from_inverse_search = search_all_existing_companies(company_name)
 
@@ -24,13 +45,9 @@ module CompanyServices
       Rollbar.info('The second fuzzy match was successful') if companies_found_from_inverse_search.count > 0
 
       rollbar_for_multiple_companies(company_name, companies_found_from_inverse_search) if companies_found_from_inverse_search.count > 1
-      return companies_found_from_inverse_search.first if companies_found_from_inverse_search.first
-      ###################### /Second Fuzzy match
 
-      nil # Return nil if nothing was matched
+      companies_found_from_inverse_search
     end
-
-    private
 
     def self.rollbar_for_multiple_companies(company_name, matched_names)
       # I'm interested how often this will happen and I think having this here will help
@@ -65,8 +82,11 @@ module CompanyServices
 
     def self.search_database_for_company(name_to_search)
       # Add a wildcard to the end of the name (to catch things like 'Company Name Ltd' when searching for 'Company Name')
-      # lower(name) downcases the name from the database
-      Company.where("lower(name) LIKE ?", "#{name_to_search}%")
+      # ILIKE will downcase the company name from the database
+      # regexp_replace used like this will remove all the punctuation from the company name in the database
+      # (because the name we use to search does not have any punctuation because we move it)
+      # See this SO I made for an explanation of this search: https://stackoverflow.com/a/67778157/5615805
+      Company.where("regexp_replace(name, '[[:punct:]]', '', 'g') ILIKE ?", "#{name_to_search}%")
     end
 
     def self.clean_company_name(company_name)
@@ -83,8 +103,8 @@ module CompanyServices
       # (very uncommon imo) but it seems like an easy step to add.
       name.gsub(' ltd', '')
           .gsub(' ltd ', '')
-          .gsub(' ltd.')
-          .gsub(' ltd. ')
+          .gsub(' ltd.', '')
+          .gsub(' ltd. ', '')
           .gsub(' pvt', '')
           .gsub(' pvt ', '')
           .gsub(' limited', '')
