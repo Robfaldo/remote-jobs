@@ -30,7 +30,7 @@ module Scraping
               description: job[:description],
               source: :stackoverflow,
               status: "scraped",
-              company: FindOrCreateCompany.call(scraped_company),
+              company: CompanyServices::FindOrCreateCompany.call(scraped_company),
               scraped_company: scraped_company,
               job_board: "Stackoverflow",
               source_id: job[:guid],

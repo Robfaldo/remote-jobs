@@ -41,7 +41,7 @@ module Scraping
           description: job["description"],
           source: :google,
           status: "scraped",
-          company: FindOrCreateCompany.call(job["company"]),
+          company: CompanyServices::FindOrCreateCompany.call(job["company"]),
           scraped_company: job["company"],
           searched_location: searched_location
       )
