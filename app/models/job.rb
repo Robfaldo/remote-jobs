@@ -68,11 +68,17 @@ class Job < ApplicationRecord
     Job.where(status: "approved").reverse_order
   end
 
+  def self.scraped_jobs
+    Job.where(status: "scraped").reverse_order
+  end
+
   def self.by_date_and_source(date, source, status: "approved")
-    if status
-      Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source, status: status)
+    if status && status == :any
+      where(created_at: date.beginning_of_day..date.end_of_day, source: source)
+    elsif status
+      where(created_at: date.beginning_of_day..date.end_of_day, source: source, status: status)
     else
-      Job.where(created_at: date.beginning_of_day..date.end_of_day, source: source)
+      where(created_at: date.beginning_of_day..date.end_of_day, source: source)
     end
   end
 

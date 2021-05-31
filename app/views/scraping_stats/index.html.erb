@@ -10,30 +10,48 @@
       <td><%=date%></td>
       <% @sites.each do |site| %>
         <td>
-          <%= Job.by_date_and_source(date, site.to_sym).count%>
-          (<span class="rejected-count"><%= Job.by_date_and_source(date, site.to_sym, status: "rejected").count %></span>)
+          <div>Total Scraped: (<%= ScrapedJob.by_date_and_source(date, site.to_sym, status: :any).count %>)</div>
+          <div class="total-count">Scraped S: (<%= Job.by_date_and_source(date, site.to_sym, status: "scraped").count %>)</div>
+          <div class="rejected-count">Scraped R: (<%= ScrapedJob.by_date_and_source(date, site.to_sym, status: "approved").count %>)</div>
+          <div class="approved-count">Scraped A: (<%= ScrapedJob.by_date_and_source(date, site.to_sym, status: "rejected").count %>)</div>
+          <br>
+          <div>Total Jobs: (<%= Job.by_date_and_source(date, site.to_sym, status: :any).count %>)</div>
+          <div class="total-count">Job S: (<%= Job.by_date_and_source(date, site.to_sym, status: "scraped").count %>)</div>
+          <div class="rejected-count">Job R: (<%= Job.by_date_and_source(date, site.to_sym, status: "rejected").count %>)</div>
+          <div class="approved-count">Job A: (<%= Job.by_date_and_source(date, site.to_sym, status: "approved").count %>)</div>
         </td>
       <% end %>
     </tr>
   <% end %>
 </table>
 
-<h2 class="approved-header"> Approved jobs stats </h2>
+<h2>Key for above</h2>
+<div> Scraped S = ScrapedJob's with the `scraped` status</div>
+<div>Scraped R = ScrapedJob's with the `rejected` status</div>
+<div>Scraped A = ScrapedJob's with the `approved` status</div>
+
+<h2 class="approved-header"> Combined stats </h2>
 
 <div class="approved-container">
   <div class="approved-titles">
-    <div>No requirements</div>
-    <div>Requires degree only</div>
-    <div>Requires experience only</div>
-    <div>Requires degree & experience</div>
-    <div>Total approved jobs</div>
+    <div>Total ScrapedJobs</div>
+    <div>Total scraped ScrapedJobs</div>
+    <div>Total rejected ScrapedJobs</div>
+    <div>Total approved ScrapedJobs</div>
+    <div>Total Jobs</div>
+    <div>Total scraped Jobs</div>
+    <div>Total rejected Jobs</div>
+    <div>Total approved Jobs</div>
   </div>
 
   <div class="approved-values">
-    <div><%= @total_approved_jobs_with_no_requirements %></div>
-    <div><%= @total_approved_jobs_requiring_only_degree %></div>
-    <div><%= @total_approved_jobs_requiring_only_experience %></div>
-    <div><%= @total_approved_jobs_requiring_degree_and_experience  %></div>
-    <div><%= @total_approved_jobs %></div>
+    <div><%= ScrapedJob.count %></div>
+    <div><%= ScrapedJob.scraped_jobs.count %></div>
+    <div><%= ScrapedJob.approved_jobs.count %></div>
+    <div><%= ScrapedJob.rejected_jobs.count %></div>
+    <div><%= Job.count %></div>
+    <div><%= Job.scraped_jobs.count %></div>
+    <div><%= Job.approved_jobs.count %></div>
+    <div><%= Job.rejected_jobs.count %></div>
   </div>
 </div>

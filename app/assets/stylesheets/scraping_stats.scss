@@ -10,6 +10,14 @@ table, th, td {
   color: red;
 }
 
+.approved-count {
+  color: green;
+}
+
+.total-count {
+  color: blue;
+}
+
 .approved-container {
   display: flex;
   width: 50vw;
