@@ -3,6 +3,8 @@ module DatabaseSeeds
     def self.call
       i = 0
       10.times do
+        company = Company.new(name: "Test company #{i}")
+
         job = Job.new(
           title: "Test title #{i}",
           job_link: "https://www.google.com/",
@@ -10,7 +12,8 @@ module DatabaseSeeds
           description: "Test description #{i}",
           source: ["indeed", "stackoverflow", "google"].sample,
           status: "scraped",
-          company: "Test company #{i}"
+          company: company,
+          searched_location: "London"
         )
 
         job.source_id = "Test source id #{i}" if [1, 2].sample.even?
