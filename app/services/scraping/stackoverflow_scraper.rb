@@ -21,6 +21,8 @@ module Scraping
       jobs_from_rss.items.each do |job|
         unless Job.where(source_id: job[:guid]).count > 0
 
+          scraped_company = job[:title].split(" at ")[1].split("(")[0].strip
+
           new_job = Job.new(
               title: job[:title].split(" at ").first.strip,
               job_link: job[:link],
@@ -28,7 +30,8 @@ module Scraping
               description: job[:description],
               source: :stackoverflow,
               status: "scraped",
-              company: job[:title].split(" at ")[1].split("(")[0].strip,
+              company: FindOrCreateCompany.call(scraped_company),
+              scraped_company: scraped_company,
               job_board: "Stackoverflow",
               source_id: job[:guid],
               searched_location: searched_location

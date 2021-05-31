@@ -3,6 +3,7 @@ class Job < ApplicationRecord
 
   has_many :job_technologies
   has_many :technologies, through: :job_technologies
+  belongs_to :company
 
   SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library totaljobs jobserve reed cwjobs linkedin)
 
@@ -14,6 +15,7 @@ class Job < ApplicationRecord
 
   validates :title, presence: true
   validates :company, presence: true
+  validates :scraped_company, presence: true
   validates :job_link, presence: true
   validates :location, presence: true
   validates :searched_location, presence: true

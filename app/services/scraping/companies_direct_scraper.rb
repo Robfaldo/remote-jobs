@@ -35,7 +35,8 @@ module Scraping
             description: description,
             source: :companies_direct,
             status: "scraped",
-            company: company,
+            company: FindOrCreateCompany.call(company),
+            scraped_company: company,
             job_board: "Companies Direct",
             searched_location: searched_location
         )
