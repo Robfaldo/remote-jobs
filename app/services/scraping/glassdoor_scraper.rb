@@ -64,7 +64,8 @@ module Scraping
         description: description,
         source: source,
         status: "scraped",
-        company: company,
+        company: FindOrCreateCompany.call(company),
+        scraped_company: company,
         job_board: "glassdoor",
         source_id: job.job_link,
         searched_location: job.searched_location

@@ -52,7 +52,8 @@ module Scraping
           description: description,
           source: source,
           status: "scraped",
-          company: company,
+          company: FindOrCreateCompany.call(company),
+          scraped_company: company,
           job_board: "technojobs",
           source_id: job.job_link,
           searched_location: job.searched_location
