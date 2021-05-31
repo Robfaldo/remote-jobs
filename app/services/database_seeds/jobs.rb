@@ -13,6 +13,7 @@ module DatabaseSeeds
           source: ["indeed", "stackoverflow", "google"].sample,
           status: "scraped",
           company: company,
+          scraped_company: "Scraped company name #{i}",
           searched_location: "London"
         )
 
