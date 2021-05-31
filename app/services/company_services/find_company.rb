@@ -36,7 +36,7 @@ module CompanyServices
       # I'm interested how often this will happen and I think having this here will help
       # debug.
       message = %{
-        More than 1 company found when searching for #{company_name}.
+        More than 1 company found when searching for: #{company_name}
         There were #{matched_names.count} matches.
         The matches were: #{matched_names.to_ary}
       }
