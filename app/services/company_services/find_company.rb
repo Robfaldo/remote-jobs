@@ -1,6 +1,9 @@
-module CompanyService
+module CompanyServices
   class FindCompany
     def self.call(company_name)
+      return nil unless company_name
+      return nil if company_name == ""
+
       ###################### First Fuzzy match
       name_to_search = clean_company_name(company_name)
       # First use the provided company name to fuzzy match it to companies in the database

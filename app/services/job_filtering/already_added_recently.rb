@@ -16,32 +16,30 @@ module JobFiltering
     def can_handle?(job)
       identical_links_already_approved = Job.created_last_week.where(job_link: job.job_link)
 
-      identical_data_already_approved = Job.created_last_week.select do |database_job|
-        company_matches(database_job, job) && title_matches(database_job, job)
-      end
-
       if job.class == ScrapedJob
-        # we won't have a description to check, and any matches of actual jobs (i.e. Jobs, not JobsToEvaluate) means there's duplicates
-        @identical_jobs = identical_links_already_approved.to_ary.concat(identical_data_already_approved.to_ary)
-        identical_links_already_approved.count > 0 || identical_data_already_approved.count > 0
-      else
+        existing_company = CompanyServices::FindCompany.call(job.company)
+
+        matches_for_company_and_title =
+          Job.created_last_week
+             .where(company: existing_company)
+             .where("lower(title) LIKE ?", "#{job.title.downcase.strip}%")
+
+        @identical_jobs = identical_links_already_approved.to_ary.concat(matches_for_company_and_title.to_ary)
+
+        return true if matches_for_company_and_title.count > 0 || identical_links_already_approved.count > 0
+      elsif job.class == Job
         identical_description_already_approved = Job.created_last_week.where(description: job.description)
 
-        @identical_jobs = identical_links_already_approved.to_ary.concat(identical_data_already_approved.to_ary).concat(identical_description_already_approved.to_ary)
+        matches_for_company_and_title =
+          Job.created_last_week
+             .where(company: job.company)
+             .where("lower(title) LIKE ?", "#{job.title.downcase.strip}%")
+
+        @identical_jobs = identical_links_already_approved.to_ary.concat(matches_for_company_and_title.to_ary).concat(identical_description_already_approved.to_ary)
 
         # over 1 because the Job has already been saved (we run this service after scraping & saving jobs) so there will be 1 matching already, any more means there's duplicates.
-        identical_links_already_approved.count > 1 || identical_description_already_approved.count > 1 || identical_data_already_approved.count > 1
+        identical_links_already_approved.count > 1 || identical_description_already_approved.count > 1 || matches_for_company_and_title.count > 1
       end
-    end
-
-    def company_matches(database_job, job)
-      return false unless job.company
-
-      CompanyService::FindCompany.call(job.company)
-    end
-
-    def title_matches(database_job, job)
-      database_job.title.downcase.strip == job.title.downcase.strip
     end
   end
 end
