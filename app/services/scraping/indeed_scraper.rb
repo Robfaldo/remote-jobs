@@ -80,8 +80,6 @@ module Scraping
           searched_location: job.searched_location
       )
 
-      binding.pry
-
       save_job(new_job, scraped_job_page)
     end
   end
