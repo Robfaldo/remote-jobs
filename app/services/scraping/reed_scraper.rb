@@ -35,7 +35,7 @@ module Scraping
 		def create_job(job, scraped_job_page)
 			location = scraped_job_page.xpath("//span[@itemprop='addressLocality']").first.text.strip
 			company = scraped_job_page.xpath("//span[@itemprop='name']").first.text.strip
-			description = scraped_job_page.search('.description').first.text
+			description = scraped_job_page.search('.description').first&.text || scraped_job_page.xpath("//span[@itemprop='name']").first.text
 
 			new_job = Job.new(
 				title: job.title,
