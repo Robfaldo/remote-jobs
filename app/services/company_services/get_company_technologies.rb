@@ -26,5 +26,30 @@ module CompanyServices
         )
       end
     end
+
+    def self.all_companies
+      Company.all.map do |company|
+        technologies_with_occurrence_data = company.job_technologies.group(:technology_id).pluck(
+          :technology_id,
+          JobTechnology.arel_table[:title_matches].sum,
+          JobTechnology.arel_table[:description_matches].sum
+        )
+
+        company_technologies = technologies_with_occurrence_data.map do |technology_data|
+          technology_id = technology_data.first
+          title_matches = technology_data.second
+          description_matches = technology_data.third
+
+          CompanyTechnology.new(
+            technology: Technology.find(technology_id),
+            title_matches: title_matches,
+            description_matches: description_matches
+          )
+        end
+
+        #TODO: think about whether I want to structure this data differently
+        [company, company_technologies]
+      end
+    end
   end
 end
