@@ -38,7 +38,7 @@ module Scraping
 
       description = first_description == "" ? second_description : first_description
 
-      scraped_company = scraped_job_page.search('//span[@data-jd-company]').text.strip
+      scraped_company = scraped_job_page.search('//span[@data-jd-company]').text.strip || scraped_job_page.search('//dd[@data-jd-company]').text.strip
 
       new_job = Job.new(
           title: scraped_job_page.search('//span[@data-jd-title]').text,
