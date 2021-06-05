@@ -53,20 +53,8 @@ module Scraping
           job_board: "cv_library",
           searched_location: job.searched_location
       )
-      begin
-        save_job(new_job, scraped_job_page)
-      rescue ActiveRecord::AssociationTypeMismatch => e
-        rollbar_error = Rollbar.error(e, job: job.instance_values.to_s)
-        job_for_email = job.attributes
-        job_for_email["description"] = "removed"
 
-        ScraperMailer.job_save_error_html(
-          html: scraped_job_page.to_html,
-          job: job_for_email,
-          error: e,
-          rollbar_uuid: rollbar_error[:uuid]
-        ).deliver_now
-      end
+      save_job(new_job, scraped_job_page)
     end
   end
 end
