@@ -13,7 +13,7 @@
   used_for_backend: true
 
 - name: go
-  aliases: []
+  aliases: [golang]
   is_language: true
   is_framework: false
   used_for_frontend: false
