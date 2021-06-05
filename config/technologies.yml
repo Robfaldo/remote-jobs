@@ -244,7 +244,7 @@
   used_for_backend: true
 
 - name: rails
-  aliases: []
+  aliases: ["ruby on rails", ror, "ruby-on-rails"]
   is_language: false
   is_framework: true
   used_for_frontend: true

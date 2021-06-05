@@ -14,3 +14,5 @@ Groups:
   developer: developer
   current_students_only: current_students_only
   suitable_for_bootcamp_grads: suitable_for_bootcamp_grads
+Technologies:
+  ruby_job: ruby_job
