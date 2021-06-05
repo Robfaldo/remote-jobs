@@ -24,7 +24,7 @@ module Scraping
     end
 
     def job_element
-      '.result-card'
+      '.base-card'
     end
 
     def job_element_title(job)
