@@ -39,11 +39,6 @@ module CompanyServices
       # fuzzy match them against the provided company name
       companies_found_from_inverse_search = search_all_existing_companies(company_name)
 
-      # This second search is quite intensive, especially as we do it so often. I'm curious how often
-      # it will actually provide a match that the above didn't. If this isn't triggered much then
-      # I should remove it to cut down on the operation costs of this service
-      Rollbar.info('The second fuzzy match was successful') if companies_found_from_inverse_search.count > 0
-
       rollbar_for_multiple_companies(company_name, companies_found_from_inverse_search) if companies_found_from_inverse_search.count > 1
 
       companies_found_from_inverse_search
