@@ -71,7 +71,7 @@ module CompanyServices
           # So 'Apple' would match 'AppleInc' and 'Apple.inc' and 'Apple inc' etc
           # Ignore cases (the 'i' does that)
           if /^#{company_name}*/i.match(name_to_search)
-            matching_existing_company_ids.push(id)
+            matching_existing_company_ids.push(Company.find(id))
           end
           # I almost used the below to only allow a space, '.', ',' or '-' after the company name.
           # If I find that the pure wildcard is making too many false positives then I can use this
