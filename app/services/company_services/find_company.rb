@@ -65,7 +65,7 @@ module CompanyServices
           # If the name to search begins with the company name (and has anything afterwards)
           # So 'Apple' would match 'AppleInc' and 'Apple.inc' and 'Apple inc' etc
           # Ignore cases (the 'i' does that)
-          if /^#{company_name}*/i.match(name_to_search)
+          if /^#{company_name}\s*/i.match(name_to_search)
             matching_existing_company_ids.push(Company.find(id))
           end
           # I almost used the below to only allow a space, '.', ',' or '-' after the company name.
