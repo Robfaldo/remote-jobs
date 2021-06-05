@@ -9,7 +9,7 @@ module Scraping
     def scrape_all_jobs_page_options(link)
       {
         link: link,
-        wait_time: 10000,
+        wait_time: 20000,
         premium_proxy: true,
         use_bee: true
       }
