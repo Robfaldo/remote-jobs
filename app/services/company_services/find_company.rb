@@ -3,9 +3,8 @@ module CompanyServices
     def self.call(company_name, only_return_one: true)
       return nil unless company_name
       return nil if company_name == ""
-      raise Rollbar.error(
-        "Invalid company type in FindCompany service. Expected String, got #{company_name.class}. Company name given was #{company_name}"
-      ) unless company_name.class == String
+      error_message = "Invalid company type in FindCompany service. Expected String, got #{company_name.class}. Company name given was #{company_name}"
+      SendToErrorMonitors.send_error(error: error_message) unless company_name.class == String
 
       companies_found_in_database = first_fuzzy_match(company_name)
 
@@ -52,7 +51,7 @@ module CompanyServices
         There were #{matched_names.count} matches.
         The matches were: #{matched_names.to_ary}
       }
-      Rollbar.info(message)
+      SendToErrorMonitors.send_notification(message: message)
     end
 
     def self.search_all_existing_companies(name_to_search)

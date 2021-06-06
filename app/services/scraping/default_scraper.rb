@@ -23,7 +23,7 @@ module Scraping
             scrape_additional_pages(remaining_pages, link, location)
           end
         rescue => e
-          Rollbar.error(e, link: link, location: location)
+          SendToErrorMonitors.send_error(error: e, additional: {link: link, location: location})
         end
       end
     end
@@ -65,7 +65,7 @@ module Scraping
 
           jobs.push(scraped_job)
         rescue => e
-          Rollbar.error(e, job: job)
+          SendToErrorMonitors.send_error(error: e, additional: { job: job })
         end
       end
 
@@ -80,7 +80,7 @@ module Scraping
 
           create_job(job, scraped_job_page)
         rescue => e
-          rollbar_error = Rollbar.error(e, job: job.instance_values.to_s)
+          rollbar_error = SendToErrorMonitors.send_error(error: e, additional: { job: job.instance_values.to_s })
 
           if scraped_job_page
             job_for_email = job.attributes
@@ -122,7 +122,7 @@ module Scraping
         retry if job_save_retries < 3
         raise e
       rescue => e
-        rollbar_error = Rollbar.error(e, job: job.attributes)
+        rollbar_error = SendToErrorMonitors.send_error(error e, additional: { job: job.attributes })
 
         if scraped_page
           job_for_email = job.attributes
