@@ -20,7 +20,7 @@ module Scraping
             begin
               create_job(job, job_link, location)
             rescue => e
-              Rollbar.error(e, job: job)
+              SendToErrorMonitors.send_error(error: e, additional: { job: job })
             end
           end
         end

@@ -21,7 +21,7 @@ module Scraping
     ]
 
     def call
-      Rollbar.info("Scraping Started")
+      SendToErrorMonitors.send_notification(message: "Scraping Started")
 
       time_started = Time.now
 
@@ -38,7 +38,7 @@ module Scraping
         puts e.class
         puts e
 
-        Rollbar.error(e)
+        SendToErrorMonitors.send_error(error: e)
       end
 
       SCRAPERS_CONSECUTIVE.each do |scraper|
@@ -53,7 +53,7 @@ module Scraping
 
       total_time_to_scrape = Time.now - time_started
 
-      Rollbar.info("Scraping Completed", time_started: time_started, total_time_to_scrape: total_time_to_scrape, results: results)
+      SendToErrorMonitors.send_notification("Scraping Completed", time_started: time_started, total_time_to_scrape: total_time_to_scrape, results: results)
     end
   end
 end
