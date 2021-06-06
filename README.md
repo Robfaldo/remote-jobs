@@ -39,4 +39,8 @@ To get Sentry to fire events in development environment you need to go into `app
 
 To start Sentry firing events, either you do the opposite of above or just pass that env variable when starting the app (`SENTRY_DSN='sentry_dsn_goes_here'`)
 
+FYI the 'additional info' that we send with error messages will be saved as tags in sentry (see below): 
+
+![img.png](img.png)
+
 For Rollbar you can go into the rollbar initializer and there's a section to comment out, there's a note next to it. 
