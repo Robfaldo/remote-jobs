@@ -28,19 +28,23 @@ module Scraping
     end
 
     def job_element_title(job)
-      job.search('.result-card__full-card-link').text.strip
+      job.search('.base-search-card__title').first.text.strip
     end
 
     def job_element_location(job)
-      job.search('.job-result-card__location').first.text.strip
+      job.search('.job-search-card__location').first.text.strip
     end
 
     def job_element_company(job)
-      job.search('.result-card__subtitle-link').text.strip
+      job.search('.base-search-card__subtitle').first.text.strip
     end
 
     def job_element_link(job)
-      job.search('.result-card__full-card-link').first.get_attribute('href')
+      begin
+        job.search('.base-card__full-link').first.get_attribute('href')
+      rescue
+        job.search('.base-search-card__title').first.ancestors('a').first.get_attribute('href')
+      end
     end
 
     def create_job(job, scraped_job_page)
