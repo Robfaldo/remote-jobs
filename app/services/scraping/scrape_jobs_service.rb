@@ -53,7 +53,7 @@ module Scraping
 
       total_time_to_scrape = Time.now - time_started
 
-      SendToErrorMonitors.send_notification("Scraping Completed", time_started: time_started, total_time_to_scrape: total_time_to_scrape, results: results)
+      SendToErrorMonitors.send_notification(message: "Scraping Completed", additional: { time_started: time_started, total_time_to_scrape: total_time_to_scrape, results: results })
     end
   end
 end
