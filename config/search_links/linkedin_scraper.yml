@@ -1,14 +1,14 @@
 London:
   links:
     # software AND (developer OR engineer)
-    - https://www.linkedin.com/jobs/search/?f_TP=1&f_TPR=r86400&geoId=102257491&keywords=software%20AND%20(developer%20OR%20engineer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
+    - https://www.linkedin.com/jobs/search/?keywords=software%20AND%20(developer%20OR%20engineer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
     # (backend OR back-end OR "back end") AND (developer OR Engineer)
-    - https://www.linkedin.com/jobs/search/?f_TP=1&f_TPR=r86400&geoId=102257491&keywords=(backend%20OR%20back-end%20OR%20%22back%20end%22)%20AND%20(developer%20OR%20Engineer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
+    - https://www.linkedin.com/jobs/search/?keywords=(backend%20OR%20back-end%20OR%20%22back%20end%22)%20AND%20(developer%20OR%20Engineer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
     # (frontend OR front-end OR "front end") AND (developer OR Engineer)
-    - https://www.linkedin.com/jobs/search/?f_TP=1&f_TPR=r86400&geoId=102257491&keywords=(frontend%20OR%20front-end%20OR%20%22front%20end%22)%20AND%20(developer%20OR%20Engineer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
+    - https://www.linkedin.com/jobs/search/?keywords=(frontend%20OR%20front-end%20OR%20%22front%20end%22)%20AND%20(developer%20OR%20Engineer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
     # (full-stack OR "full stack" OR fullstack) AND (engineer OR developer)
-    - https://www.linkedin.com/jobs/search/?f_TP=1&f_TPR=r86400&geoId=102257491&keywords=(full-stack%20OR%20%22full%20stack%22%20OR%20fullstack)%20AND%20(engineer%20OR%20developer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
+    - https://www.linkedin.com/jobs/search/?keywords=(full-stack%20OR%20%22full%20stack%22%20OR%20fullstack)%20AND%20(engineer%20OR%20developer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
     # ("software Development" or "software Engineering" or "web Development" or Programmer or Programming OR coding)
-    - https://www.linkedin.com/jobs/search/?f_TP=1&f_TPR=r86400&geoId=102257491&keywords=(%22software%20Development%22%20or%20%22software%20Engineering%22%20or%20%22web%20Development%22%20or%20Programmer%20or%20Programming%20OR%20coding)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
+    - https://www.linkedin.com/jobs/search/?keywords=(%22software%20Development%22%20or%20%22software%20Engineering%22%20or%20%22web%20Development%22%20or%20Programmer%20or%20Programming%20OR%20coding)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
   search_by_technology: true
-  search_by_technology_url_pattern: https://www.linkedin.com/jobs/search/?f_TP=1&f_TPR=r86400&geoId=102257491&keywords=(ADDTECHNOLOGIESHERE)%20AND%20(developer%20OR%20engineer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
+  search_by_technology_url_pattern: https://www.linkedin.com/jobs/search/?keywords=(ADDTECHNOLOGIESHERE)%20AND%20(developer%20OR%20engineer)&location=London%2C%20England%2C%20United%20Kingdom&sortBy=DD
