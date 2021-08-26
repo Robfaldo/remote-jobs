@@ -18,7 +18,7 @@ module Scraping
             next if Job.where(job_link: job_link).count > 0
 
             begin
-              create_job(job, job_link, location)
+              create_job(job, job_link, location, scraped_page)
             rescue => e
               SendToErrorMonitors.send_error(error: e, additional: { job: job })
             end
@@ -29,26 +29,23 @@ module Scraping
 
     private
 
-    def create_job(job, job_link, searched_location)
+    def create_job(job, job_link, searched_location, scraped_page)
       if !job["location"]
         job["location"] = searched_location
       end
 
-      new_job = Job.new(
-          title: job["title"],
-          job_link: job_link,
-          location: job["location"],
-          description: job["description"],
-          source: :google,
-          status: "scraped",
-          company: CompanyServices::FindOrCreateCompany.call(job["company"]),
-          scraped_company: job["company"],
-          searched_location: searched_location
+      CreateJobService.call(
+        title: job["title"],
+        job_link: job_link,
+        location: job["location"],
+        description: job["description"],
+        source: :google,
+        status: "scraped",
+        scraped_company: job["company"],
+        searched_location: searched_location,
+        scraped_page_html: scraped_page.to_html,
+        job_board: job["job_board"] # This will sometimes be nil
       )
-
-      new_job.job_board = job["job_board"] if job["job_board"]
-
-      save_job(new_job)
     end
 
     def javascript

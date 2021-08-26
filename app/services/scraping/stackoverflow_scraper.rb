@@ -23,21 +23,18 @@ module Scraping
 
           scraped_company = job[:title].split(" at ")[1].split("(")[0].strip
 
-          new_job = Job.new(
-              title: job[:title].split(" at ").first.strip,
-              job_link: job[:link],
-              location: job[:title].split(" at ")[1].split("(")[1].strip.split(",")[0],
-              description: job[:description],
-              source: :stackoverflow,
-              status: "scraped",
-              company: CompanyServices::FindOrCreateCompany.call(scraped_company),
-              scraped_company: scraped_company,
-              job_board: "Stackoverflow",
-              source_id: job[:guid],
-              searched_location: searched_location
+          CreateJobService.call(
+            title: job[:title].split(" at ").first.strip,
+            job_link: job[:link],
+            location: job[:title].split(" at ")[1].split("(")[1].strip.split(",")[0],
+            description: job[:description],
+            source: :stackoverflow,
+            status: "scraped",
+            scraped_company: scraped_company,
+            job_board: "Stackoverflow",
+            source_id: job[:guid],
+            searched_location: searched_location
           )
-
-          save_job(new_job)
         end
       end
     end
