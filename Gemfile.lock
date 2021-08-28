@@ -93,6 +93,7 @@ GEM
     childprocess (3.0.0)
     coderay (1.1.2)
     concurrent-ruby (1.1.6)
+    connection_pool (2.2.5)
     crass (1.0.6)
     declarative (0.0.20)
     declarative-option (0.1.0)
@@ -291,6 +292,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.4.0)
     regexp_parser (1.7.1)
     remotipart (1.4.4)
     representable (3.0.4)
@@ -344,6 +346,10 @@ GEM
     sentry-ruby (4.1.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       faraday (>= 1.0)
+    sidekiq (6.2.2)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     signet (0.14.0)
       addressable (~> 2.3)
       faraday (>= 0.17.3, < 2.0)
@@ -432,6 +438,7 @@ DEPENDENCIES
   selenium-webdriver
   sentry-rails
   sentry-ruby
+  sidekiq (~> 6.2)
   simple-rss
   spring
   spring-watcher-listen (~> 2.0.0)

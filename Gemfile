@@ -100,3 +100,5 @@ gem 'omniauth', '~> 1.1'
 gem 'omniauth-google-oauth2'
 
 gem "figaro"
+
+gem "sidekiq", '~> 6.2'
