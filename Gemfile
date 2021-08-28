@@ -102,3 +102,4 @@ gem 'omniauth-google-oauth2'
 gem "figaro"
 
 gem "sidekiq", '~> 6.2'
+gem 'sidekiq-limit_fetch'
