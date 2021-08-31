@@ -16,8 +16,8 @@ module Scraping
     # ones that use ScrapingBee that can't be run concurrently
     SCRAPERS_CONSECUTIVE = [
       # Scraping::LinkedinScraper,
-      Scraping::GlassdoorScraper,
-      Scraping::GoogleScraper
+      # Scraping::GoogleScraper
+      Scraping::GlassdoorScraper
     ]
 
     def call
