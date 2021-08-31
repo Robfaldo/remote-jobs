@@ -20,25 +20,25 @@ module Scraping
     end
 
     def job_element
-      '.jobsearch-SerpJobCard'
+      '.result'
     end
 
     def job_element_company(job)
-      job.search('.company').search('a').text.strip
+      job.search('.companyName').text.strip
     end
 
     def job_element_title(job)
-      job.search('.title').search('a').text.strip
+      job.search('[@title]').first.text
     end
 
     def job_element_location(job)
-      job.search('.location').text
+      job.search('.companyLocation').text.strip
     end
 
     def job_element_link(job)
-      scraped_link = job.search('.title').search('a').first.get_attribute('href')
+      scraped_link = job.get_attribute('href')
 
-      'https://www.indeed.co.uk/viewjob' + scraped_link.gsub('/rc/clk', '')
+      'https://uk.indeed.com/viewjob' + scraped_link.gsub('/rc/clk', '')
     end
 
     def handle_pagination
