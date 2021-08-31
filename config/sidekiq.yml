@@ -1,0 +1,4 @@
+:queues:
+  - calls_database
+:limits:
+  calls_database: 2 # Only allow 2 processes that make calls to the database to be executed at any one time to avoid ActiveRecord::ConnectionTimeoutError caused by trying to save too many things at once.

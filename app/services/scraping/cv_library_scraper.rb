@@ -43,7 +43,7 @@ module Scraping
         scraped_job_page.search('//*[contains(concat( " ", @class, " " ), concat( " ", "job__details-value", " " ))]//a').text.strip ||
         scraped_job_page.search('.bg-border > .job__details-value a').text
 
-      CreateJobService.call(
+      CreateJobJob.perform_later(
         title: scraped_job_page.search('//span[@data-jd-title]').text,
         job_link: job.job_link,
         location: location,
