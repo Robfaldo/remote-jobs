@@ -37,21 +37,19 @@ module Scraping
 			company = scraped_job_page.xpath("//span[@itemprop='name']").first.text.strip
 			description = scraped_job_page.search('.description').first&.text || scraped_job_page.xpath("//span[@itemprop='name']").first.text
 
-			new_job = Job.new(
+			CreateJobService.call(
 				title: job.title,
 				job_link: job.job_link,
 				location: location,
 				description: description,
 				source: source,
 				status: "scraped",
-				company: CompanyServices::FindOrCreateCompany.call(company),
 				scraped_company: company,
 				job_board: "Reed",
 				source_id: job.job_link,
-				searched_location: job.searched_location
+				searched_location: job.searched_location,
+				scraped_page_html: scraped_job_page.to_html
 			)
-
-			save_job(new_job, scraped_job_page)
 		end
 	end
 end

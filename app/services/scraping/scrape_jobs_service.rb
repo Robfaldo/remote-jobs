@@ -5,19 +5,19 @@ module Scraping
     SCRAPERS_CONCURRENT = [
       # Scraping::CwjobsScraper,
       # # Scraping::TotaljobsScraper,
-      Scraping::ReedScraper,
-      Scraping::JobserveScraper,
+      # Scraping::ReedScraper,
+      # Scraping::JobserveScraper,
       Scraping::CvLibraryScraper,
-      Scraping::IndeedScraper,
-      Scraping::StackoverflowScraper,
-      Scraping::TechnojobsScraper
+      # Scraping::IndeedScraper,
+      # Scraping::StackoverflowScraper,
+      # Scraping::TechnojobsScraper
     ]
 
     # ones that use ScrapingBee that can't be run concurrently
     SCRAPERS_CONSECUTIVE = [
       # Scraping::LinkedinScraper,
-      Scraping::GlassdoorScraper,
-      Scraping::GoogleScraper
+      # Scraping::GlassdoorScraper,
+      # Scraping::GoogleScraper
     ]
 
     def call

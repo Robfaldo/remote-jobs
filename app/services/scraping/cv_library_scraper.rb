@@ -43,21 +43,19 @@ module Scraping
         scraped_job_page.search('//*[contains(concat( " ", @class, " " ), concat( " ", "job__details-value", " " ))]//a').text.strip ||
         scraped_job_page.search('.bg-border > .job__details-value a').text
 
-      new_job = Job.new(
-          title: scraped_job_page.search('//span[@data-jd-title]').text,
-          job_link: job.job_link,
-          location: location,
-          description: description,
-          source: source,
-          status: "scraped",
-          company: CompanyServices::FindOrCreateCompany.call(scraped_company),
-          scraped_company: scraped_company,
-          source_id: job.job_link,
-          job_board: "cv_library",
-          searched_location: job.searched_location
+      CreateJobJob.perform_later(
+        title: scraped_job_page.search('//span[@data-jd-title]').text,
+        job_link: job.job_link,
+        location: location,
+        description: description,
+        source: source,
+        status: "scraped",
+        scraped_company: scraped_company,
+        source_id: job.job_link,
+        job_board: "cv_library",
+        searched_location: job.searched_location,
+        scraped_page_html: scraped_job_page.to_html
       )
-
-      save_job(new_job, scraped_job_page)
     end
   end
 end
