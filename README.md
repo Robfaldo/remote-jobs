@@ -44,3 +44,8 @@ FYI the 'additional info' that we send with error messages will be saved as tags
 ![img.png](img.png)
 
 For Rollbar you can go into the rollbar initializer and there's a section to comment out, there's a note next to it. 
+
+
+## Monitoring
+
+This app uses New Relic for monitoring. It's under robertfaldo@gmail.com and login details in 1password.
