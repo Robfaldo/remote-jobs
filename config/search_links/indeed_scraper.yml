@@ -1,14 +1,20 @@
 London:
   links:
-    # software AND (developer OR engineer)
-    - https://uk.indeed.com/jobs?q=software+AND+%28developer+OR+engineer%29&l=London&radius=15&fromage=1&sort=date
-    # (backend OR back-end OR "back end") AND (developer OR Engineer)
-    - https://uk.indeed.com/jobs?q=%28frontend+OR+front-end+OR+%22front+end%22%29+AND+%28developer+OR+Engineer%29&l=london&sort=date&fromage=1
-    # (frontend OR front-end OR "front end") AND (developer OR Engineer)
-    - https://uk.indeed.com/jobs?q=%28frontend+OR+front-end+OR+%22front+end%22%29+AND+%28developer+OR+Engineer%29&l=london&sort=date
-    # (full-stack OR "full stack" OR fullstack) AND (engineer OR developer)
-    - https://uk.indeed.com/jobs?q=%28full-stack+OR+%22full+stack%22+OR+fullstack%29+AND+%28engineer+OR+developer%29&l=london&sort=date&fromage=1
-    # ("software Development" or "software Engineering" or "web Development" or Programmer or Programming OR coding)
-    - https://uk.indeed.com/jobs?q=%28%22software+Development%22+or+%22software+Engineering%22+or+%22web+Development%22+or+Programmer+or+Programming+OR+coding%29&l=London&radius=15&fromage=1&sort=date
-  search_by_technology: true
-  search_by_technology_url_pattern: https://uk.indeed.com/jobs?q=%28ADDTECHNOLOGIESHERE%29+AND+%28developer+OR+engineer%29&l=London&radius=15&fromage=1&sort=date
+    # Within 15 miles of London, last 24 hours, "Ruby (developer or Engineer or Software)"
+    - https://uk.indeed.com/jobs?q=Ruby+%28developer+or+Engineer+or+Software%29&l=London&radius=15&fromage=1
+  search_by_technology: false
+
+#London:
+#  links:
+#    # software AND (developer OR engineer)
+#    - https://uk.indeed.com/jobs?q=software+AND+%28developer+OR+engineer%29&l=London&radius=15&fromage=1&sort=date
+#    # (backend OR back-end OR "back end") AND (developer OR Engineer)
+#    - https://uk.indeed.com/jobs?q=%28frontend+OR+front-end+OR+%22front+end%22%29+AND+%28developer+OR+Engineer%29&l=london&sort=date&fromage=1
+#    # (frontend OR front-end OR "front end") AND (developer OR Engineer)
+#    - https://uk.indeed.com/jobs?q=%28frontend+OR+front-end+OR+%22front+end%22%29+AND+%28developer+OR+Engineer%29&l=london&sort=date
+#    # (full-stack OR "full stack" OR fullstack) AND (engineer OR developer)
+#    - https://uk.indeed.com/jobs?q=%28full-stack+OR+%22full+stack%22+OR+fullstack%29+AND+%28engineer+OR+developer%29&l=london&sort=date&fromage=1
+#    # ("software Development" or "software Engineering" or "web Development" or Programmer or Programming OR coding)
+#    - https://uk.indeed.com/jobs?q=%28%22software+Development%22+or+%22software+Engineering%22+or+%22web+Development%22+or+Programmer+or+Programming+OR+coding%29&l=London&radius=15&fromage=1&sort=date
+#  search_by_technology: true
+#  search_by_technology_url_pattern: https://uk.indeed.com/jobs?q=%28ADDTECHNOLOGIESHERE%29+AND+%28developer+OR+engineer%29&l=London&radius=15&fromage=1&sort=date

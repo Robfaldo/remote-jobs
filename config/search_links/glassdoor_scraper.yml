@@ -1,5 +1,10 @@
 London:
   links:
-    # All engineering jobs in London
-    - https://www.glassdoor.co.uk/Job/london-jobs-SRCH_IL.0,6_IC2671300.htm?fromAge=1&radius=0&cityId=2671300&sgocId=7
-    - https://www.glassdoor.co.uk/Job/london-jobs-SRCH_IL.0,6_IC2671300.htm?fromAge=1&radius=0&cityId=2671300&sgocId=11
+    # Posted in the last day, 15 miles of London, "ruby and (developer or engineer or software)"
+    - https://www.glassdoor.co.uk/Job/jobs.htm?sc.generalKeyword=ruby+and+%28developer+or+engineer+or+software%29&sc.locationSeoString=london&locId=2671300&locT=C?fromAge=1&radius=15
+
+#London:
+#  links:
+#    # All engineering jobs in London
+#    - https://www.glassdoor.co.uk/Job/london-jobs-SRCH_IL.0,6_IC2671300.htm?fromAge=1&radius=0&cityId=2671300&sgocId=7
+#    - https://www.glassdoor.co.uk/Job/london-jobs-SRCH_IL.0,6_IC2671300.htm?fromAge=1&radius=0&cityId=2671300&sgocId=11
