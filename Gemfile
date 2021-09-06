@@ -101,4 +101,4 @@ gem 'omniauth-google-oauth2'
 
 gem "figaro"
 
-# gem 'newrelic_rpm'
+gem 'newrelic_rpm'
