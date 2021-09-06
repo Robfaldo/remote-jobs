@@ -197,7 +197,6 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nested_form (0.3.2)
-    newrelic_rpm (7.2.0)
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
@@ -415,7 +414,6 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.7)
   listen (~> 3.2)
-  newrelic_rpm
   omniauth (~> 1.1)
   omniauth-google-oauth2
   pagy (~> 3.5)
