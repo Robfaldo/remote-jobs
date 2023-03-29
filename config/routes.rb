@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   end
 
   devise_for :admins
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   # root 'live_jobs#index'
   root 'placeholder#index'
