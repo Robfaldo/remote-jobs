@@ -7,25 +7,33 @@ module Scraping
     include ScrapingHelper
 
     def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false, use_bee: false, use_luminati: false)
-      if javascript_snippet || custom_google || use_bee
-        response = ScrapingBee.new.scrape_page(
-          link: link,
-          javascript_snippet: javascript_snippet,
-          wait_time: wait_time,
-          custom_google: custom_google,
-          premium_proxy: premium_proxy
-        )
-      elsif use_luminati
-        response = Luminati.new.scrape_page(
-          link: link
-        )
-      else
-        response = Zenscrape.new.scrape_page(
-          link: link,
-          wait_time: wait_time,
-          premium_proxy: premium_proxy
-        )
-      end
+      response = ScrapingBee.new.scrape_page(
+        link: link,
+        javascript_snippet: javascript_snippet,
+        wait_time: wait_time,
+        custom_google: custom_google,
+        premium_proxy: premium_proxy
+      )
+
+      # if javascript_snippet || custom_google || use_bee
+      #   response = ScrapingBee.new.scrape_page(
+      #     link: link,
+      #     javascript_snippet: javascript_snippet,
+      #     wait_time: wait_time,
+      #     custom_google: custom_google,
+      #     premium_proxy: premium_proxy
+      #   )
+      # elsif use_luminati
+      #   response = Luminati.new.scrape_page(
+      #     link: link
+      #   )
+      # else
+      #   response = Zenscrape.new.scrape_page(
+      #     link: link,
+      #     wait_time: wait_time,
+      #     premium_proxy: premium_proxy
+      #   )
+      # end
 
       begin
         Nokogiri::HTML.parse(response.body)

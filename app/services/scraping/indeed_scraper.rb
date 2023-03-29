@@ -36,7 +36,9 @@ module Scraping
     end
 
     def job_element_link(job)
-      scraped_link = job.get_attribute('href')
+      scraped_link = job.search('a').find do |element|
+        element.get_attribute('href') && element.get_attribute('href').include?('rc/clk?')
+      end.get_attribute('href')
 
       'https://uk.indeed.com/viewjob' + scraped_link.gsub('/rc/clk', '')
     end
