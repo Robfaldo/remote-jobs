@@ -14,7 +14,7 @@ module Scraping
 
         links_to_scrape.each do |link|
           options = scrape_all_jobs_page_options(link)
-          scraped_all_jobs_page = scraper.scrape_page(options)
+          scraped_all_jobs_page = scraper.scrape_page(**options)
 
           process_all_jobs_page(scraped_all_jobs_page, location)
 
@@ -76,7 +76,7 @@ module Scraping
       jobs.each do |job|
         begin
           options = scrape_job_page_options(job)
-          scraped_job_page = scraper.scrape_page(options)
+          scraped_job_page = scraper.scrape_page(**options)
 
           create_job(job, scraped_job_page)
         rescue => e
@@ -105,7 +105,7 @@ module Scraping
         break if current_paginated_page > MAX_PAGINATION_PAGES_TO_SCRAPE
 
         options = scrape_all_jobs_page_options(paginated_page_link)
-        scraped_all_jobs_page = scraper.scrape_page(options)
+        scraped_all_jobs_page = scraper.scrape_page(**options)
 
         process_all_jobs_page(scraped_all_jobs_page, searched_location)
       end
