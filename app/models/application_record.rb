@@ -1,5 +1,5 @@
 class ApplicationRecord < ActiveRecord::Base
-  self.abstract_class = true
+  primary_abstract_class
 
   scope :created_today, lambda{ where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
   scope :created_last_3_days, lambda{ where(created_at: (Date.today - 3)..Date.today.end_of_day) }
