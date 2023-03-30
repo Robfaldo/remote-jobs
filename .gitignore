@@ -51,3 +51,7 @@ nokogiri_saved_webpage.html
 
 # Ignore application configuration
 /config/application.yml
+
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep

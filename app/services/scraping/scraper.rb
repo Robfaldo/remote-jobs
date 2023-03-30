@@ -1,5 +1,3 @@
-require "scraper_api"
-
 module Scraping
   class Scraper
     class NotFoundResponse < StandardError; end
