@@ -55,6 +55,13 @@ module Scraping
         minutes_to_scrape = (Time.now - scraper_start_time) / 60
 
         results.push({ scraper: scraper, scraper_start_time: scraper_start_time, minutes_to_scrape: minutes_to_scrape })
+
+      rescue => e
+        puts "RollBarErrorHere:"
+        puts e.class
+        puts e
+
+        SendToErrorMonitors.send_error(error: e)
       end
 
       total_time_to_scrape = Time.now - time_started
