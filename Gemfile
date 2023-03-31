@@ -87,8 +87,6 @@ gem 'webdrivers'
 # connect to gmail
 gem 'google-api-client'
 
-gem "sentry-ruby"
-gem "sentry-rails"
 gem 'rollbar'
 
 # for tagging
