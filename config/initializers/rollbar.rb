@@ -4,13 +4,9 @@ Rollbar.configure do |config|
 
   config.access_token = ENV["ROLLBAR_TOKEN"]
 
-  unless Rails.env.production?
+  if Rails.env.test? || Rails.env.development?
     config.enabled = false
   end
-
-  # https://docs.rollbar.com/docs/ruby - this is where I found this info
-  config.send_extra_frame_data = :app # or :all
-  config.locals = { :enabled => true }
 
   # By default, Rollbar will try to call the `current_user` controller method
   # to fetch the logged-in user object, and then call that object's `id`
