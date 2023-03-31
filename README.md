@@ -4,18 +4,7 @@
 ```
 bundle install 
 rake db:migrate
-rake db:seed # for activeadmin
-```
-
-## Rails Admin
-
-We use [Rails Admin](https://activeadmin.info/documentation.html) for the backend. 
-
-You can log in by going to http://localhost:3000/admin
-```
-## Creating admin account in production 
-heroku run bundle exec rails c
-Admin.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
+rake db:seed
 ```
 
 # Omniauth 
@@ -35,16 +24,10 @@ development uses gmail.
 
 # Error handling
 
-To get Sentry to fire events in development environment you need to go into `application.yml` and comment out `SENTRY_DSN`.
+We use rollbar https://rollbar.com/robertfaldo/all/items
 
-To start Sentry firing events, either you do the opposite of above or just pass that env variable when starting the app (`SENTRY_DSN='sentry_dsn_goes_here'`)
-
-FYI the 'additional info' that we send with error messages will be saved as tags in sentry (see below): 
-
-![img.png](img.png)
-
-For Rollbar you can go into the rollbar initializer and there's a section to comment out, there's a note next to it. 
-
+* You can enable in development by changing the code in config/initializers/rollbar.rb
+* You can test it's working in production with `heroku run rake test_rollbar` (make sure the environment is production in rollbar website)
 
 ## Monitoring
 
