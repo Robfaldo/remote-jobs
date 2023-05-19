@@ -12,7 +12,6 @@ module Api
           company: CompanyServices::FindOrCreateCompany.call(params["company"]),
           scraped_company: params["company"],
           source_id: params["source_link"],
-          job_board: "cv_library",
           searched_location: "placeholder" #TODO: remove this
         )
         job.save!
