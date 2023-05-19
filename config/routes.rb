@@ -11,6 +11,12 @@ Rails.application.routes.draw do
 
   devise_for :admins
 
+  namespace :api, defaults: { format: :json }  do
+    namespace :v1 do
+      resources :jobs, only: [:create]
+    end
+  end
+
   # root 'live_jobs#index'
   root 'placeholder#index'
   get '/stats' => 'scraping_stats#index'
