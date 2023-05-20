@@ -2,8 +2,8 @@ module Api
   module V1
     class JobsController < ActionController::API
       def create
-        SendToErrorMonitors.send_notification(message: "Job creation started through API",
-                                              additional: params)
+        # SendToErrorMonitors.send_notification(message: "Job creation started through API",
+        #                                       additional: params)
 
         job = Job.new(
           title: params["title"],
