@@ -12,7 +12,7 @@ module Api
           company: CompanyServices::FindOrCreateCompany.call(params["company"]),
           scraped_company: params["company"],
           source_id: params["source_link"],
-          searched_location: "placeholder" #TODO: remove this
+          searched_location: params["searched_location"]
         )
         job.save!
 
