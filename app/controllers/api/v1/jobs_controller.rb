@@ -5,9 +5,15 @@ module Api
         # SendToErrorMonitors.send_notification(message: "Job creation started through API",
         #                                       additional: params)
 
+        job_link = if params["direct_company_link"] == "N/A"
+                     params["source_link"]
+                   else
+                     params["direct_company_link"]
+                   end
+
         job = Job.new(
           title: params["title"],
-          job_link: params["direct_company_link"],
+          job_link: job_link,
           location: params["location"],
           description: params["description"],
           source: params["source"],
