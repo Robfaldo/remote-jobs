@@ -32,3 +32,8 @@ We use rollbar https://rollbar.com/robertfaldo/all/items
 ## Monitoring
 
 This app uses New Relic for monitoring. It's under robertfaldo@gmail.com and login details in 1password.
+
+## Admin
+
+This app uses activeadmin for its admin dashboard. You can visit localhost:3000/admin to log in as admin 
+and you can see `app/admin/jobs` to customise the dashboard that shows. 
