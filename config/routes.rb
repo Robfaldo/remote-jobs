@@ -17,11 +17,5 @@ Rails.application.routes.draw do
     end
   end
 
-  # root 'live_jobs#index'
-  root 'placeholder#index'
-  get '/stats' => 'scraping_stats#index'
-  get '/jobs_secret' => 'jobs#index'
-  get '/source_links' => 'source_links#index'
-  resources :jobs, only: [:update]
-  # get '/search' => "search#index"
+  root 'live_jobs#index'
 end

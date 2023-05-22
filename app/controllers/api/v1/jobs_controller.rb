@@ -2,9 +2,6 @@ module Api
   module V1
     class JobsController < ActionController::API
       def create
-        # SendToErrorMonitors.send_notification(message: "Job creation started through API",
-        #                                       additional: params)
-
         job_link = if params["direct_company_link"] == "N/A"
                      params["source_link"]
                    else
