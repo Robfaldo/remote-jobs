@@ -9,8 +9,6 @@ Rails.application.routes.draw do
     get '/users', to: 'devise/registrations#new'
   end
 
-  devise_for :admins
-
   namespace :api, defaults: { format: :json }  do
     namespace :v1 do
       resources :jobs, only: [:create]

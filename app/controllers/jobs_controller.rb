@@ -1,6 +1,4 @@
 class JobsController < ApplicationController
-  before_action :authenticate_admin!
-
   include TagHelper
 
   MAX_JOBS_TO_SHOW = 50
