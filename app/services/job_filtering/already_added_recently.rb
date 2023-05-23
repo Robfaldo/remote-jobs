@@ -3,7 +3,7 @@ module JobFiltering
     private
 
     def handle(job)
-      reject_job(job, message: "Rejected: Job has already been added within 1 week. #{@identical_jobs.map{|j| { id: j.id, link: j.job_link } }}")
+      reject_job(job, message: "Rejected: Job has already been added within 1 week. #{@identical_jobs.uniq.map{|j| { id: j.id, link: j.job_link } }}")
 
       if job.class == Job
         job.tag_list.add(tags_yaml["FilterRules"]["already_added_recently"])
