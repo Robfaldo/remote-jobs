@@ -1,7 +1,7 @@
 - name: javascript
   aliases: [js, jquery, typescript]
-  is_language: false
-  is_framework: true
+  is_language: true
+  is_framework: false
   used_for_frontend: true
   used_for_backend: true
 
