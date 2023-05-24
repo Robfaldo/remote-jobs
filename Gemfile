@@ -55,6 +55,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'pry-byebug'
   gem 'pry-rails'
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -106,3 +107,6 @@ gem 'omniauth', '~> 1.1'
 gem 'omniauth-google-oauth2'
 
 gem "figaro"
+
+# for chat gpt
+gem "ruby-openai"

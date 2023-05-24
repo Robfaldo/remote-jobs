@@ -8,7 +8,7 @@ module JobTags
         JobTags::CurrentStudentsOnly,
         JobTags::SuitableForBootcampGrads,
         JobTags::AddTechnologies,
-        JobTags::CoreTechnologies::RubyJob
+        JobTags::ChatGptMixed
     ]
 
     def initialize(jobs)

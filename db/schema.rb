@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_22_151256) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_24_102504) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_151256) do
     t.datetime "updated_at", null: false
     t.integer "title_matches"
     t.integer "description_matches"
+    t.boolean "main_technology", default: false
     t.index ["job_id"], name: "index_job_technologies_on_job_id"
     t.index ["technology_id"], name: "index_job_technologies_on_technology_id"
   end

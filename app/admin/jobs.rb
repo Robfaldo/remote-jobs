@@ -13,6 +13,9 @@ ActiveAdmin.register Job do
     column :technologies do |job|
       job.technologies.map { |tech| tech.name }.join(', ')
     end
+    column :main_technologies do |job|
+      job.main_technology_names
+    end
     column :location
     column :tag_list
     column :status_reason
