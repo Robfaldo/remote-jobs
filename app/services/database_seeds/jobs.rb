@@ -11,7 +11,6 @@ module DatabaseSeeds
         company: CompanyServices::FindOrCreateCompany.call("Atos"),
         scraped_company: "Atos",
         source_id: "https://uk.indeed.com/viewjob?jk=0927fc8a7e8bca8f&from=serp&vjs=3",
-        searched_location: "London"
       )
       job_one.save!
 
@@ -25,7 +24,6 @@ module DatabaseSeeds
         company: CompanyServices::FindOrCreateCompany.call("Collinson"),
         scraped_company: "Collinson",
         source_id: "https://uk.indeed.com/viewjob?jk=0927fc8a7e8bcafewfewfwe=serp&vjs=3",
-        searched_location: "London"
       )
       job_two.save!
 
@@ -39,7 +37,6 @@ module DatabaseSeeds
         company: CompanyServices::FindOrCreateCompany.call("Apple"),
         scraped_company: "Apple",
         source_id: "https://uk.indeed.com/viewjob?jk=0927fc8a7e8bcafewfewfwe=serp&vjs=3",
-        searched_location: "London"
       )
       job_three.save!
 

@@ -42,8 +42,7 @@ module Scraping
           source: :google,
           status: "scraped",
           company: CompanyServices::FindOrCreateCompany.call(job["company"]),
-          scraped_company: job["company"],
-          searched_location: searched_location
+          scraped_company: job["company"]
       )
 
       new_job.job_board = job["job_board"] if job["job_board"]

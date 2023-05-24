@@ -18,7 +18,6 @@ class Job < ApplicationRecord
   validates :scraped_company, presence: true
   validates :job_link, presence: true
   validates :location, presence: true
-  validates :searched_location, presence: true
   validates :source, inclusion: { in: SOURCES,
     message: "%{value} is not a valid source" }
   validates :description, presence: true

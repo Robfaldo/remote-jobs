@@ -67,8 +67,7 @@ module Scraping
         company: CompanyServices::FindOrCreateCompany.call(company),
         scraped_company: company,
         job_board: "glassdoor",
-        source_id: job.job_link,
-        searched_location: job.searched_location
+        source_id: job.job_link
       )
 
       save_job(new_job, scraped_job_page)
