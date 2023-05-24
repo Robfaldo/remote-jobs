@@ -17,6 +17,7 @@ ActiveAdmin.register Job do
       job.main_technology_names
     end
     column :location
+    column :remote_status
     column :tag_list
     column :status_reason
     actions
