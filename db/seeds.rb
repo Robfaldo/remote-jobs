@@ -7,4 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 DatabaseSeeds::Jobs.call
 DatabaseSeeds::Technologies.call
-AdminUser.create!(email: 'robertfaldo@gmail.com', password: 'password12345', password_confirmation: 'password12345') if Rails.env.development?
+# AdminUser.create!(email: 'robertfaldo@gmail.com', password: 'password12345', password_confirmation: 'password12345') if Rails.env.development?
