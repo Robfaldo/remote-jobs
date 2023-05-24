@@ -22,8 +22,8 @@ module Api
         )
         job.save!
 
-        JobTags::TagJobs.new([job]).call
         JobFiltering::FilterJobs.new([job]).call
+        JobTags::TagJobs.new([job]).call
       end
     end
   end
