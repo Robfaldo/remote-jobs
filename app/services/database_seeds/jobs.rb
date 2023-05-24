@@ -29,8 +29,22 @@ module DatabaseSeeds
       )
       job_two.save!
 
-      JobTags::TagJobs.new([job_one, job_two]).call
-      JobFiltering::FilterJobs.new([job_one, job_two]).call
+      job_three = Job.new(
+        title: "Senior Software Engineer",
+        job_link: "https://someotherothercompanylink.com",
+        location: "London",
+        description: "Distributed has created the world's best freelance developer community. Our mission is to provide freelancers with the same variety and freedom of freelancing, but with more benefits than permanent employment. This is an opportunity to become part of our community and access projects unavailable to the broader market. While entrance to the Community doesn't guarantee selection for a project, it gives you expedited access to some of the most innovative projects in the world. Once accepted, you'll become part of a group of like-minded, skilled individuals. All members are required to complete basic assessments in order to join the Elastic Team Community. About Joining The Elastic Team If approved to join our Community by qualifying through the assessment process, you will automatically be one of the individuals who could be considered for exciting customer-centric projects that we are currently engaged in for our clients. Once on a project, you will be working closely with teams of engineers, QAs, and designers, producing detailed specifications and writing the programme codes, testing the product in controlled, real situations before going live. We're proud to have Enterprise companies like Capita and BT, BBC, NHS, Virgin, Money, BP, Master Card, Tesco and Suzuki select us for delivering user-centric products. Our mission as an organization is to provide our Community with access to the most exciting tech projects and to build a freelance career with us as we continue to scale as an organisation. For the Ruby developer to join, they must have the following More than 4 years of experience working with Ruby and Ruby on Rails: Strong understanding of object-oriented programming principles Experience with front-end technologies: such as HTML, CSS, and JavaScript, as well as JavaScript frameworks such as React or Vue.js. Experience with relational databases such as PostgreSQL or MySQL, as well as non-relational databases such as MongoDB or Redis. Familiarity with testing frameworks such as RSpec, Cucumber, or Capybara, and have a good understanding of testing principles. Experience with version control systems: Git or other version control systems Solid experience analyzing complex problems and developing effective solutions, as well as troubleshooting issues and optimising application performance. Strong communication and collaboration skills in fluent English. About Us Distributed is proud to be an equal opportunities employer. Employees and contractors, as well as prospective employees and contractors, will all be treated equally and fairly. Distributed is committed to ensuring no less favourable treatment is experienced by any current or prospective employee because of any of the protected characteristics under the UK Equality Act 2010 or equivalent local equality legislation. By submitting your application you give us permission to store and use the information from your CV and your answers to application questions.",
+        source: "linkedin",
+        status: "scraped",
+        company: CompanyServices::FindOrCreateCompany.call("Apple"),
+        scraped_company: "Apple",
+        source_id: "https://uk.indeed.com/viewjob?jk=0927fc8a7e8bcafewfewfwe=serp&vjs=3",
+        searched_location: "London"
+      )
+      job_three.save!
+
+      JobFiltering::FilterJobs.new([job_one, job_two, job_three]).call
+      JobTags::TagJobs.new([job_one, job_two, job_three]).call
     end
   end
 end
