@@ -14,6 +14,9 @@ module JobTags
       if data["ruby"] == "true"
         mark_technology_as_main("ruby")
       end
+
+      job.remote_status = data["remote_status"]
+      job.save!
     end
 
     def can_handle?
@@ -25,6 +28,7 @@ module JobTags
     def raise_error_if_unexpected_response_data(data)
       return if ["true", "false", "unsure"].include?(data["rails_web_framework"])
       return if ["true", "false", "unsure"].include?(data["ruby"])
+      return if ["office based", "hybrid", "fully remote", "unsure"].include?(data["remote_status"])
 
       additional = {
         job_id: job.id,
@@ -35,7 +39,7 @@ module JobTags
     end
 
     def notify_if_unsure(data)
-      if data["rails_web_framework"] == "unsure" || data["ruby"] == "unsure"
+      if data["rails_web_framework"] == "unsure" || data["ruby"] == "unsure" || data["remote_status"] == "unsure"
         additional = {
           job_id: job.id,
           chat_gpt_data: data
@@ -60,36 +64,43 @@ module JobTags
 I'm going to give you a job description and job title and you are going to extract information into the following JSON format, you will respond with only this JSON and no other text:
 
 {
-"rails_web_framework":"boolean",
-"ruby":"boolean"
+"rails_web_framework":"string",
+"ruby":"string",
+"remote_status":"string"
 }
 
 Each key in the JSON above is the data that you are extracting and they should remain the same. You should change the values of the JSON above and here are the rules for what value you should provide.
 
-1. rails_web_framework value
+1. "rails_web_framework" value rule:
 * response type: you will reply with only "true", "false" or "unsure" (always lower case with no punctuation or other words). 
 * It will be "true" if the main web framework that the job would be writing code for is the rails framework. 
 * if you are not at least 75% confident what the main web framework is it will be "unsure"
 * if you are confident what the web framework is but it is not rails then it will be "false"
 
-2. ruby value rule:
-* response type: you will reply with only "true" or "false" or "unsure" (always lower case with no punctuation or other words). 
+2. "ruby" value rule:
+* response type: you will reply with only "true", "false" or "unsure" (always lower case with no punctuation or other words). 
 * It will be "true" if the rails_web_framework is "true" (because rails uses ruby)
 * It will be "true" if the rails_web_framework is "false" but the job will mainly be using the ruby programming language. The job description might mention ruby but that does not mean it is the main language, for example it might be mentioning that they are looking for people who know ruby but the job won't involve writing ruby code. It is only true if the main focus of the job will be as a ruby developer.
 * It will be "unsure if you are not at least 75% confident that the main programming language is ruby
+
+2. "remote_status" value rule:
+* response type: you will reply with only "fully remote", "hybrid", "office based" or "unsure" (always lower case with no punctuation or other words). 
+* It will be "unsure" if you are not at least 75% confident that one of the other options applies.
 
 For example you could respond with: 
 
 {
 "rails_web_framework":"true",
-"ruby":"true"
+"ruby":"true",
+"remote_status":"office based"
 }
 
 Example for if you were not confident on the ruby language:
 
 {
 "rails_web_framework":"true",
-"ruby":"unsure"
+"ruby":"unsure",
+"remote_status":"office based"
 }
 
 The title of the job is: #{job.title}
