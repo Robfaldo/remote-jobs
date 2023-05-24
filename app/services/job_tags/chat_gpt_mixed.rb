@@ -85,7 +85,10 @@ Each key in the JSON above is the data that you are extracting and they should r
 
 2. "remote_status" value rule:
 * response type: you will reply with only "fully remote", "hybrid", "office based" or "unsure" (always lower case with no punctuation or other words). 
-* It will be "unsure" if you are not at least 75% confident that one of the other options applies.
+* It will be "fully remote" if there is the option to be fully remote or if the only option is to be fully remote
+* It will be "hybrid" if you need to go to the office regularly but can spend a lot of time working from home
+* It will be "office based" if you need to be in the office for the majority of the time
+* It will be "unsure" if you are not at least 75% confident that one of the other options applies
 
 For example you could respond with: 
 
