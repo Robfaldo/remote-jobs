@@ -191,4 +191,8 @@ class Job < ApplicationRecord
       }
     end
   end
+
+  def main_technology_names
+    self.job_technologies.select{|jt| jt.main_technology }.map(&:technology).map(&:name)
+  end
 end
