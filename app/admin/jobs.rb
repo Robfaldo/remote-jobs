@@ -9,7 +9,6 @@ ActiveAdmin.register Job do
     #   truncate(job.description, length: 50)
     # end
     column :company
-    column :scraped_company
     column :technologies do |job|
       job.technologies.map { |tech| tech.name }.join(', ')
     end
@@ -18,6 +17,7 @@ ActiveAdmin.register Job do
     end
     column :location
     column :remote_status
+    column :job_link
     column :tag_list
     column :status_reason
     actions
