@@ -9,8 +9,18 @@ class Technology < ApplicationRecord
   validates :used_for_frontend, inclusion: [true, false]
   validates :used_for_backend, inclusion: [true, false]
 
+  def self.all_languages_names
+    languages = all.select{|t| t.is_language}
+    languages.map(&:name)
+  end
+
+  def self.all_frameworks_names
+    frameworks = all.select{|t| t.is_framework}
+    frameworks.map(&:name)
+  end
+
   def self.all_names_including_aliases
-    all_names.concat(all_aliases)
+    all_names.concat(aliases_for(technologies: all))
   end
 
   def parsed_aliases
@@ -21,8 +31,8 @@ class Technology < ApplicationRecord
     all.map(&:name)
   end
 
-  def self.all_aliases
-    aliases = all.map(&:aliases)
+  def self.aliases_for(technologies:)
+    aliases = technologies.map(&:aliases)
 
     aliases.reject! {|a| a == "[]"} # we don't want empty aliases
 
