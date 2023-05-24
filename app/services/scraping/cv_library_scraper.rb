@@ -58,8 +58,7 @@ module Scraping
           company: CompanyServices::FindOrCreateCompany.call(scraped_company),
           scraped_company: scraped_company,
           source_id: job.job_link,
-          job_board: "cv_library",
-          searched_location: job.searched_location
+          job_board: "cv_library"
       )
 
       save_job(new_job, scraped_job_page)

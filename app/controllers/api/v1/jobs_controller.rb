@@ -17,8 +17,7 @@ module Api
           status: "scraped",
           company: CompanyServices::FindOrCreateCompany.call(params["company"]),
           scraped_company: params["company"],
-          source_id: params["source_link"],
-          searched_location: params["searched_location"]
+          source_id: params["source_link"]
         )
         job.save!
 

@@ -37,8 +37,7 @@ module Scraping
             status: "scraped",
             company: CompanyServices::FindOrCreateCompany.call(company),
             scraped_company: company,
-            job_board: "Companies Direct",
-            searched_location: searched_location
+            job_board: "Companies Direct"
         )
 
         new_job.save!
