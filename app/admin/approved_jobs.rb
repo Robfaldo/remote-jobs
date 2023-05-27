@@ -1,4 +1,12 @@
-ActiveAdmin.register Job do
+ActiveAdmin.register Job, as: "ApprovedJob" do
+  permit_params :title, :job_link, :location, :longitude, :latitude, :description, :job_board, :source, :source_id, :status, :company, :status_reason, :salary, :reviewed, :requires_stem_degree, :requires_experience, :edited, :company_id, :scraped_company, :remote_status, :tag_list
+
+  menu label: "Approved Jobs"
+
+  scope :rejected, default: true do |jobs|
+    jobs.where(status: 'approved')
+  end
+
   index do
     selectable_column
     column :created_at
