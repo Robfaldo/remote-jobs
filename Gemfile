@@ -110,3 +110,5 @@ gem "figaro"
 
 # for chat gpt
 gem "ruby-openai"
+
+gem 'retryable'
