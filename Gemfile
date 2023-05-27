@@ -112,3 +112,5 @@ gem "figaro"
 gem "ruby-openai"
 
 gem 'retryable'
+
+gem 'groupdate'

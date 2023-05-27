@@ -6,6 +6,7 @@ class Job < ApplicationRecord
   belongs_to :company
 
   SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library totaljobs jobserve reed cwjobs linkedin)
+  STATUSES =  %w(scraped rejected approved)
 
   acts_as_taggable
   acts_as_taggable_on :tags
@@ -18,11 +19,9 @@ class Job < ApplicationRecord
   validates :scraped_company, presence: true
   validates :job_link, presence: true
   validates :location, presence: true
-  validates :source, inclusion: { in: SOURCES,
-    message: "%{value} is not a valid source" }
+  validates :source, inclusion: { in: SOURCES, message: "%{value} is not a valid source" }
   validates :description, presence: true
-  validates :status, inclusion: { in: %w(scraped rejected approved),
-    message: "%{value} is not a valid status" }
+  validates :status, inclusion: { in: STATUSES, message: "%{value} is not a valid status" }
 
   scope :remove_jobs_requiring_degree, -> do
     where(requires_stem_degree: false)
@@ -47,7 +46,10 @@ class Job < ApplicationRecord
     where(requires_experience: requires_experience, requires_stem_degree: requires_degree)
   end
 
+  # Used by activeadmin via metaprogramming - don't delete for being unused
   scope :approved, -> { where(status: "approved") }
+  scope :rejected, -> { where(status: "rejected") }
+  ###################
 
   scope :default_jobs_viewer_jobs, -> do
     includes(:tags).where(reviewed: false).reverse_order
