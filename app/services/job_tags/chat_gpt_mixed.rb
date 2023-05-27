@@ -7,11 +7,11 @@ module JobTags
       raise_error_if_unexpected_response_data(data)
       notify_if_unsure(data)
 
-      if data["rails_web_framework"] == "true"
+      if data["rails_web_framework"] == "true" && job_includes_rails
         mark_technology_as_main("rails")
       end
 
-      if data["ruby"] == "true"
+      if data["ruby"] == "true" && job_includes_ruby
         mark_technology_as_main("ruby")
       end
 
@@ -20,7 +20,7 @@ module JobTags
     end
 
     def can_handle?
-      job.tag_list.include?("developer") && job_includes_ruby_or_rails
+      job.tag_list.include?("developer") && (job_includes_ruby || job_includes_rails)
     end
 
     private
@@ -55,8 +55,12 @@ module JobTags
       job_technology.save!
     end
 
-    def job_includes_ruby_or_rails
-      (job.technologies.map(&:name) & ["ruby", "rails"]).any?
+    def job_includes_ruby
+      job.technologies.map(&:name).include?("ruby")
+    end
+
+    def job_includes_rails
+      job.technologies.map(&:name).include?("rails")
     end
 
     def prompt
