@@ -15,13 +15,13 @@ module Scraping
 
     # ones that use ScrapingBee that can't be run concurrently
     SCRAPERS_CONSECUTIVE = [
-      # Scraping::LinkedinScraper,
+      Scraping::LinkedinScraper,
       # Scraping::GoogleScraper
       # Scraping::GlassdoorScraper,
       # Scraping::ReedScraper,
       # Scraping::JobserveScraper,
       # Scraping::CvLibraryScraper,
-      Scraping::IndeedScraper,
+      # Scraping::IndeedScraper,
       # Scraping::StackoverflowScraper,
       # Scraping::TechnojobsScraper
     ]
