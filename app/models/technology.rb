@@ -9,16 +9,6 @@ class Technology < ApplicationRecord
   validates :used_for_frontend, inclusion: [true, false]
   validates :used_for_backend, inclusion: [true, false]
 
-  def self.all_languages_names
-    languages = all.select{|t| t.is_language}
-    languages.map(&:name)
-  end
-
-  def self.all_frameworks_names
-    frameworks = all.select{|t| t.is_framework}
-    frameworks.map(&:name)
-  end
-
   def self.all_names_including_aliases
     all_names.concat(aliases_for(technologies: all))
   end
