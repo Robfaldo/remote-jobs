@@ -16,6 +16,4 @@ Rails.application.routes.draw do
       resources :jobs, only: [:create]
     end
   end
-
-  root 'live_jobs#index'
 end
