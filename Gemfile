@@ -56,6 +56,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
+  gem 'rubocop', '~> 1.51', require: false
 end
 
 group :development do
