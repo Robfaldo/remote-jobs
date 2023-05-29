@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_29_144656) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_152459) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,7 +56,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_144656) do
     t.datetime "created_at", precision: nil
     t.string "source"
     t.string "searched_location"
-    t.boolean "filtered", default: false
   end
 
   create_table "job_technologies", force: :cascade do |t|
@@ -88,7 +87,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_144656) do
     t.bigint "company_id", null: false
     t.string "scraped_company"
     t.string "remote_status"
-    t.boolean "filtered", default: false
     t.index ["company_id"], name: "index_jobs_on_company_id"
   end
 

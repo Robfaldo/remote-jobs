@@ -6,7 +6,7 @@ class Job < ApplicationRecord
   belongs_to :company
 
   SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library totaljobs jobserve reed cwjobs linkedin)
-  STATUSES =  %w(scraped rejected approved)
+  STATUSES =  %w(scraped filtered evaluated)
 
   acts_as_taggable
   acts_as_taggable_on :tags
@@ -27,6 +27,10 @@ class Job < ApplicationRecord
   scope :approved, -> { where(status: "approved") }
   scope :rejected, -> { where(status: "rejected") }
   ###################
+
+  def filtered?
+    self.status == "filtered"
+  end
 
   def main_technology_names
     self.job_technologies.select{|jt| jt.main_technology }.map(&:technology).map(&:name)
