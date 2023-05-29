@@ -26,11 +26,11 @@ module Scraping
         title = job.search('.position').search('h3').text
         description = job.search('.tagline').text
 
-        next if Job.where(job_link: link).count > 0
+        next if Job.where(url: link).count > 0
 
         new_job = Job.new(
             title: title,
-            job_link: link,
+            url: link,
             location: searched_location,
             description: description,
             source: :companies_direct,

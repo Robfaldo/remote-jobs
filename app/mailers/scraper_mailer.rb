@@ -5,7 +5,7 @@ class ScraperMailer < ApplicationMailer
     body = %{
       Title: #{job["title"]}
       Company: #{job["company"]}
-      Link: #{job["job_link"]}
+      Link: #{job["url"]}
 
       Source: #{job["source"]}
 

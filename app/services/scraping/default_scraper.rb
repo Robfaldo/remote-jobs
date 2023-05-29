@@ -54,7 +54,7 @@ module Scraping
 
           job_preview = JobPreview.new(
             title: title,
-            job_link: link,
+            url: link,
             source: source,
             searched_location: searched_location,
             status: "scraped"

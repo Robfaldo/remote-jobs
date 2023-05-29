@@ -4,12 +4,12 @@ module JobEvaluation
       include EvaluationHelpers::FilterStepHelper
 
       def call
-        filter_message = "Duplicate Job: Job has already been added within 1 week. #{@identical_jobs.uniq.map{|j| { id: j.id, link: j.job_link } }}"
+        filter_message = "Duplicate Job: Job has already been added within 1 week. #{@identical_jobs.uniq.map{|j| { id: j.id, link: j.url } }}"
         filter_job(job, message: filter_message)
       end
 
       def can_handle?
-        identical_links_already_approved = Job.created_last_week.where(job_link: job.job_link)
+        identical_links_already_approved = Job.created_last_week.where(url: job.url)
         identical_description_already_approved = Job.created_last_week.where(description: job.description)
 
         matches_for_company_and_title =

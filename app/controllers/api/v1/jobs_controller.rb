@@ -2,7 +2,7 @@ module Api
   module V1
     class JobsController < ActionController::API
       def create
-        job_link = if params["direct_company_link"] == "N/A"
+        url = if params["direct_company_link"] == "N/A"
                      params["source_link"]
                    else
                      params["direct_company_link"]
@@ -10,7 +10,7 @@ module Api
 
         job = Job.new(
           title: params["title"],
-          job_link: job_link,
+          url: url,
           location: params["location"],
           description: params["description"],
           source: params["source"],

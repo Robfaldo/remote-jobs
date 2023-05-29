@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_29_155338) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_160045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_155338) do
 
   create_table "job_previews", force: :cascade do |t|
     t.string "title"
-    t.string "job_link"
+    t.string "url"
     t.string "location"
     t.string "company"
     t.string "filter_reason"
@@ -72,7 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_155338) do
 
   create_table "jobs", force: :cascade do |t|
     t.string "title"
-    t.string "job_link"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "location"

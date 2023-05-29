@@ -14,11 +14,11 @@ module Scraping
           job_previews = JSON.parse(retrieved_jobs)
 
           job_previews.each do |job|
-            job_link = job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', '')
-            next if Job.where(job_link: job_link).count > 0
+            url = job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', '')
+            next if Job.where(url: url).count > 0
 
             begin
-              create_job(job, job_link, location)
+              create_job(job, url, location)
             rescue => e
               SendToErrorMonitors.send_error(error: e, additional: { job: job })
             end
@@ -29,14 +29,14 @@ module Scraping
 
     private
 
-    def create_job(job, job_link, searched_location)
+    def create_job(job, url, searched_location)
       if !job["location"]
         job["location"] = searched_location
       end
 
       new_job = Job.new(
           title: job["title"],
-          job_link: job_link,
+          url: url,
           location: job["location"],
           description: job["description"],
           source: :google,

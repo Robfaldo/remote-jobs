@@ -18,7 +18,7 @@ module Scraping
 
 		def scrape_job_page_options(job)
 			{
-				link: job.job_link,
+				link: job.url,
 				premium_proxy: true,
 				use_luminati: true
 			}
@@ -46,14 +46,14 @@ module Scraping
 
 			new_job = Job.new(
 				title: job.title,
-				job_link: job.job_link,
+				url: job.url,
 				location: location,
 				description: description,
 				source: source,
 				status: "scraped",
 				company: CompanyServices::FindOrCreateCompany.call(job.company),
 				scraped_company: job.company,
-				source_id: job.job_link
+				source_id: job.url
 			)
 
 			save_job(new_job, scraped_job_page)
