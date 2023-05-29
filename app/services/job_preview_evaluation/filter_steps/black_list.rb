@@ -13,7 +13,7 @@ module JobPreviewEvaluation
       end
 
       def can_handle?
-        @black_list_link_violations = rules["job_link"].filter { |rule| job_preview.job_link.downcase.include?(rule.downcase.strip) }
+        @black_list_link_violations = rules["url"].filter { |rule| job_preview.url.downcase.include?(rule.downcase.strip) }
         @black_list_company_violations = []
 
         if job_preview.company

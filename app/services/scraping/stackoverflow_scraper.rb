@@ -25,7 +25,7 @@ module Scraping
 
           new_job = Job.new(
               title: job[:title].split(" at ").first.strip,
-              job_link: job[:link],
+              url: job[:link],
               location: job[:title].split(" at ")[1].split("(")[1].strip.split(",")[0],
               description: job[:description],
               source: :stackoverflow,

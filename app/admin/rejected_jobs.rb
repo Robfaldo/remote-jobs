@@ -1,5 +1,5 @@
 ActiveAdmin.register Job, as: "RejectedJob" do
-  permit_params :title, :job_link, :location, :longitude, :latitude, :description, :source, :source_id, :status, :company, :filter_reason, :company_id, :scraped_company, :remote_status, :tag_list
+  permit_params :title, :url, :location, :longitude, :latitude, :description, :source, :source_id, :status, :company, :filter_reason, :company_id, :scraped_company, :remote_status, :tag_list
 
   menu label: "Rejected Jobs"
 
@@ -26,7 +26,7 @@ ActiveAdmin.register Job, as: "RejectedJob" do
     end
     column :location
     column :remote_status
-    column :job_link
+    column :url
     column :tag_list
     column :filter_reason
     actions

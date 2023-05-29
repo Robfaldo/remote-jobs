@@ -271,7 +271,7 @@ def create_job(
     active: active,
     published_date: Date.today,
     title: title,
-    job_link: 'test link'
+    url: 'test link'
   )
 
   job.company = Company.where(name: 'test company1').first
