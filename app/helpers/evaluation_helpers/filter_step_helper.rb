@@ -23,7 +23,7 @@ module EvaluationHelpers
     def filter_job(job, message)
       job.status = "filtered"
 
-      job.status_reason = message
+      job.filter_reason = message
 
       job.save!
     end
