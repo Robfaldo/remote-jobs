@@ -5,50 +5,24 @@ ActiveAdmin.register_page "Dashboard" do
   content title: proc { I18n.t("active_admin.dashboard") } do
     columns do
       column do
-        panel "Total Job Statistics" do
-          table_for ["approved", "rejected"] do
+        panel "Jobs at each status based on when the job was created" do
+          table_for ["scraped", "filtered", "evaluated", "total"] do
             column "Status", &:to_s
 
-            column "Today" do |status|
+            column "Created today" do |status|
               Job.public_send(status).where(created_at: Time.zone.now.beginning_of_day..Time.zone.now).count
             end
 
-            column "Past 3 days" do |status|
+            column "Created past 3 days" do |status|
               Job.public_send(status).where(created_at: 3.days.ago.beginning_of_day..Time.zone.now).count
             end
 
-            column "Past Week" do |status|
+            column "Created past week" do |status|
               Job.public_send(status).where(created_at: 1.week.ago.beginning_of_day..Time.zone.now).count
             end
 
-            column "Past Month" do |status|
+            column "Created past Month" do |status|
               Job.public_send(status).where(created_at: 1.month.ago.beginning_of_day..Time.zone.now).count
-            end
-          end
-        end
-
-        panel "Linked Job Statistics" do
-          table_for ["approved", "rejected"] do
-            column "Status", &:to_s
-
-            column "Today" do |status|
-              Job.public_send(status)
-                 .where(created_at: Time.zone.now.beginning_of_day..Time.zone.now, source: "linkedin").count
-            end
-
-            column "Past 3 days" do |status|
-              Job.public_send(status)
-                 .where(created_at: 3.days.ago.beginning_of_day..Time.zone.now, source: "linkedin").count
-            end
-
-            column "Past Week" do |status|
-              Job.public_send(status)
-                 .where(created_at: 1.week.ago.beginning_of_day..Time.zone.now, source: "linkedin").count
-            end
-
-            column "Past Month" do |status|
-              Job.public_send(status)
-                 .where(created_at: 1.month.ago.beginning_of_day..Time.zone.now, source: "linkedin").count
             end
           end
         end

@@ -10,4 +10,11 @@ class JobPreview < ApplicationRecord
   def filtered?
     self.status == "filtered"
   end
+
+  # Used by activeadmin via metaprogramming - don't delete for being unused
+  scope :scraped, -> { where(status: "scraped") }
+  scope :filtered, -> { where(status: "filtered") }
+  scope :evaluated, -> { where(status: "evaluated") }
+  scope :total, -> { all }
+  ###################
 end

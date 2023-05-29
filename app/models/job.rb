@@ -24,8 +24,10 @@ class Job < ApplicationRecord
   validates :status, inclusion: { in: STATUSES, message: "%{value} is not a valid status" }
 
   # Used by activeadmin via metaprogramming - don't delete for being unused
-  scope :approved, -> { where(status: "approved") }
-  scope :rejected, -> { where(status: "rejected") }
+  scope :scraped, -> { where(status: "scraped") }
+  scope :filtered, -> { where(status: "filtered") }
+  scope :evaluated, -> { where(status: "evaluated") }
+  scope :total, -> { all }
   ###################
 
   def filtered?
