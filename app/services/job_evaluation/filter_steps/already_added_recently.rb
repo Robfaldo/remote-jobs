@@ -1,7 +1,7 @@
 module JobEvaluation
   module FilterSteps
     class AlreadyAddedRecently < ::JobEvaluation::Step
-      include ::JobEvaluation::Helpers::FilterStepHelper
+      include EvaluationHelpers::FilterStepHelper
 
       def call
         filter_message = "Duplicate Job: Job has already been added within 1 week. #{@identical_jobs.uniq.map{|j| { id: j.id, link: j.job_link } }}"

@@ -1,7 +1,7 @@
 module JobEvaluation
   module TagSteps
     class EntryLevel < ::JobEvaluation::Step
-      include ::JobEvaluation::Helpers::TagHelper
+      include EvaluationHelpers::TagStepHelper
 
       def call
         job.tag_list.add(tags_yaml["Groups"]["entry_level"])

@@ -6,7 +6,6 @@ module JobEvaluation
 
     def call
       raise "#{self.class} does not implement call method"
-
     end
 
     def can_handle?

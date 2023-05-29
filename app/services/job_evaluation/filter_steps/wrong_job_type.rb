@@ -1,7 +1,7 @@
 module JobEvaluation
   module FilterSteps
     class WrongJobType < ::JobEvaluation::Step
-      include ::JobEvaluation::Helpers::FilterStepHelper
+      include EvaluationHelpers::FilterStepHelper
 
       def call
         filter_job_for_title_or_description_violations(@title_rule_violations, @description_rule_violations, job, class_name_underscored.to_sym)

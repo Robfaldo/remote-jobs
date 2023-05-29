@@ -1,7 +1,7 @@
 module JobEvaluation
   module TagSteps
     class SuitableForBootcampGrads < ::JobEvaluation::Step
-      include ::JobEvaluation::Helpers::TagHelper
+      include EvaluationHelpers::TagStepHelper
 
       def call
         job.tag_list.add(tags_yaml["Groups"]["suitable_for_bootcamp_grads"])

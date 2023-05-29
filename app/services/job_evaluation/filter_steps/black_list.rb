@@ -1,7 +1,7 @@
 module JobEvaluation
   module FilterSteps
     class BlackList < ::JobEvaluation::Step
-      include ::JobEvaluation::Helpers::FilterStepHelper
+      include EvaluationHelpers::FilterStepHelper
 
       def call
         filter_message = %{
