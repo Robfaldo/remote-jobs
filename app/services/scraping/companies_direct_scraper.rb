@@ -36,8 +36,7 @@ module Scraping
             source: :companies_direct,
             status: "scraped",
             company: CompanyServices::FindOrCreateCompany.call(company),
-            scraped_company: company,
-            job_board: "Companies Direct"
+            scraped_company: company
         )
 
         new_job.save!

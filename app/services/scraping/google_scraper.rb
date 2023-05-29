@@ -45,8 +45,6 @@ module Scraping
           scraped_company: job["company"]
       )
 
-      new_job.job_board = job["job_board"] if job["job_board"]
-
       save_job(new_job)
     end
 
