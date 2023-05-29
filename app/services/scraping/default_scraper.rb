@@ -37,7 +37,7 @@ module Scraping
       jobs_to_filter = extract_jobs_to_filter(job_elements, searched_location)
       filtered_jobs = JobPreviewEvaluation::Pipeline.new(jobs_to_filter).process
 
-      jobs_to_scrape = filtered_jobs.select{ |j| j.status == "approved" }
+      jobs_to_scrape = filtered_jobs.select{ |job_preview| job_preview.status == "evaluated" }
 
       extract_and_save_job(jobs_to_scrape)
     end
@@ -56,7 +56,8 @@ module Scraping
             title: title,
             job_link: link,
             source: source,
-            searched_location: searched_location
+            searched_location: searched_location,
+            status: "scraped"
           )
           job_preview.company = company if company
           job_preview.location = scraped_location if scraped_location

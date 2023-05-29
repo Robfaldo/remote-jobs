@@ -19,7 +19,7 @@ module JobEvaluation
 
 
       def filter_job_for_title_or_description_violations(title_rule_violations, description_rule_violations, job, filter)
-        job.filtered = true
+        job.status = "filtered"
 
         if title_rule_violations.count > 0
           job.status_reason = "" unless job.status_reason
