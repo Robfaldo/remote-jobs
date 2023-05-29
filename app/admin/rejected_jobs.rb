@@ -1,5 +1,5 @@
 ActiveAdmin.register Job, as: "RejectedJob" do
-  permit_params :title, :job_link, :location, :longitude, :latitude, :description, :source, :source_id, :status, :company, :status_reason, :salary, :requires_stem_degree, :requires_experience, :edited, :company_id, :scraped_company, :remote_status, :tag_list
+  permit_params :title, :job_link, :location, :longitude, :latitude, :description, :source, :source_id, :status, :company, :status_reason, :company_id, :scraped_company, :remote_status, :tag_list
 
   menu label: "Rejected Jobs"
 
