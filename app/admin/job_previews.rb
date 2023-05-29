@@ -1,3 +1,3 @@
-ActiveAdmin.register ScrapedJob do
+ActiveAdmin.register JobPreview do
   permit_params :title, :job_link, :location, :company, :status_reason, :status, :source, :searched_location
 end

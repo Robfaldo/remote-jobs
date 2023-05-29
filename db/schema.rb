@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_29_142414) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_144656) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_142414) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "job_previews", force: :cascade do |t|
+    t.string "title"
+    t.string "job_link"
+    t.string "location"
+    t.string "company"
+    t.string "status_reason"
+    t.string "status"
+    t.datetime "created_at", precision: nil
+    t.string "source"
+    t.string "searched_location"
+    t.boolean "filtered", default: false
+  end
+
   create_table "job_technologies", force: :cascade do |t|
     t.bigint "job_id"
     t.bigint "technology_id"
@@ -77,19 +90,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_29_142414) do
     t.string "remote_status"
     t.boolean "filtered", default: false
     t.index ["company_id"], name: "index_jobs_on_company_id"
-  end
-
-  create_table "scraped_jobs", force: :cascade do |t|
-    t.string "title"
-    t.string "job_link"
-    t.string "location"
-    t.string "company"
-    t.string "status_reason"
-    t.string "status"
-    t.datetime "created_at", precision: nil
-    t.string "source"
-    t.string "searched_location"
-    t.boolean "filtered", default: false
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|

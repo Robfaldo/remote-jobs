@@ -35,7 +35,7 @@ module Scraping
     def process_all_jobs_page(scraped_all_jobs_page, searched_location)
       job_elements = scraped_all_jobs_page.search(job_element)
       jobs_to_filter = extract_jobs_to_filter(job_elements, searched_location)
-      filtered_jobs = ScrapedJobEvaluation::Pipeline.new(jobs_to_filter).process
+      filtered_jobs = JobPreviewEvaluation::Pipeline.new(jobs_to_filter).process
 
       jobs_to_scrape = filtered_jobs.select{ |j| j.status == "approved" }
 
@@ -52,18 +52,18 @@ module Scraping
           company = job_element_company(job)
           scraped_location = job_element_location(job)
 
-          scraped_job = ScrapedJob.new(
+          job_preview = JobPreview.new(
             title: title,
             job_link: link,
             source: source,
             searched_location: searched_location
           )
-          scraped_job.company = company if company
-          scraped_job.location = scraped_location if scraped_location
+          job_preview.company = company if company
+          job_preview.location = scraped_location if scraped_location
 
-          save_job(scraped_job)
+          save_job(job_preview)
 
-          jobs.push(scraped_job)
+          jobs.push(job_preview)
         rescue => e
           SendToErrorMonitors.send_error(error: e, additional: { job: job })
         end

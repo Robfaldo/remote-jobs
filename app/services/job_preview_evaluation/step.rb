@@ -1,7 +1,7 @@
-module ScrapedJobEvaluation
+module JobPreviewEvaluation
   class Step
-    def initialize(scraped_job)
-      @scraped_job = scraped_job
+    def initialize(job_preview)
+      @job_preview = job_preview
     end
 
     def call
@@ -14,6 +14,6 @@ module ScrapedJobEvaluation
 
     private
 
-    attr_reader :scraped_job
+    attr_reader :job_preview
   end
 end
