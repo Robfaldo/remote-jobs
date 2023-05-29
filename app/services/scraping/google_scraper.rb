@@ -11,9 +11,9 @@ module Scraping
 
           retrieved_jobs = scraped_page.search('#scraped-jobs').text
 
-          scraped_jobs = JSON.parse(retrieved_jobs)
+          job_previews = JSON.parse(retrieved_jobs)
 
-          scraped_jobs.each do |job|
+          job_previews.each do |job|
             job_link = job["link"].gsub('utm_campaign=google_jobs_apply&utm_source=google_jobs_apply&utm_medium=organic', '')
             next if Job.where(job_link: job_link).count > 0
 

@@ -12,5 +12,5 @@ def process
 
   JobEvaluation::Pipeline.new(Job.where(status: "scraped")).process
 
-  ScrapedJob.created_over_n_days(3).all.destroy_all
+  JobPreview.created_over_n_days(3).all.destroy_all
 end

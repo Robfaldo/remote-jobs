@@ -1,16 +1,16 @@
-module ScrapedJobEvaluation
+module JobPreviewEvaluation
   module FilterSteps
-    class EnsureJobTypeAllowed < ::ScrapedJobEvaluation::Step
+    class EnsureJobTypeAllowed < ::JobPreviewEvaluation::Step
       include EvaluationHelpers::FilterStepHelper
 
       def call
-        reject_message = "Rejected because scraped_job title/description didn't meet requirements for any job type."
+        reject_message = "Rejected because job_preview title/description didn't meet requirements for any job type."
 
-        filter_job(scraped_job, reject_message)
+        filter_job(job_preview, reject_message)
       end
 
       def can_handle?
-        is_a_developer = JobEvaluators::CheckIfDeveloperJob.check_title_only(scraped_job)
+        is_a_developer = JobEvaluators::CheckIfDeveloperJob.check_title_only(job_preview)
 
         is_an_allowed_job_type = is_a_developer # || is_a_devops_engineer || is_a_recruiter
 
