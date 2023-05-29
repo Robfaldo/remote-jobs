@@ -21,8 +21,7 @@ module Api
         )
         job.save!
 
-        JobFiltering::FilterJobs.new([job]).call
-        JobTags::TagJobs.new([job]).call
+        JobEvaluation::Pipeline.new([job]).process
       end
     end
   end

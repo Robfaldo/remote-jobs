@@ -10,9 +10,7 @@ end
 def process
   Scraping::ScrapeJobsService.new.call
 
-  JobFiltering::FilterJobs.new(Job.where(status: "scraped")).call
-
-  JobTags::TagJobs.new(Job.where(status: "scraped")).call
+  JobEvaluation::Pipeline.new(Job.where(status: "scraped")).process
 
   ScrapedJob.created_over_n_days(3).all.destroy_all
 end
