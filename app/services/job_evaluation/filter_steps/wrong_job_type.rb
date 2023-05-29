@@ -22,13 +22,13 @@ module JobEvaluation
         job.status = "filtered"
 
         if title_rule_violations.count > 0
-          job.status_reason = "" unless job.status_reason
-          job.status_reason << "Wrong job type: Title violated the #{filter} filter_steps - rule(s) violated were: #{title_rule_violations}."
+          job.filter_reason = "" unless job.filter_reason
+          job.filter_reason << "Wrong job type: Title violated the #{filter} filter_steps - rule(s) violated were: #{title_rule_violations}."
         end
 
         if description_rule_violations.count > 0
-          job.status_reason = "" unless job.status_reason
-          job.status_reason << "Wrong job type: Description violated the #{filter} filter_steps - rule(s) violated were: #{description_rule_violations}."
+          job.filter_reason = "" unless job.filter_reason
+          job.filter_reason << "Wrong job type: Description violated the #{filter} filter_steps - rule(s) violated were: #{description_rule_violations}."
         end
 
         job.save!
