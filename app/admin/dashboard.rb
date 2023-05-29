@@ -26,6 +26,28 @@ ActiveAdmin.register_page "Dashboard" do
             end
           end
         end
+
+        panel "Job Previews at each status based on when the job preview was created" do
+          table_for ["scraped", "filtered", "evaluated", "total"] do
+            column "Status", &:to_s
+
+            column "Created today" do |status|
+              JobPreview.public_send(status).where(created_at: Time.zone.now.beginning_of_day..Time.zone.now).count
+            end
+
+            column "Created past 3 days" do |status|
+              JobPreview.public_send(status).where(created_at: 3.days.ago.beginning_of_day..Time.zone.now).count
+            end
+
+            column "Created past week" do |status|
+              JobPreview.public_send(status).where(created_at: 1.week.ago.beginning_of_day..Time.zone.now).count
+            end
+
+            column "Created past Month" do |status|
+              JobPreview.public_send(status).where(created_at: 1.month.ago.beginning_of_day..Time.zone.now).count
+            end
+          end
+        end
       end
     end
   end
