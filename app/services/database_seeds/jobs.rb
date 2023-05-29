@@ -40,8 +40,33 @@ module DatabaseSeeds
       )
       job_three.save!
 
-      JobFiltering::FilterJobs.new([job_one, job_two, job_three]).call
-      JobTags::TagJobs.new([job_one, job_two, job_three]).call
+      job_four = Job.new(
+        title: "Should be filtered for rapido link",
+        job_link: "https://jobrapido.com/something",
+        location: "London",
+        description: "some description",
+        source: "linkedin",
+        status: "scraped",
+        company: CompanyServices::FindOrCreateCompany.call("Apple"),
+        scraped_company: "Apple",
+        source_id: "uniqueid",
+        )
+      job_four.save!
+
+      job_five= Job.new(
+        title: "Should be filtered for wrong job type - Support Engineer",
+        job_link: "https://something4324325.com/something",
+        location: "London",
+        description: "some description 654646",
+        source: "linkedin",
+        status: "scraped",
+        company: CompanyServices::FindOrCreateCompany.call("Apple"),
+        scraped_company: "Apple",
+        source_id: "uniqueid",
+        )
+      job_five.save!
+
+      JobEvaluation::Pipeline.new([job_one, job_two, job_three, job_four, job_five]).process
     end
   end
 end
