@@ -1,11 +1,5 @@
-ActiveAdmin.register Job, as: "RejectedDeveloperJob" do
+ActiveAdmin.register Job do
   permit_params :title, :url, :location, :longitude, :latitude, :description, :source, :source_id, :status, :company, :filter_reason, :company_id, :scraped_company, :remote_status, :tag_list
-
-  menu label: "Rejected Developer Jobs"
-
-  scope :rejected, default: true do |jobs|
-    jobs.where(status: 'rejected').tagged_with("developer")
-  end
 
   index do
     selectable_column
