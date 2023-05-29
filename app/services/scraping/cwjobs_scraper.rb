@@ -53,7 +53,6 @@ module Scraping
 				status: "scraped",
 				company: CompanyServices::FindOrCreateCompany.call(job.company),
 				scraped_company: job.company,
-				job_board: "Cwjobs",
 				source_id: job.job_link
 			)
 

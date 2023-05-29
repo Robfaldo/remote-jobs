@@ -65,7 +65,6 @@ module Scraping
         status: "scraped",
         company: CompanyServices::FindOrCreateCompany.call(company),
         scraped_company: company,
-        job_board: "Linkedin",
         source_id: job.job_link
       )
 

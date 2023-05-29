@@ -57,8 +57,7 @@ module Scraping
           status: "scraped",
           company: CompanyServices::FindOrCreateCompany.call(scraped_company),
           scraped_company: scraped_company,
-          source_id: job.job_link,
-          job_board: "cv_library"
+          source_id: job.job_link
       )
 
       save_job(new_job, scraped_job_page)
