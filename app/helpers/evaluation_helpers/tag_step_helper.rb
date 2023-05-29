@@ -1,15 +1,7 @@
-module JobTags
-  class Tag
-    def initialize(job)
-      @job = job
-    end
-
-    private
-
-    attr_reader :job
-
+module EvaluationHelpers
+  module TagStepHelper
     def class_name_underscored
-      self.class.name.split("::")[1].underscore
+      self.class.name.split("::").last.underscore
     end
 
     def yaml_path

@@ -35,7 +35,7 @@ module Scraping
     def process_all_jobs_page(scraped_all_jobs_page, searched_location)
       job_elements = scraped_all_jobs_page.search(job_element)
       jobs_to_filter = extract_jobs_to_filter(job_elements, searched_location)
-      filtered_jobs = JobFiltering::FilterJobs.new(jobs_to_filter).call
+      filtered_jobs = ScrapedJobEvaluation::Pipeline.new(jobs_to_filter).process
 
       jobs_to_scrape = filtered_jobs.select{ |j| j.status == "approved" }
 
@@ -122,7 +122,7 @@ module Scraping
         retry if job_save_retries < 3
         raise e
       rescue => e
-        rollbar_error = SendToErrorMonitors.send_error(error e, additional: { job: job.attributes })
+        rollbar_error = SendToErrorMonitors.send_error(error: e, additional: { job: job.attributes })
 
         if scraped_page
           job_for_email = job.attributes
@@ -162,14 +162,6 @@ module Scraping
 
     def class_name_underscored
       self.class.name.split("::")[1].underscore
-    end
-
-    def already_added_filter
-      JobFiltering::AlreadyAddedRecently.new
-    end
-
-    def wrong_job_type_filter
-      JobFiltering::WrongJobType.new
     end
 
     def field_empty?(field)

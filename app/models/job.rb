@@ -1,7 +1,7 @@
 class Job < ApplicationRecord
   include TagHelper
 
-  has_many :job_technologies
+  has_many :job_technologies, dependent: :destroy
   has_many :technologies, through: :job_technologies
   belongs_to :company
 
