@@ -19,7 +19,9 @@ ActiveAdmin.register Job do
     end
     column :location
     column :remote_status
-    column :url
+    column :url do |job|
+      link_to job.url.truncate(100), job.url, target: '_blank'
+    end
     column :tag_list
     column :filter_reason
     actions
