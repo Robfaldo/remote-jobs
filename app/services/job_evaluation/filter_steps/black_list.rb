@@ -3,6 +3,8 @@ module JobEvaluation
     class BlackList < ::JobEvaluation::Step
       include EvaluationHelpers::FilterStepHelper
 
+      FILTER_REASON = :blacklist
+
       def call
         filter_message = %{
           Black listed: @black_list_link_violations: #{@black_list_link_violations}.

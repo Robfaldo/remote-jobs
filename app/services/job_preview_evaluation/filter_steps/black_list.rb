@@ -3,6 +3,8 @@ module JobPreviewEvaluation
     class BlackList < ::JobPreviewEvaluation::Step
       include EvaluationHelpers::FilterStepHelper
 
+      FILTER_REASON = :blacklist
+
       def call
         reject_message = %{
           Black listed: @black_list_link_violations: #{@black_list_link_violations}.

@@ -3,6 +3,8 @@ module JobEvaluation
     class WrongJobType < ::JobEvaluation::Step
       include EvaluationHelpers::FilterStepHelper
 
+      FILTER_REASON = :wrong_job_type
+
       def call
         filter_job_for_title_or_description_violations(@title_rule_violations, @description_rule_violations, job, class_name_underscored.to_sym)
       end
@@ -20,6 +22,8 @@ module JobEvaluation
 
       def filter_job_for_title_or_description_violations(title_rule_violations, description_rule_violations, job, filter)
         job.status = "filtered"
+
+        job.filter_reason = FILTER_REASON
 
         if title_rule_violations.count > 0
           job.filter_details = "" unless job.filter_details

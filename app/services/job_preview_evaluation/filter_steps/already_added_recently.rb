@@ -3,6 +3,8 @@ module JobPreviewEvaluation
     class AlreadyAddedRecently < ::JobPreviewEvaluation::Step
       include EvaluationHelpers::FilterStepHelper
 
+      FILTER_REASON = :already_added_recently
+
       def call
         filter_job(job_preview, message: "Rejected: job_preview has already been added within 1 week. #{@identical_jobs.uniq.map{|j| { id: j.id, link: j.url } }}")
       end

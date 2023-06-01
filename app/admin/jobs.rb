@@ -24,7 +24,9 @@ ActiveAdmin.register Job do
     end
     column :tag_list
     column :filter_reason
-    column :filter_details
+    column :filter_details do |job|
+      truncate(job.filter_details, length: 500)
+    end
     actions
   end
 end
