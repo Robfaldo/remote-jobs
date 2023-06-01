@@ -1,5 +1,5 @@
 ActiveAdmin.register Job do
-  permit_params :title, :url, :location, :longitude, :latitude, :description, :source, :source_id, :status, :company, :filter_reason, :company_id, :scraped_company, :remote_status, :tag_list
+  permit_params :title, :url, :location, :longitude, :latitude, :description, :source, :source_id, :status, :company, :filter_reason, :filter_details, :company_id, :scraped_company, :remote_status, :tag_list
 
   index do
     selectable_column
@@ -24,6 +24,9 @@ ActiveAdmin.register Job do
     end
     column :tag_list
     column :filter_reason
+    column :filter_details do |job|
+      truncate(job.filter_details, length: 500)
+    end
     actions
   end
 end

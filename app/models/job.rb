@@ -23,6 +23,12 @@ class Job < ApplicationRecord
   validates :description, presence: true
   validates :status, inclusion: { in: STATUSES, message: "%{value} is not a valid status" }
 
+  enum filter_reason: {
+    already_added_recently: 0,
+    blacklist: 1,
+    wrong_job_type: 2
+  }
+
   # Used by activeadmin via metaprogramming - don't delete for being unused
   scope :scraped, -> { where(status: "scraped") }
   scope :filtered, -> { where(status: "filtered") }

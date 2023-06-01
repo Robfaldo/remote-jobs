@@ -3,6 +3,8 @@ module JobPreviewEvaluation
     class EnsureJobTypeAllowed < ::JobPreviewEvaluation::Step
       include EvaluationHelpers::FilterStepHelper
 
+      FILTER_REASON = :job_type_not_allowed
+
       def call
         reject_message = "Rejected because job_preview title/description didn't meet requirements for any job type."
 

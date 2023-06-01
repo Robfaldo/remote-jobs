@@ -3,6 +3,8 @@ module JobPreviewEvaluation
     class WrongJobType < ::JobPreviewEvaluation::Step
       include EvaluationHelpers::FilterStepHelper
 
+      FILTER_REASON = :wrong_job_type
+
       def call
         filter_job(job_preview, "Rejected for wrong job type in job_preview title. @title_rule_violations: #{@title_rule_violations}.")
       end

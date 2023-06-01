@@ -7,6 +7,13 @@ class JobPreview < ApplicationRecord
   validates :searched_location, presence: true
   validates :status, inclusion: { in: STATUSES, message: "%{value} is not a valid status" }
 
+  enum filter_reason: {
+    already_added_recently: 0,
+    blacklist: 1,
+    job_type_not_allowed: 2,
+    wrong_job_type: 3
+  }
+
   def filtered?
     self.status == "filtered"
   end
