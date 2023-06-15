@@ -6,7 +6,10 @@ module JobEvaluation
       FILTER_REASON = :already_added_recently
 
       def call
-        filter_message = "Duplicate Job: Job has already been added within 1 week. #{@identical_jobs.uniq.map{|j| { id: j.id, link: j.url } }}"
+        identical_jobs = @identical_jobs.uniq
+                                        .map(&:id)
+                                        .reject{|id| id == job.id }
+        filter_message = "Job has already been added within 1 week. Identical job ids: #{identical_jobs}"
         filter_job(job, message: filter_message)
       end
 
