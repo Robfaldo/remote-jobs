@@ -5,8 +5,8 @@ module Scraping
     class ApiErrorToRetry < StandardError; end
     include ScrapingHelper
 
-    NUM_OF_INITIAL_ATTEMPTS = 5
-    PREMIUM_ATTEMPTS = 2
+    NUM_OF_INITIAL_ATTEMPTS = 10
+    PREMIUM_ATTEMPTS = 10
 
     def initialize(api_key: ENV["SCRAPING_BEE_KEY"])
       raise ScrapingBeeError.new("Missing ScrapingBee API key") unless ENV["SCRAPING_BEE_KEY"]
