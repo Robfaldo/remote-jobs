@@ -8,11 +8,11 @@ module JobEvaluation
         raise_error_if_unexpected_response_data(data)
         notify_if_unsure(data)
 
-        if data["rails_web_framework"] == "true" && job_includes_rails
+        if rails_is_a_main_technology?(data)
           mark_technology_as_main("rails")
         end
 
-        if data["ruby"] == "true" && job_includes_ruby
+        if ruby_is_a_main_technology?(data)
           mark_technology_as_main("ruby")
         end
 
@@ -25,6 +25,18 @@ module JobEvaluation
       end
 
       private
+
+      def rails_is_a_main_technology?(data)
+        title_technology_names.include?('rails') || (data["rails_web_framework"] == "true" && job_includes_rails)
+      end
+
+      def ruby_is_a_main_technology?(data)
+        title_technology_names.include?('ruby') || (data["ruby"] == "true" && job_includes_ruby)
+      end
+
+      def title_technology_names
+        job.technologies_in_title.map {|job_technology| job_technology.technology.name }
+      end
 
       def raise_error_if_unexpected_response_data(data)
         return if ["true", "false", "unsure"].include?(data["rails_web_framework"])
