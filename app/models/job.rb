@@ -48,4 +48,8 @@ class Job < ApplicationRecord
     joins(job_technologies: :technology)
       .where(technologies: { name: technology_name }, job_technologies: { main_technology: true })
   end
+
+  def technologies_in_title
+    self.job_technologies.where('title_matches > ?', 0)
+  end
 end
