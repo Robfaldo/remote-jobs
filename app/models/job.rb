@@ -6,7 +6,7 @@ class Job < ApplicationRecord
   belongs_to :company
 
   SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library totaljobs jobserve reed cwjobs linkedin)
-  STATUSES =  %w(scraped filtered evaluated)
+  STATUSES = %w(scraped filtered evaluated)
 
   acts_as_taggable
   acts_as_taggable_on :tags
@@ -36,6 +36,13 @@ class Job < ApplicationRecord
   scope :total, -> { all }
   ###################
 
+  def self.live_jobs
+    with_main_technology("ruby")
+      .where(status: :evaluated)
+      .order(created_at: :desc)
+      .limit(100)
+  end
+
   def filtered?
     self.status == "filtered"
   end
@@ -51,5 +58,9 @@ class Job < ApplicationRecord
 
   def technologies_in_title
     self.job_technologies.where('title_matches > ?', 0)
+  end
+
+  def time_since_created
+    ActionController::Base.helpers.time_ago_in_words(self.created_at)
   end
 end
