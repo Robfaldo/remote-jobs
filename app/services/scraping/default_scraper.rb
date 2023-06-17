@@ -1,9 +1,5 @@
 module Scraping
   class DefaultScraper
-    include ScrapingHelper
-
-    MAX_PAGINATION_PAGES_TO_SCRAPE = 1
-
     def initialize(scraper: Scraper.new)
       @scraper = scraper
     end
@@ -17,11 +13,6 @@ module Scraping
           scraped_all_jobs_page = scraper.scrape_page(**options)
 
           process_all_jobs_page(scraped_all_jobs_page, location)
-
-          if handle_pagination
-            remaining_pages = pages_remaining_to_scrape(scraped_all_jobs_page)
-            scrape_additional_pages(remaining_pages, link, location)
-          end
         rescue => e
           SendToErrorMonitors.send_error(error: e, additional: {link: link, location: location})
         end
@@ -98,20 +89,6 @@ module Scraping
       end
     end
 
-    def scrape_additional_pages(pages_remaining_to_scrape, link, searched_location)
-      pages_remaining_to_scrape.times do |page|
-        current_paginated_page = page + 1 # + 1 because page starts at 0. The first pagination page (i.e. the 2nd total page) will have current_paginated_page == 1
-        paginated_page_link = paginated_page_link(link, current_paginated_page)
-
-        break if current_paginated_page > MAX_PAGINATION_PAGES_TO_SCRAPE
-
-        options = scrape_all_jobs_page_options(paginated_page_link)
-        scraped_all_jobs_page = scraper.scrape_page(**options)
-
-        process_all_jobs_page(scraped_all_jobs_page, searched_location)
-      end
-    end
-
     def save_job(job, scraped_page = nil)
       job_save_retries = 0
 
@@ -147,10 +124,6 @@ module Scraping
 
     def job_element_location(job)
       nil # optional to scrape so children can overwrite if used
-    end
-
-    def handle_pagination
-      false
     end
 
     def search_links
