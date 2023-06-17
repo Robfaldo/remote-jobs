@@ -7,7 +7,7 @@ module Api
             id: job.id,
             title: job.title,
             location: job.location,
-            added: job.created_at,
+            date_posted: job.created_at,
             company: job.company,
             url: job.url
           }

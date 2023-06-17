@@ -59,8 +59,4 @@ class Job < ApplicationRecord
   def technologies_in_title
     self.job_technologies.where('title_matches > ?', 0)
   end
-
-  def time_since_created
-    ActionController::Base.helpers.time_ago_in_words(self.created_at)
-  end
 end
