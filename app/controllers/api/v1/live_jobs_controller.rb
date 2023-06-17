@@ -10,6 +10,7 @@ module Api
             date_posted: job.created_at,
             time_since_created: job.time_since_created,
             company: job.company.name,
+            remote_status: job.remote_status,
             url: job.url
           }
         end
