@@ -10,8 +10,7 @@ module Scraping
       {
         link: link,
         wait_time: 20000,
-        premium_proxy: true,
-        use_bee: true
+        premium_proxy: true
       }
     end
 
@@ -20,8 +19,7 @@ module Scraping
         link: job.url,
         javascript_snippet: javascript,
         wait_time: 10000,
-        premium_proxy: true,
-        use_bee: true
+        premium_proxy: true
       }
     end
 

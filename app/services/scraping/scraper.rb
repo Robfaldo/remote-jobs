@@ -4,7 +4,7 @@ module Scraping
     class ApiErrorToRetry < StandardError; end
     include ScrapingHelper
 
-    def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false, use_bee: false, use_luminati: false)
+    def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false)
       response = Scrapers::ScrapingBee.new.scrape_page(
         link: link,
         javascript_snippet: javascript_snippet,
@@ -13,7 +13,7 @@ module Scraping
         premium_proxy: premium_proxy
       )
 
-      # if javascript_snippet || custom_google || use_bee
+      # if javascript_snippet || custom_google
       #   response = ScrapingBee.new.scrape_page(
       #     link: link,
       #     javascript_snippet: javascript_snippet,
