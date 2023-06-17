@@ -8,7 +8,7 @@ module Api
             title: job.title,
             location: job.location,
             date_posted: job.created_at,
-            company: job.company,
+            company: job.company.name,
             url: job.url
           }
         end
