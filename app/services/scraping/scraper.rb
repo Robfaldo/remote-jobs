@@ -21,16 +21,6 @@ module Scraping
       #     custom_google: custom_google,
       #     premium_proxy: premium_proxy
       #   )
-      # elsif use_luminati
-      #   response = Luminati.new.scrape_page(
-      #     link: link
-      #   )
-      # else
-      #   response = Zenscrape.new.scrape_page(
-      #     link: link,
-      #     wait_time: wait_time,
-      #     premium_proxy: premium_proxy
-      #   )
       # end
 
       begin
