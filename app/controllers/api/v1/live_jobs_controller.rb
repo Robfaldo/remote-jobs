@@ -8,6 +8,7 @@ module Api
             title: job.title,
             location: job.location,
             date_posted: job.created_at,
+            time_since_created: job.time_since_created,
             company: job.company.name,
             url: job.url
           }
