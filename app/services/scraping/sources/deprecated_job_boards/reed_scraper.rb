@@ -1,6 +1,6 @@
 module Scraping
 	module DeprecatedJobBoards
-		class ReedScraper < DefaultScraper
+		class ReedScraper < ::Scraping::Sources::Base
 			private
 
 			def source

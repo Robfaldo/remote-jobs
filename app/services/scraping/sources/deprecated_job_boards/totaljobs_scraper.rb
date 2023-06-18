@@ -1,6 +1,6 @@
 module Scraping
   module DeprecatedJobBoards
-    class TotaljobsScraper < DefaultScraper
+    class TotaljobsScraper < ::Scraping::Sources::Base
       private
 
       def source

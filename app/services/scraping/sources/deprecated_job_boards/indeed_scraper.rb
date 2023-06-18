@@ -1,6 +1,6 @@
 module Scraping
   module DeprecatedJobBoards
-    class IndeedScraper < DefaultScraper
+    class IndeedScraper < ::Scraping::Sources::Base
       private
 
       def source

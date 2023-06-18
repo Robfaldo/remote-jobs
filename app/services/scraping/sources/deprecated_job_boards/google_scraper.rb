@@ -2,7 +2,7 @@ require 'open-uri'
 
 module Scraping
   module DeprecatedJobBoards
-    class GoogleScraper < DefaultScraper
+    class GoogleScraper < ::Scraping::Sources::Base
       def get_jobs
         search_links_for_all_locations.each do |location, data|
           links_to_scrape = Scraping::GetLinksForLocation.call(data)

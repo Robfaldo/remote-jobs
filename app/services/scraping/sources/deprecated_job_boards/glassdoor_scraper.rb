@@ -1,6 +1,6 @@
 module Scraping
   module DeprecatedJobBoards
-    class GlassdoorScraper < DefaultScraper
+    class GlassdoorScraper < ::Scraping::Sources::Base
       private
 
       def source
