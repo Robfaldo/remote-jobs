@@ -1,10 +1,6 @@
 module Scraping
-  class LinkedinScraper < DefaultScraper
+  class LinkedinScraper < Base
     private
-
-    def source
-      :linkedin
-    end
 
     def scrape_all_jobs_page_options(link)
       {
@@ -27,48 +23,46 @@ module Scraping
       '.base-card'
     end
 
-    def job_element_title(job)
-      job.search('.base-search-card__title').first.text.strip
+    def create_job_preview(job_element, searched_location)
+      JobPreview.create!(
+        title: job_element.search('.base-search-card__title').first.text.strip,
+        url: job_element_link(job_element),
+        source: :linkedin,
+        searched_location: searched_location,
+        company: job_element.search('.base-search-card__subtitle').first.text.strip,
+        location: job_element.search('.job-search-card__location').first.text.strip,
+        status: "scraped"
+      )
     end
 
-    def job_element_location(job)
-      job.search('.job-search-card__location').first.text.strip
-    end
-
-    def job_element_company(job)
-      job.search('.base-search-card__subtitle').first.text.strip
-    end
-
-    def job_element_link(job)
-      begin
-        job.search('.base-card__full-link').first.get_attribute('href')
-      rescue
-        job.search('.base-search-card__title').first.ancestors('a').first.get_attribute('href')
-      end
-    end
-
-    def create_job(job, scraped_job_page)
+    def create_job(job_preview, scraped_job_page)
       description = scraped_job_page.search('.show-more-less-html__markup').text
 
-      if field_empty?(job.company)
+      if field_empty?(job_preview.company)
         company = scraped_job_page.search('.topcard__content-left').search('h3').search('span').first.text.strip
       else
-        company = job.company
+        company = job_preview.company
       end
 
-      new_job = Job.new(
-        title: job.title,
-        url: job.url,
-        location: job.location,
+      job = Job.new(
+        title: job_preview.title,
+        url: job_preview.url,
+        location: job_preview.location,
         description: description,
-        source: source,
+        source: :linkedin,
         status: "scraped",
         company: CompanyServices::FindOrCreateCompany.call(company),
         scraped_company: company,
-        source_id: job.url
+        source_id: job_preview.url
       )
 
-      save_job(new_job, scraped_job_page)
+      save_job(job, scraped_job_page)
+    end
+
+    def job_element_link(job)
+      job.search('.base-card__full-link').first.get_attribute('href')
+    rescue
+      job.search('.base-search-card__title').first.ancestors('a').first.get_attribute('href')
     end
 
     def javascript
