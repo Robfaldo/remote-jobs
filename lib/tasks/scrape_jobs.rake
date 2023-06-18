@@ -8,7 +8,7 @@ task :scrape_jobs => :environment do
 end
 
 def process
-  Scraping::ScrapeJobsService.new.call
+  Scraping::ScrapeJobBoards.new.call
 
   JobEvaluation::Pipeline.new(Job.where(status: "scraped")).process
 

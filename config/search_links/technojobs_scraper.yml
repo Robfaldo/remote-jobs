@@ -1,9 +1,0 @@
-London:
-  links:
-    # Within 15 miles of London, ordered by most recent, "Ruby AND (developer OR engineer OR software)
-    - https://www.technojobs.co.uk/rss.php/ruby%20AND%20(developer%20OR%20engineer%20OR%20software)/excludekeywords/locationLondon/radius15/termsin0/salary0/postedwithinall/jobtypeall/searchfieldRSearchIndex/page1
-
-#London:
-#  links:
-#    # All jobs in London, ordered by most recent
-#    - https://www.technojobs.co.uk/rss.php/any/excludekeywords/locationlondon/radius25/termsin0/salary0/postedwithinall/jobtypeall/searchfieldRSearchIndex/page1

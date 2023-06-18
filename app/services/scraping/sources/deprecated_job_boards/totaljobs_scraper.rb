@@ -10,16 +10,14 @@ module Scraping
       {
         link: link,
         wait_time: 5000,
-        premium_proxy: true,
-        use_luminati: true
+        premium_proxy: true
       }
     end
 
     def scrape_job_page_options(job)
       {
         link: job.url,
-        premium_proxy: true,
-        use_luminati: true
+        premium_proxy: true
       }
     end
 
