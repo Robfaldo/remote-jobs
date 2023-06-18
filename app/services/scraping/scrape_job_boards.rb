@@ -6,7 +6,7 @@ module Scraping
     ]
 
     def call
-      SendToErrorMonitors.send_notification(message: "Scraping Started")
+      SendToErrorMonitors.send_notification(message: "Job board scraping started")
       time_started = Time.now
 
       scraping_results = JOB_BOARDS.each_with_object([]) do |job_board, results|
@@ -25,7 +25,7 @@ module Scraping
 
       total_time_to_scrape = Time.now - time_started
 
-      SendToErrorMonitors.send_notification(message: "Scraping Completed", additional: { time_started: time_started, total_time_to_scrape: total_time_to_scrape, results: scraping_results })
+      SendToErrorMonitors.send_notification(message: "Job board scraping completed", additional: { time_started: time_started, total_time_to_scrape: total_time_to_scrape, results: scraping_results })
     end
   end
 end
