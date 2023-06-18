@@ -4,6 +4,7 @@ class JobPreview < ApplicationRecord
   validates :title, presence: true
   validates :url, presence: true
   validates :source, presence: true
+  validates :searched_location, presence: true
   validates :status, inclusion: { in: STATUSES, message: "%{value} is not a valid status" }
 
   enum filter_reason: {
