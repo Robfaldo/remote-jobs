@@ -1,16 +1,12 @@
 module Scraping
   class Base
-    def initialize(scraper: Scraper.new)
-      @scraper = scraper
-    end
-
     def get_jobs
       search_links_for_all_locations.each do |location, data|
         links_for_location = Scraping::GetLinksForLocation.call(data)
 
         links_for_location.each do |link|
           options = scrape_all_jobs_page_options(link)
-          job_page = scraper.scrape_page(**options)
+          job_page = ScrapePage.call(**options)
           job_previews = extract_job_previews_from_page(job_page, location)
           job_previews_to_scrape = decide_job_previews_to_scrape(job_previews)
           scrape_jobs(job_previews_to_scrape)
@@ -21,8 +17,6 @@ module Scraping
     end
 
     private
-
-    attr_reader :scraper
 
     def extract_job_previews_from_page(all_jobs_page, searched_location)
       job_elements = all_jobs_page.search(job_element)
@@ -43,7 +37,7 @@ module Scraping
     def scrape_jobs(job_previews)
       job_previews.each do |job_preview|
         options = scrape_job_page_options(job_preview)
-        job_page = scraper.scrape_page(**options)
+        job_page = ScrapePage.call(**options)
 
         create_job(job_preview, job_page)
       rescue => e
@@ -90,7 +84,7 @@ module Scraping
     end
 
     def search_links_for_all_locations
-      class_name_underscored = self.class.name.split("::")[1].underscore
+      class_name_underscored = self.class.name.split("::").last.underscore
       search_links_file_path = Rails.root.join("config", "search_links", "#{class_name_underscored}.yml")
       YAML.load(File.read(search_links_file_path))
     end

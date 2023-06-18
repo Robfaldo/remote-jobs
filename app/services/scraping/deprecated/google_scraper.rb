@@ -3,7 +3,7 @@ require 'open-uri'
 module Scraping
   class GoogleScraper < DefaultScraper
     def get_jobs
-      search_links.each do |location, data|
+      search_links_for_all_locations.each do |location, data|
         links_to_scrape = Scraping::GetLinksForLocation.call(data)
 
         links_to_scrape.each do |link|

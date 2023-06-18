@@ -1,6 +1,6 @@
 module Scraping
-  class Scraper
-    def scrape_page(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false)
+  class ScrapePage
+    def self.call(link:, javascript_snippet: nil, wait_time: 5000, custom_google: false, premium_proxy: false)
       response = Scrapers::ScrapingBee.new.scrape_page(
         link: link,
         javascript_snippet: javascript_snippet,
