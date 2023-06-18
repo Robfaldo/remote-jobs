@@ -15,7 +15,12 @@ module Scraping
         @api_key = api_key
       end
 
-      def scrape_page(link:, javascript_snippet:, wait_time:, custom_google:, premium_proxy:)
+      def scrape_page(link:,
+                      javascript_snippet:,
+                      wait_time:,
+                      custom_google:,
+                      premium_proxy:,
+                      allow_css_and_images:)
         query = {
             api_key: @api_key,
             url: link, # removed CGI.escape() recently (in case debugging)
@@ -25,6 +30,9 @@ module Scraping
         query[:country_code] = "gb" if premium_proxy
         query[:js_snippet] = Base64.strict_encode64(javascript_snippet) if javascript_snippet
         query[:custom_google] = "true" if custom_google
+        query[:block_resources] = false if allow_css_and_images
+        # for debugging to save a screenshot instead of responding with html
+        # query[:screenshot_full_page] = true
 
         scraping_bee_url = 'https://app.scrapingbee.com/api/v1/'
 
@@ -36,6 +44,9 @@ module Scraping
 
             puts "Attempt #{i + 1}: Response HTTP Status Code: #{ res.code }"
             puts "Attempt #{i + 1}: Response HTTP Response Body: #{ res.body }"
+
+            # for debugging you can save the screenshot to a file (requires the screenshot_full_page query above)
+            # save_screenshot(res)
             return res if res.code == 200
 
             if res.code == 404
