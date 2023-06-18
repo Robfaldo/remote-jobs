@@ -20,7 +20,8 @@ module Scraping
                       wait_time:,
                       custom_google:,
                       premium_proxy:,
-                      allow_css_and_images:)
+                      allow_css_and_images:,
+                      stealth_proxy:)
         query = {
             api_key: @api_key,
             url: link, # removed CGI.escape() recently (in case debugging)
@@ -31,6 +32,8 @@ module Scraping
         query[:js_snippet] = Base64.strict_encode64(javascript_snippet) if javascript_snippet
         query[:custom_google] = "true" if custom_google
         query[:block_resources] = false if allow_css_and_images
+        query[:block_resources] = false if allow_css_and_images
+        query[:stealth_proxy] = "true" if stealth_proxy
         # for debugging to save a screenshot instead of responding with html
         # query[:screenshot_full_page] = true
 
