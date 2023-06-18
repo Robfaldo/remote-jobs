@@ -48,6 +48,7 @@ google_jobs_page_scrape.html
 lib/scraping_summary.csv
 
 nokogiri_saved_webpage.html
+nokogiri_screenshot.png
 
 # Ignore application configuration
 /config/application.yml
