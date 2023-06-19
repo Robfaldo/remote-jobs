@@ -5,7 +5,10 @@ class Job < ApplicationRecord
   has_many :technologies, through: :job_technologies
   belongs_to :company
 
-  SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library totaljobs jobserve reed cwjobs linkedin)
+  SOURCES = [
+    'indeed', 'google', 'stackoverflow', 'glassdoor', 'technojobs', 'cv_library',
+    'totaljobs', 'jobserve', 'reed', 'cwjobs', 'linkedin', 'fresha_careers_website'
+  ]
   STATUSES = %w(scraped filtered evaluated)
 
   acts_as_taggable

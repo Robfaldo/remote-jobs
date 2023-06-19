@@ -9,6 +9,7 @@ end
 
 def process
   Scraping::ScrapeJobBoards.new.call
+  # Scraping::ScrapeCareersWebsites.new.call
 
   JobEvaluation::Pipeline.new(Job.where(status: "scraped")).process
 
