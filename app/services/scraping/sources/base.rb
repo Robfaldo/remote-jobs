@@ -1,6 +1,8 @@
 module Scraping
   module Sources
     class Base
+      include ScrapingHelper
+
       def get_jobs
         search_links_for_all_locations.each do |location, data|
           links_for_location = Scraping::GetLinksForLocation.call(data)
@@ -20,9 +22,7 @@ module Scraping
       private
 
       def extract_job_previews_from_page(all_jobs_page, searched_location)
-        job_elements = all_jobs_page.search(job_element)
-
-        job_elements.each_with_object([]) do |job_element, jobs|
+        job_elements(all_jobs_page).each_with_object([]) do |job_element, jobs|
           job_preview = create_job_preview(job_element, searched_location)
           jobs << job_preview
         rescue => e

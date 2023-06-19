@@ -21,8 +21,8 @@ module Scraping
           }
         end
 
-        def job_element
-          '.base-card'
+        def job_elements(all_jobs_page)
+          all_jobs_page.search('.base-card')
         end
 
         def create_job_preview(job_element, searched_location)
