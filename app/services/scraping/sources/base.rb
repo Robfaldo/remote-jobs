@@ -1,13 +1,19 @@
 module Scraping
   module Sources
     class Base
+      def initialize
+        @scraper = Scrapers::ScrapingBee.new
+      end
+
+      include ScrapingHelper
+
       def get_jobs
         search_links_for_all_locations.each do |location, data|
           links_for_location = Scraping::GetLinksForLocation.call(data)
 
           links_for_location.each do |link|
             options = scrape_all_jobs_page_options(link)
-            job_page = ScrapePage.call(**options)
+            job_page = @scraper.scrape_page(**options)
             job_previews = extract_job_previews_from_page(job_page, location)
             job_previews_to_scrape = decide_job_previews_to_scrape(job_previews)
             scrape_jobs(job_previews_to_scrape)
@@ -20,9 +26,7 @@ module Scraping
       private
 
       def extract_job_previews_from_page(all_jobs_page, searched_location)
-        job_elements = all_jobs_page.search(job_element)
-
-        job_elements.each_with_object([]) do |job_element, jobs|
+        job_elements(all_jobs_page).each_with_object([]) do |job_element, jobs|
           job_preview = create_job_preview(job_element, searched_location)
           jobs << job_preview
         rescue => e
@@ -38,7 +42,7 @@ module Scraping
       def scrape_jobs(job_previews)
         job_previews.each do |job_preview|
           options = scrape_job_page_options(job_preview)
-          job_page = ScrapePage.call(**options)
+          job_page = @scraper.scrape_page(**options)
 
           create_job(job_preview, job_page)
         rescue => e

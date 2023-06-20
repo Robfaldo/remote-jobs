@@ -7,8 +7,7 @@ module Scraping
         def scrape_all_jobs_page_options(link)
           {
             link: link,
-            wait_time: 5000,
-            premium_proxy: true
+            wait_time: 5000
           }
         end
 
@@ -16,13 +15,12 @@ module Scraping
           {
             link: job.url,
             wait_time: 6000,
-            premium_proxy: true,
             javascript_snippet: javascript
           }
         end
 
-        def job_element
-          '.base-card'
+        def job_elements(all_jobs_page)
+          all_jobs_page.search('.base-card')
         end
 
         def create_job_preview(job_element, searched_location)
