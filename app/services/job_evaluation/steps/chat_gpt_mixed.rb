@@ -3,20 +3,14 @@ module JobEvaluation
     class ChatGptMixed < ::JobEvaluation::Step
       def call
         response = ChatGpt.new.send_first_message(prompt)
-        data = JSON.parse(response)
+        chat_gpt_data = JSON.parse(response)
 
-        raise_error_if_unexpected_response_data(data)
-        notify_if_unsure(data)
+        raise_error_if_unexpected_response_data(chat_gpt_data)
+        notify_if_unsure(chat_gpt_data)
 
-        if rails_is_a_main_technology?(data)
-          mark_technology_as_main("rails")
-        end
+        mark_technologies(chat_gpt_data)
 
-        if ruby_is_a_main_technology?(data)
-          mark_technology_as_main("ruby")
-        end
-
-        job.remote_status = data["remote_status"]
+        job.remote_status = chat_gpt_data["remote_status"]
         job.save!
       end
 
@@ -26,16 +20,60 @@ module JobEvaluation
 
       private
 
-      def rails_is_a_main_technology?(data)
-        title_technology_names.include?('rails') || (data["rails_web_framework"] == "true" && job_includes_rails)
+      attr_reader :technology_names_in_title
+
+      def mark_technologies(chat_gpt_data)
+        if rails_is_mentioned_in_title?
+          mark_technology_as_main("rails")
+        end
+
+        if ruby_is_mentioned_in_title?
+          mark_technology_as_main("ruby")
+        end
+
+        if neither_rails_nor_ruby_are_mentioned_in_title?
+          # e.g. if title is Python developer we don't want to mark it as
+          # ruby, even if chat gpt says it is
+          return if title_includes_non_ruby_programming_language?
+
+          if chat_gpt_says_rails_is_a_main_technology?(chat_gpt_data)
+            mark_technology_as_main("rails")
+          end
+
+          if chat_gpt_says_ruby_is_a_main_technology?(chat_gpt_data)
+            mark_technology_as_main("ruby")
+          end
+        end
       end
 
-      def ruby_is_a_main_technology?(data)
-        title_technology_names.include?('ruby') || (data["ruby"] == "true" && job_includes_ruby)
+      def title_includes_non_ruby_programming_language?
+        title_languages = job_technologies_service.programming_language_names_in_title
+
+        title_languages.length > 0 && title_languages.exclude?("ruby")
       end
 
-      def title_technology_names
-        job.technologies_in_title.map {|job_technology| job_technology.technology.name }
+      def chat_gpt_says_rails_is_a_main_technology?(data)
+         data["rails_web_framework"] == "true" && job_includes_rails
+      end
+
+      def technology_names_in_title
+        @technology_names_in_title ||= job_technologies_service.technology_names_in_title
+      end
+
+      def rails_is_mentioned_in_title?
+        technology_names_in_title.include?('rails')
+      end
+
+      def ruby_is_mentioned_in_title?
+        technology_names_in_title.include?('ruby')
+      end
+
+      def neither_rails_nor_ruby_are_mentioned_in_title?
+        technology_names_in_title.exclude?("rails") && technology_names_in_title.exclude?("ruby")
+      end
+
+      def chat_gpt_says_ruby_is_a_main_technology?(data)
+         data["ruby"] == "true" && job_includes_ruby
       end
 
       def raise_error_if_unexpected_response_data(data)

@@ -2,6 +2,7 @@ module JobEvaluation
   class Step
     def initialize(job)
       @job = job
+      @job_technologies_service = JobServices::Technologies.new(job)
     end
 
     def call
@@ -14,6 +15,6 @@ module JobEvaluation
 
     private
 
-    attr_reader :job
+    attr_reader :job, :job_technologies_service
   end
 end
