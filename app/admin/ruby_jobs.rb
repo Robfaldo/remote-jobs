@@ -21,7 +21,7 @@ ActiveAdmin.register Job, as: "RubyJobs" do
       job.technologies.map { |tech| tech.name }.join(', ')
     end
     column :main_technologies do |job|
-      job.main_technology_names
+      JobServices::Technologies.new(job).main_technology_names
     end
     column :location
     column :remote_status

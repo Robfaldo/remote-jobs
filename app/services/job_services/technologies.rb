@@ -1,23 +1,33 @@
 module JobServices
   class Technologies
-    def self.technologies_in_title(job)
-      job_technologies_in_title = job.job_technologies.select do |job_technology|
-        job_technology.title_matches > 0
-      end
-
-      job_technologies_in_title.map do |job_technology|
-        job_technology.technology
-      end
+    def initialize(job)
+      @job = job
     end
 
-    def self.technologies_in_description(job)
-      job_technologies_in_description = job.job_technologies.select do |job_technology|
-        job_technology.description_matches > 0
-      end
+    def main_technology_names
+      job.job_technologies.select{|jt| jt.main_technology }.map(&:technology).map(&:name)
+    end
 
-      job_technologies_in_description.map do |job_technology|
-        job_technology.technology
-      end
+    def technology_names_in_title
+      job_technologies_in_title.map {|job_technology| job_technology.technology.name }
+    end
+
+    def programming_language_names_in_title
+      programming_language_technologies_in_title.map{ |technology| technology.name }
+    end
+
+    private
+
+    attr_reader :job
+
+    def job_technologies_in_title
+      job.job_technologies.where('title_matches > ?', 0)
+    end
+
+    def programming_language_technologies_in_title
+      job_technologies_in_title.select do |job_technology|
+        job_technology.technology.is_language
+      end.map(&:technology)
     end
   end
 end
