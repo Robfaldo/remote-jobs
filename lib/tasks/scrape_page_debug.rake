@@ -9,7 +9,7 @@ task :debug_page => :environment do
     premium_proxy: true
   }
 
-  scraped_page = Scraping::ScrapePage.call(**options)
+  scraped_page = Scraping::Scrapers::ScrapingBee.new.scrape_page(**options)
   # save_page(scraped_page)
   binding.pry
 end
