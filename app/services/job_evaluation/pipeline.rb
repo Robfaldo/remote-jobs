@@ -4,18 +4,12 @@ module JobEvaluation
       FilterSteps::AlreadyAddedRecently,
       FilterSteps::BlackList,
       FilterSteps::WrongJobType,
-      TagSteps::RequiresExperience,
-      TagSteps::RequiresStemDegree,
-      TagSteps::EntryLevel,
       TagSteps::Developer,
-      TagSteps::CurrentStudentsOnly,
-      TagSteps::SuitableForBootcampGrads,
       TagSteps::Level,
       Steps::AddTechnologies,
       Steps::ChatGptMixed,
       Steps::MarkJobAsEvaluated
     ].freeze
-
 
     def initialize(jobs)
       @jobs = jobs

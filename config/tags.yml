@@ -1,21 +1,5 @@
-FilterRules:
-  already_added_recently: already_added_recently
-  black_listed: black_listed
-  does_not_meet_any_job_type: does_not_meet_any_job_type
-  white_listed: white_listed
-  wrong_job_type: wrong_job_type
-JobTags:
-  requires_stem_degree: requires_stem_degree
-  requires_experience: requires_experience
-ReviewTags:
-  marked_as_approved: marked_as_approved
 Groups:
-  entry_level: entry_level
   developer: developer
-  current_students_only: current_students_only
-  suitable_for_bootcamp_grads: suitable_for_bootcamp_grads
-Technologies:
-  ruby_job: ruby_job
 Level:
   graduate: graduate
   junior: junior
