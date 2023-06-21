@@ -16,3 +16,12 @@ Groups:
   suitable_for_bootcamp_grads: suitable_for_bootcamp_grads
 Technologies:
   ruby_job: ruby_job
+Level:
+  graduate: graduate
+  junior: junior
+  mid: mid
+  senior: senior
+  staff: staff
+  lead: lead
+  manager: manager
+  principle: principle

@@ -10,6 +10,7 @@ module JobEvaluation
       TagSteps::Developer,
       TagSteps::CurrentStudentsOnly,
       TagSteps::SuitableForBootcampGrads,
+      TagSteps::Level,
       Steps::AddTechnologies,
       Steps::ChatGptMixed,
       Steps::MarkJobAsEvaluated
