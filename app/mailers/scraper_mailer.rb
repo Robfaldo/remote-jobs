@@ -20,7 +20,7 @@ class ScraperMailer < ApplicationMailer
 
     attachments['scraped_page.html'] = { :mime_type => 'text/html',
                                          :content => html }
-    mail(to: 'rob@primodev.co.uk',
+    mail(to: 'robswebscraper@gmail.com',
          subject: subject,
          body: body,
          delivery_method_options: gmail_smtp_settings) # this line gets mailer to use gmail not godaddy
