@@ -32,6 +32,9 @@ class ScraperMailer < ApplicationMailer
       :port                 => 587,
       :domain               => 'gmail.com',
       :user_name            => "robswebscraper@gmail.com",
+      # this password is an "app password". To generate a new one you can go to
+      # https://myaccount.google.com/ and then search for "app passwords" in the search
+      # bar and then generate a new one. 
       :password             => ENV["GMAIL_PASSWORD"],
       :authentication       => "plain",
       :enable_starttls_auto => true
