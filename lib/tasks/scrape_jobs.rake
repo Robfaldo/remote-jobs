@@ -3,7 +3,7 @@ task :scrape_jobs => :environment do
     process
   else
     current_hour = Time.now.in_time_zone('London').hour
-    process if within_live_hour_scraping_window(current_hour) && current_hour.even
+    process if within_live_hour_scraping_window(current_hour) && current_hour.even?
   end
 end
 
