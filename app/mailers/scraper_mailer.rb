@@ -1,22 +1,34 @@
 class ScraperMailer < ApplicationMailer
   default from: 'robswebscraper@gmail.com'
 
-  def job_save_error_html(html:, job:, error:, rollbar_uuid:)
-    body = %{
-      Title: #{job["title"]}
-      Company: #{job["company"]}
-      Link: #{job["url"]}
+  def job_save_error_html(html:, job: nil, error:, rollbar_uuid:)
+    if job
+      body = %{
+        Title: #{job["title"]}
+        Company: #{job["company"]}
+        Link: #{job["url"]}
 
-      Source: #{job["source"]}
+        Source: #{job["source"]}
 
-      Error: #{error}
+        Error: #{error}
 
-      Rollbar_uuid: #{rollbar_uuid}
+        Rollbar_uuid: #{rollbar_uuid}
 
-      This error occured when trying to save a job
-    }
+        This error occured when trying to save a job
+      }
+      subject = "HTML debug: #{job["source"]} - #{job["title"]}"
+    else
+      body = %{
+        No job information available.
 
-    subject = "HTML debug: #{job["source"]} - #{job["title"]}"
+        Error: #{error}
+
+        Rollbar_uuid: #{rollbar_uuid}
+
+        This error occured when trying to save a job preview.
+      }
+      subject = "HTML debug: rollbar error: #{rollbar_uuid}"
+    end
 
     attachments['scraped_page.html'] = { :mime_type => 'text/html',
                                          :content => html }

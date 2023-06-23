@@ -30,7 +30,12 @@ module Scraping
           job_preview = create_job_preview(job_element, searched_location)
           jobs << job_preview
         rescue => e
-          SendToErrorMonitors.send_error(error: e, additional: { job: job_element })
+          rollbar_error = SendToErrorMonitors.send_error(error: e, additional: { job: job_element })
+          ScraperMailer.job_save_error_html(
+            html: all_jobs_page.to_html,
+            error: e,
+            rollbar_uuid: rollbar_error[:uuid]
+          ).deliver_now
         end
       end
 
