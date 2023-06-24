@@ -24,13 +24,17 @@ module Scraping
         end
 
         def create_job_preview(job_element, searched_location)
+          title = job_element.at('.base-search-card__title') || job_element.at('.m_base-search-card__title')
+          company = job_element.at('.base-search-card__subtitle') || job_element.at('.m_base-search-card__subtitle')
+          location = job_element.at('.job-search-card__location') || job_element.at('.m_job-search-card__location')
+
           JobPreview.create!(
-            title: job_element.search('.base-search-card__title').first.text.strip,
+            title: title.text.strip,
             url: job_element_link(job_element),
             source: :linkedin,
             searched_location: searched_location,
-            company: job_element.search('.base-search-card__subtitle').first.text.strip,
-            location: job_element.search('.job-search-card__location').first.text.strip,
+            company: company.text.strip,
+            location: location.text.strip,
             status: "scraped"
           )
         end
@@ -60,7 +64,8 @@ module Scraping
         end
 
         def job_element_link(job)
-          job.search('.base-card__full-link').first.get_attribute('href')
+          link = job.at('.base-card__full-link') || job.at('.m_base-card__full-link')
+          link.get_attribute('href')
         rescue
           job.search('.base-search-card__title').first.ancestors('a').first.get_attribute('href')
         end
