@@ -1,0 +1,10 @@
+London:
+  links:
+    # (ruby OR Rails) AND (engineer OR Developer) in London (15 nmiles) - Last 24 hours - most recent first
+    - https://uk.indeed.com/jobs?q=%28ruby+OR+rails%29+AND+%28engineer+OR+developer%29&l=London%2C+Greater+London&radius=15&sort=date&fromage=1&vjk=18036d53615128ad
+  search_by_technology: false
+Remote:
+  links:
+    # (ruby OR Rails) AND (engineer OR Developer) - last 24 hours - most recent first
+    - https://uk.indeed.com/jobs?q=%28ruby+OR+rails%29+AND+%28engineer+OR+developer%29&sc=0kf%3Aattr%28DSQF7%29%3B&fromage=7&sort=date&vjk=830dbcd66f41f57b
+  search_by_technology: false

@@ -2,7 +2,8 @@ module Scraping
   class ScrapeJobBoards
     class ScrapingError < StandardError; end
     JOB_BOARDS = [
-      Scraping::Sources::JobBoards::Linkedin
+      Scraping::Sources::JobBoards::Linkedin,
+      Scraping::Sources::JobBoards::Indeed
     ]
 
     def call
