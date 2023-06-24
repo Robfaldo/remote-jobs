@@ -4,7 +4,9 @@ ActiveAdmin.register JobPreview, as: "NonDupeRejectedJobPreviews" do
   menu label: "Job Preview Rejected"
 
   scope :non_dupe_rejected_job_previews, default: true do |job_previews|
-    job_previews.where(status: "filtered").where.not(filter_reason: "already_added_recently")
+    job_previews.where(status: "filtered")
+                .where.not(filter_reason: "already_added_recently")
+                .where.not("filter_reason = ? AND filter_details LIKE ?", "1", "%RemoteWorker UK%") # dont include blacklisted jobs with remoteworker uk because there's so many and I just ignore them! 
   end
 
   index do
