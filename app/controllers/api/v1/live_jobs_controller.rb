@@ -2,7 +2,7 @@ module Api
   module V1
     class LiveJobsController < ActionController::API
       def index
-        jobs = Job.all.map do |job|
+        jobs = Job.live_jobs.map do |job|
           JobDto.new(job)
         end
 
