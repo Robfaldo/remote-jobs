@@ -2,17 +2,8 @@ module Api
   module V1
     class LiveJobsController < ActionController::API
       def index
-        jobs = Job.live_jobs.map do |job|
-          {
-            id: job.id,
-            title: job.title,
-            location: job.location,
-            date_posted: job.created_at,
-            time_since_created: job.time_since_created,
-            company: job.company.name,
-            remote_status: job.remote_status,
-            url: job.url
-          }
+        jobs = Job.all.map do |job|
+          JobDto.new(job)
         end
 
         render json: jobs

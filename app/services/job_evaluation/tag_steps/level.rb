@@ -5,6 +5,7 @@ module JobEvaluation
 
       def call
         if job_title_includes_any_level_name?
+          # If you add a tag here, remember to add it to live_jobs_controller.rb
           add_tag("graduate") if title_includes?("grad")
           add_tag("junior") if title_includes?("junior")
           add_tag("mid") if title_includes?("mid")
