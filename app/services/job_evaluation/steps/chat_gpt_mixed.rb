@@ -1,6 +1,8 @@
 module JobEvaluation
   module Steps
     class ChatGptMixed < ::JobEvaluation::Step
+      include EvaluationHelpers::TagStepHelper
+
       def call
         response = ChatGpt.new.send_first_message(prompt)
         chat_gpt_data = JSON.parse(response)
@@ -9,8 +11,8 @@ module JobEvaluation
         notify_if_unsure(chat_gpt_data)
 
         mark_technologies(chat_gpt_data)
+        mark_remote_status(chat_gpt_data)
 
-        job.remote_status = chat_gpt_data["remote_status"]
         job.save!
       end
 
@@ -21,6 +23,15 @@ module JobEvaluation
       private
 
       attr_reader :technology_names_in_title
+
+      def mark_remote_status(chat_gpt_data)
+        if job.title.downcase.include?('remote') || job.location.downcase.include?('remote') || job.description.downcase.include?('fully remote')
+          job.remote_status = "fully remote"
+        else
+          job.remote_status = chat_gpt_data["remote_status"]
+          job.tag_list.add(tags_yaml["ChatGpt"]["remote_status_from_chatgpt"])
+        end
+      end
 
       def mark_technologies(chat_gpt_data)
         if rails_is_mentioned_in_title?
@@ -38,10 +49,12 @@ module JobEvaluation
 
           if chat_gpt_says_rails_is_a_main_technology?(chat_gpt_data)
             mark_technology_as_main("rails")
+            job.tag_list.add(tags_yaml["ChatGpt"]["rails_framework_from_chatgpt"])
           end
 
           if chat_gpt_says_ruby_is_a_main_technology?(chat_gpt_data)
             mark_technology_as_main("ruby")
+            job.tag_list.add(tags_yaml["ChatGpt"]["ruby_language_from_chatgpt"])
           end
         end
       end
