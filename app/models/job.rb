@@ -40,7 +40,7 @@ class Job < ApplicationRecord
     with_main_technology("ruby")
       .where(status: :evaluated)
       .order(created_at: :desc)
-      .limit(50)
+      .limit(25)
   end
 
   def filtered?
