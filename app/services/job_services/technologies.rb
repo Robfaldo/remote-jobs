@@ -4,6 +4,10 @@ module JobServices
       @job = job
     end
 
+    def is_a_ruby_or_rails_job?
+      main_technology_names.intersection(["ruby", "rails"]).any?
+    end
+
     def main_technology_names
       job.job_technologies.select{|jt| jt.main_technology }.map(&:technology).map(&:name)
     end
