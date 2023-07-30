@@ -26,7 +26,7 @@ class JobDto
     locations = []
 
     locations << "london" if job.london_based?
-    locations << "fully remote" if job.remote_status == "fully_remote"
+    locations << "fully remote" if job.remote_status == "fully remote"
 
     locations
   end

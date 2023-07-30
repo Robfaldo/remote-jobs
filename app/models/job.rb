@@ -53,7 +53,7 @@ class Job < ApplicationRecord
   end
 
   def london_based?
-    self.distance_to("Greater London") < 1
+    self.distance_to("London") < 1
   rescue NoMethodError => e
     false
   end
