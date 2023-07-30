@@ -14,10 +14,11 @@ class JobDto
     @datetime_posted = job.created_at
     @company = job.company.name
     @company_id = job.company.id
-    @remote_status = job.remote_status
+    @fully_remote = job.remote_status == "fully_remote"
     @url = job.url
     @levels = get_levels_from_tags(job)
     @source = job.source
+    @in_london = job.london_based?
   end
 
   private

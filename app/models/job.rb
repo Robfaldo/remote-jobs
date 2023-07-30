@@ -52,6 +52,10 @@ class Job < ApplicationRecord
       .where(technologies: { name: technology_name }, job_technologies: { main_technology: true })
   end
 
+  def london_based?
+    self.distance_to("Greater London") < 1
+  end
+
   def time_since_created
     ActionController::Base.helpers.time_ago_in_words(self.created_at)
   end

@@ -9,3 +9,7 @@ Level:
   lead: lead
   manager: manager
   principle: principle
+ChatGpt:
+  remote_status_from_chatgpt: remote_status_from_chatgpt
+  ruby_language_from_chatgpt: programming_language_from_chatgpt
+  rails_framework_from_chatgpt: rails_framework_from_chatgpt
