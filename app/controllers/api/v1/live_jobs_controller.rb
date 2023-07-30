@@ -6,10 +6,6 @@ module Api
           JobDto.new(job)
         end
 
-        jobs.reject! do |job|
-          job.as_json.values.include?(nil)
-        end
-
         render json: jobs
       end
     end
