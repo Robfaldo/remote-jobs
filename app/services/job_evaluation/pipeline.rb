@@ -8,7 +8,8 @@ module JobEvaluation
       TagSteps::Level,
       Steps::AddTechnologies,
       Steps::ChatGptMixed,
-      Steps::MarkJobAsEvaluated
+      Steps::MarkJobAsEvaluated,
+      Steps::PublishRubyJobs
     ].freeze
 
     def initialize(jobs)
