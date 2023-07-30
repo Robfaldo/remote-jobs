@@ -54,6 +54,8 @@ class Job < ApplicationRecord
 
   def london_based?
     self.distance_to("Greater London") < 1
+  rescue NoMethodError => e
+    false
   end
 
   def time_since_created
