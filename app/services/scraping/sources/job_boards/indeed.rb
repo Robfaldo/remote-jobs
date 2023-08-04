@@ -38,16 +38,19 @@ module Scraping
         end
 
         def create_job(job_preview, scraped_job_page)
+          structured_job = JSON.parse(scraped_job_page.xpath('//script[@type="application/ld+json"]').first)
+
           job = Job.new(
-            title: job_preview.title,
+            title: structured_job["title"],
             url: job_preview.url,
             location: job_preview.location,
-            description: scraped_job_page.at('#jobDescriptionText').text,
+            description: structured_job["description"],
             source: :indeed,
             status: "scraped",
             company: CompanyServices::FindOrCreateCompany.call(job_preview.company),
             scraped_company: job_preview.company,
-            source_id: job_preview.url
+            source_id: job_preview.url,
+            job_posting_schema: structured_job
           )
 
           save_job(job, scraped_job_page)
