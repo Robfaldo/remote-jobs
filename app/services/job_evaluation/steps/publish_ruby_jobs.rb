@@ -27,7 +27,9 @@ module JobEvaluation
       end
 
       def can_handle?
-        JobServices::Technologies.new(job).is_a_ruby_or_rails_job? && (job.london_based? || fully_remote?)
+        !Rails.env.development? &&
+          JobServices::Technologies.new(job).is_a_ruby_or_rails_job? &&
+          (job.london_based? || fully_remote?)
       end
 
       private
