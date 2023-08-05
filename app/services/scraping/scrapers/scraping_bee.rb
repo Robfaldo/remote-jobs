@@ -7,7 +7,7 @@ module Scraping
       include ScrapingHelper
 
       NUMBER_OF_INITIAL_ATTEMPTS = 10
-      NUMBER_OF_STEALTH_ATTEMPTS = 5
+      NUMBER_OF_STEALTH_ATTEMPTS = 20
       SCRAPING_BEE_URL = 'https://app.scrapingbee.com/api/v1/'
 
       def initialize(api_key: ENV["SCRAPING_BEE_KEY"])

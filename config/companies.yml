@@ -1,0 +1,3 @@
+- name: GoCardless
+  careers_page_url: https://boards.greenhouse.io/gocardless
+  scraper_class: Greenhouse

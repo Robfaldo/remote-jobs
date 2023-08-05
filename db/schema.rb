@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_04_131645) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_05_124954) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_04_131645) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "careers_page_url"
+    t.string "scraper_class"
   end
 
   create_table "job_previews", force: :cascade do |t|
