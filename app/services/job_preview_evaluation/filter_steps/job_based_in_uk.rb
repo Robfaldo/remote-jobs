@@ -17,10 +17,6 @@ module JobPreviewEvaluation
 
       private
 
-      def job_is_from_careers_page?
-        job_preview.source == "direct_from_careers_page"
-      end
-
       def job_is_not_based_in_uk?
         coordinates = Geocoder.coordinates(job_preview.location)
         country = Geocoder.search(coordinates).first.country
