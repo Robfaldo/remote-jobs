@@ -10,7 +10,8 @@ class JobPreview < ApplicationRecord
     already_added_recently: 0,
     blacklist: 1,
     job_type_not_allowed: 2,
-    wrong_job_type: 3
+    wrong_job_type: 3,
+    job_not_based_in_the_uk: 4
   }
 
   def filtered?
