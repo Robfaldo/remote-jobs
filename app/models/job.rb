@@ -4,6 +4,7 @@ class Job < ApplicationRecord
   has_many :job_technologies, dependent: :destroy
   has_many :technologies, through: :job_technologies
   belongs_to :company
+  belongs_to :job_preview, optional: true
 
   SOURCES = %w(indeed google stackoverflow glassdoor technojobs cv_library totaljobs jobserve reed cwjobs linkedin direct_from_careers_page)
   STATUSES = %w(scraped filtered evaluated)
@@ -53,7 +54,14 @@ class Job < ApplicationRecord
   end
 
   def london_based?
-    self.distance_to("London") < 1
+    if self.job_preview.sanitized_location
+      coordinates = Geocoder.coordinates(job_preview.sanitized_location)
+      london_coordinates = Geocoder.search("London").first.coordinates
+      distance = Geocoder::Calculations.distance_between(coordinates, london_coordinates)
+      distance < 1
+    else
+      self.distance_to("London") < 1
+    end
   rescue NoMethodError => e
     false
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_05_124954) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_06_141031) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_124954) do
     t.string "source"
     t.string "searched_location"
     t.integer "filter_reason"
+    t.string "sanitized_location"
   end
 
   create_table "job_technologies", force: :cascade do |t|
@@ -92,7 +93,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_124954) do
     t.string "remote_status"
     t.integer "filter_reason"
     t.json "job_posting_schema"
+    t.bigint "job_preview_id"
     t.index ["company_id"], name: "index_jobs_on_company_id"
+    t.index ["job_preview_id"], name: "index_jobs_on_job_preview_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -149,5 +152,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_05_124954) do
   end
 
   add_foreign_key "jobs", "companies"
+  add_foreign_key "jobs", "job_previews"
   add_foreign_key "taggings", "tags"
 end

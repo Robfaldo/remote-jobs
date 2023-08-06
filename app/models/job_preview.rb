@@ -1,4 +1,6 @@
 class JobPreview < ApplicationRecord
+  has_one :job
+
   STATUSES =  %w(scraped filtered evaluated)
 
   validates :title, presence: true
