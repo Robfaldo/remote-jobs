@@ -55,7 +55,7 @@ class Job < ApplicationRecord
 
   def london_based?
     if self.job_preview.sanitized_location
-      coordinates = Geocoder.coordinates(job_preview.sanitized_location)
+      coordinates = Geocoder.coordinates(self.job_preview.sanitized_location)
       london_coordinates = Geocoder.search("London").first.coordinates
       distance = Geocoder::Calculations.distance_between(coordinates, london_coordinates)
       distance < 1

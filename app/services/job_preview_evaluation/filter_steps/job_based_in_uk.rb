@@ -18,7 +18,11 @@ module JobPreviewEvaluation
       private
 
       def job_is_not_based_in_uk?
-        coordinates = Geocoder.coordinates(job_preview.location)
+        coordinates = if job_preview.sanitized_location
+                        Geocoder.coordinates(job_preview.sanitized_location)
+                      else
+                        Geocoder.coordinates(job_preview.location)
+                      end
         country = Geocoder.search(coordinates).first.country
         country != 'United Kingdom'
       end

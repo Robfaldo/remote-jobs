@@ -21,7 +21,7 @@ module Scraping
 
     def extract_job_previews(all_jobs_page)
       scraper_class.job_elements(all_jobs_page).each_with_object([]) do |job_element, jobs|
-        jobs << JobPreview.create!(
+        job_preview = JobPreview.create!(
           title: scraper_class.title_from_job_element(job_element),
           url: scraper_class.url_from_job_element(job_element),
           source: :direct_from_careers_page,
@@ -29,6 +29,10 @@ module Scraping
           status: "scraped",
           location: scraper_class.location_from_job_element(job_element)
         )
+        sanitized_location = scraper_class.respond_to?(:sanitized_location) && scraper_class.sanitized_location(job_element)
+        job_preview.update!(sanitized_location: sanitized_location) if sanitized_location
+
+        jobs << job_preview
       rescue => e
         rollbar_error = SendToErrorMonitors.send_error(error: e, additional: { job: job_element })
         ScraperMailer.job_save_error_html(
@@ -50,6 +54,7 @@ module Scraping
         structured_job = JSON.parse(job_page.xpath('//script[@type="application/ld+json"]').first)
 
         Job.create!(
+          job_preview: job_preview,
           title: structured_job["title"],
           url: job_preview.url,
           location: job_preview.location,
