@@ -12,7 +12,7 @@ class JobDto
     @longitude = job.longitude
     @latitude = job.latitude
     @description = job.description
-    @datetime_posted = job.created_at
+    @datetime_posted = job&.job_posting_schema["datePosted"] || job.created_at
     @company = job.company.name
     @company_id = job.company.id
     @url = job.url
