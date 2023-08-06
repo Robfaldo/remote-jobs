@@ -3,7 +3,7 @@ module Scraping
     def initialize(company:)
       @scraper = Scraping::Scrapers::ScrapingBee.new
       @company = company
-      @scraper_class = "Scraping::Sources::CareersPages::#{company.scraper_class}".constantize
+      @scraper_class = "Scraping::Sources::CareersPages::#{company.scraper_class}".constantize.new(company)
     end
 
     def call
@@ -21,13 +21,9 @@ module Scraping
 
     def extract_job_previews(all_jobs_page)
       scraper_class.job_elements(all_jobs_page).each_with_object([]) do |job_element, jobs|
-        uri = URI(company.careers_page_url)
-        url_without_path = "#{uri.scheme}://#{uri.host}"
-        job_page_url = "#{url_without_path}#{scraper_class.url_from_job_element(job_element)}"
-
         jobs << JobPreview.create!(
           title: scraper_class.title_from_job_element(job_element),
-          url: job_page_url,
+          url: scraper_class.url_from_job_element(job_element),
           source: :direct_from_careers_page,
           company: company.name,
           status: "scraped",

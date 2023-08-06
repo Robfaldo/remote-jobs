@@ -8,7 +8,7 @@ ActiveAdmin.register JobPreview do
     column :source
     column :title
     column :company
-    column :searched_location
+    column :location
     column :url do |job|
       link_to job.url.truncate(100), job.url, target: '_blank'
     end

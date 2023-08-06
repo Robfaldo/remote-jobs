@@ -1,3 +1,7 @@
 - name: GoCardless
   careers_page_url: https://boards.greenhouse.io/gocardless
   scraper_class: Greenhouse
+
+- name: Builder.ai
+  careers_page_url: https://www.builder.ai/careers/current-openings?location=United+Kingdom&department=Engineering
+  scraper_class: BuilderAi

@@ -3,6 +3,7 @@ ActiveAdmin.register Job do
 
   index do
     selectable_column
+    column :id
     column :created_at
     column :status
     column :source
