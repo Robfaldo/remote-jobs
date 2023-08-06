@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_06_141031) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_06_143634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -152,6 +152,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_06_141031) do
   end
 
   add_foreign_key "jobs", "companies"
-  add_foreign_key "jobs", "job_previews"
+  add_foreign_key "jobs", "job_previews", on_delete: :nullify
   add_foreign_key "taggings", "tags"
 end
