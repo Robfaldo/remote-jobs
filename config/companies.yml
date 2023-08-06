@@ -6,6 +6,10 @@
   careers_page_url: https://boards.greenhouse.io/cleoai
   scraper_class: Cleo
 
+- name: Fresha
+  careers_page_url: https://jobs.lever.co/fresha?department=Engineering
+  scraper_class: Lever
+
 - name: GoCardless
   careers_page_url: https://boards.greenhouse.io/gocardless
   scraper_class: Greenhouse
