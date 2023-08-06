@@ -29,7 +29,8 @@ module JobEvaluation
       def can_handle?
         !Rails.env.development? &&
           JobServices::Technologies.new(job).is_a_ruby_or_rails_job? &&
-          (job.london_based? || fully_remote?)
+          (job.london_based? || fully_remote?) &&
+          job.source == "direct_from_careers_page"
       end
 
       private
