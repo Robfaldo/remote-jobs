@@ -1,7 +1,6 @@
 # This is a "data transfer object". Its purpose is to encapsulate data to be sent to somewhere
 class JobDto
-  attr_reader :reference, :title, :locations, :longitude, :latitude,
-              :description, :datetime_posted, :company, :company_id,
+  attr_reader :reference, :title, :locations, :description, :datetime_posted, :company, :company_id,
               :remote_status, :url, :levels, :source, :location_on_advert
 
   def initialize(job)
@@ -9,8 +8,6 @@ class JobDto
     @title = job.title
     @locations = locations(job)
     @location_on_advert = job.location
-    @longitude = job.longitude
-    @latitude = job.latitude
     @description = job.description
     @datetime_posted = job&.job_posting_schema["datePosted"] || job.created_at
     @company = job.company.name
