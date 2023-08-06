@@ -15,10 +15,14 @@ def within_live_hour_scraping_window(current_hour)
 end
 
 def process
+  SendToErrorMonitors.send_notification(message: "Scraping careers page started")
+
   Scraping::ScrapeJobBoards.new.call
 
   jobs = Job.where(status: "scraped").where.not(source: "direct_from_careers_page")
   JobEvaluation::Pipeline.new(jobs).process
 
   JobPreview.created_over_n_days(3).all.destroy_all
+
+  SendToErrorMonitors.send_notification(message: "Scraping careers page finished")
 end
