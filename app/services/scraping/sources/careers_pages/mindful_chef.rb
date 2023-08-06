@@ -15,6 +15,10 @@ module Scraping
         end
 
         def location_from_job_element(job_element)
+          job_element.at('.multi-offices-desktop').text.strip
+        end
+
+        def sanitized_location(job_element)
           job_element.at('.multi-offices-desktop')
                      .text
                      .strip

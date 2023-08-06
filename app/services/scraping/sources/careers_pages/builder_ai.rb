@@ -15,6 +15,10 @@ module Scraping
         end
 
         def location_from_job_element(job_element)
+          job_element.at('.whr-location').text.strip
+        end
+
+        def sanitized_location(job_element)
           job_element.at('.whr-location').text.strip.gsub("Location: ", "")
         end
       end
