@@ -5,7 +5,7 @@ Rollbar.configure do |config|
   config.access_token = ENV["ROLLBAR_TOKEN"]
 
   if Rails.env.test? || Rails.env.development?
-    config.enabled = false unless ENV["ROLLBAR"]
+    config.enabled = false
   end
 
   # By default, Rollbar will try to call the `current_user` controller method
