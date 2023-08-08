@@ -2,6 +2,10 @@
   careers_page_url: https://www.builder.ai/careers/current-openings?location=United+Kingdom&department=Engineering
   scraper_class: BuilderAi
 
+- name: Babylon
+  careers_page_url: https://www.babylonhealth.com/careers/technology
+  scraper_class: Babylon
+
 - name: Cleo
   careers_page_url: https://boards.greenhouse.io/cleoai
   scraper_class: Cleo
