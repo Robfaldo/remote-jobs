@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_06_143634) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_08_162729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_06_143634) do
     t.integer "filter_reason"
     t.json "job_posting_schema"
     t.bigint "job_preview_id"
+    t.boolean "live_on_careers_site"
     t.index ["company_id"], name: "index_jobs_on_company_id"
     t.index ["job_preview_id"], name: "index_jobs_on_job_preview_id"
   end

@@ -9,6 +9,12 @@ module Scraping
     def call
       all_jobs_page = scraper.scrape_page(link: company.careers_page_url)
       job_previews = extract_job_previews(all_jobs_page)
+
+      JobServices::UpdateJobsNoLongerLiveOnCareersSite.new.call(
+        job_previews_currently_on_careers_site: job_previews,
+        company: company
+      )
+
       job_previews_to_scrape = decide_job_previews_to_scrape(job_previews)
       scrape_jobs(job_previews_to_scrape)
     rescue => e
@@ -64,7 +70,8 @@ module Scraping
           scraped_company: company.name,
           source_id: job_preview.url,
           job_posting_schema: structured_job,
-          status: "scraped"
+          status: "scraped",
+          live_on_careers_site: true
         )
       rescue => e
         rollbar_error = SendToErrorMonitors.send_error(error: e, additional: { job: job_preview.instance_values.to_s })

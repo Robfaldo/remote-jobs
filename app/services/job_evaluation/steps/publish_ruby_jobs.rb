@@ -22,7 +22,7 @@ module JobEvaluation
             response_code: res.code,
           }
 
-          SendToErrorMonitors.send_notification(message: "Ruby job publishing failed", additional: additional)
+          SendToErrorMonitors.send_error(error: "Ruby job publishing failed", additional: additional)
         end
       end
 
