@@ -10,7 +10,7 @@ module Scraping
       all_jobs_page = scraper.scrape_page(link: company.careers_page_url)
       job_previews = extract_job_previews(all_jobs_page)
 
-      JobServices::CheckIfStillLiveOnCareersSite.new.call(
+      JobServices::UpdateJobsNoLongerLiveOnCareersSite.new.call(
         job_previews_currently_on_careers_site: job_previews,
         company: company
       )
