@@ -14,7 +14,7 @@
   careers_page_url: https://jobs.lever.co/fresha?department=Engineering
   scraper_class: Lever
 
-- name: Gitlab
+- name: GitLab
   careers_page_url: https://boards.greenhouse.io/gitlab/
   scraper_class: Gitlab
 
