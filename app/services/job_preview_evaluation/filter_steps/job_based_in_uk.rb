@@ -12,10 +12,18 @@ module JobPreviewEvaluation
       end
 
       def can_handle?
+        # if the location is unknown we won't filter the job preview, we will scrape it and determine
+        # the location from the full job posting
+        return false if job_is_from_careers_page? && location_set_as_unknown?
+
         job_is_from_careers_page? && job_is_not_based_in_uk?
       end
 
       private
+
+      def location_set_as_unknown?
+        job_preview.sanitized_location == "location_unknown"
+      end
 
       def job_is_not_based_in_uk?
         coordinates = if job_preview.sanitized_location
