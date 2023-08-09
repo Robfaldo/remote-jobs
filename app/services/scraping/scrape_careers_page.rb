@@ -58,12 +58,13 @@ module Scraping
       job_previews.each do |job_preview|
         job_page = scraper.scrape_page(link: job_preview.url)
         structured_job = JSON.parse(job_page.xpath('//script[@type="application/ld+json"]').first)
+        location = JobServices::ParseStructuredJob.new(structured_job, job_preview).location
 
         Job.create!(
           job_preview: job_preview,
           title: structured_job["title"],
           url: job_preview.url,
-          location: job_preview.location,
+          location: location,
           description: structured_job["description"],
           source: :direct_from_careers_page,
           company: company,

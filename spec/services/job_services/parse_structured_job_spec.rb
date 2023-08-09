@@ -31,16 +31,28 @@ describe JobServices::ParseStructuredJob do
         described_class.new(structured_job, job_preview).location
       end
 
-      it 'raises an error if job has more than 1 location' do
-        expect(SendToErrorMonitors).to receive(:send_error)
-                                         .with(expected_error("structured_job has multiple jobLocations"))
-        structured_job = {
-          "jobLocation" => [
-            {"@type"=>"Place", "address"=>{"@type"=>"PostalAddress", "addressCountry"=>"United Kingdom"}},
-            {"@type"=>"Place", "address"=>{"@type"=>"PostalAddress", "addressCountry"=>"United Kingdom"}}
-          ]
-        }
-        described_class.new(structured_job, job_preview).location
+      context 'when there are more than 1 locations' do
+        # I know this occurs but i haven't decided what I want the business logic to be yet
+        #   Options: I could just pick the first, i could check if either of them are UK and pick the one that is
+        # Here's an example of it occuring for funding circle
+        # {
+        #   "jobLocation"=>
+        #     [
+        #       {"@type"=>"Place", "address"=>{"@type"=>"PostalAddress", "addressCountry"=>"United Kingdom"}},
+        #       {"@type"=>"Place", "address"=>{"@type"=>"PostalAddress", "addressCountry"=>"United Kingdom"}}
+        #     ]
+        # }
+        it 'raises an error if job has more than 1 location' do
+          expect(SendToErrorMonitors).to receive(:send_error)
+                                           .with(expected_error("structured_job has multiple jobLocations"))
+          structured_job = {
+            "jobLocation" => [
+              {"@type"=>"Place", "address"=>{"@type"=>"PostalAddress", "addressCountry"=>"United Kingdom"}},
+              {"@type"=>"Place", "address"=>{"@type"=>"PostalAddress", "addressCountry"=>"United Kingdom"}}
+            ]
+          }
+          described_class.new(structured_job, job_preview).location
+        end
       end
 
       context 'when job has 1 location' do
