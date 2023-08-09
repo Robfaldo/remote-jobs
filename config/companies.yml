@@ -14,11 +14,14 @@
   careers_page_url: https://jobs.lever.co/fresha?department=Engineering
   scraper_class: Lever
 
+- name: Gitlab
+  careers_page_url: https://boards.greenhouse.io/gitlab/
+  scraper_class: Gitlab
+
 - name: GoCardless
   careers_page_url: https://boards.greenhouse.io/gocardless
   scraper_class: Greenhouse
 
-# uses Personio ATS in case I add this for another one
 - name: Mindful Chef
   careers_page_url: https://mindfulchef.jobs.personio.de/
   scraper_class: MindfulChef
