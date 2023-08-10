@@ -1,3 +1,7 @@
+- name: Beam
+  careers_page_url: https://careers.beam.org/jobs?department=%E2%91%82+Tech+%26+Product
+  scraper_class: Beam
+
 - name: Bloom & Wild
   careers_page_url: https://jobs.lever.co/bloomon?location=London
   scraper_class: Lever
