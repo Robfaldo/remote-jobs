@@ -37,3 +37,7 @@
 - name: Mindful Chef
   careers_page_url: https://mindfulchef.jobs.personio.de/
   scraper_class: MindfulChef
+
+- name: Smart Pension
+  careers_page_url: https://apply.workable.com/smart-pension-1/
+  scraper_class: Workable

@@ -18,24 +18,33 @@ module Scraping
 
       def scrape_page(link:,
                       javascript_snippet: nil,
-                      wait_time: 5000,
+                      wait_time: nil,
                       custom_google: false,
-                      allow_css_and_images: false)
+                      allow_css_and_images: false,
+                      wait_browser: nil)
         query = {
           api_key: @api_key,
           url: link,
-          wait: wait_time.to_s
         }
+        query[:wait] = wait_time.to_s if wait_time
         query[:premium_proxy] = "true"
         query[:country_code] = "gb"
         query[:js_snippet] = Base64.strict_encode64(javascript_snippet) if javascript_snippet
         query[:custom_google] = "true" if custom_google
         query[:block_resources] = false if allow_css_and_images
+        query[:wait_browser] = wait_browser if wait_browser
         # for debugging to save a screenshot instead of responding with html
         # query[:screenshot_full_page] = true
 
         response = send_request_to_scraping_bee(query, NUMBER_OF_INITIAL_ATTEMPTS)
-        return parsed_nokogiri_html(response.body) if response_was_successful?(response)
+        if response_was_successful?(response)
+          nokogiri_page = parsed_nokogiri_html(response.body)
+          # for debugging
+          # binding.pry
+          # save_screenshot(res) # (make sure the screenshot param is being passed to scrapingbee)
+          # save_page(nokogiri_page)
+          return nokogiri_page
+        end
 
         msg = "#{NUMBER_OF_INITIAL_ATTEMPTS} Premium proxy attempts failed. Query: #{query.to_s}"
         SendToErrorMonitors.send_notification(message: msg)
@@ -43,7 +52,10 @@ module Scraping
         query[:stealth_proxy] = "true"
         response = send_request_to_scraping_bee(query, NUMBER_OF_STEALTH_ATTEMPTS)
 
-        return parsed_nokogiri_html(response.body) if response_was_successful?(response)
+        if response_was_successful?(response)
+          # binding.pry
+          return parsed_nokogiri_html(response.body)
+        end
 
         msg = "#{NUMBER_OF_STEALTH_ATTEMPTS} Stealth proxy attempts failed. Query: #{query.to_s}"
         raise ScrapingBeeError.new(msg)
@@ -59,8 +71,10 @@ module Scraping
           puts "Attempt #{i + 1}: Response HTTP Status Code: #{ res.code }"
           puts "Attempt #{i + 1}: Response HTTP Response Body: #{ res.body }"
 
-          # for debugging you can save the screenshot to a file (requires the screenshot_full_page query above)
-          # save_screenshot(res)
+          # for debugging
+          # binding.pry
+          # save_screenshot(res) # (make sure the screenshot param is being passed to scrapingbee)
+          # save_page(nokogiri_page)
           return res if res.code == 200
 
           if res.code == 404

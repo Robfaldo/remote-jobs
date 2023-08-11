@@ -7,7 +7,7 @@ module Scraping
     end
 
     def call
-      all_jobs_page = scraper.scrape_page(link: company.careers_page_url)
+      all_jobs_page = scraper.scrape_page(**job_preview_scraping_options)
       job_previews = extract_job_previews(all_jobs_page)
 
       JobServices::UpdateJobsNoLongerLiveOnCareersSite.new.call(
@@ -24,6 +24,32 @@ module Scraping
     private
 
     attr_reader :scraper, :company, :scraper_class
+
+    def job_preview_scraping_options
+      default_options = {
+        wait_time: 5000,
+        link: company.careers_page_url
+      }
+
+      if scraper_class.respond_to?(:job_preview_scraping_options)
+        default_options.merge(scraper_class.job_preview_scraping_options)
+      else
+        default_options
+      end
+    end
+
+    def job_scraping_options(job_preview)
+      default_options = {
+        wait_time: 5000,
+        link: job_preview.url
+      }
+
+      if scraper_class.respond_to?(:job_scraping_options)
+        default_options.merge(scraper_class.job_scraping_options)
+      else
+        default_options
+      end
+    end
 
     def extract_job_previews(all_jobs_page)
       scraper_class.job_elements(all_jobs_page).each_with_object([]) do |job_element, jobs|
@@ -56,7 +82,8 @@ module Scraping
 
     def scrape_jobs(job_previews)
       job_previews.each do |job_preview|
-        job_page = scraper.scrape_page(link: job_preview.url)
+        job_page = scraper.scrape_page(**job_scraping_options(job_preview))
+
         structured_job = JSON.parse(job_page.xpath('//script[@type="application/ld+json"]').first)
         location = JobServices::ParseStructuredJob.new(structured_job, job_preview).location
 

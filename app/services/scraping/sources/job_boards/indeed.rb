@@ -7,6 +7,7 @@ module Scraping
         def scrape_all_jobs_page_options(link)
           {
             link: link,
+            wait_time: 5000
           }
         end
 

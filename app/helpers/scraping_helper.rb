@@ -4,6 +4,6 @@ module ScrapingHelper
   end
 
   def save_screenshot(response)
-    File.open('nokogiri_screenshot.png', 'w') { |file| file.write(response) }
+    File.open('nokogiri_screenshot.png', 'wb') { |file| file.write(response) }
   end
 end

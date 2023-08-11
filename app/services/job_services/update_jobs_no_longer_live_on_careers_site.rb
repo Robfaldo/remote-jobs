@@ -31,7 +31,6 @@ module JobServices
         )
 
         unless res.ok?
-          binding.pry
           additional = {
             job_id: job.id,
             response_message: res.msg,
