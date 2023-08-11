@@ -20,7 +20,9 @@ module Scraping
         end
 
         def url_from_job_element(job_element)
-          job_element.at('a').get_attribute("href")
+          uri = URI(company.careers_page_url)
+          url_without_path = "#{uri.scheme}://#{uri.host}"
+          "#{url_without_path}#{job_element.at('a').get_attribute("href")}"
         end
 
         def location_from_job_element(job_element)
