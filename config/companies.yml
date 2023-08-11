@@ -26,6 +26,10 @@
   careers_page_url: https://jobs.jobvite.com/careers/funding-circle-uk/
   scraper_class: Jobvite
 
+- name: Github
+  careers_page_url: https://boards.greenhouse.io/github/
+  scraper_class: Github
+
 - name: GitLab
   careers_page_url: https://boards.greenhouse.io/gitlab/
   scraper_class: Gitlab
@@ -34,6 +38,10 @@
   careers_page_url: https://boards.greenhouse.io/gocardless
   scraper_class: Greenhouse
 
+- name: Monday.com
+  careers_page_url: https://monday.com/careers
+  scraper_class: Monday
+
 - name: Mindful Chef
   careers_page_url: https://mindfulchef.jobs.personio.de/
   scraper_class: MindfulChef
@@ -41,3 +49,7 @@
 - name: Smart Pension
   careers_page_url: https://apply.workable.com/smart-pension-1/
   scraper_class: Workable
+
+- name: Zen Educate
+  careers_page_url: https://jobs.lever.co/zeneducate?team=Product
+  scraper_class: Lever

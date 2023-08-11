@@ -21,7 +21,8 @@ module Scraping
                       wait_time: nil,
                       custom_google: false,
                       allow_css_and_images: false,
-                      wait_browser: nil)
+                      wait_browser: nil,
+                      javascript_scenario: nil)
         query = {
           api_key: @api_key,
           url: link,
@@ -29,7 +30,12 @@ module Scraping
         query[:wait] = wait_time.to_s if wait_time
         query[:premium_proxy] = "true"
         query[:country_code] = "gb"
+
+        # TODO: I think js_snippet has been deprecrated (replaced by js_scenario) and I
+        # think i can remove it
         query[:js_snippet] = Base64.strict_encode64(javascript_snippet) if javascript_snippet
+        query[:js_scenario] = javascript_scenario.to_json if javascript_scenario
+
         query[:custom_google] = "true" if custom_google
         query[:block_resources] = false if allow_css_and_images
         query[:wait_browser] = wait_browser if wait_browser
@@ -40,8 +46,7 @@ module Scraping
         if response_was_successful?(response)
           nokogiri_page = parsed_nokogiri_html(response.body)
           # for debugging
-          # binding.pry
-          # save_screenshot(res) # (make sure the screenshot param is being passed to scrapingbee)
+          # save_screenshot(response) # (make sure the screenshot param is being passed to scrapingbee)
           # save_page(nokogiri_page)
           return nokogiri_page
         end
