@@ -77,3 +77,8 @@
 - name: Zen Educate
   careers_page_url: https://jobs.lever.co/zeneducate?team=Product
   scraper_class: Lever
+
+- name: Zeroheight
+  careers_page_url: https://apply.workable.com/zeroheight/
+  scraper_class: Zeroheight
+

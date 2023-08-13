@@ -13,7 +13,6 @@ module Scraping
 
         def job_scraping_options
           {
-            # See note on the one for job_preview
             wait_time: nil,
             wait_browser: "load",
             allow_css_and_images: true
