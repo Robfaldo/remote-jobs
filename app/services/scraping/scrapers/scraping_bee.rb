@@ -46,7 +46,9 @@ module Scraping
         if response_was_successful?(response)
           nokogiri_page = parsed_nokogiri_html(response.body)
           # for debugging
+          # binding.pry
           # save_screenshot(response) # (make sure the screenshot param is being passed to scrapingbee)
+          # nokogiri_page.xpath('//script').remove # removing javascript from the page is optional
           # save_page(nokogiri_page)
           return nokogiri_page
         end

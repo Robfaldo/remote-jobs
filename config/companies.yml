@@ -38,13 +38,21 @@
   careers_page_url: https://boards.greenhouse.io/gocardless
   scraper_class: Greenhouse
 
-- name: Monday.com
-  careers_page_url: https://monday.com/careers
-  scraper_class: Monday
+# After implementing I realised they don't have a jobPosting schema
+# (they have an Organization schema). I'll leave this here so I can
+# check back in the future if they added it as it required a lot of
+# custom javascript
+#- name: Monday.com
+#  careers_page_url: https://monday.com/careers
+#  scraper_class: Monday
 
 - name: Mindful Chef
   careers_page_url: https://mindfulchef.jobs.personio.de/
   scraper_class: MindfulChef
+
+- name: Reedsy
+  careers_page_url: https://apply.workable.com/reedsy/?lng=en#jobs
+  scraper_class: Reedsy
 
 - name: Smart Pension
   careers_page_url: https://apply.workable.com/smart-pension-1/

@@ -4,12 +4,9 @@ module Scraping
       class Workable < Base
         def job_preview_scraping_options
           {
-            # if i don't include wait_time as a query for scrapingbee then
-            # the page shows a "no internet connection" and none of the content
-            # is added. Even with this option, if you include wait_time then
-            # it won't work (which is why wait_time is nil above)
             wait_time: nil,
-            wait_browser: "load"
+            wait_browser: "load",
+            allow_css_and_images: true
           }
         end
 
@@ -17,7 +14,8 @@ module Scraping
           {
             # See note on the one for job_preview
             wait_time: nil,
-            wait_browser: "load"
+            wait_browser: "load",
+            allow_css_and_images: true
           }
         end
 
