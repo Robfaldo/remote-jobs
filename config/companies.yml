@@ -82,7 +82,7 @@
   careers_page_url: https://apply.workable.com/smart-pension-1/
   scraper_class: Workable
 
-- name: Tails
+- name: Tails.com
   careers_page_url: https://careers.tails.com/jobs
   scraper_class: Tails
 
