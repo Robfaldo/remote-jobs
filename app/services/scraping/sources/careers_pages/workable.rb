@@ -6,7 +6,8 @@ module Scraping
           {
             wait_time: nil,
             wait_browser: "load",
-            allow_css_and_images: true
+            javascript_scenario: javascript_scenario,
+            allow_css_and_images: true,
           }
         end
 
@@ -35,6 +36,23 @@ module Scraping
 
         def location_from_job_element(job_element)
           job_element.at('[data-ui="job-location"]').text
+        end
+
+        def javascript_scenario
+          click_show_more = %{
+            loadMoreButton = document.querySelector('[data-ui="load-more-button"]');
+            if (loadMoreButton) {
+              loadMoreButton.click()
+            };
+          }
+
+          {
+            instructions: [
+              { wait: 3000 },
+              { evaluate: click_show_more },
+              { wait: 2000 }
+            ]
+          }
         end
       end
     end
