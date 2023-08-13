@@ -46,6 +46,10 @@
 #  careers_page_url: https://monday.com/careers
 #  scraper_class: Monday
 
+- name: Koinly
+  careers_page_url: https://careers.koinly.io/jobs?location=London&query=
+  scraper_class: Koinly
+
 - name: Mindful Chef
   careers_page_url: https://mindfulchef.jobs.personio.de/
   scraper_class: MindfulChef
