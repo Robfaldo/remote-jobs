@@ -1,3 +1,7 @@
+- name: Ably
+  careers_page_url: https://boards.eu.greenhouse.io/ably30/
+  scraper_class: Ably
+
 - name: Accredible
   careers_page_url: https://careers.accredible.com/?department_id=%5B12953%5D&location_id=%5B8255%5D
   scraper_class: Accredible
