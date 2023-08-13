@@ -6,6 +6,10 @@
   careers_page_url: https://careers.beam.org/jobs?department=%E2%91%82+Tech+%26+Product
   scraper_class: Beam
 
+- name: Board Intelligence
+  careers_page_url: https://apply.workable.com/board-intelligence/
+  scraper_class: BoardIntelligence
+
 - name: Bloom & Wild
   careers_page_url: https://jobs.lever.co/bloomon?location=London
   scraper_class: Lever
