@@ -33,7 +33,7 @@ module JobServices
       address = structured_job["jobLocation"]["address"]
       raise "address does not exist on JobLocation" if address.nil?
 
-      final_location = address.dig("addressLocality") || address.dig("addressCountry") || address.dig("addressRegion")
+      final_location = extract_location(address)
 
       if final_location
         return final_location
@@ -53,7 +53,7 @@ module JobServices
         address = structured_job["jobLocation"].first["address"]
         raise "address does not exist on JobLocation" if address.nil?
 
-        final_location = address.dig("addressLocality") || address.dig("addressCountry") || address.dig("addressRegion")
+        final_location = extract_location(address)
 
         if final_location
           return final_location
@@ -61,6 +61,12 @@ module JobServices
           raise "Couldn't find job location from array"
         end
       end
+    end
+
+    def extract_location(address)
+      (address.dig("addressLocality") && address.dig("addressLocality").length > 0) ||
+        (address.dig("addressCountry") && address.dig("addressCountry").length > 0) ||
+        (address.dig("addressRegion") && address.dig("addressRegion").length > 0)
     end
   end
 end

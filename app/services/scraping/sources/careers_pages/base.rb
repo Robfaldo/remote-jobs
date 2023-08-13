@@ -2,6 +2,8 @@ module Scraping
   module Sources
     module CareersPages
       class Base
+        include ScrapingHelper
+
         def initialize(company)
           @company = company
         end

@@ -1,5 +1,7 @@
 module Scraping
   class ScrapeCareersPage
+    include ScrapingHelper
+
     def initialize(company:)
       @scraper = Scraping::Scrapers::ScrapingBee.new
       @company = company
