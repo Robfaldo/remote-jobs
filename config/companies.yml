@@ -82,6 +82,10 @@
   careers_page_url: https://apply.workable.com/smart-pension-1/
   scraper_class: Workable
 
+- name: Tails
+  careers_page_url: https://careers.tails.com/jobs
+  scraper_class: Tails
+
 - name: Zen Educate
   careers_page_url: https://jobs.lever.co/zeneducate?team=Product
   scraper_class: Lever
