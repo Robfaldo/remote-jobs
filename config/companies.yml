@@ -14,6 +14,10 @@
   careers_page_url: https://www.babylonhealth.com/careers/technology
   scraper_class: Babylon
 
+- name: Canva
+  careers_page_url: https://www.lifeatcanva.com/en/jobs/?search=&team=Engineering&location=London&pagesize=20#results
+  scraper_class: Canva
+
 - name: Charlie Hr
   careers_page_url: https://apply.workable.com/charliehr/
   scraper_class: Workable
