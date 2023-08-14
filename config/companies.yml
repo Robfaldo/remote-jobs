@@ -6,6 +6,10 @@
   careers_page_url: https://careers.accredible.com/?department_id=%5B12953%5D&location_id=%5B8255%5D
   scraper_class: Accredible
 
+- name: Alliants
+  careers_page_url: https://careers.alliants.com/#jobs
+  scraper_class: Alliants
+
 - name: Beam
   careers_page_url: https://careers.beam.org/jobs?department=%E2%91%82+Tech+%26+Product
   scraper_class: Beam

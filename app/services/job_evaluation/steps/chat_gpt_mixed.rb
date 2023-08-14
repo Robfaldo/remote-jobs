@@ -25,7 +25,9 @@ module JobEvaluation
       attr_reader :technology_names_in_title
 
       def mark_remote_status(chat_gpt_data)
-        if job.title.downcase.include?('remote') || job.location.downcase.include?('remote') || job.description.downcase.include?('fully remote')
+        if job.job_posting_schema&.dig("jobLocationType") && job.job_posting_schema["jobLocationType"] == "TELECOMMUTE"
+          job.remote_status = "fully remote"
+        elsif job.title.downcase.include?('remote') || job.location.downcase.include?('remote') || job.description.downcase.include?('fully remote')
           job.remote_status = "fully remote"
         else
           job.remote_status = chat_gpt_data["remote_status"]
