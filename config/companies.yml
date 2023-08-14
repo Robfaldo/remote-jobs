@@ -74,6 +74,10 @@
   careers_page_url: https://mindfulchef.jobs.personio.de/
   scraper_class: MindfulChef
 
+- name: Raylo
+  careers_page_url: https://jobs.eu.lever.co/raylo
+  scraper_class: Lever
+
 - name: Reedsy
   careers_page_url: https://apply.workable.com/reedsy/?lng=en#jobs
   scraper_class: Reedsy
