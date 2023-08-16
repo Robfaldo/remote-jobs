@@ -70,6 +70,18 @@
 #  careers_page_url: https://monday.com/careers
 #  scraper_class: Monday
 
+- name: Intercom
+  careers_page_url: https://boards.greenhouse.io/intercom
+  scraper_class: Greenhouse
+
+- name: Judge.me
+  careers_page_url: https://careers.judge.me/jobs
+  scraper_class: Judge
+
+- name: Kitman Labs
+  careers_page_url: https://jobs.lever.co/kitmanlabs/
+  scraper_class: Lever
+
 - name: Koinly
   careers_page_url: https://careers.koinly.io/jobs?location=London&query=
   scraper_class: Koinly
@@ -93,6 +105,10 @@
 - name: Tails.com
   careers_page_url: https://careers.tails.com/jobs
   scraper_class: Tails
+
+- name: Threecolts
+  careers_page_url: https://jobs.eu.lever.co/threecolts
+  scraper_class: Lever
 
 - name: Zen Educate
   careers_page_url: https://jobs.lever.co/zeneducate?team=Product

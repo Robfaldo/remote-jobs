@@ -64,9 +64,13 @@ module JobServices
     end
 
     def extract_location(address)
-      (address.dig("addressLocality") && address.dig("addressLocality").length > 0) ||
-        (address.dig("addressCountry") && address.dig("addressCountry").length > 0) ||
-        (address.dig("addressRegion") && address.dig("addressRegion").length > 0)
+      if address.dig("addressLocality")
+        return address.dig("addressLocality") if address.dig("addressLocality").length > 0
+      elsif address.dig("addressCountry")
+        return address.dig("addressCountry") if address.dig("addressCountry").length > 0
+      elsif address.dig("addressRegion")
+        return address.dig("addressRegion") if address.dig("addressRegion").length > 0
+      end
     end
   end
 end
