@@ -86,6 +86,10 @@
   careers_page_url: https://careers.koinly.io/jobs?location=London&query=
   scraper_class: Koinly
 
+- name: Onfido
+  careers_page_url: https://jobs.lever.co/onfido
+  scraper_class: Onfido
+
 - name: Mindful Chef
   careers_page_url: https://mindfulchef.jobs.personio.de/
   scraper_class: MindfulChef
@@ -109,6 +113,10 @@
 - name: Threecolts
   careers_page_url: https://jobs.eu.lever.co/threecolts
   scraper_class: Lever
+
+- name: User Testing
+  careers_page_url: https://www.usertesting.com/company/careers/jobs
+  scraper_class: UserTesting
 
 - name: Zen Educate
   careers_page_url: https://jobs.lever.co/zeneducate?team=Product

@@ -32,9 +32,9 @@ class ChatGpt
   def send_message_with_history(conversation_history)
     client.chat(
       parameters: {
-        model: "gpt-4",
+        model: "gpt-3.5-turbo",
         messages: conversation_history,
-        temperature: 0.2,
+        temperature: 0.1,
       })
   end
 
