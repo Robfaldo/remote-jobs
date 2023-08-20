@@ -90,6 +90,10 @@
   careers_page_url: https://careers.koinly.io/jobs?location=London&query=
   scraper_class: Koinly
 
+- name: Loyalty Lion
+  careers_page_url: https://jobs.lever.co/LoyaltyLion
+  scraper_class: Lever
+
 - name: Onfido
   careers_page_url: https://jobs.lever.co/onfido
   scraper_class: Onfido
