@@ -42,6 +42,10 @@
   careers_page_url: https://boards.greenhouse.io/cleoai
   scraper_class: Cleo
 
+- name: Currencycloud
+  careers_page_url: https://jobs.lever.co/currencycloud
+  scraper_class: Lever
+
 - name: Fresha
   careers_page_url: https://jobs.lever.co/fresha?department=Engineering
   scraper_class: Lever
