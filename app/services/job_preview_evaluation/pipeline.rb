@@ -5,7 +5,7 @@ module JobPreviewEvaluation
       FilterSteps::BlackList,
       FilterSteps::EnsureJobTypeAllowed,
       FilterSteps::WrongJobType,
-      FilterSteps::JobBasedInUk,
+      FilterSteps::JobSuitableForPeopleInUk,
       Steps::MarkJobPreviewAsEvaluated
     ].freeze
 

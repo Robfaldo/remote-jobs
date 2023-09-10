@@ -110,6 +110,10 @@
   careers_page_url: https://mindfulchef.jobs.personio.de/
   scraper_class: MindfulChef
 
+- name: Rainforest
+  careers_page_url: https://jobs.lever.co/rainforest/
+  scraper_class: Lever
+
 - name: Raylo
   careers_page_url: https://jobs.eu.lever.co/raylo
   scraper_class: Lever
