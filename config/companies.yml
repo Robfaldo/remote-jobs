@@ -54,6 +54,10 @@
   careers_page_url: https://jobs.jobvite.com/careers/funding-circle-uk/
   scraper_class: Jobvite
 
+- name: Generation Home
+  careers_page_url: https://boards.eu.greenhouse.io/generationhome
+  scraper_class: Github
+
 - name: Github
   careers_page_url: https://boards.greenhouse.io/github/
   scraper_class: Github

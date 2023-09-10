@@ -37,3 +37,10 @@ This app uses New Relic for monitoring. It's under robertfaldo@gmail.com and log
 
 This app uses activeadmin for its admin dashboard. You can visit localhost:3000/admin to log in as admin 
 and you can see `app/admin/jobs` to customise the dashboard that shows. 
+
+## Adding an new company 
+
+1. Add new company to `companies.yml`
+2. Run `rails db:seed`
+3. Run `Scraping::SinglePage.call("ChangmeToCompanyName")` in a rails console
+4. Remember to run `heroku run rails db:seed` after deploying
