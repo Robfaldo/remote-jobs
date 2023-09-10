@@ -74,6 +74,10 @@
 #  careers_page_url: https://monday.com/careers
 #  scraper_class: Monday
 
+- name: Odeko
+  careers_page_url: https://boards.greenhouse.io/odeko
+  scraper_class: Greenhouse
+
 - name: Intercom
   careers_page_url: https://boards.greenhouse.io/intercom
   scraper_class: Greenhouse
