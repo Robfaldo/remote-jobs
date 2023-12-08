@@ -6,8 +6,9 @@ module Scraping
       class ApiErrorToRetry < StandardError; end
       include ScrapingHelper
 
-      NUMBER_OF_INITIAL_ATTEMPTS = 10
-      NUMBER_OF_STEALTH_ATTEMPTS = 20
+      # reduce these to only scrape once if scraping rightmove
+      NUMBER_OF_INITIAL_ATTEMPTS = 1
+      NUMBER_OF_STEALTH_ATTEMPTS = 0
       SCRAPING_BEE_URL = 'https://app.scrapingbee.com/api/v1/'
 
       def initialize(api_key: ENV["SCRAPING_BEE_KEY"])
@@ -82,6 +83,7 @@ module Scraping
           # binding.pry
           # save_screenshot(res) # (make sure the screenshot param is being passed to scrapingbee)
           # save_page(nokogiri_page)
+
           return res if res.code == 200
 
           if res.code == 404
