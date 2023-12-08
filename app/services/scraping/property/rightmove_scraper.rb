@@ -10,34 +10,40 @@ module Scraping
       end
 
       def call
-        @bottom_level_postcodes.each do |postcode|
-          first_page = scraper.scrape_page(
-            wait_time: 1000,
-            link: all_properties_link(postcode, 1),
-            javascript_scenario: javascript
-          )
-          total_pages_count = first_page.at('.pagination-current .pagination-label:last-child')&.text&.strip&.gsub("of ", "")&.to_i || 1
-
-          total_pages_count.times do |index|
-            # It's 0 indexed so just bumping 1 to represent actual page (e.g. first page is 1 and not 0)
-            page_number = index + 1
-
-            if page_number == 1 # we've already scraped first page so lets avoid doing it again
-              create_property_transactions_from_first_page(first_page, postcode)
-            else
-              create_property_transactions_from_other_page(page_number, postcode)
-            end
+        @bottom_level_postcodes.each_slice(70).to_a.each do |postcode_chunk|
+          Parallel.map(postcode_chunk, in_threads: 70) do |postcode|
+            perform_scraping(postcode)
           end
-        rescue Scrapers::ScrapingBee::ScrapingBeeError => e
-          next
         end
-      rescue => e
-        binding.pry
       end
 
       private
 
       attr_reader :scraper, :csv_file_path
+
+      def perform_scraping(postcode)
+        first_page = scraper.scrape_page(
+          wait_time: 1000,
+          link: all_properties_link(postcode, 1),
+          javascript_scenario: javascript
+        )
+        total_pages_count = first_page.at('.pagination-current .pagination-label:last-child')&.text&.strip&.gsub("of ", "")&.to_i || 1
+
+        total_pages_count.times do |index|
+          # It's 0 indexed so just bumping 1 to represent actual page (e.g. first page is 1 and not 0)
+          page_number = index + 1
+
+          if page_number == 1 # we've already scraped first page so lets avoid doing it again
+            create_property_transactions_from_first_page(first_page, postcode)
+          else
+            create_property_transactions_from_other_page(page_number, postcode)
+          end
+        end
+      rescue Scrapers::ScrapingBee::ScrapingBeeError => e
+        nil
+      rescue => e
+        binding.pry
+      end
 
       def create_property_transactions_from_first_page(page, postcode)
         link = all_properties_link(postcode, 1)
