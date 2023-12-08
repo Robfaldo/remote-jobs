@@ -4,22 +4,9 @@ module Scraping
       include ScrapingHelper
 
       def initialize
-        # original one with all of the ones under 1k
-        # See the rightmove_postcode_checker for the csv generated which identifies these
-        # @top_level_postcodes_with_under_1k_sold_properties = ['EH31', 'EH44', 'EH46', 'EH28', 'EH27', 'EH2', 'EH18', 'EH40', 'EH34', 'EH24', 'EH35', 'EH37', 'EH43', 'EH38', 'EH36']
-
-        # The first one i ran (with the first few postcodes from the full list), filename: rightmove_top_level_postcode_properties_UNDER_1K2023-12-05T14:09:40+00:00.csv
-        # @top_level_postcodes_with_under_1k_sold_properties = ['EH31', 'EH44', 'EH46', 'EH28', 'EH27', 'EH2', 'EH18']
-
-        # The second one I ran (with the rest of the postcodes from the full list), filename: rightmove_top_level_postcode_properties_UNDER_1K2023-12-05T21:03:03+00:00.csv
-        # @top_level_postcodes_with_under_1k_sold_properties = ['EH40', 'EH34', 'EH24', 'EH35', 'EH37', 'EH43', 'EH38', 'EH36']
-
-        # Filename:
         @bottom_level_postcodes = read_bottom_level_postcodes
 
         @scraper = Scraping::Scrapers::ScrapingBee.new
-        @csv_file_path = "tmp/rightmove_top_level_postcode_properties_OVER_1K#{DateTime.now}.csv"
-        create_csv
       end
 
       def call
@@ -36,9 +23,9 @@ module Scraping
             page_number = index + 1
 
             if page_number == 1 # we've already scraped first page so lets avoid doing it again
-              add_first_page_properties_to_csv(first_page, postcode)
+              create_property_transactions_from_first_page(first_page, postcode)
             else
-              add_other_page_properties_to_csv(page_number, postcode)
+              create_property_transactions_from_other_page(page_number, postcode)
             end
           end
         rescue Scrapers::ScrapingBee::ScrapingBeeError => e
@@ -52,13 +39,13 @@ module Scraping
 
       attr_reader :scraper, :csv_file_path
 
-      def add_first_page_properties_to_csv(page, postcode)
+      def create_property_transactions_from_first_page(page, postcode)
         link = all_properties_link(postcode, 1)
         scraped_properties = page.css('.propertyCard')
-        add_properties_to_csv(scraped_properties, link, postcode)
+        create_properties(scraped_properties, link, postcode)
       end
 
-      def add_other_page_properties_to_csv(page_number, postcode)
+      def create_property_transactions_from_other_page(page_number, postcode)
         link =  all_properties_link(postcode, page_number)
         page = scraper.scrape_page(
           wait_time: 1000,
@@ -66,21 +53,14 @@ module Scraping
           javascript_scenario: javascript
         )
         scraped_properties = page.css('.propertyCard')
-        add_properties_to_csv(scraped_properties, link, postcode)
+        create_properties(scraped_properties, link, postcode)
       end
 
       def all_properties_link(postcode, page)
         "https://www.rightmove.co.uk/house-prices/#{postcode}.html?propertyCategory=RESIDENTIAL&page=#{page}"
       end
 
-
-      def create_csv
-        CSV.open(csv_file_path, "wb") do |csv|
-          csv << ["Searched URL", "Searched Postcode", "URL", "Address", "Date of Sale", "Number of Bedrooms", "Number of Bathrooms", "Property Type", "Price", "Key Features"]
-        end
-      end
-
-      def add_properties_to_csv(scraped_properties, searched_url, searched_postcode)
+      def create_properties(scraped_properties, searched_url, searched_postcode)
         scraped_properties.each do |scraped_property|
           url = scraped_property.at('.title.clickable')['href']
           bedrooms_matches = scraped_property.css(".bedrooms")&.text&.match(/(\d+)\s*bed/)
@@ -112,14 +92,19 @@ module Scraping
             date_of_sale = transaction.at_css('.date-sold').text.strip
             price = transaction.at_css('.price').text.strip.gsub("£", "").gsub(",", "")
 
-            add_property_to_csv(searched_url, searched_postcode, url, address, date_of_sale, num_of_bedrooms, num_of_bathrooms, property_type, price, key_features_json)
+            SavePropertyTransactionJob.perform_async(
+              "searched_url" => searched_url,
+              "searched_postcode" => searched_postcode,
+              "url" => url,
+              "address" => address,
+              "date_of_sale" => date_of_sale,
+              "num_of_bedrooms" => num_of_bedrooms,
+              "num_of_bathrooms" => num_of_bathrooms,
+              "property_type" => property_type,
+              "price" => price,
+              "key_features_json" => key_features_json
+            )
           end
-        end
-      end
-
-      def add_property_to_csv(searched_url, searched_postcode, url, address, date_of_sale, num_of_bedrooms, num_of_bathrooms, property_type, price, key_features)
-        CSV.open(csv_file_path, "ab") do |csv|
-          csv << [searched_url, searched_postcode, url, address, date_of_sale, num_of_bedrooms, num_of_bathrooms, property_type, price, key_features]
         end
       end
 
