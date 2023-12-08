@@ -115,3 +115,5 @@ gem "ruby-openai"
 gem 'retryable'
 
 gem 'groupdate'
+
+gem 'sidekiq'
