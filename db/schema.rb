@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead
+v# This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_08_162729) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_08_190024) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_08_162729) do
     t.boolean "live_on_careers_site"
     t.index ["company_id"], name: "index_jobs_on_company_id"
     t.index ["job_preview_id"], name: "index_jobs_on_job_preview_id"
+  end
+
+  create_table "property_transactions", force: :cascade do |t|
+    t.string "searched_url"
+    t.string "searched_postcode"
+    t.string "url"
+    t.string "address"
+    t.string "date_of_sale"
+    t.integer "num_of_bedrooms"
+    t.integer "num_of_bathrooms"
+    t.string "property_type"
+    t.integer "price"
+    t.string "key_features_json"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
