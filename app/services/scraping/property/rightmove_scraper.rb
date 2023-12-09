@@ -10,8 +10,18 @@ module Scraping
       end
 
       def call
-        @bottom_level_postcodes.each_slice(70).to_a.each do |postcode_chunk|
-          Parallel.map(postcode_chunk, in_threads: 70) do |postcode|
+        # Creating a thread-safe Queue
+        work_queue = Queue.new
+
+        # Enqueue all items
+        @bottom_level_postcodes.each { |item| work_queue << item }
+
+        # Process in parallel
+        Parallel.each(1..100, in_threads: 100) do
+          until work_queue.empty?
+            postcode = work_queue.pop(true) rescue nil
+            next unless postcode
+
             perform_scraping(postcode)
           end
         end
