@@ -13,8 +13,12 @@ module Scraping
         # Creating a thread-safe Queue
         work_queue = Queue.new
 
-        # Enqueue all items
-        @bottom_level_postcodes.each { |item| work_queue << item }
+        # all the bottom level postcodes (the top level postcodes that had over 1k listings broken down into bottom level ones)
+        # @bottom_level_postcodes.each { |item| work_queue << item }
+
+        # all of the top level postcodes with ones under 1k listings (so can scrape all without breaking up)
+        # See the rightmove_postcode_checker for the csv generated which identifies these
+        ['EH31', 'EH44', 'EH46', 'EH28', 'EH27', 'EH2', 'EH18', 'EH40', 'EH34', 'EH24', 'EH35', 'EH37', 'EH43', 'EH38', 'EH36'].each { |item| work_queue << item }
 
         # Process in parallel
         Parallel.each(1..100, in_threads: 100) do

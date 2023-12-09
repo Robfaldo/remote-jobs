@@ -1,6 +1,9 @@
 module Scraping
   module Property
     class SeedDataFromCsvOver1k
+      # This file is the original scraping I did (where it was running 1 at a time) before i built concurrency into it
+      # I've kept the csv because it's got like 50k properties and i don't want to repeat the scraping so I'll use this
+      # service to seed hte database with that data
       FILE_PATH = 'tmp/rightmove_top_level_postcode_properties_OVER_1K2023-12-06T22:17:08+00:00.csv'
 
       def self.call
